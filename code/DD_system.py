@@ -29,10 +29,10 @@ class DD_system():
         return np.convolve(symbols_up_samp,self.pulse_shape)
     
     def applay_channel(self,signal):
-        n_fft = int(4*2**np.ceil(np.log2(len(signal))))
+        n_fft = int(2**np.ceil(np.log2(len(signal))))
         f = self.Bw * np.fft.fftfreq(n_fft)
         alpha_lin = self.fiber_alpha / (10 * np.log10(np.exp(1)))
-        channel_response_fft = np.exp(-alpha_lin*self.fiber_length+1j*self.beta_2*self.fiber_length*(2*np.pi*f)**2/2)
+        channel_response_fft = np.exp(-alpha_lin*self.fiber_length + 1j*self.beta_2*self.fiber_length*(2*np.pi*f)**2/2)
         signal_fft = np.fft.fft(signal, n=n_fft)
         out = np.fft.ifft(channel_response_fft*signal_fft, n=n_fft)
         return out[:len(signal)]

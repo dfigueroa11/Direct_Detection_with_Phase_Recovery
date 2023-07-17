@@ -14,7 +14,7 @@ system.sigma_th = 0
 system.symbol_time = 1/system.symbol_rate
 system.Ts = system.symbol_time/system.N_sim
 system.Bw = 1/system.Ts
-system.pulse_shape = np.sinc(np.arange(-3,3.25,0.25))
+system.pulse_shape = np.sinc(np.arange(-10,10,0.25))
 print(np.arange(-2.5,2.75,0.25))
 system.responsivity = 1
 system.on_off = 1
