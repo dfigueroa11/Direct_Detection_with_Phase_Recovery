@@ -4,15 +4,17 @@ class DD_system():
 
     N_sim = None
     N_os = None
+
     g_tx_td = None
-    G_tx_fd = None
     channel_td = None
-    channel_fd = None
     g_rx_td = None
+    Ts = None
+    
+    G_tx_fd = None
+    channel_fd = None
     G_rx_fd = None
     len_fft = None
-    Ts = None
-
+    
     responsivity = None
     sigma_sh = None
     sigma_th = None
@@ -21,23 +23,13 @@ class DD_system():
 
     def __init__(self):    
         pass
-
-
-
-
-
-
-
-
-
-
     
-
     def simulate_system_fd(self, symbols):
-        symbols_up_samp = np.zeros(int(len(symbols)*self.N_sim), dtype=complex)
-        symbols_up_samp[self.N_sim-1::self.N_sim] = symbols
+        self.check_system_ready_fd_sym(symbols)
 
-        signal_fd = np.fft.fft(symbols_up_samp, n=self.len_fft)
+        syms_up_samp = self.up_sample_symbols(symbols)
+
+        signal_fd = np.fft.fft(syms_up_samp, n=self.len_fft)
         signal_fd *= self.G_tx_fd
         signal_fd *= self.channel_fd
 
@@ -49,21 +41,22 @@ class DD_system():
 
         signal_td = np.fft.ifft(signal_fd, n=self.len_fft)
         delay = int(self.N_sim-1)
-        stop = int(delay+len(symbols)*self.N_os)
+        stop = int(delay+len(symbols)*self.N_sim)
         return signal_td[delay:stop:int(self.N_sim/self.N_os)]
 
     def simulate_system_td(self, symbols):
-        symbols_up_samp = np.zeros(int(len(symbols)*self.N_sim), dtype=complex)
-        symbols_up_samp[self.N_sim-1::self.N_sim] = symbols
+        self.check_system_ready_td_sym()
 
-        signal =  np.convolve(symbols_up_samp, self.g_tx_td)*self.Ts
+        syms_up_samp = self.up_sample_symbols(symbols)
+        
+        signal =  np.convolve(syms_up_samp, self.g_tx_td)*self.Ts
         signal =  np.convolve(signal, self.channel_td)
         
         signal = self.square_law_detection(signal)
 
         signal =  np.convolve(signal, self.g_rx_td)*self.Ts
         delay = int(self.N_sim+(len(self.g_tx_td)+len(self.channel_td)+len(self.g_rx_td)-3)/2-1)
-        stop = int(delay+len(symbols)*self.N_os)
+        stop = int(delay+len(symbols)*self.N_sim)
         return signal[delay:stop:int(self.N_sim/self.N_os)]
 
 
@@ -75,5 +68,29 @@ class DD_system():
         return square_law_signal + (shot_noise + thermal_noise)*self.on_off_noise
     
 
+    def up_sample_symbols(self, symbols):
+        return np.kron(symbols,np.eye(self.N_sim, dtype=complex)[-1])
     
+    def check_system_ready_fd_sym(self,symbols):
+        assert self.N_sim is not None, "you must define the property .N_sim (simulation upsampling factor)"
+        assert self.N_os is not None, "you must define the property .N_os (system upsampling factor)"
+        assert (self.N_sim/self.N_os).is_integer(), "N_sim/self.N_os must be integer"
+        assert self.len_fft is not None, "you must defin .len_fft"
+        assert self.G_tx_fd is not None, "you must define .G_tx_fd"
+        assert len(self.G_tx_fd) == self.len_fft, "the length of .G_tx_fd must be equal to .len_fft"
+        assert self.channel_fd is not None, "you must define .channel_fd"
+        assert len(self.channel_fd) == self.len_fft, "the length of .channel_fd must be equal to .len_fft"
+        assert self.G_rx_fd is not None, "you must define .G_rx_fd"
+        assert len(self.G_rx_fd) == self.len_fft, "the length of .G_rx_fd must be equal to .len_fft"
+        assert len(symbols)*self.N_sim < self.len_fft, "to many symbols simulated, reduce the symbols or increase the .len_fft"
+
+    def check_system_ready_td_sym(self):
+            assert self.N_sim is not None, "you must define the property .N_sim (simulation upsampling factor)"
+            assert self.N_os is not None, "you must define the property .N_os (system upsampling factor)"
+            assert (self.N_sim/self.N_os).is_integer(), "N_sim/self.N_os must be integer"
+            assert self.g_tx_td is not None, "you must define .g_tx_td"
+            assert self.channel_td is not None, "you must define .channel_td"
+            assert self.g_rx_td is not None, "you must define .g_rx_td"
+            assert self.Ts is not None, "you must define .Ts"
+
 
