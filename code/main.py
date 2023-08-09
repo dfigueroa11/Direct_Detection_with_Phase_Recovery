@@ -60,20 +60,26 @@ if sim_in_freq_domain:
 # d_symbols_2 = symbols_2[1:]/symbols_2[:-1]
 
 # test 2
-constellation = np.array([1, -1, 1j, -1j])
+constellation = np.array([1, -1, np.sqrt(2)/2+np.sqrt(2)/2*1j, -np.sqrt(2)/2-np.sqrt(2)/2*1j])
 
 index = np.random.randint(4, size=N_symbols)
 symbols_1 = constellation[index]
-symbols_2 = constellation[np.clip(index,0,2)]
+symbols_2 = constellation[(index+2)%4]
+symbols_3 = -constellation[index]
+symbols_4 = -constellation[(index+2)%4]
 
 
 xd = np.random.randint(2, size=N_symbols)*2-1
-x_fd = DD_sys.simulate_system_td(symbols_1)
-x_td = DD_sys.simulate_system_td(symbols_2)
+x_1 = DD_sys.simulate_system_td(symbols_1)
+x_2 = DD_sys.simulate_system_td(symbols_2)
+x_3 = DD_sys.simulate_system_td(symbols_3)
+x_4 = DD_sys.simulate_system_td(symbols_4)
 
 plt.figure(0)
-plt.stem(x_fd, markerfmt='o', label='fd')
-plt.stem(x_td, markerfmt='*', label='td')
+plt.stem(x_1, markerfmt='o', label='fd')
+plt.stem(x_2, markerfmt='*', label='td')
+plt.stem(x_3, markerfmt='o', label='fd')
+plt.stem(x_4, markerfmt='*', label='td')
 plt.legend()
 
 plt.figure(1)
