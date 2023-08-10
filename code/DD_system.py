@@ -51,16 +51,21 @@ class DD_system():
 
         syms_up_samp = self.up_sample_symbols(symbols)
         
-        signal =  conv1d(syms_up_samp, self.g_tx_td)*self.Ts
-        signal =  conv1d(signal, self.channel_td)
+        signal =  self.convolve(syms_up_samp, self.g_tx_td)*self.Ts
+        signal =  self.convolve(signal, self.channel_td)
         
         signal = self.square_law_detection(signal)
 
-        signal =  conv1d(signal, self.g_rx_td)*self.Ts
+        signal =  self.convolve(signal, self.g_rx_td)*self.Ts
         delay = int(self.N_sim+(len(self.g_tx_td)+len(self.channel_td)+len(self.g_rx_td)-3)/2-1)
         stop = int(delay+len(symbols)*self.N_sim)
         return signal#signal[delay:stop:int(self.N_sim/self.N_os)]
     
+    def convolve(self, signal, filt):
+        filt_len = filt.size(dim=2)
+        filt = torch.resolve_conj(torch.flip(filt, [2]))
+        return conv1d(signal, filt, padding=filt_len-1)
+
     def square_law_detection(self,signal):
         abs_signal = torch.abs(signal)
         square_law_signal = self.responsivity*abs_signal**2

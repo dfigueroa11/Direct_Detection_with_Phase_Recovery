@@ -24,23 +24,23 @@ DD_sys.on_off_noise = 1
 ################# Channel definition ###################
 alpha_dB_km = 0.2
 beta_2_s2_km = -2.168e-23
-fiber_len_km = 1
+fiber_len_km = 0
 
 ################# Simulation definition ####################
-sim_in_time_domain = False
+sim_in_time_domain = True
 sim_in_freq_domain = True
 N_symbols = 5
 
 if sim_in_time_domain:
-    pulse_shape_len = 3
-    channel_filt_len = 5
-    rx_filt_len = 1
+    pulse_shape_len = 11
+    channel_filt_len = 11
+    rx_filt_len = 11
 
     DD_sys.g_tx_td = torch.tensor([[calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time)]], dtype=torch.complex128)
     DD_sys.channel_td = torch.tensor([[calc_filters.CD_fiber_td(alpha_dB_km, beta_2_s2_km, fiber_len_km, channel_filt_len, fs)]], dtype=torch.complex128)
     DD_sys.g_rx_td = torch.tensor([[calc_filters.fd_rc_td(0, rx_filt_len, fs, symbol_time/2)]], dtype=torch.float64)
 if sim_in_freq_domain:
-    min_zero_padd = 3000
+    min_zero_padd = 300
 
     DD_sys.len_fft = int(2**np.ceil(np.log2(N_symbols*DD_sys.N_sim+min_zero_padd)))
     DD_sys.G_tx_fd = calc_filters.fd_rc_fd(rc_alpha, DD_sys.len_fft, fs, symbol_time)
@@ -50,8 +50,8 @@ if sim_in_freq_domain:
 
 symbols = torch.zeros(1,30, dtype=torch.complex128)
 symbols[0,15] = 1
-x = DD_sys.simulate_system_fd(symbols)
-print(x)
+sym = torch.tensor([[3, 0, 1, 0, 0, 1, 3, 3, 2, 1, 3, 0, 3, 1, 0, 1, 1, 3, 0, 0, 0, 0, 2, 2, 0, 1, 0, 2, 3, 2]], dtype=torch.complex128)
+x = DD_sys.simulate_system_td(sym)
 
 # test 1
 # sign_1 = np.random.randint(2, size=N_symbols)*2-1
@@ -79,8 +79,8 @@ print(x)
 # x_3 = DD_sys.simulate_system_td(symbols_3)
 # x_4 = DD_sys.simulate_system_td(symbols_4)
 
-# plt.figure(0)
-# plt.stem(x_1, markerfmt='o', label='fd')
+plt.figure(0)
+plt.stem(x[0,:], markerfmt='o', label='fd')
 # plt.stem(x_2, markerfmt='*', label='td')
 # plt.stem(x_3, markerfmt='o', label='fd')
 # plt.stem(x_4, markerfmt='*', label='td')
