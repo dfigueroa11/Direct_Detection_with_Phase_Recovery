@@ -1,53 +1,98 @@
 import torch
+from torch.nn.functional import conv1d
 
 class DD_system():
 
     N_sim = None
     N_os = None
-    pulse_shape = None
-    beta_2 = None
-    fiber_length = None
+
+    g_tx_td = None
+    channel_td = None
+    g_rx_td = None
     Ts = None
-    symbol_time = None
-    symbol_rate = None
-    Bw = None
+    
+    G_tx_fd = None
+    channel_fd = None
+    G_rx_fd = None
+    len_fft = None
+    
     responsivity = None
     sigma_sh = None
     sigma_th = None
-    rng = None
-    on_off = None
-
+    on_off_noise = None
 
     def __init__(self):    
         pass
 
 
-    def pulse_shaping(self,symbols):
-        symbols_up_samp = torch.zeros(int(len(symbols)*self.N_sim), dtype=torch.cfloat)
-        symbols_up_samp[::self.N_sim] = symbols
-        return torch.functional.conv1d(symbols_up_samp,self.pulse_shape)
-    
-    def applay_channel(self,symbols):
-        signal = torch.zeros(int(len(symbols)*self.N_sim), dtype=torch.cfloat)
-        signal[::self.N_sim] = symbols
-        n_fft = int(2**torch.ceil(torch.log2(torch.tensor([len(signal)]))))
-        pulse_shape_fft = torch.fft.fft(self.pulse_shape, n=n_fft)
-        f = torch.arange(0,n_fft)/n_fft*self.Bw
-        channel_response_fft = torch.exp(1j*self.beta_2*self.fiber_length*(2*torch.pi*f)**2/2)
-        print(len(channel_response_fft))
-        print(len(pulse_shape_fft))
-        signal_fft = torch.fft.fft(signal, n=n_fft)
-        out = torch.fft.ifft(channel_response_fft*signal_fft*pulse_shape_fft, n=n_fft)
-        return out[:len(signal)]
+    def simulate_system_fd(self, symbols):
+        self.check_system_ready_fd_sym(symbols)
+
+        syms_up_samp = self.up_sample_symbols(symbols)
+
+        signal_fd = torch.fft.fft(syms_up_samp, n=self.len_fft)
+        signal_fd *= self.G_tx_fd
+        signal_fd *= self.channel_fd
+
+        signal_td = torch.fft.ifft(signal_fd, n=self.len_fft)
+        signal_td = self.square_law_detection(signal_td)
+
+        signal_fd = torch.fft.fft(signal_td, n=self.len_fft)
+        signal_fd *= self.G_rx_fd
+
+        signal_td = torch.fft.ifft(signal_fd, n=self.len_fft)
+        delay = int(self.N_sim-1)
+        stop = int(delay+len(symbols)*self.N_sim)
+        return signal_td#signal_td[delay:stop:int(self.N_sim/self.N_os)]
+
+
+    def simulate_system_td(self, symbols):
+        self.check_system_ready_td_sym()
+
+        syms_up_samp = self.up_sample_symbols(symbols)
+        
+        signal =  conv1d(syms_up_samp, self.g_tx_td)*self.Ts
+        signal =  conv1d(signal, self.channel_td)
+        
+        signal = self.square_law_detection(signal)
+
+        signal =  conv1d(signal, self.g_rx_td)*self.Ts
+        delay = int(self.N_sim+(len(self.g_tx_td)+len(self.channel_td)+len(self.g_rx_td)-3)/2-1)
+        stop = int(delay+len(symbols)*self.N_sim)
+        return signal#signal[delay:stop:int(self.N_sim/self.N_os)]
     
     def square_law_detection(self,signal):
         abs_signal = torch.abs(signal)
         square_law_signal = self.responsivity*abs_signal**2
         shot_noise = abs_signal * torch.normal(0., self.sigma_sh, size=(1,len(signal)))
         thermal_noise = torch.normal(0., self.sigma_th, size=(1,len(signal)))
-        return square_law_signal + (shot_noise + thermal_noise)*self.on_off
-    
-    
+        return square_law_signal + (shot_noise + thermal_noise)*self.on_off_noise
+
+    def up_sample_symbols(self, symbols):
+        return torch.kron(symbols,torch.eye(self.N_sim)[-1])
+
+
+    def check_system_ready_fd_sym(self,symbols):
+        assert self.N_sim is not None, "you must define the property .N_sim (simulation upsampling factor)"
+        assert self.N_os is not None, "you must define the property .N_os (system upsampling factor)"
+        assert (self.N_sim/self.N_os).is_integer(), "N_sim/self.N_os must be integer"
+        assert self.len_fft is not None, "you must defin .len_fft"
+        assert self.G_tx_fd is not None, "you must define .G_tx_fd"
+        assert len(self.G_tx_fd) == self.len_fft, "the length of .G_tx_fd must be equal to .len_fft"
+        assert self.channel_fd is not None, "you must define .channel_fd"
+        assert len(self.channel_fd) == self.len_fft, "the length of .channel_fd must be equal to .len_fft"
+        assert self.G_rx_fd is not None, "you must define .G_rx_fd"
+        assert len(self.G_rx_fd) == self.len_fft, "the length of .G_rx_fd must be equal to .len_fft"
+        assert len(symbols)*self.N_sim < self.len_fft, "to many symbols simulated, reduce the symbols or increase the .len_fft"
+
+    def check_system_ready_td_sym(self):
+            assert self.N_sim is not None, "you must define the property .N_sim (simulation upsampling factor)"
+            assert self.N_os is not None, "you must define the property .N_os (system upsampling factor)"
+            assert (self.N_sim/self.N_os).is_integer(), "N_sim/self.N_os must be integer"
+            assert self.g_tx_td is not None, "you must define .g_tx_td"
+            assert self.channel_td is not None, "you must define .channel_td"
+            assert self.g_rx_td is not None, "you must define .g_rx_td"
+            assert self.Ts is not None, "you must define .Ts"
 
     
 
