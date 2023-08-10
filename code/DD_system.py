@@ -57,9 +57,9 @@ class DD_system():
         signal = self.square_law_detection(signal)
 
         signal =  self.convolve(signal, self.g_rx_td)*self.Ts
-        delay = int(self.N_sim+(len(self.g_tx_td)+len(self.channel_td)+len(self.g_rx_td)-3)/2-1)
-        stop = int(delay+len(symbols)*self.N_sim)
-        return signal#signal[delay:stop:int(self.N_sim/self.N_os)]
+        delay = int(self.N_sim+(self.g_tx_td.size(2)+self.channel_td.size(2)+self.g_rx_td.size(2)-3)/2-1)
+        stop = int(delay+symbols.size(1)*self.N_sim)
+        return signal[:,delay:stop:int(self.N_sim/self.N_os)]
     
     def convolve(self, signal, filt):
         filt_len = filt.size(dim=2)

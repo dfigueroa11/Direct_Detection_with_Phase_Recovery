@@ -52,7 +52,7 @@ symbols = torch.zeros(1,30, dtype=torch.complex128)
 symbols[0,15] = 1
 sym = torch.tensor([[3, 0, 1, 0, 0, 1, 3, 3, 2, 1, 3, 0, 3, 1, 0, 1, 1, 3, 0, 0, 0, 0, 2, 2, 0, 1, 0, 2, 3, 2]], dtype=torch.complex128)
 x = DD_sys.simulate_system_td(sym)
-
+print(x.size())
 # test 1
 # sign_1 = np.random.randint(2, size=N_symbols)*2-1
 # sign_2 = np.random.randint(2, size=N_symbols)*2-1
