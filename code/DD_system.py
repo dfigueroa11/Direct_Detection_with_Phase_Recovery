@@ -42,8 +42,8 @@ class DD_system():
 
         signal_td = torch.fft.ifft(signal_fd, n=self.len_fft)
         delay = int(self.N_sim-1)
-        stop = int(delay+len(symbols)*self.N_sim)
-        return signal_td#signal_td[delay:stop:int(self.N_sim/self.N_os)]
+        stop = int(delay+symbols.size(1)*self.N_sim)
+        return signal_td[:,delay:stop:int(self.N_sim/self.N_os)]
 
 
     def simulate_system_td(self, symbols):
