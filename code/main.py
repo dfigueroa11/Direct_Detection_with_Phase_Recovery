@@ -61,38 +61,15 @@ symbols_2 = torch.exp(1j*torch.cumsum(d_angles*sign_2, dim=1)).type(torch.comple
 d_symbols_1 = symbols_1[1:]/symbols_1[:-1]
 d_symbols_2 = symbols_2[1:]/symbols_2[:-1]
 
-# test 2
-# constellation = torch.tensor([1, -1, np.sqrt(2)/2+np.sqrt(2)/2*1j, -np.sqrt(2)/2-np.sqrt(2)/2*1j])
-
-# index = torch.randint(4, size=(1,N_symbols))
-# symbols_1 = constellation[index]
-# symbols_2 = constellation[(index+2)%4]
-# symbols_3 = -constellation[index]
-# symbols_4 = -constellation[(index+2)%4]
 
 x_1 = DD_sys.simulate_system_td(symbols_1)
 x_2 = DD_sys.simulate_system_td(symbols_2)
-print(symbols_1)
-print(symbols_2)
-# x_3 = DD_sys.simulate_system_td(symbols_3)
-# x_4 = DD_sys.simulate_system_td(symbols_4)
 
 plt.figure(0)
 plt.stem(torch.real(x_1[0,:]), markerfmt='o', label='fd')
 plt.stem(torch.real(x_2[0,:]), markerfmt='*', label='td')
-# plt.stem(x_3, markerfmt='o', label='fd')
-# plt.stem(x_4, markerfmt='*', label='td')
 # plt.legend()
 
-# plt.figure(1)
-# plt.stem(torch.angle(symbols_1)/np.pi, markerfmt='o')
-# plt.stem(torch.angle(symbols_2)/np.pi, markerfmt='*')
-# plt.figure(2)
-# plt.stem(DD_sys.g_tx_td, markerfmt='o')
-# plt.plot(np.imag(np.fft.fftshift(DD_sys.G_tx_fd*calc_filters.CD_fiber_fd(alpha_dB_km=0.2, beta_2_s2_km=-2.168e-23, fiber_len_km=30, len=DD_sys.len_fft, fs=fs))))
-
-
-# plt.stem(signal/np.max(signal),markerfmt='+')
 
 
 plt.show()
