@@ -29,12 +29,12 @@ fiber_len_km = 0
 ################# Simulation definition ####################
 sim_in_time_domain = True
 sim_in_freq_domain = True
-N_symbols = 5
+N_symbols = 50
 
 if sim_in_time_domain:
     pulse_shape_len = 3
     channel_filt_len = 11
-    rx_filt_len = 1
+    rx_filt_len = 11
 
     g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time), dtype=torch.complex128)
     DD_sys.g_tx_td = g_tx_td[None, None,:]
@@ -56,8 +56,8 @@ sign_1 = torch.randint(2, size=(1,N_symbols))*2-1
 sign_2 = torch.randint(2, size=(1,N_symbols))*2-1
 
 d_angles = torch.rand(size=(N_symbols,))*2*np.pi
-symbols_1 = torch.exp(1j*torch.cumsum(d_angles*sign_1, dim=0)).type(torch.complex128)
-symbols_2 = torch.exp(1j*torch.cumsum(d_angles*sign_2, dim=0)).type(torch.complex128)
+symbols_1 = torch.exp(1j*torch.cumsum(d_angles*sign_1, dim=1)).type(torch.complex128)
+symbols_2 = torch.exp(1j*torch.cumsum(d_angles*sign_2, dim=1)).type(torch.complex128)
 d_symbols_1 = symbols_1[1:]/symbols_1[:-1]
 d_symbols_2 = symbols_2[1:]/symbols_2[:-1]
 
@@ -72,6 +72,8 @@ d_symbols_2 = symbols_2[1:]/symbols_2[:-1]
 
 x_1 = DD_sys.simulate_system_td(symbols_1)
 x_2 = DD_sys.simulate_system_td(symbols_2)
+print(symbols_1)
+print(symbols_2)
 # x_3 = DD_sys.simulate_system_td(symbols_3)
 # x_4 = DD_sys.simulate_system_td(symbols_4)
 
@@ -83,8 +85,8 @@ plt.stem(torch.real(x_2[0,:]), markerfmt='*', label='td')
 # plt.legend()
 
 # plt.figure(1)
-# plt.stem(np.angle(symbols_1)/np.pi, markerfmt='o')
-# plt.stem(np.angle(symbols_2)/np.pi, markerfmt='*')
+# plt.stem(torch.angle(symbols_1)/np.pi, markerfmt='o')
+# plt.stem(torch.angle(symbols_2)/np.pi, markerfmt='*')
 # plt.figure(2)
 # plt.stem(DD_sys.g_tx_td, markerfmt='o')
 # plt.plot(np.imag(np.fft.fftshift(DD_sys.G_tx_fd*calc_filters.CD_fiber_fd(alpha_dB_km=0.2, beta_2_s2_km=-2.168e-23, fiber_len_km=30, len=DD_sys.len_fft, fs=fs))))
