@@ -34,8 +34,7 @@ class bcjr:
     def compute_true_apps(self, y, log_out, pairwise_beliefs_out=False):
 
         ## general considerations: n n/2 2 variable per state
-        ##                       : paper ignores early states
-
+        
         """
         Applies the BCJR algorithm (using BP on a clustered factor graph) to compute the true a posteriori probabilities.
         :param y: N+L receive symbols
@@ -53,7 +52,6 @@ class bcjr:
         tx_spaces_early = [t.tensordot(t.tensor(list(product(self.const.mapping, repeat=l+1)), device=self.device),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l)]
         tx_space = t.tensordot(t.tensor(list(product(self.const.mapping, repeat=self.l+1)), device=self.device),t.flip(channel[:self.l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]])
         tx_spaces_late = [t.tensordot(t.tensor(list(product(self.const.mapping, repeat=l+1)), device=self.device),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l)]
-
         # Compute msgs from observation node to VN (likelihoods)
 
         ## repalce (34) (35) (36) and (37) from paper 
@@ -66,9 +64,7 @@ class bcjr:
                 likelihoods.append((-self.esno_lin[:,None] * t.abs(y[:, n, None].unsqueeze(-1) - tx_spaces_late[self.block_len + self.l - 1 - n].unsqueeze(0)) ** 2).view([batch_size] + (self.block_len + self.l - n) * [self.const.M]))
             else:
                 likelihoods.append((-self.esno_lin[:,None] * t.abs(y[:, n, None].unsqueeze(-1) - tx_space.unsqueeze(0)) ** 2).view([batch_size] + (self.l + 1) * [self.const.M]))
-
-
-
+            
         # Compute forward and backward path
         f2v_msgs_forward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
         f2v_msgs_backward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
@@ -77,7 +73,6 @@ class bcjr:
             v2f_forward = likelihoods[n] + f2v_msgs_forward[n]
             n_back = self.block_len + self.l - 1 - n  # inverted index for backward path
             v2f_backward = likelihoods[n_back] + f2v_msgs_backward[n]
-
             # FN update
             if n < self.l:  # at the beginning the number of dimensions is linearly increasing
                 f2v_msgs_forward.append(v2f_forward.unsqueeze(-1).repeat((n + 2) * [1, ] + [self.const.M]))
@@ -88,7 +83,7 @@ class bcjr:
             else:
                 f2v_msgs_forward.append(t.logsumexp(v2f_forward.unsqueeze(-1).repeat((self.l+2) * [1, ] + [self.const.M]), dim=1))
                 f2v_msgs_backward.append(t.logsumexp(v2f_backward.unsqueeze(1).repeat([1, self.const.M] + (self.l+1) * [1, ]), dim=-1))
-
+            
         # Final marginalization.
         
         ## wierd the indexing of n and why likelihood again
@@ -101,6 +96,7 @@ class bcjr:
                 beliefs[:, n, :] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n],dim=list(range(1, n + 1)))
             else:
                 beliefs[:, n, :] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n],dim=list(range(1, self.l + 1)))
+            
 
         if pairwise_beliefs_out:
             b_ij = t.zeros((batch_size, self.l, self.block_len, self.const.M, self.const.M), device=self.device)
@@ -112,10 +108,12 @@ class bcjr:
                         b_ij[:,l,n] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n], dim=list(range(1, n-l))+list(range(n-l+1, n+1)))
                     else:
                         b_ij[:,l,n] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n], dim=list(range(1, self.l-l))+list(range(self.l-l+1, self.l+1)))
-
+            # Normalization
+            b_ij[:,self.ij_mask] = (b_ij - t.logsumexp(b_ij, dim=(-2,-1))[...,None,None])[:,self.ij_mask]
+        
         # Normalization
         beliefs = beliefs - t.logsumexp(beliefs, dim=-1).unsqueeze(-1)
-        b_ij[:,self.ij_mask] = (b_ij - t.logsumexp(b_ij, dim=(-2,-1))[...,None,None])[:,self.ij_mask]
+        
 
         # Return
         if log_out:
