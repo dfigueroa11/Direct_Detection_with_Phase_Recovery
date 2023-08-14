@@ -5,21 +5,26 @@ from itertools import product
 BCJR algorithm as an MAP detector, derived using the factor graph framework.
 """
 
-class bcjr:
-    def __init__(self, taps, EsN0_dB, block_len, constellation, device='cpu'):
+class bcjr_upsamp:
+    def __init__(self, taps, EsN0_dB, block_len, constellation, N_os, device='cpu'):
         assert t.is_tensor(taps)
+        self.N_os = N_os
         if taps.dim() == 1: # One channel for all batch elements.
             assert taps.shape[0] > 0
-            self.l = taps.size()[0] - 1  # Memory of channel.
+            assert (taps.shape[0]-1)//N_os == (taps.shape[0]-1)/N_os ## integer memory in terms of the symbols
+            self.l_sym = (taps.size()[0] - 1)//N_os  # Memory of channel in terms of the symbol
+            self.l_ch = taps.size()[0] - 1  # Memory of channel in terms of the samples
             self.batch_size = 1
             self.multiple_channels = False
         elif taps.dim() == 2: # Multiple channels
             self.batch_size = taps.shape[0]
             self.multiple_channels = True
             assert taps.shape[1] > 0
-            self.l = taps.shape[1] - 1  # Memory of channel.
-
-        self.h = taps.view((self.batch_size, self.l+1)) # Channel taps (assumed real-valued).
+            assert (taps.shape[1]-1)//N_os == (taps.shape[1]-1)/N_os ## integer memory in terms of the symbols
+            self.l_sym = (taps.size()[1] - 1)//N_os  # Memory of channel in terms of the symbol
+            self.l_ch = taps.size()[1] - 1  # Memory of channel in terms of the samples
+            
+        self.h = taps.view((self.batch_size, -1)) # Channel taps (assumed real-valued).
         self.block_len = block_len
         if t.is_tensor(EsN0_dB):
             assert EsN0_dB.shape == self.batch_size # Individual Es/N0 for each batch element
@@ -37,23 +42,37 @@ class bcjr:
         
         """
         Applies the BCJR algorithm (using BP on a clustered factor graph) to compute the true a posteriori probabilities.
-        :param y: N+L receive symbols
+        :param y: (N+L)*N_os receive symbols
         :param log_out: If True, APPs are in log domain, else in linear domain.
         :return: APPs for each symbol in log domain, dim=[batch_size,N,const.M]
         """
         assert self.multiple_channels == False
         assert len(y.shape) == 2
         batch_size = y.shape[0]
-        assert y.shape[1] == self.block_len + self.l
+        assert y.shape[1] == (self.block_len + self.l_sym) * self.N_os
         assert self.batch_size == 1
         channel = self.h[0]
 
         # Compute all (noise free) rx spaces.
+
+        tx_spaces_early = []
+        tx_space = []
+        tx_spaces_late = []
+
+        for samp in range(self.N_os):
+            tx_spaces_early = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),samp),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
+            tx_space = t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=self.l_sym+1)), device=self.device),samp),t.flip(channel[:self.l_ch+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]])
+            tx_spaces_late = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),samp),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
+        # print(tx_spaces_early)
+        # print(tx_spaces_late)
+        # print(tx_space)
+        return 0
+
         tx_spaces_early = [t.tensordot(t.tensor(list(product(self.const.mapping, repeat=l+1)), device=self.device),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l)]
         tx_space = t.tensordot(t.tensor(list(product(self.const.mapping, repeat=self.l+1)), device=self.device),t.flip(channel[:self.l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]])
         tx_spaces_late = [t.tensordot(t.tensor(list(product(self.const.mapping, repeat=l+1)), device=self.device),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l)]
         # Compute msgs from observation node to VN (likelihoods)
-
+        
         ## repalce (34) (35) (36) and (37) from paper 
 
         likelihoods = []
@@ -215,3 +234,8 @@ class bcjr:
                 return t.exp(beliefs), t.exp(b_ij)
             else:
                 return t.exp(beliefs)
+
+    def upsamp_select(self,symbol_blocks,offset):
+        #upsample with kroneker and cut
+        return symbol_blocks
+            
