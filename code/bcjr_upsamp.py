@@ -60,9 +60,9 @@ class bcjr_upsamp:
         tx_spaces_late = []
 
         for samp in range(self.N_os):
-            tx_spaces_early = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),samp),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
-            tx_space = t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=self.l_sym+1)), device=self.device),samp),t.flip(channel[:self.l_ch+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]])
-            tx_spaces_late = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),samp),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
+            tx_spaces_early = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),samp,l),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
+            tx_space = t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=self.l_sym+1)), device=self.device),samp,self.l_ch),t.flip(channel[:self.l_ch+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]])
+            tx_spaces_late = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),samp,l),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
         # print(tx_spaces_early)
         # print(tx_spaces_late)
         # print(tx_space)
@@ -235,7 +235,9 @@ class bcjr_upsamp:
             else:
                 return t.exp(beliefs)
 
-    def upsamp_select(self,symbol_blocks,offset):
-        #upsample with kroneker and cut
-        return symbol_blocks
+    def upsamp_select(self,symbol_blocks,offset,length):
+        symbol_blocks = t.kron(symbol_blocks,t.eye(self.N_os)[-1])
+        if length < self.l_ch:
+            return symbol_blocks[:,:length+1]
+        return symbol_blocks[:,offset:offset+length+1]
             
