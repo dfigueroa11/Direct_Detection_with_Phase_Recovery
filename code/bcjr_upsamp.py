@@ -53,24 +53,15 @@ class bcjr_upsamp:
         assert self.batch_size == 1
         channel = self.h[0]
 
-        # Compute all (noise free) rx spaces.
-
-        tx_spaces_early = []
-        tx_space = []
-        tx_spaces_late = []
-
-        for samp in range(self.N_os):
-            tx_spaces_early = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),samp,l,False),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
-            tx_space = t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=self.l_sym+1)), device=self.device),samp,self.l_ch),t.flip(channel[:self.l_ch+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]])
-            tx_spaces_late = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),samp,l,True),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
-        # print(tx_spaces_early)
-        # print(tx_spaces_late)
-        # print(tx_space)
+        # Compute all (noise free) rx spaces including oversampling
+        tx_spaces_early = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),0,l,False),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
+        tx_space = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=self.l_sym+1)), device=self.device),samp,self.l_ch),t.flip(channel[:self.l_ch+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for samp in range(self.N_os)]
+        tx_spaces_late = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),0,l,True),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
+        
+        print(tx_spaces_early)
+        print(tx_space)
+        print(tx_spaces_late)
         return 0
-
-        tx_spaces_early = [t.tensordot(t.tensor(list(product(self.const.mapping, repeat=l+1)), device=self.device),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l)]
-        tx_space = t.tensordot(t.tensor(list(product(self.const.mapping, repeat=self.l+1)), device=self.device),t.flip(channel[:self.l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]])
-        tx_spaces_late = [t.tensordot(t.tensor(list(product(self.const.mapping, repeat=l+1)), device=self.device),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l)]
         # Compute msgs from observation node to VN (likelihoods)
         
         ## repalce (34) (35) (36) and (37) from paper 
@@ -240,5 +231,5 @@ class bcjr_upsamp:
         if length >= self.l_ch:
             return symbol_blocks[:,offset:offset+length+1]
         if late_states:
-            symbol_blocks = t.flip(symbol_blocks,[-1,])
+            return symbol_blocks[:,-(length+1):]
         return symbol_blocks[:,:length+1]
