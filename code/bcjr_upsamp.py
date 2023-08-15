@@ -23,7 +23,7 @@ class bcjr_upsamp:
             assert (taps.shape[1]-1)//N_os == (taps.shape[1]-1)/N_os ## integer memory in terms of the symbols
             self.l_sym = (taps.size()[1] - 1)//N_os  # Memory of channel in terms of the symbol
             self.l_ch = taps.size()[1] - 1  # Memory of channel in terms of the samples
-            
+
         self.h = taps.view((self.batch_size, -1)) # Channel taps (assumed real-valued).
         self.block_len = block_len
         if t.is_tensor(EsN0_dB):
@@ -49,7 +49,7 @@ class bcjr_upsamp:
         assert self.multiple_channels == False
         assert len(y.shape) == 2
         batch_size = y.shape[0]
-        assert y.shape[1] == (self.block_len + self.l_sym) * self.N_os
+        assert y.shape[1] == (self.block_len + self.l_sym) * self.N_os+1, f"{y.shape[1]} = {(self.block_len + self.l_sym) * self.N_os}"
         assert self.batch_size == 1
         channel = self.h[0]
 
