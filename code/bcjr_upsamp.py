@@ -57,23 +57,26 @@ class bcjr_upsamp:
         tx_spaces_early = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),0,l,False),t.flip(channel[:l+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
         tx_space = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=self.l_sym+1)), device=self.device),samp,self.l_ch),t.flip(channel[:self.l_ch+1].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for samp in range(self.N_os)]
         tx_spaces_late = [t.tensordot(self.upsamp_select(t.tensor(list(product(self.const.mapping, repeat=(l+2)//2)), device=self.device),0,l,True),t.flip(channel[-(l+1):].cfloat(), dims=[-1, ]),dims=[[-1, ], [0, ]]) for l in range(self.l_ch)]
-        
-        print(tx_spaces_early)
-        print(tx_space)
-        print(tx_spaces_late)
-        return 0
         # Compute msgs from observation node to VN (likelihoods)
-        
         ## repalce (34) (35) (36) and (37) from paper 
 
         likelihoods = []
-        for n in range(self.block_len + self.l):
-            if n < self.l:  # The dimension is reduced because we have less than self.l predecessing symbols.
-                likelihoods.append((-self.esno_lin[:,None] * t.abs(y[:, n, None] - tx_spaces_early[n].unsqueeze(0)) ** 2).view([batch_size] + (n + 1) * [self.const.M]))
+        for n in range(self.block_len + self.l_sym):
+            if n < self.l_sym:  # The dimension is reduced because we have less than self.l predecessing symbols.
+                likelihood = 0
+                for samp in range(self.N_os):
+                    likelihood += (-self.esno_lin[:,None] * t.abs(y[:, self.N_os*n+samp, None] - t.abs(tx_spaces_early[self.N_os*n+samp].unsqueeze(0))**2) ** 2).view([batch_size] + (n + 1) * [self.const.M])
+                likelihoods.append(likelihood)
             elif n >= self.block_len:
-                likelihoods.append((-self.esno_lin[:,None] * t.abs(y[:, n, None].unsqueeze(-1) - tx_spaces_late[self.block_len + self.l - 1 - n].unsqueeze(0)) ** 2).view([batch_size] + (self.block_len + self.l - n) * [self.const.M]))
+                likelihood = 0
+                for samp in range(self.N_os):
+                    likelihood += (-self.esno_lin[:,None] * t.abs(y[:, self.N_os*n+samp, None].unsqueeze(-1) - t.abs(tx_spaces_late[self.l_ch-(self.N_os*(n-self.block_len)+samp)-1].unsqueeze(0))**2) ** 2).view([batch_size] + (self.block_len + self.l_sym - n) * [self.const.M])
+                likelihoods.append(likelihood)
             else:
-                likelihoods.append((-self.esno_lin[:,None] * t.abs(y[:, n, None].unsqueeze(-1) - tx_space.unsqueeze(0)) ** 2).view([batch_size] + (self.l + 1) * [self.const.M]))
+                likelihood = 0
+                for samp in range(self.N_os):
+                    likelihood += (-self.esno_lin[:,None] * t.abs(y[:, self.N_os*n+samp, None].unsqueeze(-1) - t.abs(tx_space[samp].unsqueeze(0))**2) ** 2).view([batch_size] + (self.l_sym + 1) * [self.const.M])
+                likelihoods.append(likelihood)
             
         # Compute forward and backward path
         f2v_msgs_forward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
