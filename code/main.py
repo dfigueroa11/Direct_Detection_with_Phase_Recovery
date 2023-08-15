@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 import DD_system
 import calc_filters
+import constellation
+import bcjr_upsamp
 
 #################### System definition ##################
 DD_sys = DD_system.DD_system()
@@ -28,17 +30,17 @@ fiber_len_km = 0
 
 ################# Simulation definition ####################
 sim_in_time_domain = True
-sim_in_freq_domain = True
+sim_in_freq_domain = False
 N_symbols = 50
 
 if sim_in_time_domain:
     pulse_shape_len = 3
-    channel_filt_len = 11
-    rx_filt_len = 11
+    channel_filt_len = 1
+    rx_filt_len = 1
 
-    g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time), dtype=torch.complex128)
+    g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time), dtype=torch.cfloat)
     DD_sys.g_tx_td = g_tx_td[None, None,:]
-    channel_td = torch.tensor(calc_filters.CD_fiber_td(alpha_dB_km, beta_2_s2_km, fiber_len_km, channel_filt_len, fs), dtype=torch.complex128)
+    channel_td = torch.tensor(calc_filters.CD_fiber_td(alpha_dB_km, beta_2_s2_km, fiber_len_km, channel_filt_len, fs), dtype=torch.cfloat)
     DD_sys.channel_td = channel_td[None, None,:]
     g_rx_td = torch.tensor(calc_filters.fd_rc_td(0, rx_filt_len, fs, symbol_time/2), dtype=torch.float64)
     DD_sys.g_rx_td = g_rx_td[None, None,:]
@@ -50,25 +52,25 @@ if sim_in_freq_domain:
     DD_sys.channel_fd = calc_filters.CD_fiber_fd(alpha_dB_km, beta_2_s2_km, fiber_len_km, DD_sys.len_fft, fs)
     DD_sys.G_rx_fd = calc_filters.fd_rc_fd(0, DD_sys.len_fft, fs, symbol_time/2) 
 
+###################### Constellation #########################
 
-# test 1
-sign_1 = torch.randint(2, size=(1,N_symbols))*2-1
-sign_2 = torch.randint(2, size=(1,N_symbols))*2-1
+mapping = torch.tensor([1,-1], dtype=torch.cfloat)
+const = constellation.constellation(mapping,'cpu')
+EsN0_dB = 0
+bits = torch.tensor([1,0,1,0,1,1,1,0,1,0,0,1,1,1,1,0])#torch.randint(2,(block_len,))
+block_len = len(bits)
+symbols = const.map(bits)
 
-d_angles = torch.rand(size=(N_symbols,))*2*np.pi
-symbols_1 = torch.exp(1j*torch.cumsum(d_angles*sign_1, dim=1)).type(torch.complex128)
-symbols_2 = torch.exp(1j*torch.cumsum(d_angles*sign_2, dim=1)).type(torch.complex128)
-d_symbols_1 = symbols_1[1:]/symbols_1[:-1]
-d_symbols_2 = symbols_2[1:]/symbols_2[:-1]
+y_1 = DD_sys.simulate_system_td(symbols[None,:])
+y_2 = DD_sys.simulate_system_td(-symbols[None,:])
+decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.g_tx_td[0,0,:], EsN0_dB, block_len, const, DD_sys.N_os)
+beliefs = decoder.compute_true_apps(torch.abs(y_2)**2, log_out=False)
 
-
-x_1 = DD_sys.simulate_system_td(symbols_1)
-x_2 = DD_sys.simulate_system_td(symbols_2)
 
 plt.figure(0)
-plt.stem(torch.real(x_1[0,:]), markerfmt='o', label='fd')
-plt.stem(torch.real(x_2[0,:]), markerfmt='*', label='td')
-# plt.legend()
+plt.stem(torch.real(y_1[0,:]), markerfmt='o', label='y1')
+plt.stem(torch.real(y_2[0,:]), markerfmt='*', label='y2')
+plt.legend()
 
 
 

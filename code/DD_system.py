@@ -59,7 +59,7 @@ class DD_system():
         signal =  self.convolve(signal, self.g_rx_td)*self.Ts
         delay = int(self.N_sim+(self.g_tx_td.size(2)+self.channel_td.size(2)+self.g_rx_td.size(2)-3)/2-1)
         stop = int(delay+symbols.size(1)*self.N_sim)
-        return signal[:,delay:stop:int(self.N_sim/self.N_os)]
+        return signal#[:,delay:stop:int(self.N_sim/self.N_os)]
     
     def convolve(self, signal, filt):
         filt_len = filt.size(dim=2)
@@ -69,8 +69,8 @@ class DD_system():
     def square_law_detection(self,signal):
         abs_signal = torch.abs(signal)
         square_law_signal = self.responsivity*abs_signal**2
-        shot_noise = abs_signal * torch.normal(0., self.sigma_sh, size=(1,len(signal)))
-        thermal_noise = torch.normal(0., self.sigma_th, size=(1,len(signal)))
+        shot_noise = abs_signal * torch.normal(0., self.sigma_sh, size=(1,len(signal)), dtype=torch.float64)
+        thermal_noise = torch.normal(0., self.sigma_th, size=(1,len(signal)), dtype=torch.float64)
         return square_law_signal + (shot_noise + thermal_noise)*self.on_off_noise
 
     def up_sample_symbols(self, symbols):
