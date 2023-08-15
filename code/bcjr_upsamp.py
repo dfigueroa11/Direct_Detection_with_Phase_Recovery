@@ -81,21 +81,21 @@ class bcjr_upsamp:
         # Compute forward and backward path
         f2v_msgs_forward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
         f2v_msgs_backward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
-        for n in range(self.block_len + self.l - 1):
+        for n in range(self.block_len + self.l_sym - 1):
             # VN update
             v2f_forward = likelihoods[n] + f2v_msgs_forward[n]
-            n_back = self.block_len + self.l - 1 - n  # inverted index for backward path
+            n_back = self.block_len + self.l_sym - 1 - n  # inverted index for backward path
             v2f_backward = likelihoods[n_back] + f2v_msgs_backward[n]
             # FN update
-            if n < self.l:  # at the beginning the number of dimensions is linearly increasing
+            if n < self.l_sym:  # at the beginning the number of dimensions is linearly increasing
                 f2v_msgs_forward.append(v2f_forward.unsqueeze(-1).repeat((n + 2) * [1, ] + [self.const.M]))
                 f2v_msgs_backward.append(v2f_backward.unsqueeze(1).repeat([1, self.const.M] + (n + 1) * [1, ]))  # dim0 = batches
             elif n >= self.block_len - 1:
                 f2v_msgs_forward.append(t.logsumexp(v2f_forward, dim=1))
                 f2v_msgs_backward.append(t.logsumexp(v2f_backward, dim=-1))
             else:
-                f2v_msgs_forward.append(t.logsumexp(v2f_forward.unsqueeze(-1).repeat((self.l+2) * [1, ] + [self.const.M]), dim=1))
-                f2v_msgs_backward.append(t.logsumexp(v2f_backward.unsqueeze(1).repeat([1, self.const.M] + (self.l+1) * [1, ]), dim=-1))
+                f2v_msgs_forward.append(t.logsumexp(v2f_forward.unsqueeze(-1).repeat((self.l_sym+2) * [1, ] + [self.const.M]), dim=1))
+                f2v_msgs_backward.append(t.logsumexp(v2f_backward.unsqueeze(1).repeat([1, self.const.M] + (self.l_sym+1) * [1, ]), dim=-1))
             
         # Final marginalization.
         
@@ -105,10 +105,10 @@ class bcjr_upsamp:
         for n in range(self.block_len):
             if n == 0:
                 beliefs[:, n, :] = f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n]
-            elif n < self.l:
+            elif n < self.l_sym:
                 beliefs[:, n, :] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n],dim=list(range(1, n + 1)))
             else:
-                beliefs[:, n, :] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n],dim=list(range(1, self.l + 1)))
+                beliefs[:, n, :] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n],dim=list(range(1, self.l_sym + 1)))
             
 
         if pairwise_beliefs_out:

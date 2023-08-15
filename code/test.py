@@ -17,5 +17,5 @@ y = y[None,:]
 decoder = bcjr_upsamp.bcjr_upsamp(taps, EsN0_dB, block_len, const, 2)
 beliefs = decoder.compute_true_apps(y, log_out=False)
 
-# print(bits)
-# print(beliefs.dim())
+print(bits)
+print(beliefs)
