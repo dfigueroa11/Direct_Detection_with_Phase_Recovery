@@ -11,16 +11,17 @@ def fd_rc_fd(alpha, len , fs, sym_time):
 def fd_rc_td(alpha, len, fs, sym_time):
     t_vec = (np.arange(len)-(len-1)/2)/fs
     if alpha == 0:
-        return np.sinc(t_vec/sym_time)/sym_time
-    return np.where(np.abs(t_vec) == sym_time/(2*alpha), np.pi/(4*sym_time)*np.sinc(1/(2*alpha)), \
-                    np.sinc(t_vec/sym_time)/sym_time*(np.cos(np.pi*alpha*t_vec/sym_time))/(1-(2*alpha*t_vec/sym_time)**2))
+        return np.sinc(t_vec/sym_time)
+    return np.where(np.abs(t_vec) == sym_time/(2*alpha), np.pi/4*np.sinc(1/(2*alpha)), \
+                    np.sinc(t_vec/sym_time)*(np.cos(np.pi*alpha*t_vec/sym_time))/(1-(2*alpha*t_vec/sym_time)**2))
 
 def CD_fiber_td(alpha_dB_km, beta_2_s2_km, fiber_len_km, len, fs):
-    len_fft = np.min([len,2**14])
+    len_fft = np.max([len,2**14])
     fiber_fd = CD_fiber_fd(alpha_dB_km, beta_2_s2_km, fiber_len_km, len_fft, fs)
     fiber_td = np.fft.ifft(fiber_fd, n=len_fft)
-    fiber_td = np.concatenate((fiber_td[-(len-1)//2:],fiber_td[0:(len)//2+1]))
-    return fiber_td
+    if len == 1:
+        return fiber_td[0:1]
+    return np.concatenate((fiber_td[-(len-1)//2:],fiber_td[0:(len)//2+1]))
 
 def CD_fiber_fd(alpha_dB_km, beta_2_s2_km, fiber_len_km, len, fs):
     f_vec = np.fft.fftfreq(len,1/fs)
