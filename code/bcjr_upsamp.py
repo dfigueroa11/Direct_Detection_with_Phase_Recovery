@@ -36,7 +36,7 @@ class bcjr_upsamp:
         self.const = constellation
         self.device = device
 
-    def compute_true_apps(self, y, log_out, pairwise_beliefs_out=False):
+    def compute_true_apps(self, y, log_out, pairwise_beliefs_out=False, P_s0=None):
 
         ## general considerations: n n/2 2 variable per state
         
@@ -49,8 +49,12 @@ class bcjr_upsamp:
         assert self.multiple_channels == False
         assert len(y.shape) == 2
         batch_size = y.shape[0]
-        assert y.shape[1] == (self.block_len + self.l_sym) * self.N_os+1, f"{y.shape[1]} = {(self.block_len + self.l_sym) * self.N_os}"
+        assert y.shape[1] == (self.block_len + self.l_sym) * self.N_os, f"{y.shape[1]} = {(self.block_len + self.l_sym) * self.N_os}"
         assert self.batch_size == 1
+        if P_s0 is not None:
+            assert t.is_tensor(P_s0)
+            assert P_s0.size() == (batch_size, self.const.M)
+
         channel = self.h[0]
 
         # Compute all (noise free) rx spaces including oversampling
@@ -79,8 +83,12 @@ class bcjr_upsamp:
                 likelihoods.append(likelihood)
             
         # Compute forward and backward path
-        f2v_msgs_forward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
         f2v_msgs_backward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
+        if P_s0 is None:
+            f2v_msgs_forward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
+        else:
+            f2v_msgs_forward = [P_s0]   # useful for differential coding
+
         for n in range(self.block_len + self.l_sym - 1):
             # VN update
             v2f_forward = likelihoods[n] + f2v_msgs_forward[n]
