@@ -69,8 +69,8 @@ class DD_system():
     def square_law_detection(self,signal):
         abs_signal = torch.abs(signal)
         square_law_signal = self.responsivity*abs_signal**2
-        shot_noise = abs_signal * torch.normal(0., self.sigma_sh, size=(1,len(signal)), dtype=torch.float64)
-        thermal_noise = torch.normal(0., self.sigma_th, size=(1,len(signal)), dtype=torch.float64)
+        shot_noise = abs_signal * torch.normal(0., self.sigma_sh, size=signal.size(), dtype=torch.float64)
+        thermal_noise = torch.normal(0., self.sigma_th, size=signal.size(), dtype=torch.float64)
         return square_law_signal + (shot_noise + thermal_noise)*self.on_off_noise
 
     def up_sample_symbols(self, symbols):
