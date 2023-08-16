@@ -51,12 +51,12 @@ class DD_system():
 
         syms_up_samp = self.up_sample_symbols(symbols)
         
-        signal =  self.convolve(syms_up_samp, self.g_tx_td)*self.Ts
+        signal =  self.convolve(syms_up_samp, self.g_tx_td)
         signal =  self.convolve(signal, self.channel_td)
         
         signal = self.square_law_detection(signal)
 
-        signal =  self.convolve(signal, self.g_rx_td)*self.Ts
+        signal =  self.convolve(signal, self.g_rx_td)
         delay = int(self.N_sim+(self.g_tx_td.size(2)+self.channel_td.size(2)+self.g_rx_td.size(2)-3)/2-1)
         stop = int(delay+symbols.size(1)*self.N_sim)
         return signal#[:,delay:stop:int(self.N_sim/self.N_os)]
