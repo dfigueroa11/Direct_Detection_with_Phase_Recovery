@@ -56,16 +56,20 @@ if sim_in_freq_domain:
 
 mapping = torch.tensor([1,-1], dtype=torch.cfloat)
 const = constellation.constellation(mapping,'cpu')
-EsN0_dB = 0
-bits = torch.tensor([1,0,1,0,1,1,1,0,1,0,0,1,1,1,1,0])#torch.randint(2,(block_len,))
+EsN0_dB = 10
+bits = torch.tensor([0,1,0,1,0,1,1,1,0,1,0,0,1,1,1,1,0])#torch.randint(2,(block_len,))
 block_len = len(bits)
 symbols = const.map(bits)
 
 y_1 = DD_sys.simulate_system_td(symbols[None,:])
-y_2 = DD_sys.simulate_system_td(-symbols[None,:])
+symbols_2 = symbols
+y_2 = DD_sys.simulate_system_td(-symbols_2[None,:])
 decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.g_tx_td[0,0,:], EsN0_dB, block_len, const, DD_sys.N_os)
-beliefs = decoder.compute_true_apps(torch.abs(y_2)**2, log_out=False)
+beliefs = decoder.compute_true_apps(y_2, log_out=False, P_s0=torch.tensor([[0,-1e10]]))
 
+print(beliefs)
+print(bits)
+print(torch.argmax(beliefs[0], dim=1))
 
 plt.figure(0)
 plt.stem(torch.real(y_1[0,:]), markerfmt='o', label='y1')

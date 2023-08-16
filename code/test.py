@@ -6,7 +6,7 @@ import constellation
 
 mapping = torch.tensor([1,-1], dtype=torch.cfloat)
 const = constellation.constellation(mapping,'cpu')
-taps = torch.tensor([.07,0.1,.5,1,.5,.1,.07], dtype=torch.cfloat)
+taps = torch.tensor([.5,1,.5], dtype=torch.cfloat)
 EsN0_dB = 0
 
 bits = torch.tensor([1,0,1,0,1,1,1,0,1,0,0,1,1,1,1,0])#torch.randint(2,(block_len,))
