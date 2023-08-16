@@ -41,7 +41,7 @@ g_rx_td = torch.tensor(calc_filters.fd_rc_td(0, rx_filt_len, fs, symbol_time/2),
 DD_sys.g_rx_td = g_rx_td[None, None,:]
 
 ################# Simulation definition ####################
-N_symbols = 20
+N_symbols = 20_000
 
 ###################### Constellation #########################
 
@@ -67,7 +67,8 @@ print(DD_sys.g_tx_td)
 print(beliefs)
 print(torch.sum(bits != torch.argmax(beliefs[0,1:], dim=1))/N_symbols)
 
-# plt.figure()
+plt.figure()
 # plt.stem(y_1[0,::2])
+plt.plot(beliefs[0,:,0])
 
-# plt.show()
+plt.show()
