@@ -104,7 +104,9 @@ class bcjr_upsamp:
             else:
                 f2v_msgs_forward.append(t.logsumexp(v2f_forward.unsqueeze(-1).repeat((self.l_sym+2) * [1, ] + [self.const.M]), dim=1))
                 f2v_msgs_backward.append(t.logsumexp(v2f_backward.unsqueeze(1).repeat([1, self.const.M] + (self.l_sym+1) * [1, ]), dim=-1))
-            
+            #normalization
+            f2v_msgs_backward[-1] -= t.max(f2v_msgs_backward[-1])
+            f2v_msgs_forward[-1] -= t.max(f2v_msgs_forward[-1])
         # Final marginalization.
         
         ## wierd the indexing of n and why likelihood again
