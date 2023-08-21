@@ -21,7 +21,7 @@ rc_alpha = 0
 DD_sys.sigma_sh = 0
 DD_sys.sigma_th = 1
 DD_sys.responsivity = 1
-DD_sys.on_off_noise = 1
+DD_sys.on_off_noise = 0
 
 ################# Channel definition ###################
 alpha_dB_km = 0.2
@@ -29,7 +29,7 @@ beta_2_s2_km = -2.168e-23
 fiber_len_km = 0
 
 ################# filters creation definition ###################
-pulse_shape_len = 3
+pulse_shape_len = 15
 channel_filt_len = 1
 rx_filt_len = 1
 
@@ -41,12 +41,12 @@ g_rx_td = torch.tensor(calc_filters.fd_rc_td(0, rx_filt_len, fs, symbol_time/2),
 DD_sys.g_rx_td = g_rx_td[None, None,:]
 
 ################# Simulation definition ####################
-N_symbols = 20_000
+N_symbols = 20
 
 ###################### Constellation #########################
 
 
-SNR_dB = 5
+SNR_dB = 4
 
 
 mapping = torch.tensor([1,-1], dtype=torch.cfloat)
@@ -59,16 +59,19 @@ bits = torch.randint(2,(N_symbols*const.m,))
 symbols = torch.concat((mapping[0:1],const.map(bits)))
 
 y_1 = DD_sys.simulate_system_td(symbols[None,:])
+y_2 = DD_sys.simulate_system_td(-symbols[None,:])
 
 decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.g_tx_td[0,0,:], 0, N_symbols+1, const, DD_sys.N_os)
-beliefs = decoder.compute_true_apps(y_1, log_out=False, P_s0=(torch.eye(const.M)[0:1,:]-1)*1e10)
+beliefs = decoder.compute_true_apps(y_1, log_out=False, P_s0=None)#(torch.eye(const.M)[0:1,:]-1)*1e10)
 
 print(DD_sys.g_tx_td)
 print(beliefs)
 print(torch.sum(bits != torch.argmax(beliefs[0,1:], dim=1))/N_symbols)
 
 plt.figure()
-# plt.stem(y_1[0,::2])
-plt.plot(beliefs[0,:,0])
+plt.stem(y_1[0,:], markerfmt="o")
+plt.stem(y_2[0,:], markerfmt='*')
+# plt.scatter(range(len(beliefs[0,:,0])),beliefs[0,:,0])
+plt.grid()
 
 plt.show()
