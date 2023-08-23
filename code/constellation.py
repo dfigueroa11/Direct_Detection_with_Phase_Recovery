@@ -22,7 +22,7 @@ class constellation:
     given in mapping.
     """
 
-    def __init__(self, mapping, device, diff_mapping=False):
+    def __init__(self, mapping, device):
         """
         :param mapping: t.Tensor which contains the constellation symbols, sorted according
             to their binary representation (MSB left).
