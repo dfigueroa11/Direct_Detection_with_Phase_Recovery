@@ -6,7 +6,7 @@ BCJR algorithm as an MAP detector, derived using the factor graph framework.
 """
 
 class bcjr_upsamp:
-    def __init__(self, taps, EsN0_dB, block_len, constellation, N_os, device='cpu'):
+    def __init__(self, taps, EsN0_dB, block_len, constellation, N_os, diff_decoding=False ,device='cpu'):
         assert t.is_tensor(taps)
         self.N_os = N_os
         if taps.dim() == 1: # One channel for all batch elements.
@@ -35,6 +35,8 @@ class bcjr_upsamp:
         self.sigma2 = 1/self.esno_lin
         self.const = constellation
         self.device = device
+
+        self.diff_decodding = diff_decoding
 
     def compute_true_apps(self, y, log_out, pairwise_beliefs_out=False, P_s0=None):
 
@@ -240,6 +242,8 @@ class bcjr_upsamp:
                 return t.exp(beliefs)
 
     def upsamp_select(self, symbol_blocks, offset, length, late_states=True):
+        if self.diff_decodding:
+            symbol_blocks = self.const.diff_encoding(symbol_blocks)
         symbol_blocks = t.kron(symbol_blocks,t.eye(self.N_os)[-1])
         if length >= self.l_ch:
             return symbol_blocks[:,offset:offset+length+1]
