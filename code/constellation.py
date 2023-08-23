@@ -37,12 +37,9 @@ class constellation:
 
         self.sub_consts = t.stack([t.stack([t.arange(self.M).reshape(2**(i+1),-1)[::2].flatten(), t.arange(self.M).reshape(2**(i+1),-1)[1::2].flatten()]) for i in range(self.m)]).to(device)
         
-        if diff_mapping:
-            phase_list = t.angle(self.mapping)
-            out, idx = t.unique(t.round(phase_list*10**6), return_inverse=True)
-            self.phase_list = t.empty_like(out, dtype=t.cfloat)
-            for i,phase in enumerate(out):
-                self.phase_list[i] = 1j*phase_list[t.nonzero(idx == i)[0]]
+        phase_list_aux = t.angle(self.mapping)
+        out, idx = t.unique(t.round(phase_list_aux*10**6), return_inverse=True)
+        self.phase_list = t.tensor([1j*phase_list_aux[t.nonzero(idx == i)[0]] for i in range(len(out))], dtype=t.cfloat)
 
         self.device = device
 
