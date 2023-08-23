@@ -30,7 +30,7 @@ beta_2_s2_km = -2.168e-23
 fiber_len_km = 0
 
 ################# filters creation definition ###################
-pulse_shape_len = 5
+pulse_shape_len = 7
 channel_filt_len = 1
 rx_filt_len = 1
 
@@ -47,35 +47,35 @@ N_symbols = 20_000
 ###################### Constellation #########################
 
 
-SNR_dB = 4
+SNR_dB = 0
 
 
-mapping = torch.tensor([1,2,3,4], dtype=torch.cfloat)
+mapping = torch.tensor([1,-1], dtype=torch.cfloat)
 SNR_lin = 10**(SNR_dB/10)
 mapping *= torch.sqrt(SNR_lin/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping,'cpu')
-
 bits = torch.randint(2,(N_symbols*const.m,))
+info_symbols = const.map(bits)
 
-symbols = const.map(bits)
 
-y_1 = DD_sys.simulate_system_td(symbols[None,:])
+ch_symbols_1 = const.diff_encoding(info_symbols, init_phase_idx=0)
 
-decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.g_tx_td[0,0,:], 0, N_symbols, const, DD_sys.N_os)
+y_1 = DD_sys.simulate_system_td(ch_symbols_1[None,:])
+
+decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.g_tx_td[0,0,:], 0, N_symbols, const, DD_sys.N_os, diff_decoding=True)
 beliefs = decoder.compute_true_apps(y_1, log_out=False, P_s0=None)#(torch.eye(const.M)[0:1,:]-1)*1e10)
 
 symbols_hat_idx = torch.argmax(beliefs[0,0:], dim=1)
 bits_hat = const.demap(symbols_hat_idx)
 symbols_hat = const.map(bits_hat.int())
 
-
 print(f"BER = {ch_met.get_ER(bits, bits_hat): .3f}")
-print(f"SER = {ch_met.get_ER(symbols, symbols_hat): .3f}")
+print(f"SER = {ch_met.get_ER(info_symbols, symbols_hat): .3f}")
 
-plt.figure()
-# plt.stem(y_1[0,:], markerfmt="o")
-# plt.stem(y_2[0,:], markerfmt='*')
+plt.figure(0)
+# plt.stem(y_1[0,:], markerfmt='o',label='1')
 plt.scatter(range(len(beliefs[0,:,0])),beliefs[0,:,0])
-plt.grid()
+# # plt.grid()
+# plt.legend()
 
 plt.show()
