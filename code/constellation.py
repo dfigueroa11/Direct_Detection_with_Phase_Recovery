@@ -61,10 +61,13 @@ class constellation:
         # reshape and convert bits to decimal and use decimal number as index for mapping
         return self.mapping[t.sum(self.mask * bits.reshape(in_shape[:-1] + (-1, self.m)), -1)]
     
-    def diff_encoding(self, info_symbols, x0_idx=0):#one dim
-        info_symbols = t.concat((self.mapping[x0_idx:x0_idx+1],info_symbols))
+    def diff_encoding(self, info_symbols, init_phase_idx=0, dim=-1): 
+        """
+        applay differential decoding along the dim of info_symbols, given a initial state x0 assosiated to the index
+        x0_idx in mapping.
+        """
         phase_idx = t.unique(t.round(t.angle(info_symbols)), sorted=True, return_inverse=True)[1]
-        return t.abs(info_symbols[1:])*t.exp(self.phase_list[t.cumsum(phase_idx, dim=0)[1:]%len(self.phase_list)])
+        return t.abs(info_symbols)*t.exp(self.phase_list[(init_phase_idx+t.cumsum(phase_idx, dim=dim))%len(self.phase_list)])
 
     def bit2symbol_idx(self, bits):
         """
