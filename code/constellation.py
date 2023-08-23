@@ -22,7 +22,7 @@ class constellation:
     given in mapping.
     """
 
-    def __init__(self, mapping, device):
+    def __init__(self, mapping, device, diff_mapping=False):
         """
         :param mapping: t.Tensor which contains the constellation symbols, sorted according
             to their binary representation (MSB left).
@@ -36,6 +36,13 @@ class constellation:
         self.mask = 2 ** t.arange(self.m - 1, -1, -1).to(device)
 
         self.sub_consts = t.stack([t.stack([t.arange(self.M).reshape(2**(i+1),-1)[::2].flatten(), t.arange(self.M).reshape(2**(i+1),-1)[1::2].flatten()]) for i in range(self.m)]).to(device)
+        
+        if diff_mapping:
+            phase_list = t.angle(self.mapping)
+            out, idx = t.unique(t.round(phase_list*10**6), return_inverse=True)
+            self.phase_list = t.empty_like(out, dtype=t.cfloat)
+            for i,phase in enumerate(out):
+                self.phase_list[i] = 1j*phase_list[t.nonzero(idx == i)[0]]
 
         self.device = device
 
@@ -53,6 +60,11 @@ class constellation:
         assert in_shape[-1]/self.m == in_shape[-1]//self.m
         # reshape and convert bits to decimal and use decimal number as index for mapping
         return self.mapping[t.sum(self.mask * bits.reshape(in_shape[:-1] + (-1, self.m)), -1)]
+    
+    def diff_encoding(self, info_symbols, x0_idx=0):#one dim
+        info_symbols = t.concat((self.mapping[x0_idx:x0_idx+1],info_symbols))
+        phase_idx = t.unique(t.round(t.angle(info_symbols)), sorted=True, return_inverse=True)[1]
+        return t.abs(info_symbols[1:])*t.exp(self.phase_list[t.cumsum(phase_idx, dim=0)[1:]%len(self.phase_list)])
 
     def bit2symbol_idx(self, bits):
         """
