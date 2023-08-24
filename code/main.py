@@ -7,6 +7,7 @@ import calc_filters
 import constellation
 import bcjr_upsamp
 import channel_metrics as ch_met
+import constellation_maker as const_mk
 
 #################### System definition ##################
 DD_sys = DD_system.DD_system()
@@ -30,7 +31,7 @@ beta_2_s2_km = -2.168e-23
 fiber_len_km = 0
 
 ################# filters creation definition ###################
-pulse_shape_len = 7
+pulse_shape_len = 3
 channel_filt_len = 1
 rx_filt_len = 1
 
@@ -47,10 +48,10 @@ N_symbols = 20_000
 ###################### Constellation #########################
 
 
-SNR_dB = 0
+SNR_dB = 50
 
 
-mapping = torch.tensor([1,-1], dtype=torch.cfloat)
+mapping = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,1.23095942,np.pi,np.pi+1.23095942])), dtype=torch.cfloat)
 SNR_lin = 10**(SNR_dB/10)
 mapping *= torch.sqrt(SNR_lin/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping,'cpu')
@@ -72,9 +73,15 @@ symbols_hat = const.map(bits_hat.int())
 print(f"BER = {ch_met.get_ER(bits, bits_hat): .3f}")
 print(f"SER = {ch_met.get_ER(info_symbols, symbols_hat): .3f}")
 
-plt.figure(0)
-# plt.stem(y_1[0,:], markerfmt='o',label='1')
-plt.scatter(range(len(beliefs[0,:,0])),beliefs[0,:,0])
+print(torch.count_nonzero(symbols_hat_idx==0))
+print(torch.count_nonzero(symbols_hat_idx==1))
+print(torch.count_nonzero(symbols_hat_idx==2))
+print(torch.count_nonzero(symbols_hat_idx==3))
+
+for i in range(const.M):
+    plt.figure(i)
+    # plt.stem(y_1[0,:], markerfmt='o',label='1')
+    plt.scatter(range(len(beliefs[0,:,i])),beliefs[0,:,i])
 # # plt.grid()
 # plt.legend()
 
