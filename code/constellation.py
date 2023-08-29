@@ -38,7 +38,7 @@ class constellation:
         self.sub_consts = t.stack([t.stack([t.arange(self.M).reshape(2**(i+1),-1)[::2].flatten(), t.arange(self.M).reshape(2**(i+1),-1)[1::2].flatten()]) for i in range(self.m)]).to(device)
         
         self.phase_list = t.unique(t.round(t.angle(self.mapping), decimals=6))
-        self.diff_mapping = diff_mapping
+        self.diff_mapping = diff_mapping    # 2D tensor with the index of the phase of x_k given U_x (dim=0) and x_k-1 (dim=1)
 
         self.device = device
 
@@ -57,16 +57,19 @@ class constellation:
         # reshape and convert bits to decimal and use decimal number as index for mapping
         return self.mapping[t.sum(self.mask * bits.reshape(in_shape[:-1] + (-1, self.m)), -1)]
     
-    def diff_encoding(self, info_symbols, init_phase_idx=0, dim=-1): 
+    def diff_encoding(self, info_symbols, init_phase_idx=0): 
         """
-        applay differential decoding along the dim of info_symbols, given a initial state x0 assosiated to the index
-        x0_idx in mapping.
+        applay differential encoding of info_symbols (1D tensor), according to diff_mapping, and
+        given a initial state x0 assosiated to the phase index init_phase_idx in diff_mapping. 
         """
         assert self.diff_mapping is not None
-        shape = info_symbols.size()
-        angles = t.angle(t.flatten(info_symbols))
-        phase_idx = t.tensor([t.argmin(t.abs(self.phase_list-angle)) for angle in angles]).view(shape)
-        return t.abs(info_symbols)*t.exp(self.phase_list[(init_phase_idx+t.cumsum(phase_idx, dim=dim))%len(self.phase_list)])
+        info_sym_phase_idx = t.tensor([t.argmin(t.abs(self.phase_list-angle)) for angle in t.angle(info_symbols)])
+        diff_symbols = t.empty_like(info_symbols)
+        prev_phase_idx = init_phase_idx
+        for i,sym in enumerate(info_symbols):
+            diff_symbols[i] = t.abs(sym)*t.exp(1j*self.phase_list[self.diff_mapping[info_sym_phase_idx[i],prev_phase_idx]])
+            prev_phase_idx = self.diff_mapping[info_sym_phase_idx[i],prev_phase_idx]
+        return diff_symbols
 
     def bit2symbol_idx(self, bits):
         """

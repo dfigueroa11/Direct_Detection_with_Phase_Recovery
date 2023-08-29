@@ -52,15 +52,17 @@ SNR_dB = 50
 
 
 mapping = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,1.23095942,np.pi,np.pi+1.23095942])), dtype=torch.cfloat)
+diff_mapping = torch.tensor([[1,0,3,2],[0,1,2,3],[3,2,1,0],[2,3,0,1]])
 SNR_lin = 10**(SNR_dB/10)
 mapping *= torch.sqrt(SNR_lin/torch.mean(torch.abs(mapping)**2))
-const = constellation.constellation(mapping,'cpu',0)
+const = constellation.constellation(mapping,'cpu',diff_mapping)
 bits = torch.randint(2,(N_symbols*const.m,))
 info_symbols = const.map(bits)
 
 print(const.phase_list)
 print(torch.angle(info_symbols))
 ch_symbols_1 = const.diff_encoding(info_symbols, init_phase_idx=0)
+print(torch.angle(ch_symbols_1))
 
 # y_1 = DD_sys.simulate_system_td(ch_symbols_1[None,:])
 
