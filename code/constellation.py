@@ -22,7 +22,7 @@ class constellation:
     given in mapping.
     """
 
-    def __init__(self, mapping, device, diff_mapp=None):
+    def __init__(self, mapping, device, diff_mapping=None):
         """
         :param mapping: t.Tensor which contains the constellation symbols, sorted according
             to their binary representation (MSB left).
@@ -38,7 +38,7 @@ class constellation:
         self.sub_consts = t.stack([t.stack([t.arange(self.M).reshape(2**(i+1),-1)[::2].flatten(), t.arange(self.M).reshape(2**(i+1),-1)[1::2].flatten()]) for i in range(self.m)]).to(device)
         
         self.phase_list = t.unique(t.round(t.angle(self.mapping), decimals=6))
-        
+        self.diff_mapping = diff_mapping
 
         self.device = device
 
@@ -62,7 +62,10 @@ class constellation:
         applay differential decoding along the dim of info_symbols, given a initial state x0 assosiated to the index
         x0_idx in mapping.
         """
-        phase_idx = t.unique(t.round(t.angle(info_symbols)), sorted=True, return_inverse=True)[1]
+        assert self.diff_mapping is not None
+        shape = info_symbols.size()
+        angles = t.angle(t.flatten(info_symbols))
+        phase_idx = t.tensor([t.argmin(t.abs(self.phase_list-angle)) for angle in angles]).view(shape)
         return t.abs(info_symbols)*t.exp(self.phase_list[(init_phase_idx+t.cumsum(phase_idx, dim=dim))%len(self.phase_list)])
 
     def bit2symbol_idx(self, bits):
