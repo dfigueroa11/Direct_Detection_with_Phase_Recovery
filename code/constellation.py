@@ -22,7 +22,7 @@ class constellation:
     given in mapping.
     """
 
-    def __init__(self, mapping, device):
+    def __init__(self, mapping, device, diff_mapp=None):
         """
         :param mapping: t.Tensor which contains the constellation symbols, sorted according
             to their binary representation (MSB left).
@@ -37,9 +37,8 @@ class constellation:
 
         self.sub_consts = t.stack([t.stack([t.arange(self.M).reshape(2**(i+1),-1)[::2].flatten(), t.arange(self.M).reshape(2**(i+1),-1)[1::2].flatten()]) for i in range(self.m)]).to(device)
         
-        phase_list_aux = t.angle(self.mapping)
-        out, idx = t.unique(t.round(phase_list_aux*10**6), return_inverse=True)
-        self.phase_list = t.tensor([1j*phase_list_aux[t.nonzero(idx == i)[0]] for i in range(len(out))], dtype=t.cfloat)
+        self.phase_list = t.unique(t.round(t.angle(self.mapping), decimals=6))
+        
 
         self.device = device
 
