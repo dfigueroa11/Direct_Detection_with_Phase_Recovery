@@ -243,7 +243,10 @@ class bcjr_upsamp:
 
     def upsamp_select(self, symbol_blocks, offset, length, late_states=True):
         if self.diff_decodding:
-            symbol_blocks = self.const.diff_encoding(symbol_blocks)
+            diff_symbol_blocks = t.empty_like(symbol_blocks)
+            for i in range(symbol_blocks.size(0)):
+                diff_symbol_blocks[i] = self.const.diff_encoding(symbol_blocks[i])
+            symbol_blocks = diff_symbol_blocks
         symbol_blocks = t.kron(symbol_blocks,t.eye(self.N_os)[-1])
         if length >= self.l_ch:
             return symbol_blocks[:,offset:offset+length+1]
