@@ -31,7 +31,7 @@ beta_2_s2_km = -2.168e-23
 fiber_len_km = 0
 
 ################# filters creation definition ###################
-pulse_shape_len = 9
+pulse_shape_len = 3
 channel_filt_len = 1
 rx_filt_len = 1
 
@@ -70,19 +70,51 @@ symbols_hat_idx = torch.argmax(beliefs[0,0:], dim=1)
 bits_hat = const.demap(symbols_hat_idx)
 symbols_hat = const.map(bits_hat.int())
 
+symbols_hat_idx_0 = torch.nonzero(symbols_hat_idx==0)
+symbols_hat_idx_1 = torch.nonzero(symbols_hat_idx==1)
+symbols_hat_idx_2 = torch.nonzero(symbols_hat_idx==2)
+symbols_hat_idx_3 = torch.nonzero(symbols_hat_idx==3)
+
+
+
+
 print(f"BER = {ch_met.get_ER(bits, bits_hat): .3f}")
 print(f"SER = {ch_met.get_ER(info_symbols, symbols_hat): .3f}")
 
-print(torch.count_nonzero(symbols_hat_idx==0))
-print(torch.count_nonzero(symbols_hat_idx==1))
-print(torch.count_nonzero(symbols_hat_idx==2))
-print(torch.count_nonzero(symbols_hat_idx==3))
+print(torch.angle(const.mapping))
+print(f'error idx0 -> idx2: {torch.count_nonzero(info_symbols[symbols_hat_idx_0]==const.mapping[2])}')
+print(f'error idx0 -> idx1: {torch.count_nonzero(info_symbols[symbols_hat_idx_0]==const.mapping[1])}')
+print(f'error idx0 -> idx3: {torch.count_nonzero(info_symbols[symbols_hat_idx_0]==const.mapping[3])}')
+print(f'error idx1 -> idx0: {torch.count_nonzero(info_symbols[symbols_hat_idx_1]==const.mapping[0])}')
+print(f'error idx1 -> idx2: {torch.count_nonzero(info_symbols[symbols_hat_idx_1]==const.mapping[2])}')
+print(f'error idx1 -> idx3: {torch.count_nonzero(info_symbols[symbols_hat_idx_1]==const.mapping[3])}')
+print(f'error idx2 -> idx0: {torch.count_nonzero(info_symbols[symbols_hat_idx_2]==const.mapping[0])}')
+print(f'error idx2 -> idx1: {torch.count_nonzero(info_symbols[symbols_hat_idx_2]==const.mapping[1])}')
+print(f'error idx2 -> idx3: {torch.count_nonzero(info_symbols[symbols_hat_idx_2]==const.mapping[3])}')
+print(f'error idx3 -> idx0: {torch.count_nonzero(info_symbols[symbols_hat_idx_3]==const.mapping[0])}')
+print(f'error idx3 -> idx1: {torch.count_nonzero(info_symbols[symbols_hat_idx_3]==const.mapping[1])}')
+print(f'error idx3 -> idx2: {torch.count_nonzero(info_symbols[symbols_hat_idx_3]==const.mapping[2])}')
 
-for i in range(const.M):
-    plt.figure(i)
-    # plt.stem(y_1[0,:], markerfmt='o',label='1')
-    plt.scatter(range(len(beliefs[0,:,i])),beliefs[0,:,i])
-# # plt.grid()
-# plt.legend()
+# # for i in range(const.M):
+# plt.figure(0)
+#     # plt.stem(y_1[0,:], markerfmt='o',label='1')
+#     # plt.scatter(range(len(beliefs[0,:,i])),beliefs[0,:,i])
+# # # plt.grid()
+# # plt.legend()
 
+y_idx = torch.arange(1,len(y_1[0]),2)
+symbols_idx_0 = torch.nonzero(info_symbols==const.mapping[0])
+symbols_idx_1 = torch.nonzero(info_symbols==const.mapping[1])
+symbols_idx_2 = torch.nonzero(info_symbols==const.mapping[2])
+symbols_idx_3 = torch.nonzero(info_symbols==const.mapping[3])
+lim_min = float(torch.min(y_1))
+lim_max = float(torch.max(y_1))
+
+plt.figure(0)
+plt.hist(y_1[0,y_idx[symbols_idx_0[:,0]]],bins=40,range=(lim_min,lim_max), alpha=0.3, label='0')
+plt.hist(y_1[0,y_idx[symbols_idx_1[:,0]]],bins=40,range=(lim_min,lim_max), alpha=0.3, label='1.23')
+plt.hist(y_1[0,y_idx[symbols_idx_2[:,0]]],bins=40,range=(lim_min,lim_max), alpha=0.3, label='pi')
+plt.hist(y_1[0,y_idx[symbols_idx_3[:,0]]],bins=40,range=(lim_min,lim_max), alpha=0.3, label='-1.91')
+
+plt.legend()
 plt.show()
