@@ -10,7 +10,7 @@ class DD_system():
     channel_td = None
     g_rx_td = None
     Ts = None
-    
+
     G_tx_fd = None
     channel_fd = None
     G_rx_fd = None
@@ -59,7 +59,15 @@ class DD_system():
         signal =  self.convolve(signal, self.g_rx_td)
         delay = int(self.N_sim+(self.g_tx_td.size(2)+self.channel_td.size(2)+self.g_rx_td.size(2)-3)/2-1)
         stop = int(delay+symbols.size(1)*self.N_sim)
-        return signal#[:,delay:stop:int(self.N_sim/self.N_os)]
+        return signal[:,delay:stop:int(self.N_sim/self.N_os)]
+    
+    def get_auxiliary_equiv_channel(self, simbol_memory):
+        len = simbol_memory*self.N_os+1
+        equiv_channel = self.convolve(self.g_tx_td,self.channel_td)
+        delay = int((self.g_tx_td.size(2)+self.channel_td.size(2)-2)/2)
+        delta = (len-1)//2
+        return equiv_channel[0,0,delay-delta:delay+delta+1] 
+
     
     def convolve(self, signal, filt):
         filt_len = filt.size(dim=2)

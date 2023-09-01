@@ -1,4 +1,5 @@
 import torch
+from torch.nn.functional import pad
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -31,8 +32,8 @@ beta_2_s2_km = -2.168e-23
 fiber_len_km = 0
 
 ################# filters creation definition ###################
-pulse_shape_len = 3
-channel_filt_len = 1
+pulse_shape_len = 101
+channel_filt_len = 101
 rx_filt_len = 1
 
 g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time), dtype=torch.cfloat)
@@ -43,6 +44,7 @@ g_rx_td = torch.tensor(calc_filters.fd_rc_td(0, rx_filt_len, fs, symbol_time/2),
 DD_sys.g_rx_td = g_rx_td[None, None,:]
 
 ################# Simulation definition ####################
+sym_mem_aux_ch = 1
 N_symbols = 20_000
 
 ###################### Constellation #########################
@@ -61,9 +63,9 @@ info_symbols = const.map(bits)
 
 ch_symbols_1 = const.diff_encoding(info_symbols, init_phase_idx=0)
 
-y_1 = DD_sys.simulate_system_td(ch_symbols_1[None,:])
+y_1 = DD_sys.simulate_system_td(pad(ch_symbols_1, (sym_mem_aux_ch,0), 'constant', 0)[None,:])
 
-decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.g_tx_td[0,0,:], 0, N_symbols, const, DD_sys.N_os, diff_decoding=True)
+decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.get_auxiliary_equiv_channel(sym_mem_aux_ch), 0, N_symbols, const, DD_sys.N_os, diff_decoding=True)
 beliefs = decoder.compute_true_apps(y_1, log_out=False, P_s0=None)#(torch.eye(const.M)[0:1,:]-1)*1e10)
 
 symbols_hat_idx = torch.argmax(beliefs[0,0:], dim=1)
