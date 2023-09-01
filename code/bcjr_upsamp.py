@@ -68,6 +68,8 @@ class bcjr_upsamp:
 
         likelihoods = []
         for n in range(self.block_len + self.l_sym):
+            if n%((self.block_len + self.l_sym)//20) == 0:
+                print(f'\t\tlikelihoods: {n/(self.block_len + self.l_sym): .1%}', end='\r')
             if n < self.l_sym:  # The dimension is reduced because we have less than self.l predecessing symbols.
                 likelihood = 0
                 for samp in range(self.N_os):
@@ -83,7 +85,7 @@ class bcjr_upsamp:
                 for samp in range(self.N_os):
                     likelihood += (-self.esno_lin[:,None] * t.abs(y[:, self.N_os*n+samp, None].unsqueeze(-1) - t.abs(tx_space[samp].unsqueeze(0))**2) ** 2).view([batch_size] + (self.l_sym + 1) * [self.const.M])
                 likelihoods.append(likelihood)
-            
+        print("                                                    ", end='\r')
         # Compute forward and backward path
         f2v_msgs_backward = [-np.log(self.const.M) * t.ones((batch_size, self.const.M), device=self.device)]
         if P_s0 is None:
@@ -92,6 +94,9 @@ class bcjr_upsamp:
             f2v_msgs_forward = [P_s0]   # useful for differential coding
 
         for n in range(self.block_len + self.l_sym - 1):
+            if n%((self.block_len + self.l_sym - 1)//20) == 0:
+                print(f'\t\tFBA: {n/(self.block_len + self.l_sym - 1): .1%}', end='\r')
+    
             # VN update
             v2f_forward = likelihoods[n] + f2v_msgs_forward[n]
             n_back = self.block_len + self.l_sym - 1 - n  # inverted index for backward path
@@ -109,18 +114,22 @@ class bcjr_upsamp:
             #normalization
             f2v_msgs_backward[-1] -= t.max(f2v_msgs_backward[-1])
             f2v_msgs_forward[-1] -= t.max(f2v_msgs_forward[-1])
-        # Final marginalization.
-        
+        print("                                                    ", end='\r')
+
         ## wierd the indexing of n and why likelihood again
 
         beliefs = t.empty((batch_size, self.block_len, self.const.M), device=self.device)
         for n in range(self.block_len):
+            if n%(self.block_len//20) == 0:
+                print(f'\t\tbeliefs: {n/self.block_len: .1%}', end='\r')
+    
             if n == 0:
                 beliefs[:, n, :] = f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n]
             elif n < self.l_sym:
                 beliefs[:, n, :] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n],dim=list(range(1, n + 1)))
             else:
                 beliefs[:, n, :] = t.logsumexp(f2v_msgs_forward[n] + f2v_msgs_backward[-(n + 1)] + likelihoods[n],dim=list(range(1, self.l_sym + 1)))
+        print("                                                    ", end='\r')
             
 
         if pairwise_beliefs_out:
