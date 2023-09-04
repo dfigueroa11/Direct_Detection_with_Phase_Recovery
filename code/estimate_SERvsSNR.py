@@ -34,8 +34,8 @@ fiber_len_km = 0
 
 ################# filters creation definition ###################
 rc_alpha = 0
-pulse_shape_len = 101
-channel_filt_len = 101
+pulse_shape_len = 21
+channel_filt_len = 1
 rx_filt_len = 1
 
 g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time), dtype=torch.cfloat)
@@ -56,12 +56,12 @@ mapping_BPSK = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,np.pi])), 
 diff_mapping_BPSK = torch.tensor([[1,0],[0,1]])
 
 ################# Simulation definition ####################
-file_name = 'my_constellation.pkl'
+file_name = 'SER_N10_DDSQAM_QAM.pkl'
 N_symbols = 20_000
-mapping_list = [mapping_DDSQAM, mapping_QAM, mapping_BPSK]
-diff_mapping_list = [diff_mapping_DDSQAM, diff_mapping_QAM, diff_mapping_BPSK]
+mapping_list = [mapping_DDSQAM, mapping_QAM]
+diff_mapping_list = [diff_mapping_DDSQAM, diff_mapping_QAM]
 SNR_dB_list = [*range(-5,14)]
-sym_mem_aux_ch_list = [7]
+sym_mem_aux_ch_list = [1,]
 
 #################### Simulation #########################
 
@@ -103,8 +103,8 @@ for i, (mapping, diff_mapping) in enumerate(zip(mapping_list,diff_mapping_list))
             results['alpha_dB_km'] =  alpha_dB_km
             results['beta_2_s2_km'] = beta_2_s2_km
             results['fiber_len_km'] = fiber_len_km
-            results['mapping'] = mapping
-            results['diff_mapping'] = diff_mapping
+            results['mapping'] = mapping_list
+            results['diff_mapping'] = diff_mapping_list
             results['N_symbols'] = N_symbols
             results['SNR_dB_list'] = SNR_dB_list
             results['sym_mem_aux_ch_list'] = sym_mem_aux_ch_list
