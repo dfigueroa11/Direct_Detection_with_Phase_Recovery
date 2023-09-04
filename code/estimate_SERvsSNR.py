@@ -34,8 +34,8 @@ fiber_len_km = 0
 
 ################# filters creation definition ###################
 rc_alpha = 0
-pulse_shape_len = 21
-channel_filt_len = 1
+pulse_shape_len = 101
+channel_filt_len = 101
 rx_filt_len = 1
 
 g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time), dtype=torch.cfloat)
@@ -56,12 +56,12 @@ mapping_BPSK = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,np.pi])), 
 diff_mapping_BPSK = torch.tensor([[1,0],[0,1]])
 
 ################# Simulation definition ####################
-file_name = 'SER_N10_DDSQAM_QAM.pkl'
+file_name = 'SER_N7_DDSQAM_QAM.pkl'
 N_symbols = 20_000
-mapping_list = [mapping_DDSQAM, mapping_QAM]
+mapping_list = [mapping_DDSQAM,]
 diff_mapping_list = [diff_mapping_DDSQAM, diff_mapping_QAM]
 SNR_dB_list = [*range(-5,14)]
-sym_mem_aux_ch_list = [1,]
+sym_mem_aux_ch_list = [7,]
 
 #################### Simulation #########################
 
@@ -82,7 +82,7 @@ for i, (mapping, diff_mapping) in enumerate(zip(mapping_list,diff_mapping_list))
             info_symbols = const.map(bits)
             ch_symbols_1 = const.diff_encoding(info_symbols, init_phase_idx=0)
 
-            y_1 = DD_sys.simulate_system_td(pad(ch_symbols_1, (sym_mem_aux_ch,0), 'constant', 0)[None,:])
+            y_1 = DD_sys.simulate_system_td(pad(ch_symbols_1, (sym_mem_aux_ch,0), 'constant', 0)[None,:], sym_mem_aux_ch-1)
 
             decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.get_auxiliary_equiv_channel(sym_mem_aux_ch), 0, N_symbols, const, DD_sys.N_os, diff_decoding=True)
             beliefs = decoder.compute_true_apps(y_1, log_out=False, P_s0=None)#(torch.eye(const.M)[0:1,:]-1)*1e10)

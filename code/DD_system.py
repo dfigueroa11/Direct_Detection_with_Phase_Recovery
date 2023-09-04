@@ -46,7 +46,7 @@ class DD_system():
         return signal_td[:,delay:stop:int(self.N_sim/self.N_os)]
 
 
-    def simulate_system_td(self, symbols):
+    def simulate_system_td(self, symbols, offset=0):
         self.check_system_ready_td_sym()
 
         syms_up_samp = self.up_sample_symbols(symbols)
@@ -57,7 +57,7 @@ class DD_system():
         signal = self.square_law_detection(signal)
 
         signal =  self.convolve(signal, self.g_rx_td)
-        delay = int(self.N_sim+(self.g_tx_td.size(2)+self.channel_td.size(2)+self.g_rx_td.size(2)-3)/2-1)
+        delay = int(self.N_sim+(self.g_tx_td.size(2)+self.channel_td.size(2)+self.g_rx_td.size(2)-3)/2-1)+offset
         stop = int(delay+symbols.size(1)*self.N_sim)
         return signal[:,delay:stop:int(self.N_sim/self.N_os)]
     

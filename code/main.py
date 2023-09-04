@@ -73,7 +73,7 @@ for i,sym_mem_aux_ch in enumerate(sym_mem_aux_ch_list):
         info_symbols = const.map(bits)
         ch_symbols_1 = const.diff_encoding(info_symbols, init_phase_idx=0)
 
-        y_1 = DD_sys.simulate_system_td(pad(ch_symbols_1, (sym_mem_aux_ch,0), 'constant', 0)[None,:])
+        y_1 = DD_sys.simulate_system_td(pad(ch_symbols_1, (sym_mem_aux_ch,0), 'constant', 0)[None,:], sym_mem_aux_ch-1)
 
         decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.get_auxiliary_equiv_channel(sym_mem_aux_ch), 0, N_symbols, const, DD_sys.N_os, diff_decoding=True)
         beliefs = decoder.compute_true_apps(y_1, log_out=False, P_s0=None)#(torch.eye(const.M)[0:1,:]-1)*1e10)

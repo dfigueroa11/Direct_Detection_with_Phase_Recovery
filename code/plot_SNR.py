@@ -3,7 +3,7 @@ import torch
 import matplotlib.pyplot as plt
 
 results = []
-N = 6
+N = 2
 for i in range(1,N+1):
     file_name = f'SER_N{i:d}_DDSQAM_QAM.pkl'
     with open(file_name, 'rb') as file:
