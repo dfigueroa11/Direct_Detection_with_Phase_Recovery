@@ -34,7 +34,7 @@ fiber_len_km = 0
 
 ################# filters creation definition ###################
 rc_alpha = 0
-pulse_shape_len = 101
+pulse_shape_len = 29
 channel_filt_len = 101
 rx_filt_len = 1
 
@@ -56,12 +56,12 @@ mapping_BPSK = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,np.pi])), 
 diff_mapping_BPSK = torch.tensor([[1,0],[0,1]])
 
 ################# Simulation definition ####################
-file_name = 'SER_N7_DDSQAM_QAM.pkl'
+file_name = 'SER_N14_BPSK_ideal.pkl'
 N_symbols = 20_000
-mapping_list = [mapping_DDSQAM,]
-diff_mapping_list = [diff_mapping_DDSQAM, diff_mapping_QAM]
-SNR_dB_list = [*range(-5,14)]
-sym_mem_aux_ch_list = [7,]
+mapping_list = [mapping_BPSK,]
+diff_mapping_list = [diff_mapping_BPSK,]
+SNR_dB_list = [*range(-5,14,3)]
+sym_mem_aux_ch_list = [14,]
 
 #################### Simulation #########################
 
