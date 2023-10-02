@@ -46,6 +46,7 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
     tx_syms = const.diff_encoding(info_symbols, init_phase_idx=0)
 
     y = DD_sys.simulate_system_td(tx_syms[None,:],sym_mem-1)
+
     psi_n = DD_sys.get_auxiliary_equiv_channel(sym_mem).flip(0)
     Psi_mat = torch.zeros(2*block_len, 2*block_len+2*sym_mem, dtype=torch.cfloat)
     for i in range(2*block_len):
@@ -61,15 +62,15 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
 
     return y[0,:2*block_len:2], y[0,1:2*block_len:2], Psi_e_mat_ml, Psi_o_mat_ml, tx_syms_ml
 
-def data_generation(block_len, sym_mem, batch_size, snr, snr_var, const, device):    
+def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, device):    
     y_e = torch.empty((batch_size,block_len), device=device)
     y_o = torch.empty((batch_size,block_len), device=device)
     Psi_e = torch.empty((batch_size,2*block_len, 2*(block_len+sym_mem)), device=device)
     Psi_o = torch.empty((batch_size,2*block_len, 2*(block_len+sym_mem)), device=device)
     tx_syms = torch.empty((batch_size,2*(block_len+sym_mem)), device=device)
 
-    snr_lin = 10.0 ** ((snr+2*snr_var*(torch.rand(batch_size)-0.5))/10.0)
+    snr_lin = 10.0 ** ((snr_dB+2*snr_dB_var*(torch.rand(batch_size)-0.5))/10.0)
     for i in range(batch_size):
-        y_e[i], y_e[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const)
+        y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const)
 
     return y_e, y_o, Psi_e, Psi_o, tx_syms
