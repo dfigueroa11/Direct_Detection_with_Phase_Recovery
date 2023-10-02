@@ -76,10 +76,22 @@ def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, d
     return y_e, y_o, Psi_e, Psi_o, tx_syms
 
 ############################ One Hot functions #################################
-
-def sym_2_oh():
-    pass
-
+def sym_2_oh(mapp_re, mapp_im, syms, device):
+    mapp_re_len = len(mapp_re)
+    mapp_im_len = len(mapp_im)
+    syms_len = syms.size(1)//2
+    batch_size = syms.size(0)
+    oh_re = torch.eye(mapp_re_len)
+    oh_im = torch.eye(mapp_im_len)
+    syms_oh_re = torch.empty((batch_size,syms_len,mapp_re_len))
+    syms_oh_im = torch.empty((batch_size,syms_len,mapp_im_len))
+    for i in range(batch_size):
+        for j, (sym_re,sym_im) in enumerate(zip(syms[i,:syms_len],syms[i,syms_len:])):
+           syms_oh_re[i,j,:] = oh_re[torch.where(torch.isclose(sym_re,mapp_re,rtol=0, atol=1e-5))]
+           syms_oh_im[i,j,:] = oh_im[torch.where(torch.isclose(sym_im,mapp_im,rtol=0, atol=1e-5))]
+    syms_oh = torch.cat((syms_oh_re.reshape(batch_size,-1),syms_oh_im.reshape(batch_size,-1)),1)
+    syms_oh.to(device)
+    return syms_oh
 
 def oh_2_sym(mapp_re, mapp_im, syms_oh, syms_len, device):
     mapp_re_len = len(mapp_re)
