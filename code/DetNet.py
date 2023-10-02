@@ -11,7 +11,7 @@ import constellation
 import bcjr_upsamp
 import channel_metrics as ch_met
 import constellation_maker as const_mk
-import data_generation_DetNet as data_gen
+import DetNet_aux_functions as aux_func
 
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -31,9 +31,10 @@ diff_mapping = torch.tensor([[1,0,3,2],[0,1,2,3],[3,2,1,0],[2,3,0,1]])
 mapping *= torch.sqrt(1/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping, device ,diff_mapping)
 
+################### training hyperparameters #######################
 batch_size = 1
-y_e, y_o, Psi_e, Psi_o, tx_syms = data_gen.data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, device)
 
 
 
 
+y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, device)

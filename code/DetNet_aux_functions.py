@@ -74,3 +74,23 @@ def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, d
         y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const)
 
     return y_e, y_o, Psi_e, Psi_o, tx_syms
+
+############################ One Hot functions #################################
+
+def sym_2_oh():
+    pass
+
+
+def oh_2_sym(mapp_re, mapp_im, syms_oh, syms_len, device):
+    mapp_re_len = len(mapp_re)
+    mapp_im_len = len(mapp_im)
+    syms_oh_re = syms_oh[:,:syms_len*mapp_re_len].reshape(-1, syms_len, mapp_re_len)
+    syms_oh_im = syms_oh[:,syms_len*mapp_re_len:].reshape(-1, syms_len, mapp_im_len)
+    syms = torch.cat((torch.matmul(syms_oh_re, mapp_re),torch.matmul(syms_oh_im, mapp_im)),1)
+    syms.to(device)
+    return syms
+
+
+
+
+
