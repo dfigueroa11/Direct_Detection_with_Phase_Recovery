@@ -38,6 +38,8 @@ class constellation:
         self.sub_consts = t.stack([t.stack([t.arange(self.M).reshape(2**(i+1),-1)[::2].flatten(), t.arange(self.M).reshape(2**(i+1),-1)[1::2].flatten()]) for i in range(self.m)]).to(device)
         
         self.phase_list = t.unique(t.round(t.angle(self.mapping), decimals=6))
+        self.mapping_re = t.unique(t.round(t.real(self.mapping), decimals=6))
+        self.mapping_im = t.unique(t.round(t.imag(self.mapping), decimals=6))
         self.diff_mapping = diff_mapping    # 2D tensor with the index of the phase of x_k given U_x (dim=0) and x_k-1 (dim=1)
 
         self.device = device
