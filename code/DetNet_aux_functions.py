@@ -27,7 +27,7 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
 
     ################# filters creation definition ###################
     rc_alpha = 0
-    pulse_shape_len = 101
+    pulse_shape_len = 3
     channel_filt_len = 1
     rx_filt_len = 1
 
