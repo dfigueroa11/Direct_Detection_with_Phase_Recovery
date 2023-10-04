@@ -39,9 +39,7 @@ class constellation:
         
         self.phase_list = t.unique(t.round(t.angle(self.mapping), decimals=10))
         self.mapping_re = t.unique(t.round(t.real(self.mapping), decimals=10))
-        print(self.mapping_re)
         self.mapping_im = t.unique(t.round(t.imag(self.mapping), decimals=10))
-        print(self.mapping_im)
         self.diff_mapping = diff_mapping    # 2D tensor with the index of the phase of x_k given U_x (dim=0) and x_k-1 (dim=1)
 
         self.device = device
