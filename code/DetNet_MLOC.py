@@ -42,8 +42,8 @@ v_len = 2*K
 z_len = 8*K
 
 # Training params
-training_steps = 10_000
-batch_size_train = 5_000
+training_steps = 1
+batch_size_train = 5
 snr_var_train = 3.0 # Maximum absolute deviation of the SNR from its mean in logarithmic scale.
 
 # Test params
@@ -56,6 +56,8 @@ def own_loss(t, t_train, t_ZF):
     loss_l = torch.zeros(len(t), 1, device=device)        # Denotes the loss in Layer L
     for layer in range(1,len(t)+1):
         loss_l[layer-1] = torch.log(torch.Tensor([layer+1]).to(device))*torch.mean(torch.mean(torch.square(t_train - t[layer-1]),1)/torch.mean(torch.square(t_train - t_ZF),1))
+    print((torch.mean(torch.square(t_train - t[layer-1]),1)).size())
+    print((torch.square(t_train - t[layer-1])).size())
     return loss_l
      
 
@@ -136,7 +138,8 @@ for i in range(training_steps):
     
     # Feed the training data to network and update weights.   
     t = model(Hr_train, HH_train)
-    
+    print(t.size)
+
     # compute loss
     # Calculate optimal decorrelation decoder to normalize the loss function later on.
     t_ZF = torch.squeeze(torch.matmul(torch.unsqueeze(Hr_train,1),torch.inverse(HH_train)), 1)
