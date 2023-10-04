@@ -3,9 +3,6 @@ import torch
 import DD_system
 import calc_filters
 
-
-
-
 ########################## Funtion to generate the training data ###############################
 def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
     #################### System definition ##################
@@ -65,8 +62,8 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
 def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, device):    
     y_e = torch.empty((batch_size,block_len), device=device)
     y_o = torch.empty((batch_size,block_len), device=device)
-    Psi_e = torch.empty((batch_size,2*block_len, 2*(block_len+sym_mem)), device=device)
-    Psi_o = torch.empty((batch_size,2*block_len, 2*(block_len+sym_mem)), device=device)
+    Psi_e = torch.empty((batch_size, 2*block_len, 2*(block_len+sym_mem)), device=device)
+    Psi_o = torch.empty((batch_size, 2*block_len, 2*(block_len+sym_mem)), device=device)
     tx_syms = torch.empty((batch_size,2*(block_len+sym_mem)), device=device)
 
     snr_lin = 10.0 ** ((snr_dB+2*snr_dB_var*(torch.rand(batch_size)-0.5))/10.0)
