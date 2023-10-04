@@ -102,7 +102,10 @@ def oh_2_sym(mapp_re, mapp_im, syms_oh, syms_len, device):
     syms.to(device)
     return syms
 
-
-
-
+############################### Loss functions ######################################
+def layer_loss_paper_learning_to_detect(x_oh, x_oh_train, device):
+    loss_l = torch.zeros(x_oh.size(0), 1, device=device)        # Denotes the loss in Layer L
+    for l, x_oh_l in enumerate(x_oh):
+        loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(torch.square(x_oh_train - x_oh_l),1))
+    return loss_l
 
