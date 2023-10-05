@@ -16,7 +16,7 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
 
     ################# Photo diode definition ################
     DD_sys.sigma_sh = 0
-    DD_sys.sigma_th = 1/torch.sqrt(snr_lin)
+    DD_sys.sigma_th = 1/snr_lin
     DD_sys.responsivity = 1
     DD_sys.on_off_noise = 1
 
