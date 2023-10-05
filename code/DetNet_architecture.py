@@ -56,7 +56,9 @@ class DetNet(nn.Module):
         batch_size = y_e.size(0)
         v = torch.zeros(batch_size, 2*self.v_len, device=self.device)
         x = torch.zeros(1, batch_size, 2*self.sym_len, device=self.device)
+        u = torch.zeros(1, batch_size, 2*self.sym_len, device=self.device)
         x_oh = torch.zeros(1, batch_size, self.sym_len*self.one_hot_len, device=self.device)
+
         # Send Data through the staced DetNet
         for l in range(self.layers):
             # calculate the gradient: q
@@ -80,11 +82,12 @@ class DetNet(nn.Module):
             x_oh = torch.cat((x_oh, x_oh[-1:] + self.linear_trafo_2_l[l](z)))
             # proyect and append result
             x = torch.cat((x, aux_func.oh_2_sym(mapp_re , mapp_im, x_oh[-1], self.sym_len, self.device).unsqueeze(0)), 0)
+            u = torch.cat((u,aux_func.diff_decoding(x[-1], self.sym_len, self.device).unsqueeze(0)),0)
             # Generate new v iterate with a final linear trafo.
             v = v + self.linear_trafo_3_l[l](z)
             del Psi_e_x, diag_Psi_e_x, A_e, Psi_o_x, diag_Psi_o_x, A_o, Psi_e_x_sql, Psi_o_x_sql, q, z 
             torch.cuda.empty_cache()
         del v
         torch.cuda.empty_cache()
-        return x[1:], x_oh[1:]
+        return x[1:], x_oh[1:], u[1:]
     

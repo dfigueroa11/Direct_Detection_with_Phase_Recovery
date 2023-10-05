@@ -40,7 +40,7 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
 
     bits = torch.randint(2,((block_len+sym_mem)*const.m,))
     info_symbols = const.map(bits)
-    tx_syms = const.diff_encoding(info_symbols, init_phase_idx=0)
+    tx_syms = const.diff_encoding(info_symbols, init_phase_idx=1)
 
     y = DD_sys.simulate_system_td(tx_syms[None,:],sym_mem-1)
 
@@ -65,7 +65,7 @@ def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, d
     Psi_e = torch.empty((batch_size, 2*block_len, 2*(block_len+sym_mem)), device=device)
     Psi_o = torch.empty((batch_size, 2*block_len, 2*(block_len+sym_mem)), device=device)
     tx_syms = torch.empty((batch_size,2*(block_len+sym_mem)), device=device)
-
+    
     snr_lin = 10.0 ** ((snr_dB+2*snr_dB_var*(torch.rand(batch_size)-0.5))/10.0)
     for i in range(batch_size):
         y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const)
@@ -99,10 +99,19 @@ def oh_2_sym(mapp_re, mapp_im, syms_oh, syms_len, device):
     syms.to(device)
     return syms
 
+############################ differential decoding #################################
+def diff_decoding(x, sym_len, device):
+    x_re = x[:,:sym_len]
+    x_im = x[:,sym_len:]
+    u_abs = torch.sqrt(torch.square(x_re)+torch.square(x_im))
+    u_phase = torch.abs(torch.diff(torch.atan2(x_im,x_re), prepend=torch.zeros(len(x_re),1, device=device), dim=1))
+    return torch.cat((u_abs*torch.cos(u_phase),u_abs*torch.sin(u_phase)),1)
+
 ############################### Loss functions ######################################
-def layer_loss_paper_learning_to_detect(x_oh, x_oh_train, device):
+def per_layer_loss_distance_square(x_oh, x_oh_train, device):
     loss_l = torch.zeros(x_oh.size(0), 1, device=device)        # Denotes the loss in Layer L
     for l, x_oh_l in enumerate(x_oh):
         loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(torch.square(x_oh_train - x_oh_l),1))
     return loss_l
+
 

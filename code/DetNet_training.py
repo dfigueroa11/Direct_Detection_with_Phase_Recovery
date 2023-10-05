@@ -47,8 +47,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
-training_steps = 200
-batch_size_train = 1_000
+training_steps = 400
+batch_size_train = 100
 
 model.train()
 
@@ -59,10 +59,11 @@ for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)
     tx_syms_oh = aux_func.sym_2_oh(const.mapping_re, const.mapping_im, tx_syms, device) 
+    ux_syms_tilde = aux_func.diff_decoding(tx_syms, sym_len, device)
     # feed data to the network
-    x, x_oh = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
+    x, x_oh, u = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
     # compute loss
-    loss = torch.sum(aux_func.layer_loss_paper_learning_to_detect(x_oh, tx_syms_oh, device))
+    loss = torch.sum(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device))
     # compute gradients
     loss.backward()
     # Adapt weights
@@ -72,7 +73,7 @@ for i in range(training_steps):
 
     # Print the current progress of the training (Loss and BER).
     if i%50 == 0 or i == (training_steps-1):       
-        results.append(aux_func.layer_loss_paper_learning_to_detect(x_oh, tx_syms_oh, device).detach().cpu().numpy())
+        results.append(aux_func.per_layer_loss_distance_square(x_oh, tx_syms_oh, device).detach().cpu().numpy())
         sym_idx_train = const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:]).detach().cpu()
         sym_idx_DetNet = const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]).detach().cpu()
         bits_train = const.demap(sym_idx_train)
