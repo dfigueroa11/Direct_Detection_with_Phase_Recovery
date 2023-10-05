@@ -54,6 +54,7 @@ model.train()
 
 results = []
 ber = []
+ser = []
 for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)
@@ -70,12 +71,15 @@ for i in range(training_steps):
     optimizer.zero_grad()
 
     # Print the current progress of the training (Loss and BER).
-    if i%10 == 0 or i == (training_steps-1):       
+    if i%50 == 0 or i == (training_steps-1):       
         results.append(aux_func.layer_loss_paper_learning_to_detect(x_oh, tx_syms_oh, device).detach().cpu().numpy())
-        bits_train = const.demap(const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:])).detach().cpu()
-        bits_DetNet = const.demap(const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:])).detach().cpu()
+        sym_idx_train = const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:]).detach().cpu()
+        sym_idx_DetNet = const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]).detach().cpu()
+        bits_train = const.demap(sym_idx_train)
+        bits_DetNet = const.demap(sym_idx_DetNet)
         ber.append(ch_met.get_ER(bits_train.flatten(),bits_DetNet.flatten()))
-        print(f'Train step {i:_}\t\t current loss: {results[-1][-1]}, \t\tBER: {ber[-1]}')
+        ser.append(ch_met.get_ER(sym_idx_train.flatten(),sym_idx_DetNet.flatten()))
+        print(f'Train step {i:_}\t\tcurrent loss: {results[-1][-1]}\t\tBER: {ber[-1]}\t\tSER: {ser[-1]}')
         x_aux = x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]
         mean_error_vector = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
         print(torch.abs(const.mapping))
