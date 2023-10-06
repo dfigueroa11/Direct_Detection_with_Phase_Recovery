@@ -1,4 +1,5 @@
 import torch
+from torch.nn import ReLU
 
 import DD_system
 import calc_filters
@@ -99,6 +100,20 @@ def oh_2_sym(mapp_re, mapp_im, syms_oh, syms_len, device):
     syms.to(device)
     return syms
 
+############################ Projection functions #################################
+def soft_sign(x, t, relu):
+    return -1 + relu(x+t)/torch.abs(t) - relu(x-t)/torch.abs(t)  
+
+def soft_projection(x, t, proj, relu):
+    # proj: list of points to do the projection, must be sorted
+    # 0 < t <= 0 (if t>0 the projetion is not good) 
+    x_proj = torch.zeros_like(x) + proj[0]
+    for p1, p2 in zip(proj[:-1], proj[1:]):
+        a = (p1+p2)/2
+        b = (p2-p1)/2
+        x_proj += b*(soft_sign((x-a)/b, t, relu) + 1)
+    return x_proj
+
 ############################ differential decoding #################################
 def diff_decoding(x, sym_len, device):
     x_re = x[:,:sym_len]
@@ -106,12 +121,10 @@ def diff_decoding(x, sym_len, device):
     u_abs = torch.sqrt(torch.square(x_re)+torch.square(x_im))
     u_phase = torch.abs(torch.diff(torch.atan2(x_im,x_re), prepend=torch.zeros(len(x_re),1, device=device), dim=1))
     return torch.cat((u_abs*torch.cos(u_phase),u_abs*torch.sin(u_phase)),1)
-
+    
 ############################### Loss functions ######################################
 def per_layer_loss_distance_square(x_oh, x_oh_train, device):
     loss_l = torch.zeros(x_oh.size(0), 1, device=device)        # Denotes the loss in Layer L
     for l, x_oh_l in enumerate(x_oh):
         loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(torch.square(x_oh_train - x_oh_l),1))
     return loss_l
-
-
