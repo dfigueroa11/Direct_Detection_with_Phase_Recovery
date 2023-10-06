@@ -82,7 +82,8 @@ for i in range(training_steps):
         ber.append(ch_met.get_ER(bits_train.flatten(),bits_DetNet.flatten()))
         ser.append(ch_met.get_ER(sym_idx_train.flatten(),sym_idx_DetNet.flatten()))
         print(f'Train step {i:_}\t\tcurrent loss: {results[-1][-1]}\t\tBER: {ber[-1]}\t\tSER: {ser[-1]}')
-        x_aux = x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]
+        u = aux_func.diff_decoding(x[-1], sym_len, device)
+        x_aux = u[:,:sym_len]+1j*u[:,sym_len:]
         mean_error_vector = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
         print(torch.abs(const.mapping))
         print(mean_error_vector)
