@@ -1,4 +1,5 @@
 import torch
+from torch.nn import ReLU
 
 import DD_system
 import calc_filters
@@ -99,6 +100,20 @@ def oh_2_sym(mapp_re, mapp_im, syms_oh, syms_len, device):
     syms.to(device)
     return syms
 
+############################ Projection functions #################################
+def soft_sign(x, t, relu):
+    return -1 + relu(x+t)/torch.abs(t) - relu(x-t)/torch.abs(t)  
+
+def soft_projection(x, t, proj, relu):
+    # proj: list of points to do the projection, must be sorted
+    # 0 < t <= 0 (if t>0 the projetion is not good) 
+    x_proj = torch.zeros_like(x) + proj[0]
+    for p1, p2 in zip(proj[:-1], proj[1:]):
+        a = (p1+p2)/2
+        b = (p2-p1)/2
+        x_proj += b*(soft_sign((x-a)/b, t, relu) + 1)
+    return x_proj
+
 ############################ differential decoding #################################
 def diff_decoding(x, sym_len, device):
     x_re = x[:,:sym_len]
@@ -127,5 +142,3 @@ def per_layer_loss_distance_square(x_DetNet, x_train, device):
     for l, x_DetNet_l in enumerate(x_DetNet):
         loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(torch.square(x_train - x_DetNet_l),1))
     return loss_l
-
-
