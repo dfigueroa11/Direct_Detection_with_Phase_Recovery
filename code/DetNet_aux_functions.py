@@ -107,6 +107,20 @@ def diff_decoding(x, sym_len, device):
     u_phase = torch.abs(torch.diff(torch.atan2(x_im,x_re), prepend=torch.zeros(len(x_re),1, device=device), dim=1))
     return torch.cat((u_abs*torch.cos(u_phase),u_abs*torch.sin(u_phase)),1)
 
+############################ Square Law detection #################################
+def sql_detection(x, Psi_e, Psi_o, device):
+    batch_size = Psi_e.size(0)
+    if x.dim() == 2:
+        y_e = torch.bmm(Psi_e, x.unsqueeze(-1)).squeeze(-1)
+        y_o = torch.bmm(Psi_o, x.unsqueeze(-1)).squeeze(-1)
+        y_e_sql = torch.sum(torch.square(y_e).reshape(batch_size,2,-1),dim=1)
+        y_o_sql = torch.sum(torch.square(y_o).reshape(batch_size,2,-1),dim=1)
+        return torch.cat((y_e_sql,y_o_sql),dim=-1)
+    y_sql = torch.empty((x.size(0), batch_size, Psi_e.size(1)), device=device)
+    for i, x_l in enumerate(x):
+        y_sql[i] = sql_detection(x_l, Psi_e, Psi_o, device)
+    return y_sql
+
 ############################### Loss functions ######################################
 def per_layer_loss_distance_square(x_DetNet, x_train, device):
     loss_l = torch.zeros(x_DetNet.size(0), 1, device=device)        # Denotes the loss in Layer L
