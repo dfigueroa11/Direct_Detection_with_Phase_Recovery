@@ -48,11 +48,7 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 ###################### Training ################################
 # hyperparameters
 training_steps = 200
-<<<<<<< HEAD
 batch_size_train = 200
-=======
-batch_size_train = 100
->>>>>>> DetNet_proj
 
 model.train()
 
