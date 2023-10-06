@@ -47,8 +47,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
-training_steps = 4
-batch_size_train = 100
+training_steps = 200
+batch_size_train = 200
 
 model.train()
 
@@ -62,7 +62,9 @@ for i in range(training_steps):
     # feed data to the network
     x, x_oh = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
     # compute loss
-    loss = torch.sum(aux_func.per_layer_loss_distance_square(x, tx_syms, device))
+    tx_syms_sql = aux_func.sql_detection(tx_syms, Psi_e, Psi_o, device)
+    x_sql = aux_func.sql_detection(x, Psi_e, Psi_o, device)
+    loss = torch.sum(aux_func.per_layer_loss_distance_square(x_sql, tx_syms_sql, device))
     # compute gradients
     loss.backward()
     # Adapt weights
