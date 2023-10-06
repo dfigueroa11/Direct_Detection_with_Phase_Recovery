@@ -47,8 +47,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
-training_steps = 400
-batch_size_train = 100
+training_steps = 200
+batch_size_train = 200
 
 model.train()
 
@@ -73,7 +73,7 @@ for i in range(training_steps):
 
     # Print the current progress of the training (Loss and BER).
     if i%50 == 0 or i == (training_steps-1):       
-        results.append(aux_func.per_layer_loss_distance_square(x_oh, tx_syms_oh, device).detach().cpu().numpy())
+        results.append(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device).detach().cpu().numpy())
         sym_idx_train = const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:]).detach().cpu()
         sym_idx_DetNet = const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]).detach().cpu()
         bits_train = const.demap(sym_idx_train)
@@ -81,7 +81,7 @@ for i in range(training_steps):
         ber.append(ch_met.get_ER(bits_train.flatten(),bits_DetNet.flatten()))
         ser.append(ch_met.get_ER(sym_idx_train.flatten(),sym_idx_DetNet.flatten()))
         print(f'Train step {i:_}\t\tcurrent loss: {results[-1][-1]}\t\tBER: {ber[-1]}\t\tSER: {ser[-1]}')
-        x_aux = x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]
+        x_aux = u[-1,:,:sym_len]+1j*u[-1,:,sym_len:]
         mean_error_vector = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
         print(torch.abs(const.mapping))
         print(mean_error_vector)
