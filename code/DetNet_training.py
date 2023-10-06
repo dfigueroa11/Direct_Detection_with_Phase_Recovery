@@ -48,7 +48,11 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 ###################### Training ################################
 # hyperparameters
 training_steps = 200
+<<<<<<< HEAD
 batch_size_train = 200
+=======
+batch_size_train = 100
+>>>>>>> DetNet_proj
 
 model.train()
 
@@ -58,9 +62,8 @@ ser = []
 for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)
-    tx_syms_oh = aux_func.sym_2_oh(const.mapping_re, const.mapping_im, tx_syms, device) 
     # feed data to the network
-    x, x_oh = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
+    x, _, _ = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
     # compute loss
     tx_syms_sql = aux_func.sql_detection(tx_syms, Psi_e, Psi_o, device)
     x_sql = aux_func.sql_detection(x, Psi_e, Psi_o, device)
@@ -92,10 +95,6 @@ for i in range(training_steps):
     torch.cuda.empty_cache()
 
 x_aux = x_aux.flatten().detach()
-plt.figure()
-plt.hist(tx_syms_oh.flatten().detach().numpy())
-plt.figure()
-plt.hist(x_oh[-1].flatten().detach().numpy())
 plt.figure()
 plt.scatter(torch.real(x_aux),torch.imag(x_aux))
 plt.show()
