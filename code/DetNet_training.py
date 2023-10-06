@@ -59,11 +59,10 @@ for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)
     tx_syms_oh = aux_func.sym_2_oh(const.mapping_re, const.mapping_im, tx_syms, device) 
-    ux_syms_tilde = aux_func.diff_decoding(tx_syms, sym_len, device)
     # feed data to the network
-    x, x_oh, u = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
+    x, x_oh = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
     # compute loss
-    loss = torch.sum(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device))
+    loss = torch.sum(aux_func.per_layer_loss_distance_square(x, tx_syms, device))
     # compute gradients
     loss.backward()
     # Adapt weights
