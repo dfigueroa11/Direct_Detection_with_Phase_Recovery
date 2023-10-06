@@ -108,10 +108,10 @@ def diff_decoding(x, sym_len, device):
     return torch.cat((u_abs*torch.cos(u_phase),u_abs*torch.sin(u_phase)),1)
 
 ############################### Loss functions ######################################
-def per_layer_loss_distance_square(x_oh, x_oh_train, device):
-    loss_l = torch.zeros(x_oh.size(0), 1, device=device)        # Denotes the loss in Layer L
-    for l, x_oh_l in enumerate(x_oh):
-        loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(torch.square(x_oh_train - x_oh_l),1))
+def per_layer_loss_distance_square(x_DetNet, x_train, device):
+    loss_l = torch.zeros(x_DetNet.size(0), 1, device=device)        # Denotes the loss in Layer L
+    for l, x_DetNet_l in enumerate(x_DetNet):
+        loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(torch.square(x_train - x_DetNet_l),1))
     return loss_l
 
 
