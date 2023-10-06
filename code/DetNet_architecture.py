@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torch.nn.functional import sigmoid
 
 import DetNet_aux_functions as aux_func
 
@@ -16,7 +17,7 @@ class DetNet(nn.Module):
             nn.init.normal_(self.linear_trafo_1_l[i].bias, std = 0.01)
 
         self.linear_trafo_2_l = nn.ModuleList()
-        self.linear_trafo_2_l.extend([nn.Linear(2*z_len, sym_len*one_hot_len) for i in range(layers)]) #2* because of real and imag part
+        self.linear_trafo_2_l.extend([nn.Linear(2*z_len, 2*sym_len) for i in range(layers)]) #2* because of real and imag part
         for i in range(0, layers):
             nn.init.normal_(self.linear_trafo_2_l[i].weight, std = 0.01)
             nn.init.normal_(self.linear_trafo_2_l[i].bias, std = 0.01)
@@ -40,6 +41,12 @@ class DetNet(nn.Module):
         self.delta4_l = nn.ParameterList()
         self.delta4_l.extend([nn.Parameter(torch.rand(1, requires_grad=True, device=device)) for i in range(layers)])
 
+        # define the parameter for the soft projection
+        self.kappa_re_l = nn.ParameterList()
+        self.kappa_re_l.extend([nn.Parameter(torch.rand(1, requires_grad=True, device=device)) for i in range(layers)])
+        self.kappa_im_l = nn.ParameterList()
+        self.kappa_im_l.extend([nn.Parameter(torch.rand(1, requires_grad=True, device=device)) for i in range(layers)])
+    
         # ReLU as activation faunction
         self.relu = nn.ReLU()
 
@@ -78,7 +85,7 @@ class DetNet(nn.Module):
             # Apply linear transformation and ReLU
             z = self.relu(self.linear_trafo_1_l[l](torch.cat((q, v), 1)))
             # Apply linear transformation
-            x_oh = torch.cat((x_oh, x_oh[-1:] + self.linear_trafo_2_l[l](z)))
+            x_tilde = torch.cat((x_tilde, x_tilde[-1:] + self.linear_trafo_2_l[l](z)))
             # proyect and append result
             x = torch.cat((x, aux_func.oh_2_sym(mapp_re , mapp_im, x_oh[-1], self.sym_len, self.device).unsqueeze(0)), 0)
             # Generate new v iterate with a final linear trafo.
