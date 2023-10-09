@@ -6,7 +6,7 @@ import calc_filters
 ########################## Funtion to generate the training data ###############################
 def one_batch_data_generation(block_len, sym_mem, snr_lin, const, device):
     #################### System definition ##################
-    DD_sys = DD_system.DD_system()
+    DD_sys = DD_system.DD_system(device)
     DD_sys.N_sim = 2
     DD_sys.N_os = 2
     symbol_rate = 35e9
