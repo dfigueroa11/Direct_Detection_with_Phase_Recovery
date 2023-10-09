@@ -47,8 +47,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
-training_steps = 4
-batch_size_train = 10
+training_steps = 400
+batch_size_train = 200
 
 model.train()
 
