@@ -84,7 +84,7 @@ for i in range(training_steps):
         print(f'Train step {i:_}\t\tcurrent loss: {results[-1][-1]}')#\t\tBER: {ber[-1]}\t\tSER: {ser[-1]}')
         u = aux_func.diff_decoding(x[-1], sym_len, device)
         u_aux = u[:,:sym_len]+1j*u[:,sym_len:]
-        x_aux = x[:,:sym_len]+1j*x[:,sym_len:]
+        x_aux = x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]
         mean_error_vector_x = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
         mean_error_vector_u = torch.mean(torch.min(torch.abs(u_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
         print(f"EVM of u: {mean_error_vector_u}, \t\tEVM of x: {mean_error_vector_x}")
