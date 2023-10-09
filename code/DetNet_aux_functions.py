@@ -78,10 +78,10 @@ def sym_2_oh(mapp_re, mapp_im, syms, device):
     mapp_im_len = len(mapp_im)
     syms_len = syms.size(1)//2
     batch_size = syms.size(0)
-    oh_re = torch.eye(mapp_re_len)
-    oh_im = torch.eye(mapp_im_len)
-    syms_oh_re = torch.empty((batch_size,syms_len,mapp_re_len))
-    syms_oh_im = torch.empty((batch_size,syms_len,mapp_im_len))
+    oh_re = torch.eye(mapp_re_len, device=device)
+    oh_im = torch.eye(mapp_im_len, device=device)
+    syms_oh_re = torch.empty((batch_size,syms_len,mapp_re_len), device=device)
+    syms_oh_im = torch.empty((batch_size,syms_len,mapp_im_len), device=device)
     for i in range(batch_size):
         for j, (sym_re,sym_im) in enumerate(zip(syms[i,:syms_len],syms[i,syms_len:])):
            syms_oh_re[i,j,:] = oh_re[torch.where(torch.isclose(sym_re,mapp_re,rtol=0, atol=1e-5))]
