@@ -31,11 +31,11 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const, device):
     channel_filt_len = 1
     rx_filt_len = 1
 
-    g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time), dtype=torch.cfloat)
+    g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, pulse_shape_len, fs, symbol_time), dtype=torch.cfloat, device=device)
     DD_sys.g_tx_td = g_tx_td[None, None,:]
-    channel_td = torch.tensor(calc_filters.CD_fiber_td(alpha_dB_km, beta_2_s2_km, fiber_len_km, channel_filt_len, fs), dtype=torch.cfloat)
+    channel_td = torch.tensor(calc_filters.CD_fiber_td(alpha_dB_km, beta_2_s2_km, fiber_len_km, channel_filt_len, fs), dtype=torch.cfloat, device=device)
     DD_sys.channel_td = channel_td[None, None,:]
-    g_rx_td = torch.tensor(calc_filters.fd_rc_td(0, rx_filt_len, fs, symbol_time/2), dtype=torch.float64)
+    g_rx_td = torch.tensor(calc_filters.fd_rc_td(0, rx_filt_len, fs, symbol_time/2), dtype=torch.float64, device=device)
     DD_sys.g_rx_td = g_rx_td[None, None,:]
 
     bits = torch.randint(2,((block_len+sym_mem)*const.m,), device=device)
