@@ -49,6 +49,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # hyperparameters
 training_steps = 5_00
 batch_size_train = 1_00
+a_loss = 0.05
+w_loss = 50
 
 model.train()
 
@@ -63,7 +65,8 @@ for i in range(training_steps):
     # compute loss
     tx_syms_sql = aux_func.sql_detection(tx_syms, Psi_e, Psi_o, device)
     x_sql = aux_func.sql_detection(x, Psi_e, Psi_o, device)
-    loss = torch.sum(aux_func.per_layer_loss_distance_square(x_sql, tx_syms_sql, device))
+    loss = torch.sum(aux_func.per_layer_loss_distance_square(x_sql, tx_syms_sql, device)) + \
+           torch.sum(aux_func.per_layer_loss_onehotness(x_oh, a_loss, w_loss, device)) 
     # compute gradients
     loss.backward()
     # Adapt weights
@@ -74,7 +77,8 @@ for i in range(training_steps):
     # Print and save the current progress of the training
     if i%(training_steps//20) == 0 or i == (training_steps-1):       
         results.append(aux_func.per_layer_loss_distance_square(x_sql, tx_syms_sql, device).detach().cpu().numpy())
-        print(f'Train step {i:_}\t\tcurrent loss: {results[-1][-1]}')
+        results.append(aux_func.per_layer_loss_onehotness(x_oh, a_loss, w_loss, device).detach().cpu().numpy())
+        print(f'Train step {i:_}\n\tcurrent loss sql distance: \t{results[-2][-1]}\n\tcurrent loss onehotness: \t{results[-1][-1]}')
         u = aux_func.diff_decoding(x[-1], sym_len, device)
         u_aux = u[:,:sym_len]+1j*u[:,sym_len:]
         x_aux = x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]
