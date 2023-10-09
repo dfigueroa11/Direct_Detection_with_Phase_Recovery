@@ -47,14 +47,14 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
-training_steps = 4
-batch_size_train = 2
+training_steps = 50
+batch_size_train = 10
 
 model.train()
 
 results = []
-ber = []
-ser = []
+# ber = []
+# ser = []
 for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)
@@ -73,26 +73,28 @@ for i in range(training_steps):
     optimizer.zero_grad()
 
     # Print the current progress of the training (Loss and BER).
-    if i%50 == 0 or i == (training_steps-1):       
+    if i%200 == 0 or i == (training_steps-1):       
         results.append(aux_func.per_layer_loss_distance_square(x_sql, tx_syms_sql, device).detach().cpu().numpy())
-        sym_idx_train = const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:]).detach()
-        sym_idx_DetNet = const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]).detach()
-        bits_train = const.demap(sym_idx_train)
-        bits_DetNet = const.demap(sym_idx_DetNet)
-        ber.append(ch_met.get_ER(bits_train.flatten(),bits_DetNet.flatten()))
-        ser.append(ch_met.get_ER(sym_idx_train.flatten(),sym_idx_DetNet.flatten()))
-        print(f'Train step {i:_}\t\tcurrent loss: {results[-1][-1]}\t\tBER: {ber[-1]}\t\tSER: {ser[-1]}')
+        # sym_idx_train = const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:]).detach()
+        # sym_idx_DetNet = const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]).detach()
+        # bits_train = const.demap(sym_idx_train)
+        # bits_DetNet = const.demap(sym_idx_DetNet)
+        # ber.append(ch_met.get_ER(bits_train.flatten(),bits_DetNet.flatten()))
+        # ser.append(ch_met.get_ER(sym_idx_train.flatten(),sym_idx_DetNet.flatten()))
+        print(f'Train step {i:_}\t\tcurrent loss: {results[-1][-1]}')#\t\tBER: {ber[-1]}\t\tSER: {ser[-1]}')
         u = aux_func.diff_decoding(x[-1], sym_len, device)
-        x_aux = u[:,:sym_len]+1j*u[:,sym_len:]
-        mean_error_vector = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
-        print(torch.abs(const.mapping))
-        print(mean_error_vector)
+        u_aux = u[:,:sym_len]+1j*u[:,sym_len:]
+        x_aux = x[:,:sym_len]+1j*x[:,sym_len:]
+        mean_error_vector_x = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
+        mean_error_vector_u = torch.mean(torch.min(torch.abs(u_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
+        print(f"EVM of u: {mean_error_vector_u}, \t\tEVM of x: {mean_error_vector_x}")
 
 
     del y_e, y_o, Psi_e, Psi_o, tx_syms
     torch.cuda.empty_cache()
 
 x_aux = x_aux.flatten().detach().cpu()
+u_aux = u_aux.flatten().detach().cpu()
 plt.figure()
 plt.hist(tx_syms_oh.flatten().detach().cpu().numpy())
 plt.savefig('../../results/hist_x_oh.pdf', dpi=20)
@@ -100,7 +102,10 @@ plt.figure()
 plt.hist(x_oh[-1].flatten().detach().cpu().numpy())
 plt.savefig('../../results/hist_x_oh_hat.pdf', dpi=20)
 plt.figure()
-plt.scatter(torch.real(x_aux),torch.imag(x_aux))
+plt.scatter(torch.real(x_aux),torch.imag(x_aux), legend='x')
+plt.scatter(torch.real(u_aux),torch.imag(u_aux), legend='u')
+plt.legend()
+plt.grid()
 plt.savefig('../../results/scatter_x_hat.pdf', dpi=20)
 
 torch.save(model.state_dict(), '../../results/DetNet_test.pt')
