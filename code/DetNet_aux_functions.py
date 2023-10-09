@@ -4,7 +4,7 @@ import DD_system
 import calc_filters
 
 ########################## Funtion to generate the training data ###############################
-def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
+def one_batch_data_generation(block_len, sym_mem, snr_lin, const, device):
     #################### System definition ##################
     DD_sys = DD_system.DD_system()
     DD_sys.N_sim = 2
@@ -38,7 +38,7 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const):
     g_rx_td = torch.tensor(calc_filters.fd_rc_td(0, rx_filt_len, fs, symbol_time/2), dtype=torch.float64)
     DD_sys.g_rx_td = g_rx_td[None, None,:]
 
-    bits = torch.randint(2,((block_len+sym_mem)*const.m,))
+    bits = torch.randint(2,((block_len+sym_mem)*const.m,), device=device)
     info_symbols = const.map(bits)
     tx_syms = const.diff_encoding(info_symbols, init_phase_idx=1)
 
@@ -68,7 +68,7 @@ def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, d
     
     snr_lin = 10.0 ** ((snr_dB+2*snr_dB_var*(torch.rand(batch_size)-0.5))/10.0)
     for i in range(batch_size):
-        y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const)
+        y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const, device)
 
     return y_e, y_o, Psi_e, Psi_o, tx_syms
 

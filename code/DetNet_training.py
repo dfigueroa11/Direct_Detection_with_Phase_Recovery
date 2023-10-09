@@ -47,8 +47,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
-training_steps = 400
-batch_size_train = 100
+training_steps = 4
+batch_size_train = 10
 
 model.train()
 
@@ -93,13 +93,15 @@ for i in range(training_steps):
 x_aux = x_aux.flatten().detach()
 plt.figure()
 plt.hist(tx_syms_oh.flatten().detach().numpy())
+plt.savefig('../../results/hist_x_oh.pdf', dpi=20)
 plt.figure()
 plt.hist(x_oh[-1].flatten().detach().numpy())
+plt.savefig('../../results/hist_x_oh_hat.pdf', dpi=20)
 plt.figure()
 plt.scatter(torch.real(x_aux),torch.imag(x_aux))
-plt.show()
+plt.savefig('../../results/scatter_x_hat.pdf', dpi=20)
 
-torch.save(model.state_dict(), 'DetNet_test.pt')
+torch.save(model.state_dict(), '../../results/DetNet_test.pt')
 
 
 
