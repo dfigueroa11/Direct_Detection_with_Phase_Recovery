@@ -90,9 +90,9 @@ for i in range(training_steps):
     del y_e, y_o, Psi_e, Psi_o, tx_syms
     torch.cuda.empty_cache()
 
-x_aux = x_aux.flatten().detach()
+x_aux = x_aux.flatten().detach().cpu()
 plt.figure()
-plt.hist(tx_syms_oh.flatten().detach().numpy())
+plt.hist(tx_syms_oh.flatten().detach().cpu().numpy())
 plt.savefig('../../results/hist_x_oh.pdf', dpi=20)
 plt.figure()
 plt.hist(x_oh[-1].flatten().detach().cpu().numpy())
