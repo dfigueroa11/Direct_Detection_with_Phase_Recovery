@@ -74,8 +74,8 @@ for i in range(training_steps):
     # Print the current progress of the training (Loss and BER).
     if i%50 == 0 or i == (training_steps-1):       
         results.append(aux_func.per_layer_loss_distance_square(x_oh, tx_syms_oh, device).detach().cpu().numpy())
-        sym_idx_train = const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:]).detach().cpu()
-        sym_idx_DetNet = const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]).detach().cpu()
+        sym_idx_train = const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:]).detach()
+        sym_idx_DetNet = const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]).detach()
         bits_train = const.demap(sym_idx_train)
         bits_DetNet = const.demap(sym_idx_DetNet)
         ber.append(ch_met.get_ER(bits_train.flatten(),bits_DetNet.flatten()))
