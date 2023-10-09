@@ -21,7 +21,8 @@ class DD_system():
     sigma_th = None
     on_off_noise = None
 
-    def __init__(self):    
+    def __init__(self, device='cpu'):
+        self.device = device    
         pass
 
 
@@ -82,7 +83,7 @@ class DD_system():
         return square_law_signal + (shot_noise + thermal_noise)*self.on_off_noise
 
     def up_sample_symbols(self, symbols):
-        return torch.kron(symbols,torch.eye(self.N_sim)[-1])
+        return torch.kron(symbols,torch.eye(self.N_sim, device=self.device)[-1])
 
 
     def check_system_ready_fd_sym(self,symbols):
