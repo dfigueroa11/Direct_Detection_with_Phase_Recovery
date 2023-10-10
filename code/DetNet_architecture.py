@@ -89,7 +89,7 @@ class DetNet(nn.Module):
             # Apply linear transformation and ReLU
             z = self.relu(self.linear_trafo_1_l[l](torch.cat((q, v), 1)))
             # Apply linear transformation
-            x_tilde = torch.cat((x_tilde, self.norm_layer_l[l](x_tilde[-1] + self.linear_trafo_2_l[l](z)).unsqueeze(0)))
+            x_tilde = torch.cat((x_tilde, 0.5*self.norm_layer_l[l](x_tilde[-1] + self.linear_trafo_2_l[l](z)).unsqueeze(0)))
             # proyect and append result
             x = torch.cat((x, torch.cat((aux_func.soft_projection(x_tilde[-1,:,:self.sym_len], sigmoid(self.kappa_re_l[l]), mapp_re, self.relu),
                                          aux_func.soft_projection(x_tilde[-1,:,self.sym_len:], sigmoid(self.kappa_im_l[l]), mapp_im, self.relu)), dim=-1).unsqueeze(0)), 0)
