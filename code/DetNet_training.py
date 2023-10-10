@@ -20,7 +20,7 @@ print("We are using the following device for learning:",device)
 
 
 # System config
-sym_mem = 1
+sym_mem = 2
 ch_mem = 2*sym_mem+1
 block_len = 4
 sym_len = block_len+sym_mem
