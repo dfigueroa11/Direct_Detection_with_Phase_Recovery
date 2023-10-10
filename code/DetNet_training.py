@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-from torch.nn.functional import pad
 import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
