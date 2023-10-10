@@ -47,9 +47,9 @@ class DetNet(nn.Module):
 
         # define the parameter for the soft projection
         self.kappa_re_l = nn.ParameterList()
-        self.kappa_re_l.extend([nn.Parameter(8*(torch.rand(1, requires_grad=True, device=device)+0.5)) for i in range(layers)])
+        self.kappa_re_l.extend([nn.Parameter((torch.rand(1, requires_grad=True, device=device)-0.5)) for i in range(layers)])
         self.kappa_im_l = nn.ParameterList()
-        self.kappa_im_l.extend([nn.Parameter(8*(torch.rand(1, requires_grad=True, device=device)+0.5)) for i in range(layers)])
+        self.kappa_im_l.extend([nn.Parameter((torch.rand(1, requires_grad=True, device=device)-0.5)) for i in range(layers)])
     
         # ReLU as activation faunction
         self.relu = nn.ReLU()
