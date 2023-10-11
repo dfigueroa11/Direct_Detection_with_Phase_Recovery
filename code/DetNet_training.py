@@ -88,7 +88,7 @@ for i in range(training_steps):
         x_aux = x_aux.flatten().detach().cpu()
         u_aux = u_aux.flatten().detach().cpu()
         plt.figure()
-        plt.hist(x_oh[-1].copy().flatten().detach().cpu().numpy())
+        plt.hist(x_oh[-1].clone().flatten().detach().cpu().numpy())
         plt.savefig(f'../../results/hist_x_oh_hat_trainstep{i}.pdf', dpi=20)
         plt.figure()
         plt.scatter(torch.real(x_aux),torch.imag(x_aux), label='x')
