@@ -50,14 +50,10 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # hyperparameters
 training_steps = 500
 batch_size_train = 100
-a_loss = 0.1
-w_loss = 5
 
 model.train()
 
 results = []
-ber = []
-ser = []
 for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)

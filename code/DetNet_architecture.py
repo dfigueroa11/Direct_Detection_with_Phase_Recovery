@@ -11,7 +11,7 @@ class DetNet(nn.Module):
         # define the parameters for the linear transformation: (W1,b1), (W2,b2) and (W3,b3)
         sym_len = block_len + sym_mem
         self.linear_trafo_1_l = nn.ModuleList()
-        self.linear_trafo_1_l.extend([nn.Linear(2*(sym_len + v_len), 2*z_len) for i in range(layers)]) #2* because of real and imag part
+        self.linear_trafo_1_l.extend([nn.Linear(2*(5*sym_len + v_len), 2*z_len) for i in range(layers)]) #2* because of real and imag part
         for i in range(layers):
             nn.init.normal_(self.linear_trafo_1_l[i].weight, std = 0.2)
             nn.init.normal_(self.linear_trafo_1_l[i].bias, std = 0.2)
@@ -32,19 +32,6 @@ class DetNet(nn.Module):
         self.norm_layer_l = nn.ModuleList()
         self.norm_layer_l.extend([nn.BatchNorm1d(2*sym_len) for i in range(layers)]) #2* because of real and imag part   
         
-        # define the parameters for the gradient descent steps: delta_1l, ..., delta_4l
-        self.delta1_l = nn.ParameterList()
-        self.delta1_l.extend([nn.Parameter(torch.rand(1, requires_grad=True, device=device)) for i in range(layers)])
-        
-        self.delta2_l = nn.ParameterList()
-        self.delta2_l.extend([nn.Parameter(torch.rand(1, requires_grad=True, device=device)) for i in range(layers)])
-        
-        self.delta3_l = nn.ParameterList()
-        self.delta3_l.extend([nn.Parameter(torch.rand(1, requires_grad=True, device=device)) for i in range(layers)])
-        
-        self.delta4_l = nn.ParameterList()
-        self.delta4_l.extend([nn.Parameter(torch.rand(1, requires_grad=True, device=device)) for i in range(layers)])
-
         # define the parameter for the soft projection
         self.kappa_re_l = nn.ParameterList()
         self.kappa_re_l.extend([nn.Parameter(8*(torch.rand(1, requires_grad=True, device=device)+0.5)) for i in range(layers)])
@@ -83,14 +70,18 @@ class DetNet(nn.Module):
 
             Psi_e_x_sql = torch.sum(torch.square(Psi_e_x).reshape(batch_size,2,-1),dim=1).unsqueeze(-1)
             Psi_o_x_sql = torch.sum(torch.square(Psi_o_x).reshape(batch_size,2,-1),dim=1).unsqueeze(-1)
-                        
-            q = x[-1] - self.delta1_l[l]*torch.bmm(A_e,y_e.unsqueeze(-1)).squeeze(-1) + self.delta2_l[l]*torch.bmm(A_e,Psi_e_x_sql).squeeze(-1) \
-                - self.delta2_l[l]*torch.bmm(A_o,y_o.unsqueeze(-1)).squeeze(-1) + self.delta4_l[l]*torch.bmm(A_o,Psi_o_x_sql).squeeze(-1)
+            
+            cat = torch.cat((x[-1],
+                           torch.bmm(A_e,y_e.unsqueeze(-1)).squeeze(-1),
+                           torch.bmm(A_e,Psi_e_x_sql).squeeze(-1),
+                           torch.bmm(A_o,y_o.unsqueeze(-1)).squeeze(-1),
+                           torch.bmm(A_o,Psi_o_x_sql).squeeze(-1),
+                           v), dim=-1)
+            
             # Apply linear transformation and ReLU
-            z = self.relu(self.linear_trafo_1_l[l](torch.cat((q, v), 1)))
-            # Apply linear transformation and normalization
-            x_tilde = torch.cat((x_tilde, self.norm_layer_l[l](x_tilde[-1] + self.linear_trafo_2_l[l](z)).unsqueeze(0)))
-
+            z = self.relu(self.linear_trafo_1_l[l](cat))
+            # Apply linear transformation
+            x_tilde = torch.cat((x_tilde, x_tilde[-1:] + self.linear_trafo_2_l[l](z)))
             # proyect and append result
             x = torch.cat((x, torch.cat((aux_func.soft_projection(x_tilde[-1,:,:self.sym_len], sigmoid(self.kappa_re_l[l]), mapp_re, self.relu),
                                          aux_func.soft_projection(x_tilde[-1,:,self.sym_len:], sigmoid(self.kappa_im_l[l]), mapp_im, self.relu)), dim=-1).unsqueeze(0)), 0)
@@ -98,7 +89,7 @@ class DetNet(nn.Module):
             u = torch.cat((u,aux_func.diff_decoding(x[-1], self.sym_len, self.device).unsqueeze(0)),0)
             # Generate new v iterate with a final linear trafo.
             v = v + self.linear_trafo_3_l[l](z)
-            del Psi_e_x, diag_Psi_e_x, A_e, Psi_o_x, diag_Psi_o_x, A_o, Psi_e_x_sql, Psi_o_x_sql, q, z 
+            del Psi_e_x, diag_Psi_e_x, A_e, Psi_o_x, diag_Psi_o_x, A_o, Psi_e_x_sql, Psi_o_x_sql, cat, z 
             torch.cuda.empty_cache()
         del v
         torch.cuda.empty_cache()
