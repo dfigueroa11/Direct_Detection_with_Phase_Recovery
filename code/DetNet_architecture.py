@@ -13,24 +13,24 @@ class DetNet(nn.Module):
         self.linear_trafo_1_l = nn.ModuleList()
         self.linear_trafo_1_l.extend([nn.Linear(2*(sym_len + v_len), 2*z_len) for i in range(layers)]) #2* because of real and imag part
         for i in range(layers):
-            nn.init.normal_(self.linear_trafo_1_l[i].weight, std = 0.1)
-            nn.init.normal_(self.linear_trafo_1_l[i].bias, std = 0.1)
+            nn.init.normal_(self.linear_trafo_1_l[i].weight, std = 0.2)
+            nn.init.normal_(self.linear_trafo_1_l[i].bias, std = 0.2)
 
         self.linear_trafo_2_l = nn.ModuleList()
         self.linear_trafo_2_l.extend([nn.Linear(2*z_len, 2*sym_len) for i in range(layers)]) #2* because of real and imag part
         for i in range(0, layers):
-            nn.init.normal_(self.linear_trafo_2_l[i].weight, std = 0.1)
-            nn.init.normal_(self.linear_trafo_2_l[i].bias, std = 0.1)
+            nn.init.normal_(self.linear_trafo_2_l[i].weight, std = 0.2)
+            nn.init.normal_(self.linear_trafo_2_l[i].bias, std = 0.2)
         
         self.linear_trafo_3_l = nn.ModuleList()
         self.linear_trafo_3_l.extend([nn.Linear(2*z_len , 2*v_len) for i in range(layers)]) #2* because of real and imag part
         for i in range(0, layers):
-            nn.init.normal_(self.linear_trafo_3_l[i].weight, std = 0.1)
-            nn.init.normal_(self.linear_trafo_3_l[i].bias, std = 0.1)
+            nn.init.normal_(self.linear_trafo_3_l[i].weight, std = 0.2)
+            nn.init.normal_(self.linear_trafo_3_l[i].bias, std = 0.2)
         
         # define the normalization layers
         self.norm_layer_l = nn.ModuleList()
-        self.norm_layer_l.extend([nn.BatchNorm1d(2*sym_len, eps=1) for i in range(layers)]) #2* because of real and imag part   
+        self.norm_layer_l.extend([nn.BatchNorm1d(2*sym_len) for i in range(layers)]) #2* because of real and imag part   
         
         # define the parameters for the gradient descent steps: delta_1l, ..., delta_4l
         self.delta1_l = nn.ParameterList()
@@ -65,10 +65,10 @@ class DetNet(nn.Module):
             
     def forward(self, y_e, y_o, Psi_e, Psi_o, mapp_re, mapp_im):
         batch_size = y_e.size(0)
-        v = torch.zeros(batch_size, 2*self.v_len, device=self.device)
-        x = torch.zeros(1, batch_size, 2*self.sym_len, device=self.device)
-        x_tilde = torch.zeros(1, batch_size, 2*self.sym_len, device=self.device)
-        u = torch.zeros(1, batch_size, 2*self.sym_len, device=self.device)
+        v = 0.001*torch.ones(batch_size, 2*self.v_len, device=self.device)
+        x = 0.001*torch.ones(1, batch_size, 2*self.sym_len, device=self.device)
+        x_tilde = 0.001*torch.ones(1, batch_size, 2*self.sym_len, device=self.device)
+        u = 0.001*torch.ones(1, batch_size, 2*self.sym_len, device=self.device)
 
         # Send Data through the staced DetNet
         for l in range(self.layers):
@@ -83,10 +83,9 @@ class DetNet(nn.Module):
 
             Psi_e_x_sql = torch.sum(torch.square(Psi_e_x).reshape(batch_size,2,-1),dim=1).unsqueeze(-1)
             Psi_o_x_sql = torch.sum(torch.square(Psi_o_x).reshape(batch_size,2,-1),dim=1).unsqueeze(-1)
-            
+                        
             q = x[-1] - self.delta1_l[l]*torch.bmm(A_e,y_e.unsqueeze(-1)).squeeze(-1) + self.delta2_l[l]*torch.bmm(A_e,Psi_e_x_sql).squeeze(-1) \
                 - self.delta2_l[l]*torch.bmm(A_o,y_o.unsqueeze(-1)).squeeze(-1) + self.delta4_l[l]*torch.bmm(A_o,Psi_o_x_sql).squeeze(-1)
-            
             # Apply linear transformation and ReLU
             z = self.relu(self.linear_trafo_1_l[l](torch.cat((q, v), 1)))
             # Apply linear transformation and normalization
