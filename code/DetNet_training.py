@@ -61,14 +61,11 @@ ser = []
 for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)
-    tx_syms_oh = aux_func.sym_2_oh(const.mapping_re, const.mapping_im, tx_syms, device) 
     ux_syms_tilde = aux_func.diff_decoding(tx_syms, sym_len, device)
     # feed data to the network
-    x, x_oh, u = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
+    x, x_tilde, u = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
     # compute loss
-    loss = torch.sum(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device)) + \
-           torch.sum(aux_func.per_layer_loss_onehotness2(x_oh, a_loss, w_loss, device)) 
-
+    loss = torch.sum(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device))
     # compute gradients
     loss.backward()
     # Adapt weights
@@ -82,15 +79,14 @@ for i in range(training_steps):
         print(f'Train step {i:_}\tcurrent loss: {results[-1][-1]}')
         u_aux = u[-1,:,:sym_len]+1j*u[-1,:,sym_len:]
         x_aux = x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]
+        x_tilde_aux = x_tilde[-1,:,:sym_len]+1j*x_tilde[-1,:,sym_len:]
         mean_error_vector_x = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
         mean_error_vector_u = torch.mean(torch.min(torch.abs(u_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
         print(f"EVM of x_t: {mean_error_vector_u}, \t\tEVM of x: {mean_error_vector_x}")
         
         x_aux = x_aux.flatten().detach().cpu()
+        x_tilde_aux = x_tilde_aux.flatten().detach().cpu()
         u_aux = u_aux.flatten().detach().cpu()
-        plt.figure()
-        plt.hist(x_oh[-1].flatten().detach().cpu())
-        plt.savefig(f'../../results/hist_x_oh_trainstep{i}.pdf', dpi=20)
         plt.figure()
         plt.scatter(torch.real(u_aux),torch.imag(u_aux), label='u')
         plt.scatter(torch.real(x_aux),torch.imag(x_aux), label='x')
@@ -99,9 +95,17 @@ for i in range(training_steps):
         plt.ylim((-2.5,2.5))
         plt.grid()
         plt.savefig(f'../../results/scatter_x_hat_trainstep{i}.pdf', dpi=20)
+
+        plt.figure()
+        plt.scatter(torch.real(x_tilde_aux),torch.imag(x_tilde_aux), label='x')
+        plt.legend()
+        plt.xlim((-2.5,2.5))
+        plt.ylim((-2.5,2.5))
+        plt.grid()
+        plt.savefig(f'../../results/scatter_x_tilde_trainstep{i}.pdf', dpi=20)
         plt.close('all')
         torch.save(model.state_dict(), '../../results/DetNet_test.pt')
-        del u_aux, x_aux, mean_error_vector_x, mean_error_vector_u
+        del u_aux, x_aux, x_tilde_aux, mean_error_vector_x, mean_error_vector_u
 
     del y_e, y_o, Psi_e, Psi_o, tx_syms
     torch.cuda.empty_cache()
