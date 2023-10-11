@@ -30,7 +30,7 @@ class DetNet(nn.Module):
         
         # define the normalization layers
         self.norm_layer_l = nn.ModuleList()
-        self.norm_layer_l.extend([nn.BatchNorm1d(2*sym_len, eps=0.00001) for i in range(layers)]) #2* because of real and imag part   
+        self.norm_layer_l.extend([nn.BatchNorm1d(2*sym_len, eps=0.1) for i in range(layers)]) #2* because of real and imag part   
         
         # define the parameters for the gradient descent steps: delta_1l, ..., delta_4l
         self.delta1_l = nn.ParameterList()
