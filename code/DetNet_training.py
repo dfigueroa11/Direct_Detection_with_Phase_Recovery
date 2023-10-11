@@ -67,7 +67,7 @@ for i in range(training_steps):
     x, x_oh, u = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
     # compute loss
     loss = torch.sum(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device)) + \
-           torch.sum(aux_func.per_layer_loss_onehotness1(x_oh, a_loss, w_loss, device)) 
+           torch.sum(aux_func.per_layer_loss_onehotness2(x_oh, a_loss, w_loss, device)) 
 
     # compute gradients
     loss.backward()
