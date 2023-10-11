@@ -47,8 +47,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
-training_steps = 500
-batch_size_train = 100
+training_steps = 10_000
+batch_size_train = 1_000
 
 model.train()
 
@@ -70,7 +70,7 @@ for i in range(training_steps):
     optimizer.zero_grad()
 
     # Print and save the current progress of the training
-    if i%(training_steps//20) == 0 or i == (training_steps-1):       
+    if i%(training_steps//100) == 0 or i == (training_steps-1):       
         results.append(aux_func.per_layer_loss_distance_square(x_sql, tx_syms_sql, device).detach().cpu().numpy())
         print(f'Train step {i:_}\tcurrent loss: {results[-1][-1]}')
         x_tilde_aux = x_tilde[-1,:,:sym_len]+1j*x_tilde[-1,:,sym_len:]
