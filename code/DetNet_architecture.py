@@ -13,20 +13,20 @@ class DetNet(nn.Module):
         self.linear_trafo_1_l = nn.ModuleList()
         self.linear_trafo_1_l.extend([nn.Linear(2*(sym_len + v_len), 2*z_len) for i in range(layers)]) #2* because of real and imag part
         for i in range(layers):
-            nn.init.normal_(self.linear_trafo_1_l[i].weight, std = 0.1)
-            nn.init.normal_(self.linear_trafo_1_l[i].bias, std = 0.1)
+            nn.init.normal_(self.linear_trafo_1_l[i].weight, std = 0.3)
+            nn.init.normal_(self.linear_trafo_1_l[i].bias, std = 0.3)
 
         self.linear_trafo_2_l = nn.ModuleList()
         self.linear_trafo_2_l.extend([nn.Linear(2*z_len, 2*sym_len) for i in range(layers)]) #2* because of real and imag part
         for i in range(0, layers):
-            nn.init.normal_(self.linear_trafo_2_l[i].weight, std = 0.1)
-            nn.init.normal_(self.linear_trafo_2_l[i].bias, std = 0.1)
+            nn.init.normal_(self.linear_trafo_2_l[i].weight, std = 0.3)
+            nn.init.normal_(self.linear_trafo_2_l[i].bias, std = 0.3)
         
         self.linear_trafo_3_l = nn.ModuleList()
         self.linear_trafo_3_l.extend([nn.Linear(2*z_len , 2*v_len) for i in range(layers)]) #2* because of real and imag part
         for i in range(0, layers):
-            nn.init.normal_(self.linear_trafo_3_l[i].weight, std = 0.1)
-            nn.init.normal_(self.linear_trafo_3_l[i].bias, std = 0.1)
+            nn.init.normal_(self.linear_trafo_3_l[i].weight, std = 0.3)
+            nn.init.normal_(self.linear_trafo_3_l[i].bias, std = 0.3)
         
         # define the normalization layers
         self.norm_layer_l = nn.ModuleList()
