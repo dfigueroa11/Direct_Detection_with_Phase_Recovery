@@ -74,7 +74,7 @@ for i in range(training_steps):
     optimizer.zero_grad()
 
     # Print and save the current progress of the training
-    if i%(training_steps//20) == 0 or i == (training_steps-1):       
+    if i%(training_steps//20) == 0 or i == (training_steps-1) or i<5:       
         results.append(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device).detach().cpu().numpy())
         print(f'Train step {i:_}\tcurrent loss: {results[-1][-1]}')
         u_aux = u[-1,:,:sym_len]+1j*u[-1,:,sym_len:]
