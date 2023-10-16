@@ -81,7 +81,7 @@ for i in range(training_steps):
         results.append(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device).detach().cpu().numpy())
         print(f'Train step {i:_}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
         x = (x_mag[-1]*torch.exp(1j*x_phase[-1]))
-        x_diff = (x_mag*torch.exp(1j*x_phase_diff[-1]))
+        x_diff = (x_mag[-1]*torch.exp(1j*x_phase_diff[-1]))
         mean_error_vector_x = torch.mean(torch.min(torch.abs(x.flatten().unsqueeze(1)-const.mapping),1)[0])
         print(f"\tEVM of x: {mean_error_vector_x}")
         
