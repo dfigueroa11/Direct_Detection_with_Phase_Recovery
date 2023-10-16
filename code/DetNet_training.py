@@ -58,12 +58,18 @@ ser = []
 for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)
-    tx_syms_oh = aux_func.sym_2_oh(const.mapping_re, const.mapping_im, tx_syms, device) 
-    ux_syms_tilde = aux_func.diff_decoding(tx_syms, sym_len, device)
+    tx_syms_re = tx_syms[:,:sym_len]
+    tx_syms_im = tx_syms[:,sym_len:]
+    tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
+    tx_phase_diff = torch.diff(torch.atan2(tx_syms_im,tx_syms_re), prepend=torch.zeros(batch_size_train,1, device=device), dim=-1)
     # feed data to the network
-    x, x_oh, u = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
+    x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mapping_re, const.mapping_im)
+    
     # compute loss
-    loss = torch.sum(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device))
+    x_phase_diff = torch.diff(x_phase, prepend=torch.zero(layers,batch_size_train,1, device=device), dim=-1)
+    loss = torch.sum(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device)) + \
+           torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device))
+    
     # compute gradients
     loss.backward()
     # Adapt weights
@@ -71,35 +77,33 @@ for i in range(training_steps):
     # reset gradients
     optimizer.zero_grad()
 
-    # Print the current progress of the training (Loss and BER).
-    if i%50 == 0 or i == (training_steps-1):       
-        results.append(aux_func.per_layer_loss_distance_square(x_oh, tx_syms_oh, device).detach().cpu().numpy())
-        sym_idx_train = const.nearest_neighbor(tx_syms[:,:sym_len]+1j*tx_syms[:,sym_len:]).detach()
-        sym_idx_DetNet = const.nearest_neighbor(x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]).detach()
-        bits_train = const.demap(sym_idx_train)
-        bits_DetNet = const.demap(sym_idx_DetNet)
-        ber.append(ch_met.get_ER(bits_train.flatten(),bits_DetNet.flatten()))
-        ser.append(ch_met.get_ER(sym_idx_train.flatten(),sym_idx_DetNet.flatten()))
-        print(f'Train step {i:_}\t\tcurrent loss: {results[-1][-1]}\t\tBER: {ber[-1]}\t\tSER: {ser[-1]}')
-        x_aux = x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]
-        mean_error_vector = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
-        print(torch.abs(const.mapping))
-        print(mean_error_vector)
+    # Print and save the current progress of the training
+    # if i%(training_steps//20) == 0 or i == (training_steps-1):       
+    #     results.append(aux_func.per_layer_loss_distance_square(u, ux_syms_tilde, device).detach().cpu().numpy())
+    #     print(f'Train step {i:_}\tcurrent loss: {results[-1][-1]}')
+    #     x_tilde_aux = x_tilde[-1,:,:sym_len]+1j*x_tilde[-1,:,sym_len:]
+    #     x_aux = x[-1,:,:sym_len]+1j*x[-1,:,sym_len:]
+    #     mean_error_vector_x = torch.mean(torch.min(torch.abs(x_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
+    #     mean_error_vector_x_t = torch.mean(torch.min(torch.abs(x_tilde_aux.flatten().unsqueeze(1)-const.mapping),1)[0])
+    #     print(f"EVM of x_t: {mean_error_vector_x_t}, \t\tEVM of x: {mean_error_vector_x}")
+        
+    #     x_aux = x_aux.flatten().detach().cpu()
+    #     x_tilde_aux = x_tilde_aux.flatten().detach().cpu()
+    #     plt.figure()
+    #     plt.scatter(torch.real(x_tilde_aux),torch.imag(x_tilde_aux), label='x_tilde')
+    #     plt.scatter(torch.real(x_aux),torch.imag(x_aux), label='x')
+    #     plt.legend()
+    #     plt.xlim((-2.5,2.5))
+    #     plt.ylim((-2.5,2.5))
+    #     plt.grid()
+    #     plt.savefig(f'../../results/scatter_x_hat_trainstep{i}.pdf', dpi=20)
+    #     plt.close('all')
+    #     torch.save(model.state_dict(), '../../results/DetNet_test.pt')
+    #     del x_tilde_aux, x_aux, mean_error_vector_x, mean_error_vector_x_t
 
 
     del y_e, y_o, Psi_e, Psi_o, tx_syms
     torch.cuda.empty_cache()
-
-x_aux = x_aux.flatten().detach().cpu()
-plt.figure()
-plt.hist(tx_syms_oh.flatten().detach().cpu().numpy())
-plt.savefig('../../results/hist_x_oh.pdf', dpi=20)
-plt.figure()
-plt.hist(x_oh[-1].flatten().detach().cpu().numpy())
-plt.savefig('../../results/hist_x_oh_hat.pdf', dpi=20)
-plt.figure()
-plt.scatter(torch.real(x_aux),torch.imag(x_aux))
-plt.savefig('../../results/scatter_x_hat.pdf', dpi=20)
 
 torch.save(model.state_dict(), '../../results/DetNet_test.pt')
 
