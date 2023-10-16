@@ -48,7 +48,7 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 ###################### Training ################################
 # hyperparameters
 training_steps = 500
-batch_size_train = 100
+batch_size_train = 200
 mag_loss_weight = 1e-1
 phase_loss_weight = 1 - mag_loss_weight
 
@@ -68,7 +68,7 @@ for i in range(training_steps):
     # compute loss
     x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size_train,1, device=device), dim=-1)
     loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device)) + \
-           phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(x_phase_diff), torch.abs(tx_phase_diff), device))
+           phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device))
     
     # compute gradients
     loss.backward()
@@ -90,13 +90,6 @@ for i in range(training_steps):
         x = x.flatten().detach().cpu()
         x_diff = x_diff.flatten().detach().cpu()
         plt.figure()
-        plt.scatter(torch.real(x),torch.imag(x), label='x')
-        plt.legend()
-        plt.xlim((-2.5,2.5))
-        plt.ylim((-2.5,2.5))
-        plt.grid()
-        plt.savefig(f'../../results/scatter_x_hat_trainstep{i}.pdf', dpi=20)
-        plt.figure()
         plt.scatter(torch.real(x_diff),torch.imag(x_diff), label='x')
         plt.legend()
         plt.xlim((-2.5,2.5))
@@ -104,14 +97,8 @@ for i in range(training_steps):
         plt.grid()
         plt.savefig(f'../../results/scatter_x_diff_hat_trainstep{i}.pdf', dpi=20)
         plt.figure()
-        plt.hist(x_mag[-1].flatten().detach().cpu())
-        plt.savefig(f'../../results/hist_x_mag_trainstep{i}.pdf', dpi=20)        
-        plt.figure()
-        plt.hist(x_phase[-1].flatten().detach().cpu())
-        plt.savefig(f'../../results/hist_x_phase_trainstep{i}.pdf', dpi=20)
-        plt.figure()
-        plt.hist(x_phase_diff[-1].flatten().detach().cpu())
-        plt.savefig(f'../../results/hist_x_phase_diff_trainstep{i}.pdf', dpi=20)
+        plt.hist(torch.cos(x_phase_diff[-1]).flatten().detach().cpu())
+        plt.savefig(f'../../results/hist_cos_phase_diff_trainstep{i}.pdf', dpi=20)
         plt.close('all')
         torch.save(model.state_dict(), '../../results/DetNet_test.pt')
         del x, mean_error_vector_x
