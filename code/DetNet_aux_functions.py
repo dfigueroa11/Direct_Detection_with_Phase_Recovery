@@ -90,12 +90,10 @@ def sym_2_oh(mapp_re, mapp_im, syms, device):
     syms_oh.to(device)
     return syms_oh
 
-def oh_2_sym(mapp_re, mapp_im, syms_oh, syms_len, device):
-    mapp_re_len = len(mapp_re)
-    mapp_im_len = len(mapp_im)
-    syms_oh_re = syms_oh[:,:syms_len*mapp_re_len].reshape(-1, syms_len, mapp_re_len)
-    syms_oh_im = syms_oh[:,syms_len*mapp_re_len:].reshape(-1, syms_len, mapp_im_len)
-    syms = torch.cat((torch.matmul(syms_oh_re, mapp_re),torch.matmul(syms_oh_im, mapp_im)),1)
+def oh_2_sym(mapp, syms_oh, syms_len, device):
+    mapp_len = len(mapp)
+    syms_oh = syms_oh.reshape(-1, syms_len, mapp_len)
+    syms = torch.matmul(syms_oh, mapp)
     syms.to(device)
     return syms
 
