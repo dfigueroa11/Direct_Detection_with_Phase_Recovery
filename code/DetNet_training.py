@@ -49,7 +49,7 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # hyperparameters
 training_steps = 500
 batch_size_train = 100
-mag_loss_weight = 1e-8
+mag_loss_weight = 1e-1
 phase_loss_weight = 1 - mag_loss_weight
 
 model.train()
