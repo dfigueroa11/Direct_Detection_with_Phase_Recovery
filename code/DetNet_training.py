@@ -68,7 +68,7 @@ for i in range(training_steps):
     # compute loss
     x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size_train,1, device=device), dim=-1)
     loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device)) + \
-           phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device))
+           phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(x_phase_diff), torch.abs(tx_phase_diff), device))
     
     # compute gradients
     loss.backward()
