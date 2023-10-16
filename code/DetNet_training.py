@@ -83,11 +83,11 @@ for i in range(training_steps):
     if i%(training_steps//20) == 0 or i == (training_steps-1):       
         results.append(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device).detach().cpu().numpy())
         results.append(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase), device).detach().cpu().numpy())
-        ber.append(aux_func.get_ber(x_mag[-1], x_phase[-1], tx_mag, tx_phase, const))
-        ser.append(aux_func.get_ser(x_mag[-1], x_phase[-1], tx_mag, tx_phase, const))
+        ber.append(aux_func.get_ber(x_mag[-1], x_phase_diff[-1], tx_mag, tx_phase, const))
+        ser.append(aux_func.get_ser(x_mag[-1], x_phase_diff[-1], tx_mag, tx_phase, const))
         print(f'Train step {i:_}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
-        print(f"\t BER:\t\t{ber[-1]}")
-        print(f"\t SER:\t\t{ser[-1]}")
+        print(f"\t BER:\t\t\t{ber[-1]}")
+        print(f"\t SER:\t\t\t{ser[-1]}")
         x_diff = (x_mag[-1]*torch.exp(1j*x_phase_diff[-1]))
         
         x_diff = x_diff.flatten().detach().cpu()
