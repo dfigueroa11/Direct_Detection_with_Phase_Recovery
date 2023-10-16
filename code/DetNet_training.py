@@ -24,7 +24,7 @@ sym_mem = 1
 ch_mem = 2*sym_mem+1
 block_len = 4
 sym_len = block_len+sym_mem
-snr_dB = 10
+snr_dB = 20
 snr_dB_var = 2
 
 ############# Constellation and differential mapping ################
