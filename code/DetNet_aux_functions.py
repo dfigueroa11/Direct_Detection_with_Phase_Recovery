@@ -98,11 +98,11 @@ def oh_2_sym(mapp, syms_oh, syms_len, device):
     return syms
 
 ############################ differential decoding #################################
-def diff_decoding(x, sym_len, device):
+def diff_decoding(x, sym_len, ref, device):
     x_re = x[:,:sym_len]
     x_im = x[:,sym_len:]
     u_abs = torch.sqrt(torch.square(x_re)+torch.square(x_im))
-    u_phase = torch.abs(torch.diff(torch.atan2(x_im,x_re), prepend=torch.zeros(len(x_re),1, device=device), dim=1))
+    u_phase = torch.abs(torch.diff(torch.atan2(x_im,x_re), prepend=ref*torch.ones(len(x_re),1, device=device), dim=1))
     return torch.cat((u_abs*torch.cos(u_phase),u_abs*torch.sin(u_phase)),1)
 
 ############################### Loss functions ######################################
