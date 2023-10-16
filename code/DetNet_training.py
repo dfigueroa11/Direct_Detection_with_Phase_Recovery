@@ -47,8 +47,10 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
-training_steps = 1000
-batch_size_train = 200
+training_steps = 500
+batch_size_train = 100
+mag_loss_weight = 0.2
+phase_loss_weight = 1 - mag_loss_weight
 
 model.train()
 
@@ -65,8 +67,8 @@ for i in range(training_steps):
     
     # compute loss
     x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size_train,1, device=device), dim=-1)
-    loss = torch.sum(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device)) + \
-           torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device))
+    loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device)) + \
+           phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device))
     
     # compute gradients
     loss.backward()
