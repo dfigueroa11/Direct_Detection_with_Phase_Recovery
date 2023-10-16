@@ -109,7 +109,7 @@ for i in range(training_steps):
         plt.savefig(f'../../results/hist_x_phase_trainstep{i}.pdf', dpi=20)
         plt.figure()
         plt.hist(x_phase_diff[-1].flatten().detach().cpu())
-        plt.savefig(f'../../results/hist_x_phase_trainstep{i}.pdf', dpi=20)
+        plt.savefig(f'../../results/hist_x_phase_diff_trainstep{i}.pdf', dpi=20)
         plt.close('all')
         torch.save(model.state_dict(), '../../results/DetNet_test.pt')
         del x, mean_error_vector_x
