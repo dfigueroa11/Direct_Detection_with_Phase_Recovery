@@ -28,10 +28,12 @@ snr_dB = 20
 snr_dB_var = 2
 
 ############# Constellation and differential mapping ################
-mapping = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,1.23095942,np.pi,np.pi+1.23095942])), dtype=torch.cfloat)
+angle = np.arccos(1/3)
+mapping = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,angle,np.pi,np.pi+angle])-angle/2), dtype=torch.cfloat)
 diff_mapping = torch.tensor([[1,0,3,2],[0,1,2,3],[3,2,1,0],[2,3,0,1]])
 mapping *= torch.sqrt(1/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping, device ,diff_mapping)
+angle = -torch.tensor([angle], device=device)/2
 ############################ DetNet declaration #####################
 layers = 30#*sym_len
 v_len = 2*sym_len
@@ -61,12 +63,12 @@ for i in range(training_steps):
     tx_syms_re = tx_syms[:,:sym_len]
     tx_syms_im = tx_syms[:,sym_len:]
     tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
-    tx_phase_diff = torch.diff(torch.atan2(tx_syms_im,tx_syms_re), prepend=torch.zeros(batch_size_train,1, device=device), dim=-1)
+    tx_phase_diff = torch.diff(torch.atan2(tx_syms_im,tx_syms_re), prepend=angle*torch.ones(batch_size_train,1, device=device), dim=-1)
     # feed data to the network
     x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mag_list, const.phase_list)
     
     # compute loss
-    x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size_train,1, device=device), dim=-1)
+    x_phase_diff = torch.diff(x_phase, prepend=angle*torch.ones(layers,batch_size_train,1, device=device), dim=-1)
     loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device)) + \
            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device))
     
