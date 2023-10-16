@@ -83,10 +83,10 @@ class DetNet(nn.Module):
 
     def forward(self, y_e, y_o, Psi_e, Psi_o, mapp_mag, mapp_phase):
         batch_size = y_e.size(0)
-        v_mag = torch.zeros(batch_size, 2*self.v_len, device=self.device)
+        v_mag = torch.zeros(batch_size, self.v_len, device=self.device)
         x_mag = torch.zeros(1, batch_size, self.sym_len, device=self.device)
         x_mag_oh = torch.zeros(batch_size, self.sym_len*self.one_hot_len_mag, device=self.device)
-        v_phase = torch.zeros(batch_size, 2*self.v_len, device=self.device)
+        v_phase = torch.zeros(batch_size, self.v_len, device=self.device)
         x_phase = torch.zeros(1, batch_size, self.sym_len, device=self.device)
         x_phase_oh = torch.zeros(batch_size, self.sym_len*self.one_hot_len_phase, device=self.device)
 
@@ -119,9 +119,13 @@ class DetNet(nn.Module):
         Psi_e_x_sql = torch.sum(torch.square(Psi_e_x).reshape(batch_size,2,-1),dim=1).unsqueeze(-1)
         Psi_o_x_sql = torch.sum(torch.square(Psi_o_x).reshape(batch_size,2,-1),dim=1).unsqueeze(-1)
         
-        q = x - self.delta1_l[stage][l]*torch.bmm(A_e,y_e.unsqueeze(-1)).squeeze(-1) + self.delta2_l[stage][l]*torch.bmm(A_e,Psi_e_x_sql).squeeze(-1) \
-            - self.delta2_l[stage][l]*torch.bmm(A_o,y_o.unsqueeze(-1)).squeeze(-1) + self.delta4_l[stage][l]*torch.bmm(A_o,Psi_o_x_sql).squeeze(-1)
-        
+        if stage == 0:
+            q = x_mag[-1] - self.delta1_l[stage][l]*torch.bmm(A_e,y_e.unsqueeze(-1)).squeeze(-1) + self.delta2_l[stage][l]*torch.bmm(A_e,Psi_e_x_sql).squeeze(-1) \
+                - self.delta2_l[stage][l]*torch.bmm(A_o,y_o.unsqueeze(-1)).squeeze(-1) + self.delta4_l[stage][l]*torch.bmm(A_o,Psi_o_x_sql).squeeze(-1)
+        elif stage == 1:
+            q = x_phase[-1] - self.delta1_l[stage][l]*torch.bmm(A_e,y_e.unsqueeze(-1)).squeeze(-1) + self.delta2_l[stage][l]*torch.bmm(A_e,Psi_e_x_sql).squeeze(-1) \
+                - self.delta2_l[stage][l]*torch.bmm(A_o,y_o.unsqueeze(-1)).squeeze(-1) + self.delta4_l[stage][l]*torch.bmm(A_o,Psi_o_x_sql).squeeze(-1)
+            
         # Apply linear transformation and ReLU
         z = self.relu(self.linear_trafo_1_l[stage][l](torch.cat((q, v), 1)))
         # Apply linear transformation
@@ -140,6 +144,6 @@ class DetNet(nn.Module):
         if stage == 0:
             return x_mag, x_oh, v
         elif stage == 1:
-            x_phase, x_oh, v
+            return x_phase, x_oh, v
 
         return -1
