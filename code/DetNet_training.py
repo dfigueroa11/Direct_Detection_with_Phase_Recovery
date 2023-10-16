@@ -55,20 +55,22 @@ phase_loss_weight = 1 - mag_loss_weight
 model.train()
 
 results = []
+ber = []
+ser = []
 for i in range(training_steps):
     # Generate a batch of training data
     y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size_train, snr_dB, snr_dB_var, const, device)
     tx_syms_re = tx_syms[:,:sym_len]
     tx_syms_im = tx_syms[:,sym_len:]
     tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
-    tx_phase_diff = torch.diff(torch.atan2(tx_syms_im,tx_syms_re), prepend=torch.zeros(batch_size_train,1, device=device), dim=-1)
+    tx_phase = torch.atan2(tx_syms_im,tx_syms_re)
     # feed data to the network
     x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mag_list, const.phase_list)
     
     # compute loss
     x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size_train,1, device=device), dim=-1)
     loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device)) + \
-           phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device))
+           phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase), device))
     
     # compute gradients
     loss.backward()
@@ -80,14 +82,14 @@ for i in range(training_steps):
     # Print and save the current progress of the training
     if i%(training_steps//20) == 0 or i == (training_steps-1):       
         results.append(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device).detach().cpu().numpy())
-        results.append(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase_diff), device).detach().cpu().numpy())
+        results.append(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase), device).detach().cpu().numpy())
+        ber.append(aux_func.get_ber(x_mag[-1], x_phase[-1], tx_mag, tx_phase, const))
+        ser.append(aux_func.get_ser(x_mag[-1], x_phase[-1], tx_mag, tx_phase, const))
         print(f'Train step {i:_}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
-        x = (x_mag[-1]*torch.exp(1j*x_phase[-1]))
+        print(f"\t BER:\t\t{ber[-1]}")
+        print(f"\t SER:\t\t{ser[-1]}")
         x_diff = (x_mag[-1]*torch.exp(1j*x_phase_diff[-1]))
-        mean_error_vector_x = torch.mean(torch.min(torch.abs(x.flatten().unsqueeze(1)-const.mapping),1)[0])
-        print(f"\tEVM of x: {mean_error_vector_x}")
         
-        x = x.flatten().detach().cpu()
         x_diff = x_diff.flatten().detach().cpu()
         plt.figure()
         plt.scatter(torch.real(x_diff),torch.imag(x_diff), label='x')
@@ -101,7 +103,7 @@ for i in range(training_steps):
         plt.savefig(f'../../results/hist_cos_phase_diff_trainstep{i}.pdf', dpi=20)
         plt.close('all')
         torch.save(model.state_dict(), '../../results/DetNet_test.pt')
-        del x, mean_error_vector_x
+        del x_diff
 
 
     del y_e, y_o, Psi_e, Psi_o, tx_syms

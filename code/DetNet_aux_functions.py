@@ -2,6 +2,7 @@ import torch
 
 import DD_system
 import calc_filters
+import channel_metrics as ch_met
 
 ########################## Funtion to generate the training data ###############################
 def one_batch_data_generation(block_len, sym_mem, snr_lin, const, device):
@@ -51,7 +52,7 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const, device):
     Psi_e_mat = Psi_mat[::2,1::2]
     Psi_o_mat = Psi_mat[1::2,1::2]
 
-    tx_syms_ml = torch.cat((torch.real(tx_syms),torch.imag(tx_syms)),-1)
+    tx_syms_ml = torch.cat((torch.real(info_symbols),torch.imag(info_symbols)),-1)
     Psi_e_mat_ml = torch.cat((torch.cat((torch.real(Psi_e_mat),-torch.imag(Psi_e_mat)),-1),
                               torch.cat((torch.imag(Psi_e_mat),torch.real(Psi_e_mat)),-1)),-2)
     Psi_o_mat_ml = torch.cat((torch.cat((torch.real(Psi_o_mat),-torch.imag(Psi_o_mat)),-1),
@@ -97,7 +98,7 @@ def oh_2_sym(mapp, syms_oh, syms_len, device):
     syms.to(device)
     return syms
 
-############################ differential decoding #################################
+############################ Differential decoding #################################
 def diff_decoding(x, sym_len, ref, device):
     x_re = x[:,:sym_len]
     x_im = x[:,sym_len:]
@@ -112,4 +113,21 @@ def per_layer_loss_distance_square(x_oh, x_oh_train, device):
         loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(torch.square(x_oh_train - x_oh_l),1))
     return loss_l
 
+############################### Performance (BER, SER) ######################################
+def get_ber(x_mag, x_phase, tx_mag, tx_phase, const):
+    x_phase = torch.where(((x_phase>3*torch.pi/2)&(x_phase<2*torch.pi))|((x_phase>torch.pi/2)&(x_phase<torch.pi)),-x_phase, x_phase)
+    rx_syms = x_mag*torch.exp(1j*x_phase)
+    tx_syms = tx_mag*torch.exp(1j*tx_phase)
+    tx_syms_idx = const.nearest_neighbor(tx_syms)
+    rx_syms_idx = const.nearest_neighbor(rx_syms)
+    tx_bits = const.demap(tx_syms_idx)
+    rx_bits = const.demap(rx_syms_idx)
+    return ch_met.get_ER(tx_bits.flatten(),rx_bits.flatten())
 
+def get_ser(x_mag, x_phase, tx_mag, tx_phase, const):
+    x_phase = torch.where(((x_phase>3*torch.pi/2)&(x_phase<2*torch.pi))|((x_phase>torch.pi/2)&(x_phase<torch.pi)),-x_phase, x_phase)
+    rx_syms = x_mag*torch.exp(1j*x_phase)
+    tx_syms = tx_mag*torch.exp(1j*tx_phase)
+    tx_syms_idx = const.nearest_neighbor(tx_syms)
+    rx_syms_idx = const.nearest_neighbor(rx_syms)
+    return ch_met.get_ER(tx_syms_idx.flatten(),rx_syms_idx.flatten())
