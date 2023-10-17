@@ -77,9 +77,8 @@ for batch_size in batch_size_per_epoch:
         
         # compute loss
         x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size,1, device=device), dim=-1)
-        x_phase_diff = torch.abs(torch.remainder(x_phase_diff-torch.pi,2*torch.pi)-torch.pi)
         loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag[:,:,:-1], tx_mag[:,:-1], device)) + \
-            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_phase_diff[:,:,1:], tx_phase[:,1:], device))
+            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff[:,:,1:]), torch.cos(tx_phase[:,1:]), device))
         
         # compute gradients
         loss.backward()
