@@ -24,8 +24,8 @@ sym_mem = 1
 ch_mem = 2*sym_mem+1
 block_len = 4
 sym_len = block_len+sym_mem
-snr_dB = 20
-snr_dB_var = 3
+snr_dB = 8
+snr_dB_var = 4
 
 ############# Constellation and differential mapping ################
 angle = np.arccos(1/3)
@@ -50,8 +50,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # hyperparameters
 # training_steps = 20_000
 # batch_size_train = 200
-batches_per_epoch = 1_000
-batch_size_per_epoch = [100,200,300,600,700,1_000,2_000]#np.linspace(10,10_000,num=num_epochs).astype(int)
+batches_per_epoch = 1_500
+batch_size_per_epoch = [100,200,300,600,800,1_000,2_000,5_000]#np.linspace(10,10_000,num=num_epochs).astype(int)
 cnt = 0
 
 mag_loss_weight = 1e-2
@@ -89,7 +89,7 @@ for batch_size in batch_size_per_epoch:
         optimizer.zero_grad()
 
         # Print and save the current progress of the training
-        if i == (batches_per_epoch-1) or i%(batches_per_epoch//2) == 0:  
+        if (i+1)%(batches_per_epoch//3) == 0:  
             results.append(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device).detach().cpu().numpy())
             results.append(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase), device).detach().cpu().numpy())
             ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
@@ -108,15 +108,19 @@ for batch_size in batch_size_per_epoch:
             plt.grid()
             plt.savefig(f'../../results/scatter_x_diff_hat_{cnt}.pdf', dpi=20)
             plt.close('all')
-            torch.save(model.state_dict(), '../../results/DetNet_test.pt')
+            checkpoint = {'state_dict': model.state_dict(),
+                          'optimizer': optimizer.state_dict()}
+            torch.save(checkpoint, '../../results/DetNet_test.pt')
             cnt +=1     
             del x_diff
 
         del y_e, y_o, Psi_e, Psi_o, tx_syms
         torch.cuda.empty_cache()
 
-torch.save(model.state_dict(), '../../results/DetNet_test.pt')
-
+checkpoint = {'state_dict': model.state_dict(),
+                          'optimizer': optimizer.state_dict()}
+torch.save(checkpoint, '../../results/DetNet_test.pt')
+            
 
 
 
