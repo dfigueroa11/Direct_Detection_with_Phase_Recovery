@@ -52,6 +52,7 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # batch_size_train = 200
 batches_per_epoch = 1_000
 batch_size_per_epoch = [100,200,300,600,700,1_000,2_000]#np.linspace(10,10_000,num=num_epochs).astype(int)
+cnt = 0
 
 mag_loss_weight = 1e-2
 phase_loss_weight = 1 - mag_loss_weight
@@ -88,7 +89,7 @@ for batch_size in batch_size_per_epoch:
         optimizer.zero_grad()
 
         # Print and save the current progress of the training
-        if i == (batches_per_epoch-1) or i%(batches_per_epoch//10) == 0:       
+        if i == (batches_per_epoch-1) or i%(batches_per_epoch//2) == 0:  
             results.append(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device).detach().cpu().numpy())
             results.append(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase), device).detach().cpu().numpy())
             ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
@@ -105,12 +106,10 @@ for batch_size in batch_size_per_epoch:
             plt.xlim((-2.5,2.5))
             plt.ylim((-2.5,2.5))
             plt.grid()
-            plt.savefig(f'../../results/scatter_x_diff_hat_bs{i}.pdf', dpi=20)
-            plt.figure()
-            plt.hist(torch.cos(x_phase_diff[-1,:,1:]).flatten().detach().cpu())
-            plt.savefig(f'../../results/hist_cos_phase_diff_bs{i}.pdf', dpi=20)
+            plt.savefig(f'../../results/scatter_x_diff_hat_{cnt}.pdf', dpi=20)
             plt.close('all')
             torch.save(model.state_dict(), '../../results/DetNet_test.pt')
+            cnt +=1     
             del x_diff
 
         del y_e, y_o, Psi_e, Psi_o, tx_syms
