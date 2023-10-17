@@ -71,7 +71,7 @@ for batch_size in batch_size_per_epoch:
         tx_syms_re = tx_syms[:,:sym_len]
         tx_syms_im = tx_syms[:,sym_len:]
         tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
-        tx_phase = torch.abs(torch.atan2(tx_syms_im,tx_syms_re))
+        tx_phase = torch.atan2(tx_syms_im,tx_syms_re)
         # feed data to the network
         x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mag_list, const.phase_list)
         
