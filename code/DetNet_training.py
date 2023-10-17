@@ -33,6 +33,7 @@ mapping = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,angle,np.pi,np.
 diff_mapping = torch.tensor([[1,0,3,2],[0,1,2,3],[3,2,1,0],[2,3,0,1]])
 mapping *= torch.sqrt(1/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping, device ,diff_mapping)
+angle = torch.tensor(angle, device=device)
 ############################ DetNet declaration #####################
 layers = 30#*sym_len
 v_len = 2*sym_len
@@ -51,9 +52,9 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # training_steps = 20_000
 # batch_size_train = 200
 batches_per_epoch = 500
-batch_size_per_epoch = [100,]#np.linspace(10,10_000,num=num_epochs).astype(int)
+batch_size_per_epoch = [300,]#np.linspace(10,10_000,num=num_epochs).astype(int)
 
-mag_loss_weight = 1e-2
+mag_loss_weight = 0.3 
 phase_loss_weight = 1 - mag_loss_weight
 
 
@@ -72,13 +73,16 @@ for batch_size in batch_size_per_epoch:
         tx_syms_im = tx_syms[:,sym_len:]
         tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
         tx_phase = torch.atan2(tx_syms_im,tx_syms_re)
+        
         # feed data to the network
         x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mag_list, const.phase_list)
         
         # compute loss
-        x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size,1, device=device), dim=-1)
-        loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag[:,:,:-1], tx_mag[:,:-1], device)) + \
-            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff[:,:,1:]), torch.cos(tx_phase[:,1:]), device))
+        x_phase_diff = aux_func.diff_decoding(x_phase, angle, device)
+        x_hat = torch.cat((x_mag[:,:,:-1]*torch.cos(x_phase_diff[:,:,1:]),x_mag[:,:,:-1]*torch.sin(x_phase_diff[:,:,1:])), dim=-1)
+        tx_aux = torch.cat((tx_mag[:,:-1]*torch.cos(tx_phase[:,1:]),tx_mag[:,:-1]*torch.sin(tx_phase[:,1:])), dim=-1)
+        
+        loss = torch.sum(aux_func.per_layer_loss_distance_square(x_hat, tx_aux, device))
         
         # compute gradients
         loss.backward()

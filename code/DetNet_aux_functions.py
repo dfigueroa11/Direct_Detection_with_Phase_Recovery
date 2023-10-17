@@ -99,12 +99,11 @@ def oh_2_sym(mapp, syms_oh, syms_len, device):
     return syms
 
 ############################ Differential decoding #################################
-def diff_decoding(x, sym_len, ref, device):
-    x_re = x[:,:sym_len]
-    x_im = x[:,sym_len:]
-    u_abs = torch.sqrt(torch.square(x_re)+torch.square(x_im))
-    u_phase = torch.abs(torch.diff(torch.atan2(x_im,x_re), prepend=ref*torch.ones(len(x_re),1, device=device), dim=1))
-    return torch.cat((u_abs*torch.cos(u_phase),u_abs*torch.sin(u_phase)),1)
+def diff_decoding(x_phase, angle, device):
+    x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(x_phase.size(0),x_phase.size(1),1, device=device), dim=-1)
+    x_phase_diff = torch.remainder(x_phase_diff-torch.pi,2*torch.pi)-torch.pi
+    x_phase_diff = torch.where(((x_phase>-torch.pi/2)&(x_phase<-angle/2))|((x_phase>torch.pi/2)&(x_phase<torch.pi-angle/2)),-x_phase, x_phase)
+    return x_phase_diff
 
 ############################### Loss functions ######################################
 def per_layer_loss_distance_square(x_oh, x_oh_train, device):
