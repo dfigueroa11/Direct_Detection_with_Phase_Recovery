@@ -50,8 +50,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # hyperparameters
 # training_steps = 20_000
 # batch_size_train = 200
-batches_per_epoch = 500
-batch_size_per_epoch = [300,]#np.linspace(10,10_000,num=num_epochs).astype(int)
+batches_per_epoch = 1_000
+batch_size_per_epoch = [100,200,300,600,700,1_000,2_000]#np.linspace(10,10_000,num=num_epochs).astype(int)
 
 mag_loss_weight = 1e-2
 phase_loss_weight = 1 - mag_loss_weight
