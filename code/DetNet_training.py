@@ -50,9 +50,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # hyperparameters
 # training_steps = 20_000
 # batch_size_train = 200
-num_epochs = 1
 batches_per_epoch = 500
-batch_size_per_epoch = [200,]#np.linspace(10,10_000,num=num_epochs).astype(int)
+batch_size_per_epoch = [100,]#np.linspace(10,10_000,num=num_epochs).astype(int)
 
 mag_loss_weight = 1e-2
 phase_loss_weight = 1 - mag_loss_weight
@@ -79,8 +78,8 @@ for batch_size in batch_size_per_epoch:
         # compute loss
         x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size,1, device=device), dim=-1)
         x_phase_diff = torch.abs(torch.remainder(x_phase_diff-torch.pi,2*torch.pi)-torch.pi)
-        loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device)) + \
-            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_phase_diff, tx_phase, device))
+        loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag[:,:,:-1], tx_mag[:,:-1], device)) + \
+            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_phase_diff[:,:,1:], tx_phase[:,1:], device))
         
         # compute gradients
         loss.backward()
@@ -93,12 +92,12 @@ for batch_size in batch_size_per_epoch:
         if i == (batches_per_epoch-1) or i%(batches_per_epoch//10) == 0:       
             results.append(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device).detach().cpu().numpy())
             results.append(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase), device).detach().cpu().numpy())
-            ber.append(aux_func.get_ber(x_mag[-1], x_phase_diff[-1], tx_mag, tx_phase, const))
-            ser.append(aux_func.get_ser(x_mag[-1], x_phase_diff[-1], tx_mag, tx_phase, const))
+            ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
+            ser.append(aux_func.get_ser(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
             print(f'Batch size {batch_size:_}, Train step {i:_}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
             print(f"\tBER:\t\t\t{ber[-1]}")
             print(f"\tSER:\t\t\t{ser[-1]}")
-            x_diff = (x_mag[-1]*torch.exp(1j*x_phase_diff[-1]))
+            x_diff = (x_mag[-1,:,:-1]*torch.exp(1j*x_phase_diff[-1,:,1:]))
             
             x_diff = x_diff.flatten().detach().cpu()
             plt.figure()
@@ -109,7 +108,7 @@ for batch_size in batch_size_per_epoch:
             plt.grid()
             plt.savefig(f'../../results/scatter_x_diff_hat_bs{i}.pdf', dpi=20)
             plt.figure()
-            plt.hist(torch.cos(x_phase_diff[-1]).flatten().detach().cpu())
+            plt.hist(torch.cos(x_phase_diff[-1,:,1:]).flatten().detach().cpu())
             plt.savefig(f'../../results/hist_cos_phase_diff_bs{i}.pdf', dpi=20)
             plt.close('all')
             torch.save(model.state_dict(), '../../results/DetNet_test.pt')
