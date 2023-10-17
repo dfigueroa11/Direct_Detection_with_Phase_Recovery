@@ -90,8 +90,8 @@ for batch_size in batch_size_per_epoch:
 
         # Print and save the current progress of the training
         if (i+1)%(batches_per_epoch//3) == 0:  
-            results.append(aux_func.per_layer_loss_distance_square(x_mag, tx_mag, device).detach().cpu().numpy())
-            results.append(aux_func.per_layer_loss_distance_square(torch.cos(x_phase_diff), torch.cos(tx_phase), device).detach().cpu().numpy())
+            results.append(aux_func.per_layer_loss_distance_square(x_mag[:,:,:-1], tx_mag[:,:-1], device).detach().cpu().numpy())
+            results.append(aux_func.per_layer_loss_distance_square(torch.abs(x_phase_diff[:,:,1:]), torch.abs(tx_phase[:,1:]), device).detach().cpu().numpy())
             ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
             ser.append(aux_func.get_ser(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
             print(f'Batch size {batch_size:_}, Train step {i:_}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
@@ -109,7 +109,8 @@ for batch_size in batch_size_per_epoch:
             plt.savefig(f'../../results/scatter_x_diff_hat_{cnt}.pdf', dpi=20)
             plt.close('all')
             checkpoint = {'state_dict': model.state_dict(),
-                          'optimizer': optimizer.state_dict()}
+                          'optimizer': optimizer.state_dict(),
+                          'results': results}
             torch.save(checkpoint, '../../results/DetNet_test.pt')
             cnt +=1     
             del x_diff
