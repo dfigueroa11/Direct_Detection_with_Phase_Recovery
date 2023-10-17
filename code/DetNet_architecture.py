@@ -69,7 +69,7 @@ class DetNet(nn.Module):
         self.delta4_l = [self.delta4_l_mag, self.delta4_l_phase]
 
         # ReLU as activation faunction
-        self.relu = nn.ReLU#Hardtanh(min_val=-10, max_val=10)
+        self.relu = nn.ReLU()#Hardtanh(min_val=-10, max_val=10)
 
         # extra internal varaibles
         self.layers = layers
