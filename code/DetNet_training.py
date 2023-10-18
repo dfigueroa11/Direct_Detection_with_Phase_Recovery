@@ -25,7 +25,7 @@ ch_mem = 2*sym_mem+1
 block_len = 4
 sym_len = block_len+sym_mem
 snr_dB = 15
-snr_dB_var = 4
+snr_dB_var = 5
 
 ############# Constellation and differential mapping ################
 angle = np.arccos(1/3)
@@ -116,8 +116,8 @@ for batch_size in batch_size_per_epoch:
             ax.set_xlim(-2, 2)
             ax.set_ylim(-2, 2)
             ax.grid(True)
-            plt.close('all')
             plt.savefig(f'../../results/scatter_x_diff_hat_{cnt}.pdf')
+            plt.close('all')
 
             cnt +=1     
             checkpoint = {'state_dict': model.state_dict(),
