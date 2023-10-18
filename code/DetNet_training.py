@@ -47,7 +47,7 @@ batches_per_epoch = 2_000
 batch_size_per_epoch = [100,200,300,600,800,1_000,2_000,5_000]
 snr_dB_list = [17,16,15,14,13,12,11,10.5]
 snr_dB_var_list = [3,3,3,3,3,4,4,4.5]
-images_per_epoch = 10
+images_per_epoch = 3
 cnt = 0
 
 mag_loss_weight = 1e-2
