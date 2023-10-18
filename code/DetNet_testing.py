@@ -24,7 +24,7 @@ sym_mem = 1
 ch_mem = 2*sym_mem+1
 block_len = 4
 sym_len = block_len+sym_mem
-snr_dB = 20
+snr_dB = 12
 snr_dB_var = 0
 
 ############# Constellation and differential mapping ################
@@ -42,12 +42,12 @@ one_hot_len_mag = len(const.mag_list)
 one_hot_len_phase = len(const.phase_list)
 
 model = DetNet_architecture.DetNet(layers, block_len, sym_mem, one_hot_len_mag, one_hot_len_phase, v_len, z_len, device)
-model.load_state_dict(torch.load('DetNet_test.pt', map_location=torch.device(device)))
+model.load_state_dict(torch.load('../../results/magPhase_DetNet_v2/DetNet_test.pt', map_location=torch.device(device)))
 model.to(device)
 model.eval()
 
 ###################### Testing ################################
-batch_size = 500
+batch_size = 5_000
 
 
 ber = []
@@ -64,32 +64,32 @@ x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mag_list, const.phase_list)
 e = time.time()
 print(f"time: {e-s}")
 # compute loss
-x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(layers,batch_size,1, device=device), dim=-1)
+x_phase_diff = aux_func.diff_decoding(x_phase, angle, device)
 
 ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
 ser.append(aux_func.get_ser(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
-print(f"\tBER:\t\t\t{ber[-1]}")
+print(f"\tBER:\t\t\t{ber[-1]:}")
 print(f"\tSER:\t\t\t{ser[-1]}")
 
 x_diff = (x_mag[-1,:,:-1]*torch.exp(1j*x_phase_diff[-1,:,1:]))
 x_diff = x_diff.flatten().detach().cpu()
-tx = (tx_mag[:,:-1]*torch.exp(1j*tx_phase[:,1:]))
-tx = tx.flatten().detach().cpu()
 
-plt.figure(figsize=(6,6))
-plt.scatter([1,-1,np.cos(angle),-np.cos(angle),np.cos(angle),-np.cos(angle)],[0,0,np.sin(angle),np.sin(angle),-np.sin(angle),-np.sin(angle)])
-plt.plot([0,4*np.cos(angle/2)],[0,4*np.sin(angle/2)], 'g--')
-plt.plot([0,0],[0,4], 'g--')
-plt.plot([0,-4*np.cos(angle/2)],[0,4*np.sin(angle/2)], 'g--')
-plt.plot([0,-4*np.cos(angle/2)],[0,-4*np.sin(angle/2)], 'g--')
-plt.plot([0,4*np.cos(angle/2)],[0,-4*np.sin(angle/2)], 'g--')
-plt.plot([0,0],[0,-4], 'g--')
-plt.scatter(torch.real(x_diff),torch.imag(x_diff), label='rx')
-plt.scatter(torch.real(tx),torch.imag(tx), label='tx')
-plt.legend()
-plt.xlim((-1.5,1.5))
-plt.ylim((-1.5,1.5))
-plt.grid()
+
+fig = plt.figure(figsize=(6,6))
+ax = fig.add_subplot(1,1,1)
+ax.scatter(torch.real(x_diff),torch.imag(x_diff), marker='o', s=15, c='b', label='MagPhase DetNet', alpha=0.5)
+ax.plot(np.cos(np.linspace(0, 2 * np.pi, 100)), np.sin(np.linspace(0, 2 * np.pi, 100)), 'k--', alpha=0.5)
+ax.scatter(np.cos([0, angle, np.pi, np.pi + angle]), np.sin([0, angle, np.pi, np.pi + angle]), marker='o', s=70, c='red', label='Constellation Points')
+line_angles = [np.pi / 2, np.pi - angle / 2, np.pi + angle / 2, 3 * np.pi / 2, -angle / 2, angle / 2]
+for a in line_angles:
+    ax.plot([0, 4 * np.cos(a)], [0, 4 * np.sin(a)], 'g:', linewidth=2, label="Decision Boundaries")
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(handles[:3], labels[:3], loc=1)
+ax.set_xlabel('Re')
+ax.set_ylabel('Im')
+ax.set_xlim(-2, 2)
+ax.set_ylim(-2, 2)
+ax.grid(True)
 plt.show()
 
 
