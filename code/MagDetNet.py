@@ -5,19 +5,25 @@ import DetNet_aux_functions as aux_func
 
 class MagDetNet(nn.Module):
 
-    def __init__(self, layers, block_len, sym_mem , one_hot_len, v_len, z_len, device):
+    def __init__(self, layers, block_len, sym_mem , mapp, v_len, z_len, device):
         super(MagDetNet, self).__init__()
-        # define the parameters for the linear transformation: (W1,b1), (W2,b2) and (W3,b3)
-        sym_len = block_len + sym_mem
+        self.layers = layers
+        self.v_len = v_len
+        self.sym_len = block_len + sym_mem
+        self.block_len = block_len
+        self.sym_mem = sym_mem
+        self.one_hot_len = len(mapp)
+        self.device = device
 
+        # define the parameters for the linear transformation: (W1,b1), (W2,b2) and (W3,b3)
         self.linear_trafo_1_l = nn.ModuleList()
-        self.linear_trafo_1_l.extend([nn.Linear((sym_len + v_len), z_len) for i in range(layers)]) 
+        self.linear_trafo_1_l.extend([nn.Linear((self.sym_len + v_len), z_len) for i in range(layers)]) 
         for i in range(layers):
             nn.init.normal_(self.linear_trafo_1_l[i].weight, std = 0.01)
             nn.init.normal_(self.linear_trafo_1_l[i].bias, std = 0.01)
         
         self.linear_trafo_2_l = nn.ModuleList()
-        self.linear_trafo_2_l.extend([nn.Linear(z_len, sym_len*one_hot_len) for i in range(layers)]) 
+        self.linear_trafo_2_l.extend([nn.Linear(z_len, self.sym_len*self.one_hot_len) for i in range(layers)]) 
         for i in range(0, layers):
             nn.init.normal_(self.linear_trafo_2_l[i].weight, std = 0.01)
             nn.init.normal_(self.linear_trafo_2_l[i].bias, std = 0.01)
@@ -44,16 +50,7 @@ class MagDetNet(nn.Module):
         # ReLU as activation faunction
         self.relu = nn.ReLU()#Hardtanh(min_val=-10, max_val=10)
 
-        # extra internal varaibles
-        self.layers = layers
-        self.v_len = v_len
-        self.sym_len = sym_len
-        self.block_len = block_len
-        self.sym_mem = sym_mem
-        self.one_hot_len = one_hot_len
-        self.device = device
-
-    def forward(self, l, x_mag, x_mag_oh, v, x_phase, y_e, y_o, Psi_e, Psi_o, mapp):
+    def forward(self, l, x_mag, x_mag_oh, v, x_phase, y_e, y_o, Psi_e, Psi_o):
         batch_size = y_e.size(0)
         # Send Data through the l-th layer 
         x = torch.cat((x_mag*torch.cos(x_phase),x_mag*torch.sin(x_phase)), dim=-1)
@@ -78,7 +75,7 @@ class MagDetNet(nn.Module):
         # Apply linear transformation
         x_mag_oh += self.linear_trafo_2_l[l](z)
         # proyect and append result
-        x_mag = aux_func.oh_2_sym(mapp, x_mag_oh, self.sym_len, self.device).unsqueeze(0)
+        x_mag = aux_func.oh_2_sym(self.mapp, x_mag_oh, self.sym_len, self.device).unsqueeze(0)
         # calculate the v for the next layer
         v += self.linear_trafo_3_l[l](z)
 
