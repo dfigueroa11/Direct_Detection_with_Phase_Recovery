@@ -23,8 +23,6 @@ sym_mem = 1
 ch_mem = 2*sym_mem+1
 block_len = 4
 sym_len = block_len+sym_mem
-snr_dB = 15
-snr_dB_var = 5
 
 ############# Constellation and differential mapping ################
 angle = np.arccos(1/3)
@@ -45,10 +43,10 @@ phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07
 
 ###################### Training ################################
 # hyperparameters
-# training_steps = 20_000
-# batch_size_train = 200
-batches_per_epoch = 1_000
-batch_size_per_epoch = [100,200,300,600,700,1_000,2_000]
+batches_per_epoch = 2_000
+batch_size_per_epoch = [100,200,300,600,800,1_000,2_000,5_000]
+snr_dB_list = [17,16,15,14,13,12,11,10.5]
+snr_dB_var_list = [3,3,3,3,3,4,4,4.5]
 images_per_epoch = 10
 cnt = 0
 
@@ -62,7 +60,7 @@ results = []
 ber = []
 ser = []
 # for i in range(training_steps):
-for batch_size in batch_size_per_epoch:
+for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr_dB_var_list):
     for i in range(batches_per_epoch):
         # Generate a batch of training data
         y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase = aux_func.data_generation(block_len, sym_mem, batch_size,
