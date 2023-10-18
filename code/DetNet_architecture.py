@@ -5,15 +5,25 @@ import DetNet_aux_functions as aux_func
 
 class DetNet(nn.Module):
 
-    def __init__(self, layers, block_len, sym_mem , one_hot_len_mag, one_hot_len_phase, v_len, z_len, device):
+    def __init__(self, layers, block_len, sym_mem , mapp_mag, mapp_phase, angle, v_len, z_len, device):
         super(DetNet, self).__init__()
-        # define the parameters for the linear transformation: (W1,b1), (W2,b2) and (W3,b3)
-        sym_len = block_len + sym_mem
+        self.layers = layers
+        self.v_len = v_len
+        self.sym_len = block_len + sym_mem
+        self.block_len = block_len
+        self.sym_mem = sym_mem
+        self.one_hot_len_mag = len(mapp_mag)
+        self.one_hot_len_phase = len(mapp_phase)
+        self.mapp_mag = mapp_mag
+        self.mapp_phase = mapp_phase
+        self.angle = angle
+        self.device = device
 
+        # define the parameters for the linear transformation: (W1,b1), (W2,b2) and (W3,b3)
         self.linear_trafo_1_l_mag = nn.ModuleList()
         self.linear_trafo_1_l_phase = nn.ModuleList()
-        self.linear_trafo_1_l_mag.extend([nn.Linear((sym_len + v_len), z_len) for i in range(layers)]) 
-        self.linear_trafo_1_l_phase.extend([nn.Linear((sym_len + v_len), z_len) for i in range(layers)]) 
+        self.linear_trafo_1_l_mag.extend([nn.Linear((self.sym_len + v_len), z_len) for i in range(layers)]) 
+        self.linear_trafo_1_l_phase.extend([nn.Linear((self.sym_len + v_len), z_len) for i in range(layers)]) 
         for i in range(layers):
             nn.init.normal_(self.linear_trafo_1_l_mag[i].weight, std = 0.01)
             nn.init.normal_(self.linear_trafo_1_l_mag[i].bias, std = 0.01)
@@ -23,8 +33,8 @@ class DetNet(nn.Module):
 
         self.linear_trafo_2_l_mag = nn.ModuleList()
         self.linear_trafo_2_l_phase = nn.ModuleList()
-        self.linear_trafo_2_l_mag.extend([nn.Linear(z_len, sym_len*one_hot_len_mag) for i in range(layers)]) 
-        self.linear_trafo_2_l_phase.extend([nn.Linear(z_len, sym_len*one_hot_len_phase) for i in range(layers)]) 
+        self.linear_trafo_2_l_mag.extend([nn.Linear(z_len, self.sym_len*self.one_hot_len_mag) for i in range(layers)]) 
+        self.linear_trafo_2_l_phase.extend([nn.Linear(z_len, self.sym_len*self.one_hot_len_phase) for i in range(layers)]) 
         for i in range(0, layers):
             nn.init.normal_(self.linear_trafo_2_l_mag[i].weight, std = 0.01)
             nn.init.normal_(self.linear_trafo_2_l_mag[i].bias, std = 0.01)
@@ -71,17 +81,7 @@ class DetNet(nn.Module):
         # ReLU as activation faunction
         self.relu = nn.ReLU()#Hardtanh(min_val=-10, max_val=10)
 
-        # extra internal varaibles
-        self.layers = layers
-        self.v_len = v_len
-        self.sym_len = sym_len
-        self.block_len = block_len
-        self.sym_mem = sym_mem
-        self.one_hot_len_mag = one_hot_len_mag
-        self.one_hot_len_phase = one_hot_len_phase
-        self.device = device
-
-    def forward(self, y_e, y_o, Psi_e, Psi_o, mapp_mag, mapp_phase):
+    def forward(self, y_e, y_o, Psi_e, Psi_o):
         batch_size = y_e.size(0)
         v_mag = torch.zeros(batch_size, self.v_len, device=self.device)
         x_mag = torch.zeros(1, batch_size, self.sym_len, device=self.device)
@@ -94,15 +94,16 @@ class DetNet(nn.Module):
         for l in range(self.layers):
             # make the magnitude stage
             jacobian = torch.cat((torch.diag_embed(torch.cos(x_phase[-1])),torch.diag_embed(torch.sin(x_phase[-1]))), dim=-1)
-            x_mag, x_mag_oh, v_mag = self.gradient(y_e, y_o, Psi_e, Psi_o, x_mag, x_phase, jacobian, mapp_mag, l, x_mag_oh, v_mag, stage=0)
+            x_mag, x_mag_oh, v_mag = self.gradient(y_e, y_o, Psi_e, Psi_o, x_mag, x_phase, jacobian, self.mapp_mag, l, x_mag_oh, v_mag, stage=0)
             # make the phase stage
             jacobian = torch.cat((-torch.diag_embed(torch.sin(x_phase[-1])*x_mag[-1]),torch.diag_embed(torch.cos(x_phase[-1])*x_mag[-1])), dim=-1)
-            x_phase, x_phase_oh, v_phase = self.gradient(y_e, y_o, Psi_e, Psi_o, x_mag, x_phase, jacobian, mapp_phase, l, x_phase_oh, v_phase, stage=1)
+            x_phase, x_phase_oh, v_phase = self.gradient(y_e, y_o, Psi_e, Psi_o, x_mag, x_phase, jacobian, self.mapp_phase, l, x_phase_oh, v_phase, stage=1)
     
             
         del jacobian, x_mag_oh, v_mag, x_phase_oh, v_phase
         torch.cuda.empty_cache()
-
+        
+        x_phase = aux_func.phase_correction(x_phase, self.angle, self.device)
         return x_mag[1:], x_phase[1:]
 
     def gradient(self, y_e, y_o, Psi_e, Psi_o, x_mag, x_phase, jacobian, mapp, l, x_oh, v, stage):
