@@ -77,9 +77,9 @@ for batch_size in batch_size_per_epoch:
         x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mag_list, const.phase_list)
         
         # compute loss
-        x_phase_diff = aux_func.diff_decoding(x_phase, angle, device)
+        x_phase = aux_func.phase_correction(x_phase, angle, device)
         loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag[:,:,:-1], tx_mag[:,:-1], device)) + \
-            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(x_phase_diff[:,:,1:]), torch.abs(tx_phase[:,1:]), device))
+            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(x_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device))
         
         # compute gradients
         loss.backward()
@@ -91,13 +91,13 @@ for batch_size in batch_size_per_epoch:
         # Print and save the current progress of the training
         if (i+1)%(batches_per_epoch//3) == 0:  
             results.append(aux_func.per_layer_loss_distance_square(x_mag[:,:,:-1], tx_mag[:,:-1], device).detach().cpu().numpy())
-            results.append(aux_func.per_layer_loss_distance_square(torch.abs(x_phase_diff[:,:,1:]), torch.abs(tx_phase[:,1:]), device).detach().cpu().numpy())
-            ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
-            ser.append(aux_func.get_ser(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
+            results.append(aux_func.per_layer_loss_distance_square(torch.abs(x_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device).detach().cpu().numpy())
+            ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
+            ser.append(aux_func.get_ser(x_mag[-1,:,:-1], x_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
             print(f'Batch size {batch_size:_}, Train step {i:_}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
             print(f"\tBER:\t\t\t{ber[-1]}")
             print(f"\tSER:\t\t\t{ser[-1]}")
-            x_diff = (x_mag[-1,:,:-1]*torch.exp(1j*x_phase_diff[-1,:,1:]))
+            x_diff = (x_mag[-1,:,:-1]*torch.exp(1j*x_phase[-1,:,1:]))
             
             x_diff = x_diff.flatten().detach().cpu()
 

@@ -99,11 +99,15 @@ def oh_2_sym(mapp, syms_oh, syms_len, device):
     return syms
 
 ############################ Differential decoding #################################
-def diff_decoding(x_phase, angle, device):
-    x_phase_diff = torch.diff(x_phase, prepend=torch.zeros(x_phase.size(0),x_phase.size(1),1, device=device), dim=-1)
-    x_phase_diff = torch.remainder(x_phase_diff-torch.pi,2*torch.pi)-torch.pi
-    x_phase_diff = torch.where(((x_phase>-torch.pi/2)&(x_phase<-angle/2))|((x_phase>torch.pi/2)&(x_phase<torch.pi-angle/2)),-x_phase, x_phase)
-    return x_phase_diff
+def phase_correction(x_phase, angle, device):
+    x_phase = torch.where(((x_phase - 2*torch.pi > -torch.pi/2)&(x_phase - 2*torch.pi <- angle/2))|
+                          ((x_phase + 0*torch.pi > -torch.pi/2)&(x_phase + 0*torch.pi <- angle/2))|
+                          ((x_phase + 2*torch.pi > -torch.pi/2)&(x_phase + 2*torch.pi <- angle/2))|
+                          ((x_phase - 2*torch.pi > torch.pi/2)&(x_phase - 2*torch.pi < torch.pi-angle/2))|
+                          ((x_phase + 0*torch.pi > torch.pi/2)&(x_phase + 0*torch.pi < torch.pi-angle/2))|
+                          ((x_phase + 2*torch.pi > torch.pi/2)&(x_phase + 2*torch.pi < torch.pi-angle/2))
+                          ,-x_phase, x_phase)
+    return x_phase
 
 ############################### Loss functions ######################################
 def per_layer_loss_distance_square(x_oh, x_oh_train, device):
