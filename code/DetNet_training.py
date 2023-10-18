@@ -12,8 +12,7 @@ import bcjr_upsamp
 import channel_metrics as ch_met
 import constellation_maker as const_mk
 import DetNet_aux_functions as aux_func
-import DetNet_architecture
-
+import MagPhaseDetNet
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
@@ -37,14 +36,12 @@ const = constellation.constellation(mapping, device ,diff_mapping)
 layers = 30#*sym_len
 v_len = 2*sym_len
 z_len = 4*sym_len
-one_hot_len_mag = len(const.mag_list)
-one_hot_len_phase = len(const.phase_list)
 
-model = DetNet_architecture.DetNet(layers, block_len, sym_mem, one_hot_len_mag, one_hot_len_phase, v_len, z_len, device)
-model.to(device)
+magphase_DetNet = MagPhaseDetNet(layers, block_len, sym_mem, const.mag_list, const.phase_list, v_len, z_len, device)
 
 #################### Adam Optimizer ############################
-optimizer = optim.Adam(model.parameters(), eps=1e-07)
+mag_optimizer = optim.Adam(magphase_DetNet.mag_model.parameters(), eps=1e-07)
+phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07)
 
 ###################### Training ################################
 # hyperparameters
@@ -58,8 +55,7 @@ mag_loss_weight = 1e-2
 phase_loss_weight = 1 - mag_loss_weight
 
 
-    
-model.train()
+magphase_DetNet.train()    
 
 results = []
 ber = []
@@ -68,42 +64,41 @@ ser = []
 for batch_size in batch_size_per_epoch:
     for i in range(batches_per_epoch):
         # Generate a batch of training data
-        y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, device)
-        tx_syms_re = tx_syms[:,:sym_len]
-        tx_syms_im = tx_syms[:,sym_len:]
-        tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
-        tx_phase = torch.atan2(tx_syms_im,tx_syms_re)
+        y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase = aux_func.data_generation(block_len, sym_mem, batch_size,
+                                                                            snr_dB, snr_dB_var, const, device)
+        
         # feed data to the network
-        x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mag_list, const.phase_list)
+        rx_mag, rx_phase = magphase_DetNet(y_e, y_o, Psi_e, Psi_o, layers)
         
-        # compute loss
-        x_phase = aux_func.phase_correction(x_phase, angle, device)
-        loss = mag_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(x_mag[:,:,:-1], tx_mag[:,:-1], device)) + \
-            phase_loss_weight*torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(x_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device))
-        
+        mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag[:,:,:-1], tx_mag[:,:-1], device))
+        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_phase[:,:,1:], tx_phase[:,1:], device))
+
         # compute gradients
-        loss.backward()
+        mag_loss.backward()
+        phase_loss.backward()
         # Adapt weights
-        optimizer.step()
+        mag_optimizer.step()
+        phase_optimizer.step()
         # reset gradients
-        optimizer.zero_grad()
+        mag_optimizer.zero_grad()
+        phase_optimizer.zero_grad()
 
         # Print and save the current progress of the training
         if (i+1)%(batches_per_epoch//3) == 0:  
-            results.append(aux_func.per_layer_loss_distance_square(x_mag[:,:,:-1], tx_mag[:,:-1], device).detach().cpu().numpy())
-            results.append(aux_func.per_layer_loss_distance_square(torch.abs(x_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device).detach().cpu().numpy())
-            ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
-            ser.append(aux_func.get_ser(x_mag[-1,:,:-1], x_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
+            results.append(aux_func.per_layer_loss_distance_square(rx_mag[:,:,:-1], tx_mag[:,:-1], device).detach().cpu().numpy())
+            results.append(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device).detach().cpu().numpy())
+            ber.append(aux_func.get_ber(rx_mag[-1,:,:-1], rx_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
+            ser.append(aux_func.get_ser(rx_mag[-1,:,:-1], rx_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
             print(f'Batch size {batch_size:_}, Train step {i:_}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
             print(f"\tBER:\t\t\t{ber[-1]}")
             print(f"\tSER:\t\t\t{ser[-1]}")
-            x_diff = (x_mag[-1,:,:-1]*torch.exp(1j*x_phase[-1,:,1:]))
+            rx = (rx_mag[-1,:,:-1]*torch.exp(1j*rx_phase[-1,:,1:]))
             
-            x_diff = x_diff.flatten().detach().cpu()
+            rx = rx.flatten().detach().cpu()
 
             fig = plt.figure(figsize=(6,6))
             ax = fig.add_subplot(1,1,1)
-            ax.scatter(torch.real(x_diff),torch.imag(x_diff), marker='o', s=15, c='b', label='MagPhase DetNet', alpha=0.5)
+            ax.scatter(torch.real(rx),torch.imag(rx), marker='o', s=15, c='b', label='MagPhase DetNet', alpha=0.5)
             ax.plot(np.cos(np.linspace(0, 2 * np.pi, 100)), np.sin(np.linspace(0, 2 * np.pi, 100)), 'k--', alpha=0.5)
             ax.scatter(np.cos([0, angle, np.pi, np.pi + angle]), np.sin([0, angle, np.pi, np.pi + angle]), marker='o', s=70, c='red', label='Constellation Points')
             line_angles = [np.pi / 2, np.pi - angle / 2, np.pi + angle / 2, 3 * np.pi / 2, -angle / 2, angle / 2]
@@ -116,23 +111,27 @@ for batch_size in batch_size_per_epoch:
             ax.set_xlim(-2, 2)
             ax.set_ylim(-2, 2)
             ax.grid(True)
-            plt.savefig(f'../../results/scatter_x_diff_hat_{cnt}.pdf')
+            plt.savefig(f'../../results/scatter_rx_hat_{cnt}.pdf')
             plt.close('all')
 
             cnt +=1     
-            checkpoint = {'state_dict': model.state_dict(),
-                          'optimizer': optimizer.state_dict(),
+            checkpoint = {'mag_state_dict': magphase_DetNet.mag_model.state_dict(),
+                          'mag_optimizer': mag_optimizer.state_dict(),
+                          'phase_state_dict': magphase_DetNet.phase_model.state_dict(),
+                          'phase_optimizer': phase_optimizer.state_dict(),
                           'results': results,
                           'cnt': cnt}
             torch.save(checkpoint, '../../results/DetNet_test.pt')
-            del x_diff
+            del rx
 
-        del y_e, y_o, Psi_e, Psi_o, tx_syms
+        del y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase
         torch.cuda.empty_cache()
 
-checkpoint = {'state_dict': model.state_dict(),
-                          'optimizer': optimizer.state_dict(),
-                          'results': results,
-                          'cnt': cnt}
+checkpoint = {'mag_state_dict': magphase_DetNet.mag_model.state_dict(),
+              'mag_optimizer': mag_optimizer.state_dict(),
+              'phase_state_dict': magphase_DetNet.phase_model.state_dict(),
+              'phase_optimizer': phase_optimizer.state_dict(),
+              'results': results,
+              'cnt': cnt}
 torch.save(checkpoint, '../../results/DetNet_test.pt')
                         
