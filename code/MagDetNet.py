@@ -13,6 +13,7 @@ class MagDetNet(nn.Module):
         self.block_len = block_len
         self.sym_mem = sym_mem
         self.one_hot_len = len(mapp)
+        self.mapp = mapp
         self.device = device
 
         # define the parameters for the linear transformation: (W1,b1), (W2,b2) and (W3,b3)
@@ -53,7 +54,7 @@ class MagDetNet(nn.Module):
     def forward(self, l, x_mag, x_mag_oh, v, x_phase, y_e, y_o, Psi_e, Psi_o):
         batch_size = y_e.size(0)
         # Send Data through the l-th layer 
-        x = torch.cat((x_mag*torch.cos(x_phase),x_mag*torch.sin(x_phase)), dim=-1)
+        x = torch.cat((x_mag[-1]*torch.cos(x_phase[-1]),x_mag[-1]*torch.sin(x_phase[-1])), dim=-1)
         jacobian = torch.cat((torch.diag_embed(torch.cos(x_phase[-1])),torch.diag_embed(torch.sin(x_phase[-1]))), dim=-1)
         
         Psi_e_x = torch.bmm(Psi_e,x.unsqueeze(-1)).squeeze(-1)
@@ -67,17 +68,17 @@ class MagDetNet(nn.Module):
         Psi_e_x_sql = torch.sum(torch.square(Psi_e_x).reshape(batch_size,2,-1),dim=1).unsqueeze(-1)
         Psi_o_x_sql = torch.sum(torch.square(Psi_o_x).reshape(batch_size,2,-1),dim=1).unsqueeze(-1)
         
-        q = x_mag - self.delta1_l[l]*torch.bmm(A_e,y_e.unsqueeze(-1)).squeeze(-1) + self.delta2_l[l]*torch.bmm(A_e,Psi_e_x_sql).squeeze(-1) \
+        q = x_mag[-1] - self.delta1_l[l]*torch.bmm(A_e,y_e.unsqueeze(-1)).squeeze(-1) + self.delta2_l[l]*torch.bmm(A_e,Psi_e_x_sql).squeeze(-1) \
             - self.delta2_l[l]*torch.bmm(A_o,y_o.unsqueeze(-1)).squeeze(-1) + self.delta4_l[l]*torch.bmm(A_o,Psi_o_x_sql).squeeze(-1)
             
         # Apply linear transformation and ReLU
         z = self.relu(self.linear_trafo_1_l[l](torch.cat((q, v), 1)))
         # Apply linear transformation
-        x_mag_oh += self.linear_trafo_2_l[l](z)
+        x_mag_oh = x_mag_oh + self.linear_trafo_2_l[l](z)
         # proyect and append result
-        x_mag = aux_func.oh_2_sym(self.mapp, x_mag_oh, self.sym_len, self.device).unsqueeze(0)
+        x_mag = torch.cat((x_mag, aux_func.oh_2_sym(self.mapp, x_mag_oh, self.sym_len, self.device).unsqueeze(0)), 0)
         # calculate the v for the next layer
-        v += self.linear_trafo_3_l[l](z)
+        v = v + self.linear_trafo_3_l[l](z)
 
         del x, jacobian, Psi_e_x, diag_Psi_e_x, A_e, Psi_o_x, diag_Psi_o_x, A_o, Psi_e_x_sql, Psi_o_x_sql, q, z 
         torch.cuda.empty_cache()

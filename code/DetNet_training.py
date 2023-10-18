@@ -37,7 +37,7 @@ layers = 30#*sym_len
 v_len = 2*sym_len
 z_len = 4*sym_len
 
-magphase_DetNet = MagPhaseDetNet(layers, block_len, sym_mem, const.mag_list, const.phase_list, v_len, z_len, device)
+magphase_DetNet = MagPhaseDetNet.MagPhaseDetNet(layers, block_len, sym_mem, const.mag_list, const.phase_list, v_len, z_len, device)
 
 #################### Adam Optimizer ############################
 mag_optimizer = optim.Adam(magphase_DetNet.mag_model.parameters(), eps=1e-07)
@@ -47,8 +47,9 @@ phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07
 # hyperparameters
 # training_steps = 20_000
 # batch_size_train = 200
-batches_per_epoch = 1_000
-batch_size_per_epoch = [100,200,300,600,700,1_000,2_000]#np.linspace(10,10_000,num=num_epochs).astype(int)
+batches_per_epoch = 500
+batch_size_per_epoch = [100,200]
+images_per_epoch = 10
 cnt = 0
 
 mag_loss_weight = 1e-2
@@ -71,10 +72,10 @@ for batch_size in batch_size_per_epoch:
         rx_mag, rx_phase = magphase_DetNet(y_e, y_o, Psi_e, Psi_o, layers)
         
         mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag[:,:,:-1], tx_mag[:,:-1], device))
-        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_phase[:,:,1:], tx_phase[:,1:], device))
+        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device))
 
         # compute gradients
-        mag_loss.backward()
+        mag_loss.backward(retain_graph=True)
         phase_loss.backward()
         # Adapt weights
         mag_optimizer.step()
@@ -84,7 +85,7 @@ for batch_size in batch_size_per_epoch:
         phase_optimizer.zero_grad()
 
         # Print and save the current progress of the training
-        if (i+1)%(batches_per_epoch//3) == 0:  
+        if (i+1)%(batches_per_epoch//images_per_epoch) == 0:  
             results.append(aux_func.per_layer_loss_distance_square(rx_mag[:,:,:-1], tx_mag[:,:-1], device).detach().cpu().numpy())
             results.append(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device).detach().cpu().numpy())
             ber.append(aux_func.get_ber(rx_mag[-1,:,:-1], rx_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
@@ -121,7 +122,7 @@ for batch_size in batch_size_per_epoch:
                           'phase_optimizer': phase_optimizer.state_dict(),
                           'results': results,
                           'cnt': cnt}
-            torch.save(checkpoint, '../../results/DetNet_test.pt')
+            torch.save(checkpoint, '../../results/magphase_DetNet_test.pt')
             del rx
 
         del y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase
@@ -133,5 +134,5 @@ checkpoint = {'mag_state_dict': magphase_DetNet.mag_model.state_dict(),
               'phase_optimizer': phase_optimizer.state_dict(),
               'results': results,
               'cnt': cnt}
-torch.save(checkpoint, '../../results/DetNet_test.pt')
+torch.save(checkpoint, '../../results/magphase_DetNet_test.pt')
                         

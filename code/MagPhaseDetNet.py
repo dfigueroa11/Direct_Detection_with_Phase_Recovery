@@ -27,15 +27,15 @@ class MagPhaseDetNet():
         assert layers <= self.layers or layers > 0, f'layers should be between 1 and {self.layers}'
         batch_size = y_e.size(0)
         v_mag = torch.zeros(batch_size, self.v_len, device=self.device)
-        x_mag = torch.zeros(layers+1, batch_size, self.sym_len, device=self.device)
+        x_mag = torch.zeros(1, batch_size, self.sym_len, device=self.device)
         x_mag_oh = torch.zeros(batch_size, self.sym_len*self.one_hot_len_mag, device=self.device)
         v_phase = torch.zeros(batch_size, self.v_len, device=self.device)
-        x_phase = torch.zeros(layers+1, batch_size, self.sym_len, device=self.device)
+        x_phase = torch.zeros(1, batch_size, self.sym_len, device=self.device)
         x_phase_oh = torch.zeros(batch_size, self.sym_len*self.one_hot_len_phase, device=self.device)
 
         for l in range(layers):
-            x_mag[l+1], x_mag_oh, v_mag = self.mag_model(l, x_mag[l], x_mag_oh, v_mag, x_phase[l], y_e, y_o, Psi_e, Psi_o)
-            x_phase[l+1], x_phase_oh, v_phase = self.phase_model(l, x_phase[l], x_phase_oh, v_phase, x_mag[l+1], y_e, y_o, Psi_e, Psi_o)
+            x_mag, x_mag_oh, v_mag = self.mag_model(l, x_mag, x_mag_oh, v_mag, x_phase, y_e, y_o, Psi_e, Psi_o)
+            x_phase, x_phase_oh, v_phase = self.phase_model(l, x_phase, x_phase_oh, v_phase, x_mag, y_e, y_o, Psi_e, Psi_o)
         
         if return_all:
             return x_mag[1:], x_phase[1:]
@@ -49,7 +49,3 @@ class MagPhaseDetNet():
     def eval(self):
         self.mag_model.eval()
         self.phase_model.eval()
-
-
-
-
