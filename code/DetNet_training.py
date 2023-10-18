@@ -24,7 +24,7 @@ sym_mem = 1
 ch_mem = 2*sym_mem+1
 block_len = 4
 sym_len = block_len+sym_mem
-snr_dB = 8
+snr_dB = 15
 snr_dB_var = 4
 
 ############# Constellation and differential mapping ################
@@ -50,8 +50,8 @@ optimizer = optim.Adam(model.parameters(), eps=1e-07)
 # hyperparameters
 # training_steps = 20_000
 # batch_size_train = 200
-batches_per_epoch = 1_500
-batch_size_per_epoch = [100,200,300,600,800,1_000,2_000,5_000]#np.linspace(10,10_000,num=num_epochs).astype(int)
+batches_per_epoch = 1_000
+batch_size_per_epoch = [100,200,300,600,700,1_000,2_000]#np.linspace(10,10_000,num=num_epochs).astype(int)
 cnt = 0
 
 mag_loss_weight = 1e-2
@@ -100,29 +100,39 @@ for batch_size in batch_size_per_epoch:
             x_diff = (x_mag[-1,:,:-1]*torch.exp(1j*x_phase_diff[-1,:,1:]))
             
             x_diff = x_diff.flatten().detach().cpu()
-            plt.figure()
-            plt.scatter(torch.real(x_diff),torch.imag(x_diff), label='x')
-            plt.legend()
-            plt.xlim((-2.5,2.5))
-            plt.ylim((-2.5,2.5))
-            plt.grid()
-            plt.savefig(f'../../results/scatter_x_diff_hat_{cnt}.pdf', dpi=20)
+
+            fig = plt.figure(figsize=(6,6))
+            ax = fig.add_subplot(1,1,1)
+            ax.scatter(torch.real(x_diff),torch.imag(x_diff), marker='o', s=15, c='b', label='MagPhase DetNet', alpha=0.5)
+            ax.plot(np.cos(np.linspace(0, 2 * np.pi, 100)), np.sin(np.linspace(0, 2 * np.pi, 100)), 'k--', alpha=0.5)
+            ax.scatter(np.cos([0, angle, np.pi, np.pi + angle]), np.sin([0, angle, np.pi, np.pi + angle]), marker='o', s=70, c='red', label='Constellation Points')
+            line_angles = [np.pi / 2, np.pi - angle / 2, np.pi + angle / 2, 3 * np.pi / 2, -angle / 2, angle / 2]
+            for a in line_angles:
+                ax.plot([0, 4 * np.cos(a)], [0, 4 * np.sin(a)], 'g:', linewidth=2, label="Decision Boundaries")
+            handles, labels = ax.get_legend_handles_labels()
+            ax.legend(handles[:3], labels[:3], loc=1)
+            ax.set_xlabel('Re')
+            ax.set_ylabel('Im')
+            ax.set_xlim(-2, 2)
+            ax.set_ylim(-2, 2)
+            ax.grid(True)
             plt.close('all')
+            plt.savefig(f'../../results/scatter_x_diff_hat_{cnt}.pdf')
+
+            cnt +=1     
             checkpoint = {'state_dict': model.state_dict(),
                           'optimizer': optimizer.state_dict(),
-                          'results': results}
+                          'results': results,
+                          'cnt': cnt}
             torch.save(checkpoint, '../../results/DetNet_test.pt')
-            cnt +=1     
             del x_diff
 
         del y_e, y_o, Psi_e, Psi_o, tx_syms
         torch.cuda.empty_cache()
 
 checkpoint = {'state_dict': model.state_dict(),
-                          'optimizer': optimizer.state_dict()}
+                          'optimizer': optimizer.state_dict(),
+                          'results': results,
+                          'cnt': cnt}
 torch.save(checkpoint, '../../results/DetNet_test.pt')
-            
-
-
-
-
+                        
