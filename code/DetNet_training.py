@@ -108,7 +108,7 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
             ax.set_xlim(-2, 2)
             ax.set_ylim(-2, 2)
             ax.grid(True)
-            plt.savefig(f'../../results/scatter_rx_hat_{cnt}.pdf')
+            plt.savefig(f'../../results2/scatter_rx_hat_{cnt}.pdf')
             plt.close('all')
 
             cnt +=1     
@@ -116,7 +116,7 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
                           'optimizer': optimizer.state_dict(),
                           'results': results,
                           'cnt': cnt}
-            torch.save(checkpoint, '../../results/DetNet_test.pt')
+            torch.save(checkpoint, '../../results2/DetNet_test.pt')
             del x_diff
 
         del y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase
@@ -126,5 +126,5 @@ checkpoint = {'state_dict': model.state_dict(),
               'optimizer': optimizer.state_dict(),
               'results': results,
               'cnt': cnt}
-torch.save(checkpoint, '../../results/DetNet_test.pt')
+torch.save(checkpoint, '../../results2/DetNet_test.pt')
                         
