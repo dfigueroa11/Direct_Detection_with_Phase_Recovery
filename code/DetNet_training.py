@@ -38,7 +38,7 @@ v_len = 2*sym_len
 z_len = 4*sym_len
 
 magphase_DetNet = MagPhaseDetNet.MagPhaseDetNet(layers, block_len, sym_mem, const.mag_list, const.phase_list, v_len, z_len, device)
-
+magphase_DetNet.angle = angle
 #################### Adam Optimizer ############################
 mag_optimizer = optim.Adam(magphase_DetNet.mag_model.parameters(), eps=1e-07)
 phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07)
@@ -47,8 +47,8 @@ phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07
 # hyperparameters
 # training_steps = 20_000
 # batch_size_train = 200
-batches_per_epoch = 500
-batch_size_per_epoch = [100,200]
+batches_per_epoch = 1_000
+batch_size_per_epoch = [100,200,300,600,700,1_000,2_000]
 images_per_epoch = 10
 cnt = 0
 

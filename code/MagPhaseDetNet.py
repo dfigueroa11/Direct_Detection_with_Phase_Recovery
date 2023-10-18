@@ -3,8 +3,11 @@ import torch
 
 import MagDetNet
 import PhaseDetNet
+import DetNet_aux_functions as aux_func
 
 class MagPhaseDetNet():
+
+    angle = None
 
     def __init__(self, layers, block_len, sym_mem, mapp_mag, mapp_phase, v_len, z_len, device):
         self.layers = layers
@@ -37,6 +40,7 @@ class MagPhaseDetNet():
             x_mag, x_mag_oh, v_mag = self.mag_model(l, x_mag, x_mag_oh, v_mag, x_phase, y_e, y_o, Psi_e, Psi_o)
             x_phase, x_phase_oh, v_phase = self.phase_model(l, x_phase, x_phase_oh, v_phase, x_mag, y_e, y_o, Psi_e, Psi_o)
         
+        x_phase = aux_func.phase_correction(x_phase, self.angle, self.device)
         if return_all:
             return x_mag[1:], x_phase[1:]
         

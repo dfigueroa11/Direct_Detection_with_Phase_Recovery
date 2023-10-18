@@ -123,8 +123,6 @@ def per_layer_loss_distance_square(x_oh, x_oh_train, device):
 
 ############################### Performance (BER, SER) ######################################
 def get_ber(x_mag, x_phase, tx_mag, tx_phase, const):
-    x_phase = torch.remainder(x_phase,2*torch.pi)
-    x_phase = torch.where(((x_phase>3*torch.pi/2)&(x_phase<2*torch.pi))|((x_phase>torch.pi/2)&(x_phase<torch.pi)),-x_phase, x_phase)
     rx_syms = x_mag*torch.exp(1j*x_phase)
     tx_syms = tx_mag*torch.exp(1j*tx_phase)
     tx_syms_idx = const.nearest_neighbor(tx_syms)
@@ -134,8 +132,6 @@ def get_ber(x_mag, x_phase, tx_mag, tx_phase, const):
     return ch_met.get_ER(tx_bits.flatten(),rx_bits.flatten())
 
 def get_ser(x_mag, x_phase, tx_mag, tx_phase, const):
-    x_phase = torch.remainder(x_phase,2*torch.pi)
-    x_phase = torch.where(((x_phase>3*torch.pi/2)&(x_phase<2*torch.pi))|((x_phase>torch.pi/2)&(x_phase<torch.pi)),-x_phase, x_phase)
     rx_syms = x_mag*torch.exp(1j*x_phase)
     tx_syms = tx_mag*torch.exp(1j*tx_phase)
     tx_syms_idx = const.nearest_neighbor(tx_syms)
