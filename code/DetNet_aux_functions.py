@@ -70,8 +70,13 @@ def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, d
     snr_lin = 10.0 ** ((snr_dB+2*snr_dB_var*(torch.rand(batch_size)-0.5))/10.0)
     for i in range(batch_size):
         y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const, device)
+    
+    tx_syms_re = tx_syms[:,:sym_mem+block_len]
+    tx_syms_im = tx_syms[:,sym_mem+block_len:]
+    tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
+    tx_phase = torch.atan2(tx_syms_im,tx_syms_re)
 
-    return y_e, y_o, Psi_e, Psi_o, tx_syms
+    return y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase
 
 ############################ One Hot functions #################################
 def sym_2_oh(mapp_re, mapp_im, syms, device):
@@ -118,8 +123,6 @@ def per_layer_loss_distance_square(x_oh, x_oh_train, device):
 
 ############################### Performance (BER, SER) ######################################
 def get_ber(x_mag, x_phase, tx_mag, tx_phase, const):
-    x_phase = torch.remainder(x_phase,2*torch.pi)
-    x_phase = torch.where(((x_phase>3*torch.pi/2)&(x_phase<2*torch.pi))|((x_phase>torch.pi/2)&(x_phase<torch.pi)),-x_phase, x_phase)
     rx_syms = x_mag*torch.exp(1j*x_phase)
     tx_syms = tx_mag*torch.exp(1j*tx_phase)
     tx_syms_idx = const.nearest_neighbor(tx_syms)
@@ -129,8 +132,6 @@ def get_ber(x_mag, x_phase, tx_mag, tx_phase, const):
     return ch_met.get_ER(tx_bits.flatten(),rx_bits.flatten())
 
 def get_ser(x_mag, x_phase, tx_mag, tx_phase, const):
-    x_phase = torch.remainder(x_phase,2*torch.pi)
-    x_phase = torch.where(((x_phase>3*torch.pi/2)&(x_phase<2*torch.pi))|((x_phase>torch.pi/2)&(x_phase<torch.pi)),-x_phase, x_phase)
     rx_syms = x_mag*torch.exp(1j*x_phase)
     tx_syms = tx_mag*torch.exp(1j*tx_phase)
     tx_syms_idx = const.nearest_neighbor(tx_syms)
