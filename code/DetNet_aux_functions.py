@@ -70,8 +70,13 @@ def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, d
     snr_lin = 10.0 ** ((snr_dB+2*snr_dB_var*(torch.rand(batch_size)-0.5))/10.0)
     for i in range(batch_size):
         y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const, device)
+    
+    tx_syms_re = tx_syms[:,:sym_mem+block_len]
+    tx_syms_im = tx_syms[:,sym_mem+block_len:]
+    tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
+    tx_phase = torch.atan2(tx_syms_im,tx_syms_re)
 
-    return y_e, y_o, Psi_e, Psi_o, tx_syms
+    return y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase
 
 ############################ One Hot functions #################################
 def sym_2_oh(mapp_re, mapp_im, syms, device):
