@@ -19,9 +19,9 @@ print("We are using the following device for learning:",device)
 
 
 # System config
-sym_mem = 1
+sym_mem = 3
 ch_mem = 2*sym_mem+1
-block_len = 4
+block_len = 18
 sym_len = block_len+sym_mem
 
 ############# Constellation and differential mapping ################
@@ -43,34 +43,31 @@ phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07
 
 ###################### Training ################################
 # hyperparameters
-batches_per_epoch = 2_000
-batch_size_per_epoch = [100,200,300,600,800,1_000,2_000,5_000]
-snr_dB_list = [17,16,15,14,13,12,11,10.5]
-snr_dB_var_list = [3,3,3,3,3,4,4,4.5]
-images_per_epoch = 3
+batches_per_epoch = 5
+batch_size_per_epoch = [20,]
+snr_dB_list = [20,]
+snr_dB_var_list = [3,]
+images_per_epoch = 20
 cnt = 0
-
-mag_loss_weight = 1e-2
-phase_loss_weight = 1 - mag_loss_weight
-
 
 magphase_DetNet.train()    
 
 results = []
 ber = []
 ser = []
+
 # for i in range(training_steps):
 for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr_dB_var_list):
     for i in range(batches_per_epoch):
         # Generate a batch of training data
-        y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase = aux_func.data_generation(block_len, sym_mem, batch_size,
-                                                                            snr_dB, snr_dB_var, const, device)
-        
+        y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase, state_mag, state_phase = aux_func.data_generation(block_len, sym_mem, batch_size,
+                                                                                                    snr_dB, snr_dB_var, const, device)
         # feed data to the network
-        rx_mag, rx_phase = magphase_DetNet(y_e, y_o, Psi_e, Psi_o, layers)
+        rx_mag, rx_phase = magphase_DetNet(y_e, y_o, Psi_e, Psi_o, state_mag, state_phase, layers)
         
-        mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag[:,:,:-1], tx_mag[:,:-1], device))
-        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device))
+        
+        mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device))
+        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device))
 
         # compute gradients
         mag_loss.backward(retain_graph=True)
@@ -84,14 +81,14 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
 
         # Print and save the current progress of the training
         if (i+1)%(batches_per_epoch//images_per_epoch) == 0:  
-            results.append(aux_func.per_layer_loss_distance_square(rx_mag[:,:,:-1], tx_mag[:,:-1], device).detach().cpu().numpy())
-            results.append(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase[:,:,1:]), torch.abs(tx_phase[:,1:]), device).detach().cpu().numpy())
-            ber.append(aux_func.get_ber(rx_mag[-1,:,:-1], rx_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
-            ser.append(aux_func.get_ser(rx_mag[-1,:,:-1], rx_phase[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
-            print(f'Batch size {batch_size:_}, Train step {i:_}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
+            results.append(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device).detach().cpu().numpy())
+            results.append(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device).detach().cpu().numpy())
+            ber.append(aux_func.get_ber(rx_mag[-1], rx_phase[-1], tx_mag, tx_phase, const))
+            ser.append(aux_func.get_ser(rx_mag[-1], rx_phase[-1], tx_mag, tx_phase, const))
+            print(f'Batch size {batch_size:_}, Train step {i:_}, cnt {cnt}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
             print(f"\tBER:\t\t\t{ber[-1]}")
             print(f"\tSER:\t\t\t{ser[-1]}")
-            rx = (rx_mag[-1,:,:-1]*torch.exp(1j*rx_phase[-1,:,1:]))
+            rx = (rx_mag[-1]*torch.exp(1j*rx_phase[-1]))
             
             rx = rx.flatten().detach().cpu()
 
