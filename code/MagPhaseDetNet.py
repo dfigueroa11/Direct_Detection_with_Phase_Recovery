@@ -30,15 +30,22 @@ class MagPhaseDetNet():
         assert layers <= self.layers or layers > 0, f'layers should be between 1 and {self.layers}'
         batch_size = y_e.size(0)
         v_mag = torch.zeros(batch_size, self.v_len, device=self.device)
-        x_mag = torch.zeros(1, batch_size, self.sym_len_len, device=self.device)
+        x_mag = torch.zeros(1, batch_size, self.sym_len, device=self.device)
         x_mag_oh = torch.zeros(batch_size, self.sym_len*self.one_hot_len_mag, device=self.device)
         v_phase = torch.zeros(batch_size, self.v_len, device=self.device)
         x_phase = torch.zeros(1, batch_size, self.sym_len, device=self.device)
         x_phase_oh = torch.zeros(batch_size, self.sym_len*self.one_hot_len_phase, device=self.device)
 
+        mask = torch.cat((torch.zeros(batch_size, self.sym_mem, device=self.device),torch.ones(batch_size, self.block_len, device=self.device)), dim=-1)
+        mask = mask.repeat(layers,1,1)
+        state_mag = torch.cat((state_mag, torch.zeros(batch_size, self.block_len, device=self.device)), dim=-1)
+        state_mag = state_mag.repeat(layers,1,1)
+        state_phase = torch.cat((state_phase, torch.zeros(batch_size, self.block_len, device=self.device)), dim=-1)
+        state_phase = state_phase.repeat(layers,1,1)
+        
         for l in range(layers):
-            x_mag[l,:,:self.sym_mem] = state_mag
-            x_phase[l,:,:self.sym_mem] = state_phase
+            x_mag = x_mag*mask[:l+1] + state_mag[:l+1]
+            x_phase = x_phase*mask[:l+1] + state_phase[:l+1]
             x_mag, x_mag_oh, v_mag = self.mag_model(l, x_mag, x_mag_oh, v_mag, x_phase, y_e, y_o, Psi_e, Psi_o)
             x_phase, x_phase_oh, v_phase = self.phase_model(l, x_phase, x_phase_oh, v_phase, x_mag, y_e, y_o, Psi_e, Psi_o)
         

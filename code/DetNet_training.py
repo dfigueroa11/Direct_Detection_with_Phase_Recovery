@@ -21,7 +21,7 @@ print("We are using the following device for learning:",device)
 # System config
 sym_mem = 3
 ch_mem = 2*sym_mem+1
-block_len = 18
+block_len = 6
 sym_len = block_len+sym_mem
 
 ############# Constellation and differential mapping ################
@@ -43,11 +43,11 @@ phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07
 
 ###################### Training ################################
 # hyperparameters
-batches_per_epoch = 5
-batch_size_per_epoch = [20,]
+batches_per_epoch = 500
+batch_size_per_epoch = [100, 200]
 snr_dB_list = [20,]
 snr_dB_var_list = [3,]
-images_per_epoch = 20
+images_per_epoch = 10
 cnt = 0
 
 magphase_DetNet.train()    
