@@ -21,7 +21,7 @@ print("We are using the following device for learning:",device)
 # System config
 sym_mem = 3
 ch_mem = 2*sym_mem+1
-block_len = 6
+block_len = 4
 sym_len = block_len+sym_mem
 
 ############# Constellation and differential mapping ################
@@ -44,7 +44,7 @@ phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07
 ###################### Training ################################
 # hyperparameters
 batches_per_epoch = 500
-batch_size_per_epoch = [100, 200]
+batch_size_per_epoch = [100, 200, 300, 500, 700, 1_000]
 snr_dB_list = [20,]*len(batch_size_per_epoch)
 snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 10
@@ -66,8 +66,8 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
         rx_mag, rx_phase = magphase_DetNet(y_e, y_o, Psi_e, Psi_o, state_mag, state_phase, layers)
         
         
-        mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag[:,:,:1], tx_mag[:,:1], device))
-        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase[:,:,:1]), torch.abs(tx_phase[:,:1]), device))
+        mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device))
+        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device))
 
         # compute gradients
         mag_loss.backward(retain_graph=True)
@@ -83,32 +83,33 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
         if (i+1)%(batches_per_epoch//images_per_epoch) == 0:  
             results.append(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device).detach().cpu().numpy())
             results.append(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device).detach().cpu().numpy())
-            ber.append(aux_func.get_ber(rx_mag[-1,:,:1], rx_phase[-1,:,:1], tx_mag[:,:1], tx_phase[:,:1], const))
-            ser.append(aux_func.get_ser(rx_mag[-1,:,:1], rx_phase[-1,:,:1], tx_mag[:,:1], tx_phase[:,:1], const))
             print(f'Batch size {batch_size:_}, Train step {i:_}, cnt {cnt}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
-            print(f"\tBER:\t\t\t{ber[-1]}")
-            print(f"\tSER:\t\t\t{ser[-1]}")
-            rx = (rx_mag[-1,:,:1]*torch.exp(1j*rx_phase[-1,:,:1]))
-            
-            rx = rx.flatten().detach().cpu()
+            for j in range(block_len):
+                ber.append(aux_func.get_ber(rx_mag[-1,:,j:j+1], rx_phase[-1,:,j:j+1], tx_mag[:,j:j+1], tx_phase[:,j:j+1], const))
+                ser.append(aux_func.get_ser(rx_mag[-1,:,j:j+1], rx_phase[-1,:,j:j+1], tx_mag[:,j:j+1], tx_phase[:,j:j+1], const))
+                print(f"\tBER for symbol {j+1}:\t\t\t{ber[-1]}")
+                print(f"\tSER for symbol {j+1}:\t\t\t{ser[-1]}")
+                rx = (rx_mag[-1,:,j:j+1]*torch.exp(1j*rx_phase[-1,:,j:j+1]))
+                
+                rx = rx.flatten().detach().cpu()
 
-            fig = plt.figure(figsize=(6,6))
-            ax = fig.add_subplot(1,1,1)
-            ax.scatter(torch.real(rx),torch.imag(rx), marker='o', s=15, c='b', label='MagPhase DetNet', alpha=0.5)
-            ax.plot(np.cos(np.linspace(0, 2 * np.pi, 100)), np.sin(np.linspace(0, 2 * np.pi, 100)), 'k--', alpha=0.5)
-            ax.scatter(np.cos([0, angle, np.pi, np.pi + angle]), np.sin([0, angle, np.pi, np.pi + angle]), marker='o', s=70, c='red', label='Constellation Points')
-            line_angles = [np.pi / 2, np.pi - angle / 2, np.pi + angle / 2, 3 * np.pi / 2, -angle / 2, angle / 2]
-            for a in line_angles:
-                ax.plot([0, 4 * np.cos(a)], [0, 4 * np.sin(a)], 'g:', linewidth=2, label="Decision Boundaries")
-            handles, labels = ax.get_legend_handles_labels()
-            ax.legend(handles[:3], labels[:3], loc=1)
-            ax.set_xlabel('Re')
-            ax.set_ylabel('Im')
-            ax.set_xlim(-2, 2)
-            ax.set_ylim(-2, 2)
-            ax.grid(True)
-            plt.savefig(f'../../results/scatter_rx_hat_{cnt}.pdf')
-            plt.close('all')
+                fig = plt.figure(figsize=(6,6))
+                ax = fig.add_subplot(1,1,1)
+                ax.scatter(torch.real(rx),torch.imag(rx), marker='o', s=15, c='b', label='MagPhase DetNet', alpha=0.5)
+                ax.plot(np.cos(np.linspace(0, 2 * np.pi, 100)), np.sin(np.linspace(0, 2 * np.pi, 100)), 'k--', alpha=0.5)
+                ax.scatter(np.cos([0, angle, np.pi, np.pi + angle]), np.sin([0, angle, np.pi, np.pi + angle]), marker='o', s=70, c='red', label='Constellation Points')
+                line_angles = [np.pi / 2, np.pi - angle / 2, np.pi + angle / 2, 3 * np.pi / 2, -angle / 2, angle / 2]
+                for a in line_angles:
+                    ax.plot([0, 4 * np.cos(a)], [0, 4 * np.sin(a)], 'g:', linewidth=2, label="Decision Boundaries")
+                handles, labels = ax.get_legend_handles_labels()
+                ax.legend(handles[:3], labels[:3], loc=1)
+                ax.set_xlabel('Re')
+                ax.set_ylabel('Im')
+                ax.set_xlim(-2, 2)
+                ax.set_ylim(-2, 2)
+                ax.grid(True)
+                plt.savefig(f'../../results/scatter_rx_hat{j}_{cnt}.pdf')
+                plt.close('all')
 
             cnt +=1     
             checkpoint = {'mag_state_dict': magphase_DetNet.mag_model.state_dict(),
