@@ -50,8 +50,7 @@ snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 3
 cnt = 0
 
-window_phase = torch.arange(block_len-1, -1, -1, dtype=torch.float, device=device)*0.5 + 1
-
+window_phase = (torch.arange(block_len-1, -1, -1, dtype=torch.float, device=device)/(block_len-1))**2 + 1
 magphase_DetNet.train()    
 
 results = []
