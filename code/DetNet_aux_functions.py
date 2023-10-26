@@ -52,31 +52,37 @@ def one_batch_data_generation(block_len, sym_mem, snr_lin, const, device):
     Psi_e_mat = Psi_mat[::2,1::2]
     Psi_o_mat = Psi_mat[1::2,1::2]
 
-    tx_syms_ml = torch.cat((torch.real(info_symbols),torch.imag(info_symbols)),-1)
+    tx_syms_ml = torch.cat((torch.real(info_symbols[sym_mem:]),torch.imag(info_symbols[sym_mem:])),-1)
+    state_syms_ml = torch.cat((torch.real(tx_syms[:sym_mem]),torch.imag(tx_syms[:sym_mem])),-1)
     Psi_e_mat_ml = torch.cat((torch.cat((torch.real(Psi_e_mat),-torch.imag(Psi_e_mat)),-1),
                               torch.cat((torch.imag(Psi_e_mat),torch.real(Psi_e_mat)),-1)),-2)
     Psi_o_mat_ml = torch.cat((torch.cat((torch.real(Psi_o_mat),-torch.imag(Psi_o_mat)),-1),
                               torch.cat((torch.imag(Psi_o_mat),torch.real(Psi_o_mat)),-1)),-2)
 
-    return y[0,:2*block_len:2], y[0,1:2*block_len:2], Psi_e_mat_ml, Psi_o_mat_ml, tx_syms_ml
+    return y[0,:2*block_len:2], y[0,1:2*block_len:2], Psi_e_mat_ml, Psi_o_mat_ml, tx_syms_ml, state_syms_ml
 
 def data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, device):    
     y_e = torch.empty((batch_size,block_len), device=device)
     y_o = torch.empty((batch_size,block_len), device=device)
     Psi_e = torch.empty((batch_size, 2*block_len, 2*(block_len+sym_mem)), device=device)
     Psi_o = torch.empty((batch_size, 2*block_len, 2*(block_len+sym_mem)), device=device)
-    tx_syms = torch.empty((batch_size,2*(block_len+sym_mem)), device=device)
-    
+    tx_syms = torch.empty((batch_size,2*block_len), device=device)
+    state_syms = torch.empty((batch_size,2*sym_mem), device=device)
+
     snr_lin = 10.0 ** ((snr_dB+2*snr_dB_var*(torch.rand(batch_size)-0.5))/10.0)
     for i in range(batch_size):
-        y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const, device)
+        y_e[i], y_o[i], Psi_e[i], Psi_o[i], tx_syms[i], state_syms[i] = one_batch_data_generation(block_len, sym_mem, snr_lin[i], const, device)
     
-    tx_syms_re = tx_syms[:,:sym_mem+block_len]
-    tx_syms_im = tx_syms[:,sym_mem+block_len:]
+    tx_syms_re = tx_syms[:,:block_len]
+    tx_syms_im = tx_syms[:,block_len:]
     tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
     tx_phase = torch.atan2(tx_syms_im,tx_syms_re)
+    state_syms_re = state_syms[:,:sym_mem]
+    state_syms_im = state_syms[:,sym_mem:]
+    state_mag = torch.sqrt(torch.square(state_syms_re)+torch.square(state_syms_im))
+    state_phase = torch.atan2(state_syms_im,state_syms_re)
 
-    return y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase
+    return y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase, state_mag, state_phase
 
 ############################ One Hot functions #################################
 def sym_2_oh(mapp_re, mapp_im, syms, device):
@@ -105,6 +111,7 @@ def oh_2_sym(mapp, syms_oh, syms_len, device):
 
 ############################ Differential decoding #################################
 def phase_correction(x_phase, angle, device):
+    x_phase = torch.diff(x_phase, prepend=torch.zeros(x_phase.size(0),x_phase.size(1),1, device=device))
     x_phase = torch.where(((x_phase - 2*torch.pi > -torch.pi/2)&(x_phase - 2*torch.pi <- angle/2))|
                           ((x_phase + 0*torch.pi > -torch.pi/2)&(x_phase + 0*torch.pi <- angle/2))|
                           ((x_phase + 2*torch.pi > -torch.pi/2)&(x_phase + 2*torch.pi <- angle/2))|
