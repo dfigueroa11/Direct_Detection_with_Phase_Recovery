@@ -19,9 +19,9 @@ print("We are using the following device for learning:",device)
 
 
 # System config
-sym_mem = 3
+sym_mem = 5
 ch_mem = 2*sym_mem+1
-block_len = 4
+block_len = 6
 sym_len = block_len+sym_mem
 
 ############# Constellation and differential mapping ################
@@ -31,7 +31,7 @@ diff_mapping = torch.tensor([[1,0,3,2],[0,1,2,3],[3,2,1,0],[2,3,0,1]])
 mapping *= torch.sqrt(1/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping, device ,diff_mapping)
 ############################ DetNet declaration #####################
-layers = 30#*sym_len
+layers = max(3*sym_len,30)
 v_len = 2*sym_len
 z_len = 4*sym_len
 
@@ -43,9 +43,9 @@ phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07
 
 ###################### Training ################################
 # hyperparameters
-batches_per_epoch = 500
-batch_size_per_epoch = [100, 200, 300, 500, 700, 1_000]
-snr_dB_list = [20,]*len(batch_size_per_epoch)
+batches_per_epoch = 700
+batch_size_per_epoch = [100, 200, 500, 900, 1_400, 2_000]
+snr_dB_list = [17,]*len(batch_size_per_epoch)
 snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 3
 cnt = 0
