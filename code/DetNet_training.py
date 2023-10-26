@@ -45,8 +45,8 @@ phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07
 # hyperparameters
 batches_per_epoch = 500
 batch_size_per_epoch = [100, 200]
-snr_dB_list = [20,]
-snr_dB_var_list = [3,]
+snr_dB_list = [20,]*len(batch_size_per_epoch)
+snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 10
 cnt = 0
 
@@ -83,12 +83,12 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
         if (i+1)%(batches_per_epoch//images_per_epoch) == 0:  
             results.append(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device).detach().cpu().numpy())
             results.append(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device).detach().cpu().numpy())
-            ber.append(aux_func.get_ber(rx_mag[-1], rx_phase[-1], tx_mag, tx_phase, const))
-            ser.append(aux_func.get_ser(rx_mag[-1], rx_phase[-1], tx_mag, tx_phase, const))
+            ber.append(aux_func.get_ber(rx_mag[-1,:,:1], rx_phase[-1,:,:1], tx_mag[:,:1], tx_phase[:,:1], const))
+            ser.append(aux_func.get_ser(rx_mag[-1,:,:1], rx_phase[-1,:,:1], tx_mag[:,:1], tx_phase[:,:1], const))
             print(f'Batch size {batch_size:_}, Train step {i:_}, cnt {cnt}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
             print(f"\tBER:\t\t\t{ber[-1]}")
             print(f"\tSER:\t\t\t{ser[-1]}")
-            rx = (rx_mag[-1]*torch.exp(1j*rx_phase[-1]))
+            rx = (rx_mag[-1,:,:1]*torch.exp(1j*rx_phase[-1,:,:1]))
             
             rx = rx.flatten().detach().cpu()
 
