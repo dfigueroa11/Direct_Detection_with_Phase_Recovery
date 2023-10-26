@@ -47,7 +47,7 @@ batches_per_epoch = 500
 batch_size_per_epoch = [100, 200, 300, 500, 700, 1_000]
 snr_dB_list = [20,]*len(batch_size_per_epoch)
 snr_dB_var_list = [3,]*len(batch_size_per_epoch)
-images_per_epoch = 10
+images_per_epoch = 3
 cnt = 0
 
 magphase_DetNet.train()    
