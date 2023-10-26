@@ -122,10 +122,13 @@ def phase_correction(x_phase, angle, device):
     return x_phase
 
 ############################### Loss functions ######################################
-def per_layer_loss_distance_square(x_oh, x_oh_train, device):
+def per_layer_loss_distance_square(x_oh, x_oh_train, device, window=None):
+    if window is None:
+        window = torch.ones_like(x_oh_train[0])
+        
     loss_l = torch.zeros(x_oh.size(0), 1, device=device)        # Denotes the loss in Layer L
     for l, x_oh_l in enumerate(x_oh):
-        loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(torch.square(x_oh_train - x_oh_l),1))
+        loss_l[l] = torch.log(torch.Tensor([l+2]).to(device))*torch.mean(torch.mean(window*torch.square(x_oh_train - x_oh_l),1))
     return loss_l
 
 ############################### Performance (BER, SER) ######################################

@@ -50,6 +50,8 @@ snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 3
 cnt = 0
 
+window_phase = torch.arange(block_len-1, -1, -1, dtype=torch.float, device=device)*1 + 1
+
 magphase_DetNet.train()    
 
 results = []
@@ -67,7 +69,7 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
         
         
         mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device))
-        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device))
+        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device, window_phase))
 
         # compute gradients
         mag_loss.backward(retain_graph=True)
@@ -82,13 +84,13 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
         # Print and save the current progress of the training
         if (i+1)%(batches_per_epoch//images_per_epoch) == 0:  
             results.append(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device).detach().cpu().numpy())
-            results.append(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device).detach().cpu().numpy())
+            results.append(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device, window_phase).detach().cpu().numpy())
             print(f'Batch size {batch_size:_}, Train step {i:_}, cnt {cnt}\n\tcurrent mag loss:\t{results[-2][-1]}\n\tcurrent phase loss:\t{results[-1][-1]}')
             for j in range(block_len):
                 ber.append(aux_func.get_ber(rx_mag[-1,:,j:j+1], rx_phase[-1,:,j:j+1], tx_mag[:,j:j+1], tx_phase[:,j:j+1], const))
                 ser.append(aux_func.get_ser(rx_mag[-1,:,j:j+1], rx_phase[-1,:,j:j+1], tx_mag[:,j:j+1], tx_phase[:,j:j+1], const))
-                print(f"\tBER for symbol {j+1}:\t\t\t{ber[-1]}")
-                print(f"\tSER for symbol {j+1}:\t\t\t{ser[-1]}")
+                print(f"\tBER for symbol {j+1}:\t{ber[-1]}")
+                print(f"\tSER for symbol {j+1}:\t{ser[-1]}")
                 rx = (rx_mag[-1,:,j:j+1]*torch.exp(1j*rx_phase[-1,:,j:j+1]))
                 
                 rx = rx.flatten().detach().cpu()
