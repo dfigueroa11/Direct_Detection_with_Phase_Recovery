@@ -66,8 +66,8 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
         rx_mag, rx_phase = magphase_DetNet(y_e, y_o, Psi_e, Psi_o, state_mag, state_phase, layers)
         
         
-        mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device))
-        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase), torch.abs(tx_phase), device))
+        mag_loss = torch.sum(aux_func.per_layer_loss_distance_square(rx_mag[:,:,:1], tx_mag[:,:1], device))
+        phase_loss = torch.sum(aux_func.per_layer_loss_distance_square(torch.abs(rx_phase[:,:,:1]), torch.abs(tx_phase[:,:1]), device))
 
         # compute gradients
         mag_loss.backward(retain_graph=True)
