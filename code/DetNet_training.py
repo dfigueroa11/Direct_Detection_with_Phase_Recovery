@@ -17,9 +17,9 @@ import MagPhaseDetNet
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
-resume_training = False
+resume_training = True
 if resume_training:
-    checkpoint = torch.load('../../results3/results/magphase_DetNet_test.pt', map_location=torch.device(device))
+    checkpoint = torch.load('../../results_w2_bl9/magphase_DetNet_test.pt', map_location=torch.device(device))
 
 
 # System config
@@ -70,9 +70,9 @@ if resume_training:
 
 ###################### Training ################################
 # hyperparameters
-batches_per_epoch = 500
-batch_size_per_epoch = [100,200,400,600,1000,2000]
-snr_dB_list = [17,17,17,15,13,12]
+batches_per_epoch = 1_500
+batch_size_per_epoch = [2_500, 3_000, 3_500, 4_000, 5_000]
+snr_dB_list = [17,]*len(batch_size_per_epoch)
 snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 3
 cnt = checkpoint['cnt'] if resume_training else 0
