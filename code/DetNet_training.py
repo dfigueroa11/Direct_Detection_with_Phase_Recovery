@@ -21,7 +21,7 @@ print("We are using the following device for learning:",device)
 # System config
 sym_mem = 5
 ch_mem = 2*sym_mem+1
-block_len = 9
+block_len = 6
 sym_len = block_len+sym_mem
 
 ############# Constellation and differential mapping ################
@@ -41,14 +41,21 @@ magphase_DetNet.angle = angle
 mag_optimizer = optim.Adam(magphase_DetNet.mag_model.parameters(), eps=1e-07)
 phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07)
 
+checkpoint = torch.load('../../results_w2/magphase_DetNet_test.pt', map_location=torch.device(device))
+magphase_DetNet.mag_model.load_state_dict(checkpoint['mag_state_dict'], )
+magphase_DetNet.phase_model.load_state_dict(checkpoint['phase_state_dict'])
+
+mag_optimizer.load_state_dict(checkpoint['mag_optimizer'])
+phase_optimizer.load_state_dict(checkpoint['phase_optimizer'])
+
 ###################### Training ################################
 # hyperparameters
-batches_per_epoch = 700
-batch_size_per_epoch = [100, 200, 500, 900, 1_400, 2_000]
+batches_per_epoch = 1_500
+batch_size_per_epoch = [2_500, 3_000, 3_500, 4_000, 5_000]
 snr_dB_list = [17,]*len(batch_size_per_epoch)
 snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 3
-cnt = 0
+cnt = checkpoint['cnt']
 
 window_phase = torch.arange(sym_mem, -1, -1, dtype=torch.float, device=device)*2 + 1
 if block_len > sym_mem + 1:
