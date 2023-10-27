@@ -128,7 +128,8 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
                           'mag_list': const.mag_list,
                           'phase_list': const.phase_list,
                           'v_len': v_len,
-                          'z_len': z_len}
+                          'z_len': z_len,
+                          'window_phase': window_phase}
             torch.save(checkpoint, '../../results/magphase_DetNet_test.pt')
             del rx
 
@@ -147,6 +148,7 @@ checkpoint = {'mag_state_dict': magphase_DetNet.mag_model.state_dict(),
               'mag_list': const.mag_list,
               'phase_list': const.phase_list,
               'v_len': v_len,
-              'z_len': z_len}
+              'z_len': z_len,
+              'window_phase': window_phase}
 torch.save(checkpoint, '../../results/magphase_DetNet_test.pt')
                         
