@@ -34,7 +34,7 @@ fiber_len_km = 0
 
 ################# filters creation definition ###################
 rc_alpha = 0
-pulse_shape_len = 29
+pulse_shape_len = 3
 channel_filt_len = 101
 rx_filt_len = 1
 
@@ -56,24 +56,27 @@ mapping_BPSK = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,np.pi])), 
 diff_mapping_BPSK = torch.tensor([[1,0],[0,1]])
 
 ################# Simulation definition ####################
-file_name = 'SER_N14_BPSK_ideal.pkl'
-N_symbols = 20_000
-mapping_list = [mapping_BPSK,]
-diff_mapping_list = [diff_mapping_BPSK,]
-SNR_dB_list = [*range(-5,14,3)]
-sym_mem_aux_ch_list = [14,]
+file_name = '../../results/SER_sym_mem_1_comp.pkl'
+N_symbols = 100_000
+mapping_list = [mapping_DDSQAM,]
+diff_mapping_list = [diff_mapping_DDSQAM,]
+SNR_dB_list = [*range(0,21,1)]
+sym_mem_aux_ch_list = [1,3,5]
 
 #################### Simulation #########################
 
 ser = -torch.ones((len(mapping_list),len(sym_mem_aux_ch_list),len(SNR_dB_list)), dtype=torch.float)
+time_decoding = -torch.ones((len(mapping_list),len(sym_mem_aux_ch_list),len(SNR_dB_list)), dtype=torch.float)
+
 for i, (mapping, diff_mapping) in enumerate(zip(mapping_list,diff_mapping_list)):
     print(f'start simulation for constellation = {mapping}')
     for j, sym_mem_aux_ch in enumerate(sym_mem_aux_ch_list):
+        g_tx_td = torch.tensor(calc_filters.fd_rc_td(rc_alpha, sym_mem_aux_ch*2+1, fs, symbol_time), dtype=torch.cfloat)
+        DD_sys.g_tx_td = g_tx_td[None, None,:]
         print(f'\tstart simulation for memory = {sym_mem_aux_ch}')
         for k, SNR_dB in enumerate(SNR_dB_list):
             print(f'\t\tstart simulation for SNR = {SNR_dB}')
-            start = time.time()
-
+            
             SNR_lin = 10**(SNR_dB/10)
             mapping *= torch.sqrt(SNR_lin/torch.mean(torch.abs(mapping)**2))
             const = constellation.constellation(mapping,'cpu',diff_mapping)
@@ -83,18 +86,20 @@ for i, (mapping, diff_mapping) in enumerate(zip(mapping_list,diff_mapping_list))
             ch_symbols_1 = const.diff_encoding(info_symbols, init_phase_idx=0)
 
             y_1 = DD_sys.simulate_system_td(pad(ch_symbols_1, (sym_mem_aux_ch,0), 'constant', 0)[None,:], sym_mem_aux_ch-1)
-
+            
             decoder = bcjr_upsamp.bcjr_upsamp(DD_sys.get_auxiliary_equiv_channel(sym_mem_aux_ch), 0, N_symbols, const, DD_sys.N_os, diff_decoding=True)
+            start = time.time()
             beliefs = decoder.compute_true_apps(y_1, log_out=False, P_s0=None)#(torch.eye(const.M)[0:1,:]-1)*1e10)
-
+            end = time.time()
+            
             symbols_hat_idx = torch.argmax(beliefs[0,0:], dim=1)
             bits_hat = const.demap(symbols_hat_idx)
             symbols_hat = const.map(bits_hat.int())
 
             ser[i,j,k] = ch_met.get_ER(info_symbols, symbols_hat)
-            
-            end = time.time()
-            print(f"\t\tsimulation time: {end-start: .3f} s")
+            time_decoding[i,j,k] = end-start
+
+            print(f"\t\tsimulation time: {end-start} s")
 
             ############################### Save results ########################## 
             # (done always, so in case the simulation stops the data is not lost)
@@ -109,9 +114,11 @@ for i, (mapping, diff_mapping) in enumerate(zip(mapping_list,diff_mapping_list))
             results['SNR_dB_list'] = SNR_dB_list
             results['sym_mem_aux_ch_list'] = sym_mem_aux_ch_list
             results['ser'] = ser
+            results['time_decoding'] = time_decoding
 
             with open(file_name, 'wb') as f:
                 pickle.dump(results, f)
             ###########################################################################
 
 print(ser)
+print(time_decoding)
