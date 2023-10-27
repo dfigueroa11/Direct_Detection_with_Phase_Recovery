@@ -17,12 +17,21 @@ import MagPhaseDetNet
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
+resume_training = True
+if resume_training:
+    checkpoint = torch.load('../../results3/results/magphase_DetNet_test.pt', map_location=torch.device(device))
+
 
 # System config
-sym_mem = 5
-ch_mem = 2*sym_mem+1
-block_len = 6
+if resume_training:
+    sym_mem = checkpoint['sym_mem']
+    block_len = checkpoint['block_len']
+else:
+    sym_mem = 5
+    block_len = 6
+
 sym_len = block_len+sym_mem
+
 
 ############# Constellation and differential mapping ################
 angle = np.arccos(1/3)
@@ -31,22 +40,33 @@ diff_mapping = torch.tensor([[1,0,3,2],[0,1,2,3],[3,2,1,0],[2,3,0,1]])
 mapping *= torch.sqrt(1/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping, device ,diff_mapping)
 ############################ DetNet declaration #####################
-layers = max(3*sym_len,30)
-v_len = 2*sym_len
-z_len = 4*sym_len
+if resume_training:
+    layers = checkpoint['layers']
+    v_len = checkpoint['v_len']
+    z_len = checkpoint['z_len']
+    mag_list = checkpoint['mag_list']
+    phase_list = checkpoint['phase_list']
+else:
+    layers = max(3*sym_len,30)
+    v_len = 2*sym_len
+    z_len = 4*sym_len
+    mag_list = const.mag_list
+    phase_list = const.phase_list
 
-magphase_DetNet = MagPhaseDetNet.MagPhaseDetNet(layers, block_len, sym_mem, const.mag_list, const.phase_list, v_len, z_len, device)
+magphase_DetNet = MagPhaseDetNet.MagPhaseDetNet(layers, block_len, sym_mem, mag_list, phase_list, v_len, z_len, device)
 magphase_DetNet.angle = angle
+
+if resume_training:
+    magphase_DetNet.mag_model.load_state_dict(checkpoint['mag_state_dict'])
+    magphase_DetNet.phase_model.load_state_dict(checkpoint['phase_state_dict'])
+    
 #################### Adam Optimizer ############################
 mag_optimizer = optim.Adam(magphase_DetNet.mag_model.parameters(), eps=1e-07)
 phase_optimizer = optim.Adam(magphase_DetNet.phase_model.parameters(), eps=1e-07)
 
-checkpoint = torch.load('../../results_w2/magphase_DetNet_test.pt', map_location=torch.device(device))
-magphase_DetNet.mag_model.load_state_dict(checkpoint['mag_state_dict'], )
-magphase_DetNet.phase_model.load_state_dict(checkpoint['phase_state_dict'])
-
-mag_optimizer.load_state_dict(checkpoint['mag_optimizer'])
-phase_optimizer.load_state_dict(checkpoint['phase_optimizer'])
+if resume_training:
+    mag_optimizer.load_state_dict(checkpoint['mag_optimizer'])
+    phase_optimizer.load_state_dict(checkpoint['phase_optimizer'])
 
 ###################### Training ################################
 # hyperparameters
@@ -55,11 +75,15 @@ batch_size_per_epoch = [2_500, 3_000, 3_500, 4_000, 5_000]
 snr_dB_list = [17,]*len(batch_size_per_epoch)
 snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 3
-cnt = checkpoint['cnt']
+cnt = checkpoint['cnt'] if resume_training else 0
 
-window_phase = torch.arange(sym_mem, -1, -1, dtype=torch.float, device=device)*2 + 1
-if block_len > sym_mem + 1:
-    window_phase = pad(window_phase, (block_len-len(window_phase),0), 'constant', window_phase[0])
+
+if resume_training:
+    window_phase = checkpoint['window_phase']
+else:
+    window_phase = torch.arange(sym_mem, -1, -1, dtype=torch.float, device=device)*2 + 1
+    if block_len > sym_mem + 1:
+        window_phase = pad(window_phase, (block_len-len(window_phase),0), 'constant', window_phase[0])
 
 magphase_DetNet.train()    
 
@@ -89,7 +113,6 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
         # reset gradients
         mag_optimizer.zero_grad()
         phase_optimizer.zero_grad()
-
         # Print and save the current progress of the training
         if (i+1)%(batches_per_epoch//images_per_epoch) == 0:  
             results.append(aux_func.per_layer_loss_distance_square(rx_mag, tx_mag, device).detach().cpu().numpy())
@@ -152,8 +175,8 @@ checkpoint = {'mag_state_dict': magphase_DetNet.mag_model.state_dict(),
               'layers': layers,
               'block_len': block_len,
               'sym_mem': sym_mem,
-              'mag_list': const.mag_list,
-              'phase_list': const.phase_list,
+              'mag_list': mag_list,
+              'phase_list': phase_list,
               'v_len': v_len,
               'z_len': z_len,
               'window_phase': window_phase}
