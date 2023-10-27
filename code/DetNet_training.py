@@ -21,7 +21,7 @@ print("We are using the following device for learning:",device)
 # System config
 sym_mem = 5
 ch_mem = 2*sym_mem+1
-block_len = 6
+block_len = 9
 sym_len = block_len+sym_mem
 
 ############# Constellation and differential mapping ################
@@ -50,7 +50,10 @@ snr_dB_var_list = [3,]*len(batch_size_per_epoch)
 images_per_epoch = 3
 cnt = 0
 
-window_phase = (torch.arange(block_len-1, -1, -1, dtype=torch.float, device=device)/(block_len-1))**(1/2) + 1
+window_phase = torch.arange(sym_mem, -1, -1, dtype=torch.float, device=device)*2 + 1
+if block_len > sym_mem + 1:
+    window_phase = pad(window_phase, (block_len-len(window_phase),0), 'constant', window_phase[0])
+
 magphase_DetNet.train()    
 
 results = []
@@ -118,7 +121,14 @@ for batch_size, snr_dB, snr_dB_var in zip(batch_size_per_epoch, snr_dB_list, snr
                           'phase_state_dict': magphase_DetNet.phase_model.state_dict(),
                           'phase_optimizer': phase_optimizer.state_dict(),
                           'results': results,
-                          'cnt': cnt}
+                          'cnt': cnt,
+                          'layers': layers,
+                          'block_len': block_len,
+                          'sym_mem': sym_mem,
+                          'mag_list': const.mag_list,
+                          'phase_list': const.phase_list,
+                          'v_len': v_len,
+                          'z_len': z_len}
             torch.save(checkpoint, '../../results/magphase_DetNet_test.pt')
             del rx
 
@@ -130,6 +140,13 @@ checkpoint = {'mag_state_dict': magphase_DetNet.mag_model.state_dict(),
               'phase_state_dict': magphase_DetNet.phase_model.state_dict(),
               'phase_optimizer': phase_optimizer.state_dict(),
               'results': results,
-              'cnt': cnt}
+              'cnt': cnt,
+              'layers': layers,
+              'block_len': block_len,
+              'sym_mem': sym_mem,
+              'mag_list': const.mag_list,
+              'phase_list': const.phase_list,
+              'v_len': v_len,
+              'z_len': z_len}
 torch.save(checkpoint, '../../results/magphase_DetNet_test.pt')
                         
