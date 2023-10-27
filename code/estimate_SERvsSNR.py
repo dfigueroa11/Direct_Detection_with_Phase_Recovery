@@ -56,12 +56,12 @@ mapping_BPSK = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,np.pi])), 
 diff_mapping_BPSK = torch.tensor([[1,0],[0,1]])
 
 ################# Simulation definition ####################
-file_name = '../../results/SER_sym_mem_1_comp.pkl'
+file_name = '../../results/SER_sym_mem_5_comp.pkl'
 N_symbols = 100_000
 mapping_list = [mapping_DDSQAM,]
 diff_mapping_list = [diff_mapping_DDSQAM,]
 SNR_dB_list = [*range(0,21,1)]
-sym_mem_aux_ch_list = [1,3,5]
+sym_mem_aux_ch_list = [5,]
 
 #################### Simulation #########################
 
