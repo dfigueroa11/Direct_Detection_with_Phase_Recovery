@@ -4,6 +4,7 @@ import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
 import time 
+import pickle
 
 import DD_system
 import calc_filters
@@ -47,12 +48,12 @@ magphase_DetNet.phase_model.load_state_dict(model_checkpoint['phase_state_dict']
 magphase_DetNet.eval()
 
 ###################### Testing ################################
-N_symbols = 10_000
-N_frames = 50
+N_symbols = 100_000
+N_frames = 500
 batch_size = N_symbols//N_frames
 used_symbols = 1
 
-snr_dB_list = [20,]
+snr_dB_list = [*range(21)]
 snr_dB_var = 0
 
 ser = []
@@ -83,6 +84,16 @@ for snr_dB in snr_dB_list:
     
     ser.append(ser_aux) 
     time_decoding.append(time_deco)
+
+results = {}
+results['N_symbols'] = N_symbols
+results['SNR_dB_list'] = snr_dB_list
+results['ser'] = ser
+results['time_decoding'] = time_decoding
+
+with open('../../results/DetNet_SERvsSNR_sym_mem_1', 'wb') as f:
+    pickle.dump(results, f)
+            
 
 print(ser)
 print(time_decoding)
