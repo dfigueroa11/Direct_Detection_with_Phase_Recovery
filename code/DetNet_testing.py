@@ -18,7 +18,7 @@ import MagPhaseDetNet
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
-model_checkpoint = torch.load('../../results_sym_mem1/magphase_DetNet_test.pt', map_location=torch.device(device))
+model_checkpoint = torch.load('../../results_w2/magphase_DetNet_test.pt', map_location=torch.device(device))
 # System config
 sym_mem = model_checkpoint['sym_mem']
 block_len = model_checkpoint['block_len']
@@ -91,7 +91,7 @@ results['SNR_dB_list'] = snr_dB_list
 results['ser'] = ser
 results['time_decoding'] = time_decoding
 
-with open('../../results/DetNet_SERvsSNR_sym_mem_1', 'wb') as f:
+with open('../../results/DetNet_SERvsSNR_sym_mem_5', 'wb') as f:
     pickle.dump(results, f)
             
 
