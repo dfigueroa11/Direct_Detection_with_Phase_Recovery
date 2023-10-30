@@ -12,19 +12,20 @@ import bcjr_upsamp
 import channel_metrics as ch_met
 import constellation_maker as const_mk
 import DetNet_aux_functions as aux_func
-import DetNet_architecture
-
+import MagPhaseDetNet
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
+model_checkpoint = torch.load('../../results_w2_bl9/magphase_DetNet_test.pt', map_location=torch.device(device))
 
 # System config
-sym_mem = 1
+sym_mem = model_checkpoint['sym_mem']
+block_len = model_checkpoint['block_len']
 ch_mem = 2*sym_mem+1
-block_len = 4
 sym_len = block_len+sym_mem
-snr_dB_list = [*range(10,21,1)]
+
+snr_dB_list = [1,]
 snr_dB_var = 0
 
 ############# Constellation and differential mapping ################
@@ -35,85 +36,42 @@ mapping *= torch.sqrt(1/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping, device ,diff_mapping)
 
 ############################ DetNet declaration #####################
-layers = 30#*sym_len
-v_len = 2*sym_len
-z_len = 4*sym_len
-one_hot_len_mag = len(const.mag_list)
-one_hot_len_phase = len(const.phase_list)
+layers = model_checkpoint['layers']
+v_len = model_checkpoint['v_len']
+z_len = model_checkpoint['z_len']
+mag_list = model_checkpoint['mag_list']
+phase_list = model_checkpoint['phase_list']
 
-model = DetNet_architecture.DetNet(layers, block_len, sym_mem, one_hot_len_mag, one_hot_len_phase, v_len, z_len, device)
-model.load_state_dict(torch.load('../../results/magPhase_DetNet_v2/DetNet_test.pt', map_location=torch.device(device)))
-model.to(device)
-model.eval()
+
+magphase_DetNet = MagPhaseDetNet.MagPhaseDetNet(layers, block_len, sym_mem, mag_list, phase_list, v_len, z_len, device)
+magphase_DetNet.angle = angle
+magphase_DetNet.mag_model.load_state_dict(model_checkpoint['mag_state_dict'])
+magphase_DetNet.phase_model.load_state_dict(model_checkpoint['phase_state_dict'])
+    
+magphase_DetNet.eval()
 
 ###################### Testing ################################
-batch_size = 10_000
-
-
-ber = []
+N_symbols = 300
 ser = []
-# Generate a batch of training data
+
+# generate the Psi_e Psi_o matrix for decoding, SNR values are not important, only dimensions are.
+_, _, Psi_e, Psi_o, _, _, _, _ = aux_func.data_generation(block_len, sym_mem, 1, 0, 0, const, device)
+
 
 for snr_dB in snr_dB_list:
-    print(f"SNR = {snr_dB} dB")
-    y_e, y_o, Psi_e, Psi_o, tx_syms = aux_func.data_generation(block_len, sym_mem, batch_size, snr_dB, snr_dB_var, const, device)
-    tx_syms_re = tx_syms[:,:sym_len]
-    tx_syms_im = tx_syms[:,sym_len:]
-    tx_mag = torch.sqrt(torch.square(tx_syms_re)+torch.square(tx_syms_im))
-    tx_phase = torch.atan2(tx_syms_im,tx_syms_re)
-    # feed data to the network
+    y_e, y_o, _, _, tx_mag, tx_phase, state_mag, state_phase = aux_func.data_generation(N_symbols+block_len-1, sym_mem, 1,
+                                                                                        snr_dB, snr_dB_var, const, device)
+    tx_mag = tx_mag[:,:-sym_mem]
+    tx_phase = tx_phase[:,:-sym_mem]
+    rx_mag = torch.empty_like(tx_mag)
+    rx_phase = torch.empty_like(tx_phase)
+    print('xd')
     s = time.time()
-    x_mag, x_phase = model(y_e, y_o, Psi_e, Psi_o, const.mag_list, const.phase_list)
+    for i in range(N_symbols):
+        mag, phase = magphase_DetNet(y_e[:,i:i+block_len], y_o[:,i:i+block_len], Psi_e, Psi_o, state_mag, state_phase, layers, return_all=False)
+        #update state
+        rx_mag[:,i] = mag [:,0]
+        rx_mag[:,i] = mag [:,0]
     e = time.time()
-    print(f"time: {e-s}")
-    # compute loss
-    x_phase_diff = aux_func.phase_correction(x_phase, angle, device)
-
-    ber.append(aux_func.get_ber(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
-    ser.append(aux_func.get_ser(x_mag[-1,:,:-1], x_phase_diff[-1,:,1:], tx_mag[:,:-1], tx_phase[:,1:], const))
-    print(f"\tBER:\t\t\t{ber[-1]:}")
-    print(f"\tSER:\t\t\t{ser[-1]}")
-
-    x_diff = (x_mag[-1,:,:-1]*torch.exp(1j*x_phase_diff[-1,:,1:]))
-    x_diff = x_diff.flatten().detach().cpu()
-
-
-    fig = plt.figure(figsize=(6,6))
-    ax = fig.add_subplot(1,1,1)
-    ax.scatter(torch.real(x_diff),torch.imag(x_diff), marker='o', s=15, c='b', label='MagPhase DetNet', alpha=0.5)
-    ax.plot(np.cos(np.linspace(0, 2 * np.pi, 100)), np.sin(np.linspace(0, 2 * np.pi, 100)), 'k--', alpha=0.5)
-    ax.scatter(np.cos([0, angle, np.pi, np.pi + angle]), np.sin([0, angle, np.pi, np.pi + angle]), marker='o', s=70, c='red', label='Constellation Points')
-    line_angles = [np.pi / 2, np.pi - angle / 2, np.pi + angle / 2, 3 * np.pi / 2, -angle / 2, angle / 2]
-    for a in line_angles:
-        ax.plot([0, 4 * np.cos(a)], [0, 4 * np.sin(a)], 'g:', linewidth=2, label="Decision Boundaries")
-    handles, labels = ax.get_legend_handles_labels()
-    ax.legend(handles[:3], labels[:3], loc=1)
-    ax.set_xlabel('Re')
-    ax.set_ylabel('Im')
-    ax.set_xlim(-2, 2)
-    ax.set_ylim(-2, 2)
-    ax.set_title(f"SNR = {snr_dB} dB")
-    ax.grid(True)
-
-
-fig = plt.figure()
-ax = fig.add_subplot(1,1,1)
-ax.semilogy(snr_dB_list, ser, marker = 'o', label='MagPhase DetNet')
-ax.legend(loc=1)
-ax.set_xlabel('SNR [dB]')
-ax.set_ylabel('SER')
-ax.grid(which='both')
-
-
-plt.show()
-
-
-
-
-
-print("ok")
-
-
-
-
+    print(e-s)
 
