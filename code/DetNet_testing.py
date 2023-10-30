@@ -49,7 +49,7 @@ magphase_DetNet.eval()
 
 ###################### Testing ################################
 N_symbols = 20_000
-N_frames = 500
+N_frames = 50
 batch_size = N_symbols//N_frames
 used_symbols = 1
 
@@ -66,6 +66,7 @@ for snr_dB in snr_dB_list:
     time_deco = 0
     for i in range(N_frames):
         # generate data
+        print(i)
         y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase, state_mag, state_phase = aux_func.data_generation(block_len, sym_mem, batch_size,
                                                                                         snr_dB, snr_dB_var, const, device)
         
