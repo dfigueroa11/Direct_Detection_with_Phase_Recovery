@@ -48,7 +48,7 @@ magphase_DetNet.phase_model.load_state_dict(model_checkpoint['phase_state_dict']
 magphase_DetNet.eval()
 
 ###################### Testing ################################
-N_symbols = 100_000
+N_symbols = 20_000
 N_frames = 500
 batch_size = N_symbols//N_frames
 used_symbols = 1
@@ -81,7 +81,8 @@ for snr_dB in snr_dB_list:
         tx_syms = tx_mag[:,:used_symbols]*torch.exp(1j*tx_phase[:,:used_symbols])
         tx_syms_idx = const.nearest_neighbor(tx_syms)
         ser_aux += ch_met.get_ER(tx_syms_idx.flatten(),rx_syms_idx.flatten())/N_frames
-    
+        del y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase, state_mag, state_phase, rx_mag, rx_phase
+        torch.torch.cuda.empty_cache()
     ser.append(ser_aux) 
     time_decoding.append(time_deco)
 
