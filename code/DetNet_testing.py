@@ -18,7 +18,7 @@ import MagPhaseDetNet
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
-model_checkpoint = torch.load('../../results_w2/magphase_DetNet_test.pt', map_location=torch.device(device))
+model_checkpoint = torch.load('../../results_w2_bl9/magphase_DetNet_test.pt', map_location=torch.device(device))
 # System config
 sym_mem = model_checkpoint['sym_mem']
 block_len = model_checkpoint['block_len']
