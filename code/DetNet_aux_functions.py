@@ -1,4 +1,5 @@
 import torch
+import matplotlib.pyplot as plt
 
 import DD_system
 import calc_filters
@@ -112,6 +113,19 @@ def oh_2_sym(mapp, syms_oh, syms_len, device):
 ############################ Differential decoding #################################
 def phase_correction(x_phase, angle, device):
     x_phase = torch.diff(x_phase, prepend=torch.zeros(x_phase.size(0),x_phase.size(1),1, device=device))
+    # x_phase in [-2pi,2pi]
+    x_phase = torch.where(x_phase < -2*torch.pi + torch.pi/2, x_phase + 2*torch.pi,
+              torch.where(x_phase < -torch.pi - angle/2 , -(x_phase + 2*torch.pi),
+              torch.where(x_phase < -torch.pi, x_phase + 2*torch.pi,
+              torch.where(x_phase < -torch.pi/2, x_phase,
+              torch.where(x_phase < -angle/2, -x_phase,
+              torch.where(x_phase < torch.pi/2, x_phase,
+              torch.where(x_phase < torch.pi - angle/2, -x_phase,
+              torch.where(x_phase < torch.pi, x_phase,
+              torch.where(x_phase < 3*torch.pi/2, x_phase - 2*torch.pi,
+              torch.where(x_phase < 2*torch.pi - angle/2, -(x_phase-2*torch.pi),
+              x_phase - 2*torch.pi))))))))))
+                          
     x_phase = torch.where(((x_phase - 2*torch.pi > -torch.pi/2)&(x_phase - 2*torch.pi <- angle/2))|
                           ((x_phase + 0*torch.pi > -torch.pi/2)&(x_phase + 0*torch.pi <- angle/2))|
                           ((x_phase + 2*torch.pi > -torch.pi/2)&(x_phase + 2*torch.pi <- angle/2))|
@@ -147,3 +161,9 @@ def get_ser(x_mag, x_phase, tx_mag, tx_phase, const):
     tx_syms_idx = const.nearest_neighbor(tx_syms)
     rx_syms_idx = const.nearest_neighbor(rx_syms)
     return ch_met.get_ER(tx_syms_idx.flatten(),rx_syms_idx.flatten())
+
+
+test = torch.arange(-2*torch.pi, 2*torch.pi, 0.001)
+plt.figure()
+plt.plot(test/torch.pi, torch.abs(phase_correction(test[None,None,:],torch.acos(torch.tensor([1/3])),'cpu')[0,0,:]/torch.pi))
+plt.show()
