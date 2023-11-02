@@ -27,7 +27,7 @@ if resume_training:
     sym_mem = checkpoint['sym_mem']
     block_len = checkpoint['block_len']
 else:
-    sym_mem = 1
+    sym_mem = 3
     block_len = sym_mem+1
 
 sym_len = block_len+sym_mem
@@ -72,7 +72,7 @@ if resume_training:
 # hyperparameters
 batches_per_epoch = 300
 batch_size_per_epoch = [100, 400, 1_000, 2_000, 5_000, 10_000]
-snr_dB_steps = [*range(15,21)]
+snr_dB_steps = [*range(0,3)]
 checkpoint_per_epoch = 5
 cnt = checkpoint['cnt'] if resume_training else 0
 
@@ -161,5 +161,5 @@ for snr_dB in snr_dB_steps:
                 'z_len': z_len,
                 'window_phase': window_phase,
                 'snr_dB': snr_dB}
-    torch.save(checkpoint, f'../../results/magphase_Det_Net_symmem_{sym_mem}_snr_{snr_dB}.pt')
+    torch.save(checkpoint, f'../../results/magphase_Det_Net_sym_mem_{sym_mem}_snr_{snr_dB}.pt')
                         
