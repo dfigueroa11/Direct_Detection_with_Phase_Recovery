@@ -27,7 +27,7 @@ if resume_training:
     sym_mem = checkpoint['sym_mem']
     block_len = checkpoint['block_len']
 else:
-    sym_mem = 1
+    sym_mem = 3
     block_len = sym_mem+1
 
 sym_len = block_len+sym_mem
@@ -72,7 +72,7 @@ if resume_training:
 # hyperparameters
 batches_per_epoch = 300
 batch_size_per_epoch = [100, 400, 1_000, 2_000, 5_000, 10_000]
-snr_dB_steps = [*range(14,15)]
+snr_dB_steps = [*range(16,20)]
 checkpoint_per_epoch = 5
 cnt = checkpoint['cnt'] if resume_training else 0
 
