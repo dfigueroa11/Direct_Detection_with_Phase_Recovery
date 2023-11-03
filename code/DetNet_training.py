@@ -27,7 +27,7 @@ if resume_training:
     sym_mem = checkpoint['sym_mem']
     block_len = checkpoint['block_len']
 else:
-    sym_mem = 3
+    sym_mem = 1
     block_len = sym_mem+1
 
 sym_len = block_len+sym_mem
