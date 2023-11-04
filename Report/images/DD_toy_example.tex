@@ -1,0 +1,106 @@
+\documentclass[border=0mm]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.17}
+\usepackage{xcolor}
+
+\begin{document}
+
+\definecolor{lightblue}{RGB}{86,192,150}  % Define light blue color
+
+\begin{tikzpicture}
+\begin{groupplot}[
+group style={
+    group name=my plots,
+    group size= 1 by 2,  % 1 row and 2 columns
+    horizontal sep=1.5cm,  % Adjust horizontal separation between subplots
+    vertical sep=-0.3cm,  % Adjust horizontal separation between subplots
+  },
+  width = 6cm,
+  height = 4cm,
+  xlabel={$t/T_s$},
+  axis x line=middle,  % Show only the x-axis
+  axis y line=none,    % Hide the y-axis
+  xmin=-1.5, xmax=2.5,
+  ymin=-0.6, ymax=0.6,  % Set ymax to 2
+  xtick={-2,-1.5,...,2},
+  xticklabels={-2,,-1,,0,,1,,2},
+  tick label style={font=\scriptsize},
+  xlabel style={
+    right,
+  },
+]
+
+\nextgroupplot
+\addplot[lightblue, domain=-1:1, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*x)))};
+\addplot[lightblue, domain=0:2, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*(x-1))))};
+
+\addplot[red, domain=-1:0, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x))))^2};
+\addplot[red, domain=0:1, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x)))+0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[red, domain=1:2, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0,0.5)(1, 0.5)};
+\addplot[only marks, mark=square*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0.5, 0.5)};
+
+\coordinate (p3) at (axis cs: 0,0.35);
+\coordinate (p4) at (axis cs: 1,0.35);
+\coordinate (top21) at (axis cs:0,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top22) at (axis cs:0.5,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top23) at (axis cs:1,\pgfkeysvalueof{/pgfplots/ymax});
+
+\nextgroupplot
+\addplot[lightblue, domain=-1:1, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*x)))};
+\addplot[lightblue, domain=0:2, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {-0.25*(1+cos(deg(pi*(x-1))))};
+
+\addplot[red, domain=-1:0, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x))))^2};
+\addplot[red, domain=0:1, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x)))-0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[red, domain=1:2, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0,0.5)(1, 0.5)};
+\addplot[only marks, mark=square*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0.5, 0)};
+
+\coordinate (p7) at (axis cs: 0,0.35);
+\coordinate (p8) at (axis cs: 1,-0.35);
+\coordinate (bot21) at (axis cs:0,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot22) at (axis cs:0.5,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot23) at (axis cs:1,\pgfkeysvalueof{/pgfplots/ymin});
+
+
+\end{groupplot}
+
+
+\draw [thick, dotted,-stealth, black!50] (top21) -- (bot21) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_0$};
+\draw [thick, dotted,-stealth, black!50] (top22) -- (bot22) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_1$};
+\draw [thick, dotted,-stealth, black!50] (top23) -- (bot23) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_2$};
+
+\node  at (p3) [font=\scriptsize, text=lightblue!75!black]{$+1$};
+\node  at (p4) [font=\scriptsize, text=lightblue!75!black]{$+1$};
+\node  at (p7) [font=\scriptsize, text=lightblue!75!black]{$+1$};
+\node  at (p8) [font=\scriptsize, text=lightblue!75!black]{$-1$};
+
+
+\end{tikzpicture}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,138 @@
+\documentclass[border=0mm]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.17}
+\usepackage{xcolor}
+
+\begin{document}
+
+\definecolor{lightblue}{RGB}{86,192,150}  % Define light blue color
+
+\begin{tikzpicture}
+\begin{axis}[
+  width = 12cm,
+  height = 4cm,
+  xlabel={$t/T_s$},
+  axis x line=middle,  % Show only the x-axis
+  axis y line=none,    % Hide the y-axis
+  xmin=-1.5, xmax=7.5,
+  ymin=-0.6, ymax=0.6,  % Set ymax to 2
+  xtick={-2,-1.5,...,7},
+  xticklabels={-2,,-1,,0,,1,,2,,3,,4,,5,,6,,7},
+  tick label style={font=\scriptsize},
+  xlabel style={
+    right,
+  },
+]
+\addplot[lightblue, domain=-1:1, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*(x-0))))};
+\addplot[lightblue, domain=0:2, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {-0.25*(1+cos(deg(pi*(x-1))))};
+\addplot[lightblue, domain=1:3, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {-0.25*(1+cos(deg(pi*(x-2))))};
+\addplot[lightblue, domain=2:4, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*(x-3))))};
+\addplot[lightblue, domain=3:5, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*(x-4))))};
+\addplot[lightblue, domain=4:6, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*(x-5))))};
+\addplot[lightblue, domain=5:7, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {-0.25*(1+cos(deg(pi*(x-6))))};
+
+\addplot[red, domain=-1:0, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x-0))))^2};
+\addplot[red, domain=0:1, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-0))))-0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[red, domain=1:2, samples=100, thick] {2*(-0.25*(1+cos(deg(pi*(x-1))))-0.25*(1+cos(deg(pi*(x-2)))))^2};
+\addplot[red, domain=2:3, samples=100, thick] {2*(-0.25*(1+cos(deg(pi*(x-2))))+0.25*(1+cos(deg(pi*(x-3)))))^2};
+\addplot[red, domain=3:4, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-3))))+0.25*(1+cos(deg(pi*(x-4)))))^2};
+\addplot[red, domain=4:5, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-4))))+0.25*(1+cos(deg(pi*(x-5)))))^2};
+\addplot[red, domain=5:6, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-5))))-0.25*(1+cos(deg(pi*(x-6)))))^2};
+\addplot[red, domain=6:7, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-6)))))^2};
+
+\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0,0.5)(1, 0.5)(2, 0.5)(3, 0.5)(4, 0.5)(5, 0.5)(6, 0.5)};
+\addplot[only marks, mark=square*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0.5, 0)(1.5, 0.5)(2.5, 0)(3.5, 0.5)(4.5, 0.5)(5.5, 0)};
+
+\coordinate (p0) at (axis cs: 0,0.35);
+\coordinate (p1) at (axis cs: 1,-0.35);
+\coordinate (p2) at (axis cs: 2,-0.35);
+\coordinate (p3) at (axis cs: 3,0.35);
+\coordinate (p4) at (axis cs: 4,0.35);
+\coordinate (p5) at (axis cs: 5,0.35);
+\coordinate (p6) at (axis cs: 6,-0.35);
+
+\coordinate (top0) at (axis cs:0,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top1) at (axis cs:0.5,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top2) at (axis cs:1,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top3) at (axis cs:1.5,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top4) at (axis cs:2,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top5) at (axis cs:2.5,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top6) at (axis cs:3,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top7) at (axis cs:3.5,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top8) at (axis cs:4,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top9) at (axis cs:4.5,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top10) at (axis cs:5,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top11) at (axis cs:5.5,\pgfkeysvalueof{/pgfplots/ymax});
+\coordinate (top12) at (axis cs:6,\pgfkeysvalueof{/pgfplots/ymax});
+
+\coordinate (bot0) at (axis cs:0,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot1) at (axis cs:0.5,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot2) at (axis cs:1,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot3) at (axis cs:1.5,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot4) at (axis cs:2,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot5) at (axis cs:2.5,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot6) at (axis cs:3,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot7) at (axis cs:3.5,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot8) at (axis cs:4,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot9) at (axis cs:4.5,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot10) at (axis cs:5,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot11) at (axis cs:5.5,\pgfkeysvalueof{/pgfplots/ymin});
+\coordinate (bot12) at (axis cs:6,\pgfkeysvalueof{/pgfplots/ymin});
+
+
+\end{axis}
+
+
+\draw [thick, dotted,-stealth, black!50] (top0) -- (bot0) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_0$};
+\draw [thick, dotted,-stealth, black!50] (top1) -- (bot1) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_1$};
+\draw [thick, dotted,-stealth, black!50] (top2) -- (bot2) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_2$};
+\draw [thick, dotted,-stealth, black!50] (top3) -- (bot3) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_3$};
+\draw [thick, dotted,-stealth, black!50] (top4) -- (bot4) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_4$};
+\draw [thick, dotted,-stealth, black!50] (top5) -- (bot5) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_5$};
+\draw [thick, dotted,-stealth, black!50] (top6) -- (bot6) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_6$};
+\draw [thick, dotted,-stealth, black!50] (top7) -- (bot7) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_7$};
+\draw [thick, dotted,-stealth, black!50] (top8) -- (bot8) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_8$};
+\draw [thick, dotted,-stealth, black!50] (top9) -- (bot9) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_9$};
+\draw [thick, dotted,-stealth, black!50] (top10) -- (bot10) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_{10}$};
+\draw [thick, dotted,-stealth, black!50] (top11) -- (bot11) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_{11}$};
+\draw [thick, dotted,-stealth, black!50] (top12) -- (bot12) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_{12}$};
+
+\node  at (p0) [font=\scriptsize, text=lightblue!75!black]{$+1$};
+\node  at (p1) [font=\scriptsize, text=lightblue!75!black]{$-1$};
+\node  at (p2) [font=\scriptsize, text=lightblue!75!black]{$-1$};
+\node  at (p3) [font=\scriptsize, text=lightblue!75!black]{$+1$};
+\node  at (p4) [font=\scriptsize, text=lightblue!75!black]{$+1$};
+\node  at (p5) [font=\scriptsize, text=lightblue!75!black]{$+1$};
+\node  at (p6) [font=\scriptsize, text=lightblue!75!black]{$-1$};
+
+
+
+
+\end{tikzpicture}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

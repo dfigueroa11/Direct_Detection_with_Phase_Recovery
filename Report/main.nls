@@ -1,0 +1,7 @@
+
+\begin{thenomenclature} 
+\nomgroup{A}
+  \item [{$X\sim\mathcal{N}(\mu,\sigma^2)$}]\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma_2$\nomeqref {1.4}\nompageref{2}
+  \item [{DD}]\begingroup Direct Detection\nomeqref {1.0}\nompageref{1}
+
+\end{thenomenclature}
