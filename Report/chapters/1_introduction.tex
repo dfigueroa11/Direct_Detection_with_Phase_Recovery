@@ -47,7 +47,7 @@ I(t) = I_p+i_s(t)+i_{th}(t)
 \label{eq:DD_current}
 \end{equation}
 with $i_s(t)\sim\mathcal{N}(0,\sigma_s^2)$ and $i_{th}(t)\sim\mathcal{N}(0,\sigma_{th}^2)$
-\nomenclature{$X\sim\mathcal{N}(\mu,\sigma^2)$}{$X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma_2$}
+\nomenclature{$X\sim\mathcal{N}(\mu,\sigma^2)$}{$X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$}
 
 
 \section{Capacity under direct detection}
@@ -61,22 +61,78 @@ The results of this papers show that the systems with DD have a big potential, b
 
 
 
-\section{Trivial examples of phase retrieve from the magnitud}
+\section{Basic principle of phase recovery}
 
-% plabst BPSK secondini as image of tasbihi trivial example 
+The key to retrieve the phase information of the transmitted symbols when using DD is to make use of the ISI. As a toy example one can think on the problem where given two complex numbers $z_1$ and $z_2$, from $|z_1|^2$, $|z_2|^2$ and $|z_1+z_2|^2$ (an ISI term), it is possible to determine the phase difference between $z_1$ and $z_2$ up to a sign ambiguity \cite{Tasbihi_Tukey}.\\
 
-% tasbihi sinc example
+To show this, notice the following:
+\begin{align*}
+	|z_1+z_2|^2 &= (z_1+z_2)(z_1+z_2)^* \\
+	&=z_1z_1^*+z_1z_2^*+z_2z_2^*+z_1^*z_2\\
+	&=|z_1|^2+|z_2|^2+z_1z_2^*+\bigl(z_1z_2^*\bigr)^*\\
+	&=|z_1|^2+|z_2|^2+2\text{Re}\{z_1z_2^*\}\\
+\end{align*}
+under the convention that $z_1 = a\cdot e^{j\alpha}$ and $z_2 = b\cdot e^{j\beta}$
+\begin{equation}
+	|z_1+z_2|^2 =|z_1|^2+|z_2|^2+2|z_1||z_2|\cos(\alpha-\beta)\\
+	\label{eq:square_mag_of_sum}
+\end{equation}
+\nomenclature{$j$}{Imaginary unit}
+\nomenclature{Re$\{z\}$}{Real part of $z$}
+\nomenclature{Im$\{z\}$}{imaginary part of $z$}
+
+Clearly if $|z_1|^2$, $|z_2|^2$ and $|z_1+z_2|^2$ are known, one can solve the equation \ref{eq:square_mag_of_sum} for $\cos(\alpha-\beta)$ and get the information about the phase difference between $z_1$ and $z_2$. However, since cosine is an even function $\cos(\alpha-\beta)=\cos(-\alpha+\beta)$, hence there is still an ambiguity on the sign of the phase difference.\\
 
 
+\begin{figure}[htb]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/CD_toy_example.pdf}
+         \caption{Coherent detection}
+         \label{fig:CD_toy_example}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/DD_toy_example.pdf}
+         \caption{Direct detection}
+         \label{fig:DD_toy_example}
+     \end{subfigure}
+     \hfill
+     \vspace{10mm}
+     \begin{subfigure}[b]{0.8\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/DD_toy_example_long_sq.pdf}
+         \caption{Direct detection of the sequence $\{+1,-1,-1,+1,+1,+1,-1\}$}
+         \label{fig:DD_toy_example_long_sq}
+     \end{subfigure}
+        \caption{Comparative of the wave forms under coherent detection and direct detection. Based on \cite{Secondini, Plabst_DD}.}
+        \label{fig:DD_vs_CD}
+\end{figure}
 
+To visualize this principle in a real system (jet not even near to optimal due to the big bandwidth of the pulse), see the figure \ref{fig:DD_vs_CD}. There is shown with a solid line the wave form of a simple transmission under coherent detection (see figure \ref{fig:CD_toy_example}) and under direct detection (see figure \ref{fig:DD_toy_example}), and also the wave form of the individual symbols in dashed lines.\\
 
+For the coherent detection case the samples at each symbol time are sufficient to determine the transmitted symbols. In contrast, for the direct detection case the samples at each symbol time (circles) only carry information about the magnitude of the symbols (always one in this example); and the samples at intermediate symbol time (squares) carry information about the phase difference \cite{Secondini}.\\
 
+Figure \ref{fig:DD_toy_example_long_sq} show the DD system for a longer sequence, there it is possible to notice that the even samples always carry information about the magnitude, whereas the odd samples carry information about the differential phase of the symbols. This toy example shows the principle behind the phase recovery in DD systems, it is important to highlight two things, first an oversampling factor of two is needed, and second only information on the differential phase (up to a sign ambiguity) is retrieved, hence it is beneficial to use differential coding in the transmission.\\
 
+An other way to explain the previous conclusions is to take a look at the simple system given by:
+\begin{align*}
+	g(t)=\sum_{k=0}^m g_k\text{sinc}(t-k)
+\end{align*}
+where $g_k$ is a complex number representing the transmitted symbol and $g(t)$ is the transmitted signal. Note that after the DD the bandwidth of the signal is twice as big as the bandwidth of $g(t)$, since the received signal is given by the product $|g(t)|^2=g(t)g^*(t)$. Hence to recover the data one should use an oversampling factor of two, so the sampled signal becomes \cite{Tasbihi_Tukey}:
+\begin{align*}
+	\left|g\left(\frac{n}{2}\right)\right|^2 = \left\{
+\begin{array}{ll}
+\left|g_{\frac{n}{2}}\right|^2  &  \text{if $n$ is even}  \\
+\left|\sum\limits_{k=0}^m g_k\text{sinc}\left(\frac{n}{2}-k\right)\right|^2   & \text{if $n$ is odd}
+\end{array}
+\right. &&\text{for }n=0,\dotsb,2m
+\end{align*}
+\nomenclature{sinc$(t)$}{$\frac{\sin(\pi t)}{\pi t}$}
 
-
-
-
-
+Once again, it is clear that the even samples carry the information about the magnitude of the symbols, whereas the odd samples carry some how the information about the phase of the symbols. But now notice that all the $g_k$ contribute to the odd samples, this makes that retrieving the phase becomes quickly an intractable problem as $m$ grows \cite{Tasbihi_Tukey}, as we will see in later chapters. 
 
 
 

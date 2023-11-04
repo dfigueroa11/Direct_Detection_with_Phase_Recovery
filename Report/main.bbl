@@ -39,8 +39,8 @@
       \strng{authornamehash}{6d805c7c5a67b608d1a220cbfe3b77f7}
       \strng{authorfullhash}{6d805c7c5a67b608d1a220cbfe3b77f7}
       \field{extraname}{1}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Lightwave Technology}
@@ -72,8 +72,8 @@
       \strng{authornamehash}{910d801de7c7b036bee279a678fc8362}
       \strng{authorfullhash}{910d801de7c7b036bee279a678fc8362}
       \field{extraname}{1}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Summary This introductory chapter presents the basic concepts and provides the background material for fiber-optic communication systems. First, it gives a historical perspective on the development of optical communication systems. The chapter then covers concepts such as analog and digital signals, channel multiplexing, and modulation formats. The basic concepts begin with a description of analog and digital signals and describe how an analog signal can be converted into digital form. The chapter considers time- and frequency-division multiplexing of input signals, and provides a discussion of various modulation formats. Next, it discusses relative merits of various lightwave systems. Finally, the chapter describes the building blocks of a fiber-optic communication system. Controlled Vocabulary Terms digital signals; optical fiber communication}
@@ -117,8 +117,8 @@
       \strng{authorbibnamehash}{9bc3318abb3735951a3a2390361caaea}
       \strng{authornamehash}{9bc3318abb3735951a3a2390361caaea}
       \strng{authorfullhash}{9bc3318abb3735951a3a2390361caaea}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Lightwave Technology}
@@ -150,8 +150,8 @@
       \strng{authornamehash}{910d801de7c7b036bee279a678fc8362}
       \strng{authorfullhash}{910d801de7c7b036bee279a678fc8362}
       \field{extraname}{2}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Summary This chapter focuses on photodetectors and optical receivers. It introduces the basic concepts behind the photodetection process. The chapter then discusses several kinds of photodetectors commonly used for optical receivers. It describes the components of an optical receiver with emphasis on the role played by each component. The chapter then deals with various noise sources that limit the signal-to-noise ratio in optical receivers. It is devoted to receiver sensitivity and its degradation under nonideal conditions such as extinction ratio, intensity noise and timing jitter. Finally the chapter focuses on the performance of optical receivers in actual transmission experiments. The basic concepts include responsivity, quantum efficiency, rise time, and bandwidth that are common to all photodetectors and are used to characterize them. The photodetector discussed in this chapter includes p-n photodiodes, p-i-n Photodiodes, avalanche Photodiodes and Metal-semiconductormetal (MSM) photodetectors. Controlled Vocabulary Terms avalanche photodiodes; extinction ratio; optical receivers; p-i-n photodiodes; signal to noise ratio; thermal noise; timing jitter}
@@ -196,8 +196,8 @@
       \strng{authornamehash}{6d805c7c5a67b608d1a220cbfe3b77f7}
       \strng{authorfullhash}{6d805c7c5a67b608d1a220cbfe3b77f7}
       \field{extraname}{2}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IEEE Transactions on Information Theory}
@@ -209,6 +209,104 @@
       \range{pages}{6}
       \verb{doi}
       \verb 10.1109/TIT.2020.2999889
+      \endverb
+    \endentry
+    \entry{Secondini}{article}{}
+      \name{author}{2}{}{%
+        {{hash=3b75fba6919cd6948b21f44ce8c988cf}{%
+           family={Secondini},
+           familyi={S\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=985652bf52485652e749796913237936}{%
+           family={Forestieri},
+           familyi={F\bibinitperiod},
+           given={Enrico},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{3bdf6e4257d624e793b1d25f363202bd}
+      \strng{fullhash}{3bdf6e4257d624e793b1d25f363202bd}
+      \strng{bibnamehash}{3bdf6e4257d624e793b1d25f363202bd}
+      \strng{authorbibnamehash}{3bdf6e4257d624e793b1d25f363202bd}
+      \strng{authornamehash}{3bdf6e4257d624e793b1d25f363202bd}
+      \strng{authorfullhash}{3bdf6e4257d624e793b1d25f363202bd}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Lightwave Technology}
+      \field{number}{21}
+      \field{title}{Direct Detection of Bipolar Pulse Amplitude Modulation}
+      \field{volume}{38}
+      \field{year}{2020}
+      \field{pages}{5981\bibrangedash 5990}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/JLT.2020.3007584
+      \endverb
+    \endentry
+    \entry{Plabst_DD}{article}{}
+      \name{author}{8}{}{%
+        {{hash=ee516627fecfa19834e595f413c81da0}{%
+           family={Plabst},
+           familyi={P\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=15d0adfae28966dffeace289c6584297}{%
+           family={Prinz},
+           familyi={P\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=6a94ecefaa1955dcc1a608d2d0ff853e}{%
+           family={Wiegart},
+           familyi={W\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=0b71881ac4df17633f39d542afddf4f3}{%
+           family={Rahman},
+           familyi={R\bibinitperiod},
+           given={Talha},
+           giveni={T\bibinitperiod}}}%
+        {{hash=8f7314ab2230f8f0ec3257319d93bb86}{%
+           family={Stojanović},
+           familyi={S\bibinitperiod},
+           given={Nebojša},
+           giveni={N\bibinitperiod}}}%
+        {{hash=2ec981b93124293e36cd60013528f594}{%
+           family={Calabrò},
+           familyi={C\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+        {{hash=317b2496a95e2dd194184a292a902029}{%
+           family={Hanik},
+           familyi={H\bibinitperiod},
+           given={Norbert},
+           giveni={N\bibinitperiod}}}%
+        {{hash=f7bae6a087b5b9e69a80e9bbd566a7e7}{%
+           family={Kramer},
+           familyi={K\bibinitperiod},
+           given={Gerhard},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{57d80a8e6a9c5d1525d77f3ee2effa9f}
+      \strng{fullhash}{79ba5324a1182846b208c7e220f79b94}
+      \strng{bibnamehash}{57d80a8e6a9c5d1525d77f3ee2effa9f}
+      \strng{authorbibnamehash}{57d80a8e6a9c5d1525d77f3ee2effa9f}
+      \strng{authornamehash}{57d80a8e6a9c5d1525d77f3ee2effa9f}
+      \strng{authorfullhash}{79ba5324a1182846b208c7e220f79b94}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Lightwave Technology}
+      \field{number}{12}
+      \field{title}{Achievable Rates for Short-Reach Fiber-Optic Channels With Direct Detection}
+      \field{volume}{40}
+      \field{year}{2022}
+      \field{pages}{3602\bibrangedash 3613}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1109/JLT.2022.3149574
       \endverb
     \endentry
   \enddatalist
