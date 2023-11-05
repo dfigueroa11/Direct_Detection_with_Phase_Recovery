@@ -72,7 +72,7 @@ if resume_training:
 # hyperparameters
 batches_per_epoch = 300
 batch_size_per_epoch = [100, 400, 1_000, 2_000, 5_000, 10_000]
-snr_dB_steps = [*range(17,18)]
+snr_dB_steps = [*range(18,19)]
 checkpoint_per_epoch = 5
 cnt = checkpoint['cnt'] if resume_training else 0
 
