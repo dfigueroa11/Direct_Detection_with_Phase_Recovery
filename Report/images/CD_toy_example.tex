@@ -8,6 +8,10 @@
 
 \definecolor{lightblue}{RGB}{86,192,150}  % Define light blue color
 
+\pgfdeclarelayer{background layer}
+\pgfdeclarelayer{foreground layer}
+\pgfsetlayers{background layer,main,foreground layer}
+
 \begin{tikzpicture}
 \begin{groupplot}[
 group style={
@@ -32,8 +36,12 @@ group style={
 ]
 
 \nextgroupplot
-\addplot[lightblue, domain=-1:1, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*x)))};
-\addplot[lightblue, domain=0:2, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*(x-1))))};
+\begin{pgfonlayer}{background layer}
+\addplot[lightblue, domain=-1:1, samples=100, draw=none, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*x)))};
+\addplot[lightblue, domain=0:2, samples=100, draw=none, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*(x-1))))};
+\end{pgfonlayer}
+\addplot[lightblue, domain=-1:1, samples=100, dashed, thick ] {0.25*(1+cos(deg(pi*x)))};
+\addplot[lightblue, domain=0:2, samples=100, dashed, thick] {0.25*(1+cos(deg(pi*(x-1))))};
 
 \addplot[blue, domain=-1:0, samples=100, thick] {0.25*(1+cos(deg(pi*x)))};
 \addplot[blue, domain=0:1, samples=100, thick] {0.25*(1+cos(deg(pi*x)))+0.25*(1+cos(deg(pi*(x-1))))};
@@ -47,8 +55,13 @@ group style={
 \coordinate (top13) at (axis cs:1,\pgfkeysvalueof{/pgfplots/ymax});
 
 \nextgroupplot
-\addplot[lightblue, domain=-1:1, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*x)))};
-\addplot[lightblue, domain=0:2, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {-0.25*(1+cos(deg(pi*(x-1))))};
+\begin{pgfonlayer}{background layer}
+\addplot[lightblue, domain=-1:1, samples=100, draw=none, fill=lightblue, fill opacity=0.35] {0.25*(1+cos(deg(pi*x)))};
+\addplot[lightblue, domain=0:2, samples=100, draw=none, fill=lightblue, fill opacity=0.35] {-0.25*(1+cos(deg(pi*(x-1))))};
+\end{pgfonlayer}
+\addplot[lightblue, domain=-1:1, samples=100, dashed, thick ] {0.25*(1+cos(deg(pi*x)))};
+\addplot[lightblue, domain=0:2, samples=100, dashed, thick] {-0.25*(1+cos(deg(pi*(x-1))))};
+
 
 \addplot[blue, domain=-1:0, samples=100, thick] {0.25*(1+cos(deg(pi*x)))};
 \addplot[blue, domain=0:1, samples=100, thick] {0.25*(1+cos(deg(pi*x)))-0.25*(1+cos(deg(pi*(x-1))))};
@@ -63,9 +76,10 @@ group style={
 
 \end{groupplot}
 
-
+\begin{pgfonlayer}{background layer}
 \draw [thick, dotted,-stealth, black!50] (top11) -- (bot11) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_0$};
 \draw [thick, dotted,-stealth, black!50] (top13) -- (bot13) --+ (0,-0.2) node [below, black, font=\scriptsize] {$y_1$};
+\end{pgfonlayer}
 
 \node  at (p1) [font=\scriptsize, text=lightblue!75!black]{$+1$};
 \node  at (p2) [font=\scriptsize, text=lightblue!75!black]{$+1$};
