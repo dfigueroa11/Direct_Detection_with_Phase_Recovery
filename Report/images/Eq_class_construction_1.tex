@@ -99,33 +99,33 @@
 
 \coordinate (origin) at (axis cs: 0,0);
 
-%\addplot[data cs=polar, black] coordinates {(0,0)(144,1)} coordinate [at end] (12);
-%\addplot[data cs=polar, black] coordinates {(0,0)(0,3)} coordinate [at end] (11);
-%
-%\path (11) -- (origin) -- (12)
-%            pic [
-%                draw,
-%                ->,
-%                black,
-%                angle radius=2.7mm,
-%                angle eccentricity=0.7,
-%                "$\theta$",
-%                font=\tiny,
-%            ] {angle = 11--origin--12};
-%
-%\addplot[data cs=polar, black] coordinates {(0,0)(-144,1)} coordinate [at end] (22);
-%\addplot[data cs=polar, black] coordinates {(0,0)(0,3)} coordinate [at end] (21);
-%
-%\path (22) -- (origin) -- (21)
-%            pic [
-%                draw,
-%                <-,
-%                black,
-%                angle radius=2.7mm,
-%                angle eccentricity=0.7,
-%                "$\theta$",
-%                font=\tiny,
-%            ] {angle = 22--origin--21};
+\addplot[dashed,data cs=polar, black] coordinates {(0,0)(144,1)} coordinate [at end] (12);
+\addplot[dashed,data cs=polar, black] coordinates {(0,0)(72,5)} coordinate [at end] (11);
+
+\path (11) -- (origin) -- (12)
+            pic [
+                draw,
+                ->,
+                black,
+                angle radius=3mm,
+                angle eccentricity=1.5,
+                "$\theta$",
+                font=\tiny,
+            ] {angle = 11--origin--12};
+
+\addplot[dashed,data cs=polar, black] coordinates {(0,0)(144,1)} coordinate [at end] (22);
+\addplot[dashed,data cs=polar, black] coordinates {(0,0)(216,5)} coordinate [at end] (21);
+
+\path (22) -- (origin) -- (21)
+            pic [
+                draw,
+                <-,
+                black,
+                angle radius=3mm,
+                angle eccentricity=1.5,
+                "$\theta$",
+                font=\tiny,
+            ] {angle = 22--origin--21};
 
 
 
