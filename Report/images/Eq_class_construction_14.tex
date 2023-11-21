@@ -1,0 +1,154 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{
+        angles,
+        quotes,
+    }
+
+\newcommand{\gridCirc}[2]{
+\addplot[data cs=polar,domain=0:360,samples=360,smooth,#2] (x,#1);
+}
+
+\newcommand{\constCirc}[4]{
+
+\addplot[data cs=polar,domain=0:360,samples=#1+1,smooth,mark=*, only marks,#4] (x+#3,#2);
+}
+
+\definecolor{color1}{rgb}{0,0.4470,0.7410}
+\definecolor{color2}{rgb}{0.8500,0.3250,0.0980}
+\definecolor{color3}{rgb}{0.9290,0.6940,0.1250}
+\definecolor{color4}{rgb}{0.4940,0.1840,0.5560}
+\definecolor{color5}{rgb}{0.4660,0.6740,0.1880}
+
+
+
+\begin{document}
+
+
+
+
+
+\begin{tikzpicture}[>= stealth]
+\begin{axis}[
+  width = 10cm,
+  height = 10cm,
+  xlabel={$t$},
+  axis x line=middle,  % Show only the x-axis
+  axis y line=middle,    % Hide the y-axis
+  xmin=-6, xmax=6,
+  ymin=-6, ymax=6,  % Set ymax to 2
+  xtick=\empty,
+  ytick=\empty,
+  xlabel = Re,
+  ylabel = Im,
+  xlabel style={
+    right,black
+  },
+  ylabel style={
+    above,black
+  },
+  legend style={draw=none,nodes={scale=0.6, transform shape},
+  every axis/.append style={%
+      black!20
+    }   },  
+]
+
+
+\gridCirc{1}{black!20, densely dotted, forget plot,}
+\constCirc{5}{1}{0}{black!20, mark size=1pt, forget plot}
+\gridCirc{2}{black!20, densely dotted, forget plot,}
+\constCirc{5}{2}{36}{black!20, mark size=1pt, forget plot}
+\gridCirc{3}{black!20, densely dotted, forget plot,}
+\constCirc{5}{3}{0}{black!20, mark size=1pt, forget plot}
+\gridCirc{4}{black!20, densely dotted, forget plot,}
+\constCirc{5}{4}{36}{black!20, mark size=1pt, forget plot}
+\gridCirc{5}{black!20, densely dotted, forget plot,}
+\constCirc{5}{5}{0}{black!20, mark size=1pt, forget plot}
+
+
+
+
+
+
+
+
+\addplot[thick,data cs=polar, mark=o, color1, mark size = 2.3pt, 
+        visualization depends on=\thisrow{alignment} \as \alignment,
+        nodes near coords,
+        every node near coord/.style={font=\tiny, color=black, anchor=center},
+        point meta=explicit symbolic,
+    ]
+    table{
+        x    y  label           alignment
+	 0        3    1            0  
+        216        1    2            0
+        144   5    3           0
+        36   4   4            0   
+         };
+
+\addplot[thick,data cs=polar, mark=o, color2, mark size = 2.3pt, 
+        visualization depends on=\thisrow{alignment} \as \alignment,
+        nodes near coords,
+        every node near coord/.style={font=\tiny, color=black, anchor=center},
+        point meta=explicit symbolic,
+    ]
+    table{
+        x    y  label           alignment
+	 72        3    1            0  
+        288        1    2            0
+        216   5    3           0
+        108   4   4            0   
+         };
+
+\addplot[thick,data cs=polar, mark=o, color3, mark size = 2.3pt, 
+        visualization depends on=\thisrow{alignment} \as \alignment,
+        nodes near coords,
+        every node near coord/.style={font=\tiny, color=black, anchor=center},
+        point meta=explicit symbolic,
+    ]
+    table{
+        x    y  label           alignment
+	 144        3    1            0  
+        0        1    2            0
+        288   5    3           0
+        180   4   4            0   
+         };
+
+\addplot[thick,data cs=polar, mark=o, color4, mark size = 2.3pt, 
+        visualization depends on=\thisrow{alignment} \as \alignment,
+        nodes near coords,
+        every node near coord/.style={font=\tiny, color=black, anchor=center},
+        point meta=explicit symbolic,
+    ]
+    table{
+        x    y  label           alignment
+	 216        3    1            0  
+        72        1    2            0
+        0   5    3           0
+        252   4   4            0   
+         };
+
+\addplot[thick,data cs=polar, mark=o, color5, mark size = 2.3pt, 
+        visualization depends on=\thisrow{alignment} \as \alignment,
+        nodes near coords,
+        every node near coord/.style={font=\tiny, color=black, anchor=center},
+        point meta=explicit symbolic,
+    ]
+    table{
+        x    y  label           alignment
+	288         3    1            0  
+        144        1    2            0
+        72   5    3           0
+        324   4   4            0   
+         };
+
+
+
+
+
+
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

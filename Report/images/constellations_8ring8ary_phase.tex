@@ -1,0 +1,66 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\usepackage{tikz}
+
+
+\newcommand{\gridCirc}[2]{
+\addplot[data cs=polar,red,domain=0:360,samples=360,smooth,#2] (x,#1);
+}
+
+\newcommand{\constCirc}[4]{
+\addplot[data cs=polar,red,domain=0:360,samples=#1+1,smooth,mark=*, only marks,#4] (x+#3,#2);
+}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+\begin{axis}[
+  width = 10cm,
+  height = 10cm,
+  xlabel={$t$},
+  axis x line=middle,  % Show only the x-axis
+  axis y line=middle,    % Hide the y-axis
+  xmin=-9, xmax=9,
+  ymin=-9, ymax=9,  % Set ymax to 2
+  xtick=\empty,
+  ytick=\empty,
+  xlabel = Re,
+  ylabel = Im,
+  xlabel style={
+    right,
+  },
+  ylabel style={
+    above,
+  },
+  legend style={draw=none,nodes={scale=0.4, transform shape}}
+]
+
+\gridCirc{1}{black, densely dotted}
+\constCirc{8}{1}{0}{blue, fill=blue }
+
+\gridCirc{2}{black, densely dotted}
+\constCirc{8}{2}{22.5}{blue, fill=blue }
+
+\gridCirc{3}{black, densely dotted}
+\constCirc{8}{3}{0}{blue, fill=blue }
+
+\gridCirc{4}{black, densely dotted}
+\constCirc{8}{4}{22.5}{blue, fill=blue }
+
+\gridCirc{5}{black, densely dotted}
+\constCirc{8}{5}{0}{blue, fill=blue }
+
+\gridCirc{6}{black, densely dotted}
+\constCirc{8}{6}{22.5}{blue, fill=blue }
+
+\gridCirc{7}{black, densely dotted}
+\constCirc{8}{7}{0}{blue, fill=blue }
+
+\gridCirc{8}{black, densely dotted}
+\constCirc{8}{8}{22.5}{blue, fill=blue }
+
+\end{axis}
+\end{tikzpicture}
+
+\end{document}
