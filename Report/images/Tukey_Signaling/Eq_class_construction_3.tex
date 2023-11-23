@@ -7,12 +7,12 @@
     }
 
 \newcommand{\gridCirc}[2]{
-\addplot[data cs=polar,domain=0:360,samples=360,smooth,#2] (x,#1);
+\addplot[thick,data cs=polar,domain=0:360,samples=360,smooth,#2] (x,#1);
 }
 
 \newcommand{\constCirc}[4]{
 
-\addplot[data cs=polar,domain=0:360,samples=#1+1,smooth,mark=*, only marks,#4] (x+#3,#2);
+\addplot[thick,data cs=polar,domain=0:360,samples=#1+1,smooth,mark=*, only marks,#4] (x+#3,#2);
 }
 
 
@@ -43,27 +43,27 @@
   },
   legend style={draw=none,nodes={scale=0.6, transform shape},
   every axis/.append style={%
-      black!20
-    }   },  
+      black!40
+    }   }, 
 ]
 
 
-\gridCirc{1}{black!20, densely dotted, forget plot,}
-\constCirc{5}{1}{0}{black!20, mark size=1pt, forget plot}
-\gridCirc{2}{black!20, densely dotted, forget plot,}
-\constCirc{5}{2}{36}{black!20, mark size=1pt, forget plot}
-\gridCirc{3}{black!20, densely dotted, forget plot,}
-\constCirc{5}{3}{0}{black!20, mark size=1pt, forget plot}
-\gridCirc{4}{black!20, densely dotted, forget plot,}
-\constCirc{5}{4}{36}{black!20, mark size=1pt, forget plot}
-\gridCirc{5}{black!20, densely dotted, forget plot,}
-\constCirc{5}{5}{0}{black!20, mark size=1pt, forget plot}
+\gridCirc{1}{black!40, densely dotted, forget plot,}
+\constCirc{5}{1}{0}{black!40, mark size=1pt, forget plot}
+\gridCirc{2}{black!40, densely dotted, forget plot,}
+\constCirc{5}{2}{36}{black!40, mark size=1pt, forget plot}
+\gridCirc{3}{black!40, densely dotted, forget plot,}
+\constCirc{5}{3}{0}{black!40, mark size=1pt, forget plot}
+\gridCirc{4}{black!40, densely dotted, forget plot,}
+\constCirc{5}{4}{36}{black!40, mark size=1pt, forget plot}
+\gridCirc{5}{black!40, densely dotted, forget plot,}
+\constCirc{5}{5}{0}{black!40, mark size=1pt, forget plot}
 
 
 
 
 
-\addplot[data cs=polar, mark=o, blue, mark size = 2.3pt, 
+\addplot[thick,data cs=polar, mark=o, blue, mark size = 2.3pt, 
         visualization depends on=\thisrow{alignment} \as \alignment,
         nodes near coords,
         every node near coord/.style={font=\tiny, color=black, anchor=center},
@@ -78,7 +78,7 @@
     };
 \addlegendentry[color=black]{symbol block 3}
 
-\addplot[data cs=polar, mark=o, red, mark size = 2.3pt, 
+\addplot[thick,data cs=polar, mark=o, red, mark size = 2.3pt, 
         visualization depends on=\thisrow{alignment} \as \alignment,
         nodes near coords,
         every node near coord/.style={font=\tiny, color=black, anchor=center},
@@ -94,13 +94,13 @@
 \addlegendentry[color=black]{symbol block 4}
 
 
-\addplot [data cs = polar, black!60!green, dashed, thick] coordinates {(144,5.5)(324,5.5)};
+\addplot [thick,data cs = polar, black!60!green, dashed, thick] coordinates {(144,5.5)(324,5.5)};
 \addlegendentry[color=black]{symmetry axis}
 
 \coordinate (origin) at (axis cs: 0,0);
 
-\addplot[dashed,data cs=polar, black] coordinates {(0,0)(144,1)} coordinate [at end] (12);
-\addplot[dashed,data cs=polar, black] coordinates {(0,0)(216,5)} coordinate [at end] (11);
+\addplot[thick,dashed,data cs=polar, black] coordinates {(0,0)(144,1)} coordinate [at end] (12);
+\addplot[thick,dashed,data cs=polar, black] coordinates {(0,0)(216,5)} coordinate [at end] (11);
 
 \path (11) -- (origin) -- (12)
             pic [
@@ -113,8 +113,8 @@
                 font=\tiny,
             ] {angle = 12--origin--11};
 
-\addplot[dashed,data cs=polar, black] coordinates {(0,0)(144,1)} coordinate [at end] (22);
-\addplot[dashed,data cs=polar, black] coordinates {(0,0)(72,5)} coordinate [at end] (21);
+\addplot[thick,dashed,data cs=polar, black] coordinates {(0,0)(144,1)} coordinate [at end] (22);
+\addplot[thick,dashed,data cs=polar, black] coordinates {(0,0)(72,5)} coordinate [at end] (21);
 
 \path (22) -- (origin) -- (21)
             pic [

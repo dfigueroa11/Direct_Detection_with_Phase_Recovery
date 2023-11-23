@@ -6,6 +6,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{bm}
 
 
 \begin{document}
@@ -24,12 +25,12 @@
 \node [rectangle, draw, text width = 3cm, align = center, rotate=90,anchor=north] (Det) at($(ID.south)+(1,0)$) {Detector};
 
 \draw [->] (-1,0) -- node [above] {$k$}(CR); 
-\draw [->] (CR.south) --  (Sig); 
+\draw [->] (CR.south) -- node [above] {$\bm x_k$} (Sig); 
 \draw [->] (Sig.south) --  node [above] {$x(t)$} (DP); 
 \draw [->] (DP.south) --  node [above] {$u(t)$} (circ1); 
 \draw [->] (circ2.south) --  node [above] {$r(t)$} (PD); 
 \draw [->] (PD.south) --  node [above] {$s(t)$} (ID); 
-\draw [->] (ID.south) --  (Det); 
+\draw [->] (ID.south) --  node [above] {$\bm y,\bm z$}(Det); 
 \draw [->] (Det.south) -- node [above] {$\hat{k}$}+ (1,0);
 
 
