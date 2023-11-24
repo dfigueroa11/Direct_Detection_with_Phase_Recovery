@@ -59,7 +59,6 @@ class MagPhaseDetNet():
         phase = x_phase[-1,:,self.sym_mem:]
         del x_mag, x_phase
         torch.cuda.empty_cache()
-
         return mag, phase
 
     def train(self):
