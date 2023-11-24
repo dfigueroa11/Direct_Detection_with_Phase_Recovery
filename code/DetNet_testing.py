@@ -22,7 +22,7 @@ print("We are using the following device for learning:",device)
 
 N_symbols = 20_000
 
-snr_dB_list = [*range(15,20)]
+snr_dB_list = [*range(0,21)]
 sym_mem_file_list = [1,3,5]
 ############# Constellation and differential mapping ################
 angle = np.arccos(1/3)
