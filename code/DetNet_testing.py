@@ -85,6 +85,8 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
             state_mag[0,-1] = mag[:,0]
             state_phase = torch.roll(state_phase,-1,-1)
             state_phase[0,-1] = phase[:,0]
+            del mag, phase
+            torch.cuda.empty_cache()
             
         rx_syms = rx_mag*torch.exp(1j*rx_phase)
         rx_syms_idx = const.nearest_neighbor(rx_syms)
