@@ -60,46 +60,42 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
         magphase_DetNet.phase_model.load_state_dict(checkpoint['phase_state_dict'])
             
         magphase_DetNet.eval()
+        with torch.no_grad():
+            ###################### Testing ################################
 
-        ###################### Testing ################################
-
-        # generate the Psi_e Psi_o matrix for decoding, SNR values are not important, only dimensions are.
-        _, _, Psi_e, Psi_o, _, _, _, _ = aux_func.data_generation(block_len, sym_mem, 1, 0, 0, const, device)
+            # generate the Psi_e Psi_o matrix for decoding, SNR values are not important, only dimensions are.
+            _, _, Psi_e, Psi_o, _, _, _, _ = aux_func.data_generation(block_len, sym_mem, 1, 0, 0, const, device)
 
 
-        y_e, y_o, tx_mag, tx_phase, state_mag, state_phase = aux_func.data_generation(N_symbols+block_len, sym_mem, 1,
-                                                                                            snr_dB, 0, const, device, outPsi_mat=False)
-        tx_mag = tx_mag[:,:-block_len]
-        tx_phase = tx_phase[:,:-block_len]
-        rx_mag = torch.ones_like(tx_mag, device=device)
-        rx_phase = torch.ones_like(tx_phase, device=device)
-        magxd = torch.empty(1,block_len, device=device)
-        phasexd = torch.empty(1,block_len, device=device)
-        s = time.time()
-        for i in range(N_symbols):
-            if i%(N_symbols//10) == 0:
-                print(f'\t\t symbol number {i}')
-            magxd, phasexd = magphase_DetNet(y_e[:,i:i+block_len], y_o[:,i:i+block_len], Psi_e, Psi_o,
-                                         rx_mag[:,i:i+sym_mem], rx_phase[:,i:i+sym_mem], layers, return_all=False)
-            mag = magxd[:,0]
-            phase = phasexd[:,0]
-            rx_mag[:,i] = mag
-            rx_phase[:,i] = phase
-            del mag, phase
-            torch.cuda.empty_cache()
+            y_e, y_o, tx_mag, tx_phase, state_mag, state_phase = aux_func.data_generation(N_symbols+block_len, sym_mem, 1,
+                                                                                                snr_dB, 0, const, device, outPsi_mat=False)
+            tx_mag = tx_mag[:,:-block_len]
+            tx_phase = tx_phase[:,:-block_len]
+            rx_mag = torch.ones_like(tx_mag, device=device)
+            rx_phase = torch.ones_like(tx_phase, device=device)
+            s = time.time()
+            for i in range(N_symbols):
+                if i%(N_symbols//10) == 0:
+                    print(f'\t\t symbol number {i}')
+                mag, phase = magphase_DetNet(y_e[:,i:i+block_len], y_o[:,i:i+block_len], Psi_e, Psi_o,
+                                            rx_mag[:,i:i+sym_mem], rx_phase[:,i:i+sym_mem], layers, return_all=False)
+                rx_mag[:,i] = mag[:,0]
+                rx_phase[:,i] = phase[:,0]
+                del mag, phase
+                torch.cuda.empty_cache()
+                
+            rx_syms = rx_mag*torch.exp(1j*rx_phase)
+            rx_syms_idx = const.nearest_neighbor(rx_syms)
+            e = time.time()
+
+            tx_syms = tx_mag*torch.exp(1j*tx_phase)
+            tx_syms_idx = const.nearest_neighbor(tx_syms)
+            ser[sym_mem_idx, snr_idx] = ch_met.get_ER(tx_syms_idx.flatten(),rx_syms_idx.flatten())
+            sim_time[sym_mem_idx, snr_idx] = e-s
             
-        rx_syms = rx_mag*torch.exp(1j*rx_phase)
-        rx_syms_idx = const.nearest_neighbor(rx_syms)
-        e = time.time()
-
-        tx_syms = tx_mag*torch.exp(1j*tx_phase)
-        tx_syms_idx = const.nearest_neighbor(tx_syms)
-        ser[sym_mem_idx, snr_idx] = ch_met.get_ER(tx_syms_idx.flatten(),rx_syms_idx.flatten())
-        sim_time[sym_mem_idx, snr_idx] = e-s
-        
-        results = {'ser': ser,
-                   'sim_time': sim_time}
-        torch.save(results, f'../../results/magPhase_DetNet_testing.pt')
+            results = {'ser': ser,
+                    'sim_time': sim_time}
+            torch.save(results, f'../../results/magPhase_DetNet_testing.pt')
 
 print(ser)
 print(sim_time)
