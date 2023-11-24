@@ -4,7 +4,6 @@ import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
 import time 
-import pickle
 
 import DD_system
 import calc_filters
@@ -15,16 +14,16 @@ import constellation_maker as const_mk
 import DetNet_aux_functions as aux_func
 import MagPhaseDetNet
 
+
+
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
-model_checkpoint = torch.load('../../results_sym_mem1/magphase_DetNet_test.pt', map_location=torch.device(device))
-# System config
-sym_mem = model_checkpoint['sym_mem']
-block_len = model_checkpoint['block_len']
-ch_mem = 2*sym_mem+1
-sym_len = block_len+sym_mem
 
+N_symbols = 20
+
+snr_dB_list = [*range(15,20)]
+sym_mem_file_list = [1,3,5]
 ############# Constellation and differential mapping ################
 angle = np.arccos(1/3)
 mapping = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,angle,np.pi,np.pi+angle])), dtype=torch.cfloat)
@@ -32,70 +31,78 @@ diff_mapping = torch.tensor([[1,0,3,2],[0,1,2,3],[3,2,1,0],[2,3,0,1]])
 mapping *= torch.sqrt(1/torch.mean(torch.abs(mapping)**2))
 const = constellation.constellation(mapping, device ,diff_mapping)
 
-############################ DetNet declaration #####################
-layers = model_checkpoint['layers']
-v_len = model_checkpoint['v_len']
-z_len = model_checkpoint['z_len']
-mag_list = model_checkpoint['mag_list']
-phase_list = model_checkpoint['phase_list']
+ser = -torch.ones((len(sym_mem_file_list),len(snr_dB_list)), device=device)
+sim_time = -torch.ones((len(sym_mem_file_list),len(snr_dB_list)), device=device)
 
+for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
+    print(f'simulation for symbol memory {sym_mem_file}')
+    for snr_idx, snr_dB in enumerate(snr_dB_list):
+        print(f'\tSNR {snr_dB}')
+        checkpoint = torch.load(f'../../final_sym_mem_{sym_mem_file}/magphase_Det_Net_sym_mem_{sym_mem_file}_snr_{snr_dB}.pt',
+                                map_location=torch.device(device))
 
-magphase_DetNet = MagPhaseDetNet.MagPhaseDetNet(layers, block_len, sym_mem, mag_list, phase_list, v_len, z_len, device)
-magphase_DetNet.angle = angle
-magphase_DetNet.mag_model.load_state_dict(model_checkpoint['mag_state_dict'])
-magphase_DetNet.phase_model.load_state_dict(model_checkpoint['phase_state_dict'])
-    
-magphase_DetNet.eval()
+        # System config
+        sym_mem = checkpoint['sym_mem']
+        block_len = checkpoint['block_len']
+        sym_len = block_len+sym_mem
 
-###################### Testing ################################
-N_symbols = 20_000
-N_frames = 50
-batch_size = N_symbols//N_frames
-used_symbols = 1
+        ############################ DetNet declaration #####################
+        layers = checkpoint['layers']
+        v_len = checkpoint['v_len']
+        z_len = checkpoint['z_len']
+        mag_list = checkpoint['mag_list']
+        phase_list = checkpoint['phase_list']
 
-snr_dB_list = [*range(21)]
-snr_dB_var = 0
+        magphase_DetNet = MagPhaseDetNet.MagPhaseDetNet(layers, block_len, sym_mem, mag_list, phase_list, v_len, z_len, device)
+        magphase_DetNet.angle = angle
 
-ser = []
-time_decoding = []
-# generate the Psi_e Psi_o matrix for decoding, SNR values are not important, only dimensions are.
-
-
-for snr_dB in snr_dB_list:
-    ser_aux = 0
-    time_deco = 0
-    for i in range(N_frames):
-        # generate data
-        print(i)
-        y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase, state_mag, state_phase = aux_func.data_generation(block_len, sym_mem, batch_size,
-                                                                                        snr_dB, snr_dB_var, const, device)
-        
-        start = time.time()
-        #decode
-        rx_mag, rx_phase = magphase_DetNet(y_e, y_o, Psi_e, Psi_o, state_mag, state_phase, layers, return_all=False)
-        rx_syms = rx_mag[:,:used_symbols]*torch.exp(1j*rx_phase[:,:used_symbols])
-        rx_syms_idx = const.nearest_neighbor(rx_syms)
-        end = time.time()
-        time_deco += end - start
-
-        # compere with tx symbols to get the SER
-        tx_syms = tx_mag[:,:used_symbols]*torch.exp(1j*tx_phase[:,:used_symbols])
-        tx_syms_idx = const.nearest_neighbor(tx_syms)
-        ser_aux += ch_met.get_ER(tx_syms_idx.flatten(),rx_syms_idx.flatten())/N_frames
-        del y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase, state_mag, state_phase, rx_mag, rx_phase
-        torch.torch.cuda.empty_cache()
-    ser.append(ser_aux) 
-    time_decoding.append(time_deco)
-
-results = {}
-results['N_symbols'] = N_symbols
-results['SNR_dB_list'] = snr_dB_list
-results['ser'] = ser
-results['time_decoding'] = time_decoding
-
-with open('../../results/DetNet_SERvsSNR_sym_mem_5', 'wb') as f:
-    pickle.dump(results, f)
+        magphase_DetNet.mag_model.load_state_dict(checkpoint['mag_state_dict'])
+        magphase_DetNet.phase_model.load_state_dict(checkpoint['phase_state_dict'])
             
+        magphase_DetNet.eval()
+
+        ###################### Testing ################################
+
+        # generate the Psi_e Psi_o matrix for decoding, SNR values are not important, only dimensions are.
+        _, _, Psi_e, Psi_o, _, _, _, _ = aux_func.data_generation(block_len, sym_mem, 1, 0, 0, const, device)
+
+
+        y_e, y_o, tx_mag, tx_phase, state_mag, state_phase = aux_func.data_generation(N_symbols+block_len, sym_mem, 1,
+                                                                                            snr_dB, 0, const, device, outPsi_mat=False)
+        tx_mag = tx_mag[:,:-block_len]
+        tx_phase = tx_phase[:,:-block_len]
+        rx_mag = torch.empty_like(tx_mag)
+        rx_phase = torch.empty_like(tx_phase)
+        s = time.time()
+        for i in range(N_symbols):
+            if i%(N_symbols//10) == 0:
+                print(f'\t\t symbol number {i}')
+            mag, phase = magphase_DetNet(y_e[:,i:i+block_len], y_o[:,i:i+block_len], Psi_e, Psi_o, state_mag, state_phase, layers, return_all=False)
+            rx_mag[:,i] = mag [:,0]
+            rx_phase[:,i] = phase [:,0]
+            #update state
+            state_mag = torch.roll(state_mag,-1,-1)
+            state_mag[0,-1] = mag[:,0]
+            state_phase = torch.roll(state_phase,-1,-1)
+            state_phase[0,-1] = phase[:,0]
+
+        rx_syms = rx_mag*torch.exp(1j*rx_phase)
+        rx_syms_idx = const.nearest_neighbor(rx_syms)
+        e = time.time()
+
+        tx_syms = tx_mag*torch.exp(1j*tx_phase)
+        tx_syms_idx = const.nearest_neighbor(tx_syms)
+        ser[sym_mem_idx, snr_idx] = ch_met.get_ER(tx_syms_idx.flatten(),rx_syms_idx.flatten())
+        sim_time[sym_mem_idx, snr_idx] = e-s
+        
+        results = {'ser': ser,
+                   'sim_time': sim_time}
+        torch.save(results, f'../../results/magPhase_DetNet_testing.pt')
 
 print(ser)
-print(time_decoding)
+print(sim_time)
+
+results = {'ser': ser,
+           'sim_time': sim_time}
+torch.save(results, f'../../results/magPhase_DetNet_testing.pt')
+

@@ -2,6 +2,10 @@ import pickle
 import torch
 import matplotlib.pyplot as plt
 
+DetNet_results = torch.load(f'../../results/magPhase_DetNet_testing.pt',
+                                map_location=torch.device('cpu'))
+
+
 results = []
 file_name = 'SER_N14_BPSK.pkl'
 with open(file_name, 'rb') as file:
@@ -33,4 +37,3 @@ plt.legend()
 plt.title(r'SER for B2B configuration and raised cosine $\alpha = 0$ $M$ = 101')
 plt.ylabel('SER')
 plt.xlabel('SNR [dB]')
-plt.savefig('../../results/test2.pdf', dpi=20)
