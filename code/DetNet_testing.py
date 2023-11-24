@@ -20,7 +20,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
 
-N_symbols = 20
+N_symbols = 20_000
 
 snr_dB_list = [*range(15,20)]
 sym_mem_file_list = [1,3,5]
