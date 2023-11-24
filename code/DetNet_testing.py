@@ -71,8 +71,8 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
                                                                                             snr_dB, 0, const, device, outPsi_mat=False)
         tx_mag = tx_mag[:,:-block_len]
         tx_phase = tx_phase[:,:-block_len]
-        rx_mag = torch.ones_like(tx_mag)
-        rx_phase = torch.ones_like(tx_phase)
+        rx_mag = torch.ones_like(tx_mag, device=device)
+        rx_phase = torch.ones_like(tx_phase, device=device)
         s = time.time()
         for i in range(N_symbols):
             if i%(N_symbols//10) == 0:
@@ -83,11 +83,6 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
             phase = phase[:,0]
             rx_mag[:,i] = mag
             rx_phase[:,i] = phase
-            # #update state
-            # state_mag = torch.roll(state_mag,-1,-1)
-            # state_mag[0,-1] = mag
-            # state_phase = torch.roll(state_phase,-1,-1)
-            # state_phase[0,-1] = phase
             del mag, phase
             torch.cuda.empty_cache()
             
