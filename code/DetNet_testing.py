@@ -81,9 +81,9 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
             # rx_mag[:,i] = mag[:,0]
             # rx_phase[:,i] = phase[:,0]
             # #update state
-            # state_mag = torch.roll(state_mag,-1,-1)
+            state_mag = torch.roll(state_mag,-1,-1)
             # state_mag[0,-1] = mag[:,0]
-            # state_phase = torch.roll(state_phase,-1,-1)
+            state_phase = torch.roll(state_phase,-1,-1)
             # state_phase[0,-1] = phase[:,0]
             # del mag, phase
             torch.cuda.empty_cache()
