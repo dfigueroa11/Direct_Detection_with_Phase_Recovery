@@ -20,10 +20,10 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
 
-N_symbols = 20_000
+N_symbols = 2_000
 
-snr_dB_list = [*range(0,21)]
-sym_mem_file_list = [1,3,5]
+snr_dB_list = [*range(20,21)]
+sym_mem_file_list = [1,]
 ############# Constellation and differential mapping ################
 angle = np.arccos(1/3)
 mapping = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,angle,np.pi,np.pi+angle])), dtype=torch.cfloat)
