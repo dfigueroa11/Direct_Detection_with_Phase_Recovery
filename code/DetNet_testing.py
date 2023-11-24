@@ -81,8 +81,8 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
                                          rx_mag[:,i:i+sym_mem], rx_phase[:,i:i+sym_mem], layers, return_all=False)
             mag = mag[:,0]
             phase = phase[:,0]
-            rx_mag[:,i] = 3
-            rx_phase[:,i] = 4
+            rx_mag[:,i] = mag.clone()
+            rx_phase[:,i] = phase.clone()
             # del mag, phase
             torch.cuda.empty_cache()
             
