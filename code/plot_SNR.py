@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 DetNet_results = torch.load(f'../../results/magPhase_DetNet_testing.pt',
                                 map_location=torch.device('cpu'))
 
+print(DetNet_results['ser'])
+print(DetNet_results['sim_time'])
+
 results = []
 file_name = 'SER_N14_BPSK.pkl'
 with open(file_name, 'rb') as file:

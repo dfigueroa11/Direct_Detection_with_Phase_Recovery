@@ -71,10 +71,10 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
                                                                                             snr_dB, 0, const, device, outPsi_mat=False)
         tx_mag = tx_mag[:,:-block_len]
         tx_phase = tx_phase[:,:-block_len]
-        rx_mag = torch.empty_like(tx_mag)
-        rx_phase = torch.empty_like(tx_phase)
+        rx_mag = torch.ones(tx_mag)
+        rx_phase = torch.ones(tx_phase)
         s = time.time()
-        for i in range(N_symbols):
+        for i in range(3):
             if i%(N_symbols//10) == 0:
                 print(f'\t\t symbol number {i}')
             mag, phase = magphase_DetNet(y_e[:,i:i+block_len], y_o[:,i:i+block_len], Psi_e, Psi_o, state_mag, state_phase, layers, return_all=False)
