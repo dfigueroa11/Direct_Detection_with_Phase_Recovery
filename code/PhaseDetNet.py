@@ -80,7 +80,7 @@ class PhaseDetNet(nn.Module):
         # calculate the v for the next layer
         v = v + self.linear_trafo_3_l[l](z)
 
-        del x, jacobian, Psi_e_x, diag_Psi_e_x, A_e, Psi_o_x, diag_Psi_o_x, A_o, Psi_e_x_sql, Psi_o_x_sql, q, z 
+        del batch_size, x, jacobian, Psi_e_x, diag_Psi_e_x, A_e, Psi_o_x, diag_Psi_o_x, A_o, Psi_e_x_sql, Psi_o_x_sql, q, z 
         torch.cuda.empty_cache()
 
         return x_phase, x_phase_oh, v

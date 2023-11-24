@@ -49,8 +49,8 @@ class MagPhaseDetNet():
             x_mag, x_mag_oh, v_mag = self.mag_model(l, x_mag, x_mag_oh, v_mag, x_phase, y_e, y_o, Psi_e, Psi_o)
             x_phase, x_phase_oh, v_phase = self.phase_model(l, x_phase, x_phase_oh, v_phase, x_mag, y_e, y_o, Psi_e, Psi_o)
         
-        x_phase = aux_func.phase_correction(x_phase, self.angle, self.device)
-        del v_mag, x_mag_oh, v_phase, x_phase_oh, mask, state_mag, state_phase
+        #x_phase = aux_func.phase_correction(x_phase, self.angle, self.device)
+        del batch_size, v_mag, x_mag_oh, v_phase, x_phase_oh, mask, state_mag, state_phase
         torch.cuda.empty_cache()
 
         if return_all:
