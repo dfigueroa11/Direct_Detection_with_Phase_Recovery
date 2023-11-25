@@ -6,6 +6,12 @@
 
 \begin{document}
 
+\definecolor{color1}{rgb}{0,0.4470,0.7410}
+\definecolor{color2}{rgb}{0.8500,0.3250,0.0980}
+\definecolor{color3}{rgb}{0.9290,0.6940,0.1250}
+\definecolor{color4}{rgb}{0.4940,0.1840,0.5560}
+\definecolor{color5}{rgb}{0.4660,0.6740,0.1880}
+
 \definecolor{lightblue}{RGB}{86,192,150}  % Define light blue color
 
 \pgfdeclarelayer{background layer}
@@ -44,11 +50,11 @@ group style={
 \addplot[lightblue, domain=0:2, samples=100, dashed, thick] {0.25*(1+cos(deg(pi*(x-1))))};
 
 
-\addplot[red, domain=-1:0, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x))))^2};
-\addplot[red, domain=0:1, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x)))+0.25*(1+cos(deg(pi*(x-1)))))^2};
-\addplot[red, domain=1:2, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-1)))))^2};
-\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0,0.5)(1, 0.5)};
-\addplot[only marks, mark=square*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0.5, 0.5)};
+\addplot[color2, domain=-1:0, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x))))^2};
+\addplot[color2, domain=0:1, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x)))+0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[color2, domain=1:2, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=color2, fill=color2!20}] coordinates{(0,0.5)(1, 0.5)};
+\addplot[only marks, mark=square*, mark size=1.5pt, mark options={draw=color2, fill=color2!20}] coordinates{(0.5, 0.5)};
 
 \coordinate (p3) at (axis cs: 0,0.35);
 \coordinate (p4) at (axis cs: 1,0.35);
@@ -62,11 +68,11 @@ group style={
 \addplot[lightblue, domain=0:2, samples=100, dashed, thick, fill=lightblue, fill opacity=0.35] {-0.25*(1+cos(deg(pi*(x-1))))};
 \end{pgfonlayer}
 
-\addplot[red, domain=-1:0, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x))))^2};
-\addplot[red, domain=0:1, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x)))-0.25*(1+cos(deg(pi*(x-1)))))^2};
-\addplot[red, domain=1:2, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-1)))))^2};
-\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0,0.5)(1, 0.5)};
-\addplot[only marks, mark=square*, mark size=1.5pt, mark options={draw=red, fill=red!20}] coordinates{(0.5, 0)};
+\addplot[color2, domain=-1:0, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x))))^2};
+\addplot[color2, domain=0:1, samples=100, thick] {2*(0.25*(1+cos(deg(pi*x)))-0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[color2, domain=1:2, samples=100, thick] {2*(0.25*(1+cos(deg(pi*(x-1)))))^2};
+\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=color2, fill=color2!20}] coordinates{(0,0.5)(1, 0.5)};
+\addplot[only marks, mark=square*, mark size=1.5pt, mark options={draw=color2, fill=color2!20}] coordinates{(0.5, 0)};
 
 \coordinate (p7) at (axis cs: 0,0.35);
 \coordinate (p8) at (axis cs: 1,-0.35);

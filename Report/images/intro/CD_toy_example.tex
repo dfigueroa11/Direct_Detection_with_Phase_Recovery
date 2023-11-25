@@ -6,6 +6,13 @@
 
 \begin{document}
 
+\definecolor{color1}{rgb}{0,0.4470,0.7410}
+\definecolor{color2}{rgb}{0.8500,0.3250,0.0980}
+\definecolor{color3}{rgb}{0.9290,0.6940,0.1250}
+\definecolor{color4}{rgb}{0.4940,0.1840,0.5560}
+\definecolor{color5}{rgb}{0.4660,0.6740,0.1880}
+
+
 \definecolor{lightblue}{RGB}{86,192,150}  % Define light blue color
 
 \pgfdeclarelayer{background layer}
@@ -43,10 +50,10 @@ group style={
 \addplot[lightblue, domain=-1:1, samples=100, dashed, thick ] {0.25*(1+cos(deg(pi*x)))};
 \addplot[lightblue, domain=0:2, samples=100, dashed, thick] {0.25*(1+cos(deg(pi*(x-1))))};
 
-\addplot[blue, domain=-1:0, samples=100, thick] {0.25*(1+cos(deg(pi*x)))};
-\addplot[blue, domain=0:1, samples=100, thick] {0.25*(1+cos(deg(pi*x)))+0.25*(1+cos(deg(pi*(x-1))))};
-\addplot[blue, domain=1:2, samples=100, thick] {0.25*(1+cos(deg(pi*(x-1))))};
-\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=blue, fill=blue!20}] coordinates{(0,0.5)(1, 0.5)};
+\addplot[color1, domain=-1:0, samples=100, thick] {0.25*(1+cos(deg(pi*x)))};
+\addplot[color1, domain=0:1, samples=100, thick] {0.25*(1+cos(deg(pi*x)))+0.25*(1+cos(deg(pi*(x-1))))};
+\addplot[color1, domain=1:2, samples=100, thick] {0.25*(1+cos(deg(pi*(x-1))))};
+\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=color1, fill=color1!20}] coordinates{(0,0.5)(1, 0.5)};
 
 \coordinate (p1) at (axis cs: 0,0.35);
 \coordinate (p2) at (axis cs: 1,0.35);
@@ -63,10 +70,10 @@ group style={
 \addplot[lightblue, domain=0:2, samples=100, dashed, thick] {-0.25*(1+cos(deg(pi*(x-1))))};
 
 
-\addplot[blue, domain=-1:0, samples=100, thick] {0.25*(1+cos(deg(pi*x)))};
-\addplot[blue, domain=0:1, samples=100, thick] {0.25*(1+cos(deg(pi*x)))-0.25*(1+cos(deg(pi*(x-1))))};
-\addplot[blue, domain=1:2, samples=100, thick] {-0.25*(1+cos(deg(pi*(x-1))))};
-\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=blue, fill=blue!20}] coordinates{(0,0.5)(1,- 0.5)};
+\addplot[color1, domain=-1:0, samples=100, thick] {0.25*(1+cos(deg(pi*x)))};
+\addplot[color1, domain=0:1, samples=100, thick] {0.25*(1+cos(deg(pi*x)))-0.25*(1+cos(deg(pi*(x-1))))};
+\addplot[color1, domain=1:2, samples=100, thick] {-0.25*(1+cos(deg(pi*(x-1))))};
+\addplot[only marks, mark=*, mark size=1.5pt, mark options={draw=color1, fill=color1!20}] coordinates{(0,0.5)(1,- 0.5)};
 
 \coordinate (p5) at (axis cs: 0,0.35);
 \coordinate (p6) at (axis cs: 1,-0.35);

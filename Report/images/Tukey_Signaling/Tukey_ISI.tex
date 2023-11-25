@@ -16,6 +16,12 @@
 \tikzset{fontscale/.style = {font=\relsize{#1}}
     }
 
+\definecolor{color1}{rgb}{0,0.4470,0.7410}
+\definecolor{color2}{rgb}{0.8500,0.3250,0.0980}
+\definecolor{color3}{rgb}{0.9290,0.6940,0.1250}
+\definecolor{color4}{rgb}{0.4940,0.1840,0.5560}
+\definecolor{color5}{rgb}{0.4660,0.6740,0.1880}
+
 \begin{document}
 
 \pgfplotsset{
@@ -60,9 +66,10 @@ declare function={
   legend style={draw=none,nodes={scale=0.4, transform shape}}
 ]
 
-\Tukeywindow{0.3}{-1}{blue,densely dashed}
-\Tukeywindow{0.3}{0}{blue,densely dashed}
-\Tukeywindow{0.3}{1}{blue,densely dashed}
+\Tukeywindow{0.3}{-1}{color1,densely dashed}
+\Tukeywindow{0.3}{0}{color1,densely dashed}
+\Tukeywindow{0.3}{1}{color1,densely dashed}
+
 \addplot [black, densely dotted] coordinates {(-1.35,0)(-1.35,1.0397504898)};
 \addplot [black, densely dotted] coordinates {(-0.65,0)(-0.65,1.0397504898)};
 \addplot [black, densely dotted] coordinates {(-0.35,0)(-0.35,1.0397504898)};
@@ -70,12 +77,12 @@ declare function={
 \addplot [black, densely dotted] coordinates {(0.65,0)(0.65,1.0397504898)};
 \addplot [black, densely dotted] coordinates {(1.35,0)(1.35,1.0397504898)};
 
-\addplot [BlueGreen, thick] coordinates {(-1.35,0)(-0.65,0)};
-\addplot [BlueGreen, thick] coordinates {(-.35,0)(0.35,0)};
-\addplot [BlueGreen, thick] coordinates {(0.65,0)(1.35,0)};
+\addplot [color5, ultra thick] coordinates {(-1.35,0)(-0.65,0)};
+\addplot [color5, ultra thick] coordinates {(-.35,0)(0.35,0)};
+\addplot [color5, ultra thick] coordinates {(0.65,0)(1.35,0)};
 
-\addplot [BurntOrange, thick] coordinates {(-0.65,0)(-0.35,0)};
-\addplot [BurntOrange, thick] coordinates {(0.35,0)(0.65,0)};
+\addplot [color2, ultra thick] coordinates {(-0.65,0)(-0.35,0)};
+\addplot [color2, ultra thick] coordinates {(0.35,0)(0.65,0)};
 
 \coordinate (s0) at (axis cs: -1,1.2);
 \coordinate (s1) at (axis cs: 0,1.2);
