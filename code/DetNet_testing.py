@@ -40,7 +40,7 @@ sim_time = -torch.ones((len(sym_mem_file_list),len(snr_dB_list)), device=device)
 for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
     print(f'simulation for symbol memory {sym_mem_file}')
     for snr_idx, snr_dB in enumerate(snr_dB_list):
-
+        print(f'\tSNR {snr_dB}')
         checkpoint = torch.load(f'../../final_sym_mem_{sym_mem_file}/magphase_Det_Net_sym_mem_{sym_mem_file}_snr_{snr_dB}.pt',
                                         map_location=torch.device(device))
 
@@ -70,7 +70,8 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
             sim_time_aux = 0
             for i in range(N_frames):
                 # generate data
-                print(i)
+                if i%(N_frames//10) == 0:
+                    print(f'\t\t Frame {i}')
                 y_e, y_o, Psi_e, Psi_o, tx_mag, tx_phase, state_mag, state_phase = aux_func.data_generation(block_len, sym_mem, batch_size,
                                                                                                 snr_dB, 0, const, device)
                 
