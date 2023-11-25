@@ -18,8 +18,8 @@ import MagPhaseDetNet
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
-N_symbols = 20_000
-N_frames = 50
+N_symbols = 100_000
+N_frames = 250
 batch_size = N_symbols//N_frames
 used_symbols = 1
 
