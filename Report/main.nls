@@ -1,15 +1,22 @@
 
 \begin{thenomenclature} 
 \nomgroup{A}
-  \item [{$\mathcal{F}\{\cdot\}$}]\begingroup Fourier transform \nomeqref {2.2}\nompageref{6}
-  \item [{$\mathcal{F}^{-1}\{\cdot\}$}]\begingroup Inverse fourier transform \nomeqref {2.2}\nompageref{6}
-  \item [{$f$}]\begingroup Frequency\nomeqref {2.2}\nompageref{6}
-  \item [{$j$}]\begingroup Imaginary unit\nomeqref {1.5}\nompageref{3}
-  \item [{$X\sim\mathcal{N}(\mu,\sigma^2)$}]\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\nomeqref {1.4}\nompageref{2}
-  \item [{DD}]\begingroup Direct Detection\nomeqref {1.0}\nompageref{1}
-  \item [{Im$\{z\}$}]\begingroup imaginary part of $z$\nomeqref {1.5}\nompageref{3}
-  \item [{PDF}]\begingroup Probability density function\nomeqref {2.27}\nompageref{13}
-  \item [{Re$\{z\}$}]\begingroup Real part of $z$\nomeqref {1.5}\nompageref{3}
-  \item [{sinc$(t)$}]\begingroup $\frac{\sin(\pi t)}{\pi t}$\nomeqref {1.5}\nompageref{4}
+  \item [{$\bm 0_{n}$}]\begingroup Ceros vector of length $n$\nomeqref {0}\nompageref{x}
+  \item [{$\bm I_{n}$}]\begingroup Identity matrix of size $n\times n$\nomeqref {0}\nompageref{x}
+  \item [{$\mathcal N(\bm x;\bm\mu,\bm C)$}]\begingroup Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.\nomeqref {0}\nompageref{x}
+  \item [{$\mathcal N(x;\mu,\sigma^2)$}]\begingroup Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.\nomeqref {0}\nompageref{x}
+  \item [{$\mathcal{F}\{\cdot\}$}]\begingroup Fourier transform \nomeqref {0}\nompageref{x}
+  \item [{$\mathcal{F}^{-1}\{\cdot\}$}]\begingroup Inverse fourier transform \nomeqref {0}\nompageref{x}
+  \item [{$f$}]\begingroup Frequency\nomeqref {0}\nompageref{x}
+  \item [{$j$}]\begingroup Imaginary unit\nomeqref {0}\nompageref{x}
+  \item [{$X\sim\mathcal{N}(\mu,\sigma^2)$}]\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\nomeqref {0}\nompageref{x}
+  \item [{DD}]\begingroup Direct Detection\nomeqref {0}\nompageref{x}
+  \item [{i.i.d.}]\begingroup independent and identically distributed\nomeqref {0}\nompageref{x}
+  \item [{Im$\{z\}$}]\begingroup imaginary part of $z$\nomeqref {0}\nompageref{x}
+  \item [{MAP}]\begingroup Maximum posteriori probability\nomeqref {0}\nompageref{x}
+  \item [{PDF}]\begingroup Probability density function\nomeqref {0}\nompageref{x}
+  \item [{Re$\{z\}$}]\begingroup Real part of $z$\nomeqref {0}\nompageref{x}
+  \item [{sinc$(t)$}]\begingroup $\frac{\sin(\pi t)}{\pi t}$\nomeqref {0}\nompageref{x}
+  \item [{SQL}]\begingroup Square law\nomeqref {0}\nompageref{x}
 
 \end{thenomenclature}

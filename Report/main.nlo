@@ -1,10 +1,17 @@
-\nomenclatureentry{aDD@[{DD}]\begingroup Direct Detection\nomeqref {1.0}|nompageref}{1}
-\nomenclatureentry{a$X\sim\mathcal{N}(\mu,\sigma^2)$@[{$X\sim\mathcal{N}(\mu,\sigma^2)$}]\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\nomeqref {1.4}|nompageref}{2}
-\nomenclatureentry{a$j$@[{$j$}]\begingroup Imaginary unit\nomeqref {1.5}|nompageref}{3}
-\nomenclatureentry{aRe$\{z\}$@[{Re$\{z\}$}]\begingroup Real part of $z$\nomeqref {1.5}|nompageref}{3}
-\nomenclatureentry{aIm$\{z\}$@[{Im$\{z\}$}]\begingroup imaginary part of $z$\nomeqref {1.5}|nompageref}{3}
-\nomenclatureentry{asinc$(t)$@[{sinc$(t)$}]\begingroup $\frac{\sin(\pi t)}{\pi t}$\nomeqref {1.5}|nompageref}{4}
-\nomenclatureentry{a$f$@[{$f$}]\begingroup Frequency\nomeqref {2.2}|nompageref}{6}
-\nomenclatureentry{a$\mathcal{F}\{\cdot\}$@[{$\mathcal{F}\{\cdot\}$}]\begingroup Fourier transform \nomeqref {2.2}|nompageref}{6}
-\nomenclatureentry{a$\mathcal{F}^{-1}\{\cdot\}$@[{$\mathcal{F}^{-1}\{\cdot\}$}]\begingroup Inverse fourier transform \nomeqref {2.2}|nompageref}{6}
-\nomenclatureentry{aPDF@[{PDF}]\begingroup Probability density function\nomeqref {2.27}|nompageref}{13}
+\nomenclatureentry{a$X\sim\mathcal{N}(\mu,\sigma^2)$@[{$X\sim\mathcal{N}(\mu,\sigma^2)$}]\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{a$j$@[{$j$}]\begingroup Imaginary unit\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{aRe$\{z\}$@[{Re$\{z\}$}]\begingroup Real part of $z$\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{aIm$\{z\}$@[{Im$\{z\}$}]\begingroup imaginary part of $z$\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{asinc$(t)$@[{sinc$(t)$}]\begingroup $\frac{\sin(\pi t)}{\pi t}$\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{aDD@[{DD}]\begingroup Direct Detection\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{aPDF@[{PDF}]\begingroup Probability density function\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{a$f$@[{$f$}]\begingroup Frequency\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{a$\mathcal{F}\{\cdot\}$@[{$\mathcal{F}\{\cdot\}$}]\begingroup Fourier transform \nomeqref {0}|nompageref}{x}
+\nomenclatureentry{a$\mathcal{F}^{-1}\{\cdot\}$@[{$\mathcal{F}^{-1}\{\cdot\}$}]\begingroup Inverse fourier transform \nomeqref {0}|nompageref}{x}
+\nomenclatureentry{ai.i.d.@[{i.i.d.}]\begingroup independent and identically distributed\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{a$\mathcal N(x;\mu,\sigma^2)$@[{$\mathcal N(x;\mu,\sigma^2)$}]\begingroup Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{a$\mathcal N(\bm x;\bm\mu,\bm C)$@[{$\mathcal N(\bm x;\bm\mu,\bm C)$}]\begingroup Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{a$\bm 0_{n}$@[{$\bm 0_{n}$}]\begingroup Ceros vector of length $n$\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{a$\bm I_{n}$@[{$\bm I_{n}$}]\begingroup Identity matrix of size $n\times n$\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{aSQL@[{SQL}]\begingroup Square law\nomeqref {0}|nompageref}{x}
+\nomenclatureentry{aMAP@[{MAP}]\begingroup Maximum posteriori probability\nomeqref {0}|nompageref}{x}

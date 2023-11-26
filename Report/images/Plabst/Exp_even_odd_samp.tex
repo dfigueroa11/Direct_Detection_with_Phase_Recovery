@@ -114,10 +114,10 @@ declare function={
 \node [rotate = 90,anchor=east] at ($(left_coord)+(0,-0.5)$) {Signal};
 
 \node [anchor=base] (sqle) at ($(p10)+(1.5,-1.5)$) {$|\cdot|^2$};
-\node [anchor=base] (even) at ($(p10)+(3,-1.5)$) {$y_k^{\text{e}}$};
+\node [anchor=base] (even) at ($(p10)+(3,-1.5)$) {$z_k^{\text{e}}$};
 
 \node [anchor=base] (sqlo) at ($(p10)+(1.5,-2.5)$) {$|\cdot|^2$};
-\node [anchor=base] (odd) at ($(p10)+(3,-2.5)$) {$y_k^{\text{o}}$};
+\node [anchor=base] (odd) at ($(p10)+(3,-2.5)$) {$z_k^{\text{o}}$};
 
 \draw [dotted,->] ($(p10)+(.4,-2.4)$) -- ($(p10)+(1.1,-2.4)$);
 \draw [dotted,->] ($(p10)+(2,-2.4)$) -- ($(p10)+(2.7,-2.4)$);
@@ -128,7 +128,7 @@ declare function={
 \draw [<-,thick] (odd) -- +(0,-0.7) node[below, text width=1.4cm,align=center] {$k$-th output};
 
 \node [rotate=90, anchor=west] at ($(sqle)+(0,0.8)$) {SQL detector};
-\node [rotate=90, anchor=west] at ($(even)+(0,0.8)$) {Samples};
+\node [rotate=90, anchor=west] at ($(even)+(0,0.8)$) {Noiseless samples};
 
 \end{tikzpicture}
 

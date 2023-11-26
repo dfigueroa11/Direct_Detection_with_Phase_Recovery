@@ -7,7 +7,7 @@
 	
 
 Square-law detection, also known as Direct detection (DD), is a detection scheme that measures the square magnitude of a complex wave form, clearly this scheme is a nonlinear waveform detection because of the square operation. Direct detection is widely used in different scientific fields, for example in crystallography, radio astronomy, biomedical spectroscopy, among others \cite{Tasbihi_Tukey}. In particular this scheme is often used in optical communications, specially in short-haul systems with length up to \SI{50}{\km} \cite{Agrawal_ch1} due to its simplicity, or even in shorter links up to \SI{10}{\km} for example in rack to rack communications in big data centers \cite{Tasbihi_Tukey}.\\
-\nomenclature{DD}{Direct Detection}
+
 
 In the recent years the interest of studying systems with DD is getting bigger again, because of the simplicity of the receivers, which are a promising low-cost alternative compared to the coherent detection systems \cite{Mecozzi_2018}. In this context two questions or problems arise. First, how good is a system with DD compared to a system with coherent detection in terms of the information capacity of the channel. And second, how to design a system that exploits the information capacity of the DD channel in the best possible way.\\
 
@@ -48,7 +48,7 @@ I(t) = I_p+i_s(t)+i_{th}(t)
 \label{eq:DD_current}
 \end{equation}
 with $i_s(t)\sim\mathcal{N}(0,\sigma_s^2)$ and $i_{th}(t)\sim\mathcal{N}(0,\sigma_{th}^2)$.
-\nomenclature{$X\sim\mathcal{N}(\mu,\sigma^2)$}{$X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$}
+
 
 
 \section{Capacity under direct detection}
@@ -78,9 +78,6 @@ under the convention that $z_1 = a\cdot e^{j\alpha}$ and $z_2 = b\cdot e^{j\beta
 	|z_1+z_2|^2 =|z_1|^2+|z_2|^2+2|z_1||z_2|\cos(\alpha-\beta)\\
 	\label{eq:square_mag_of_sum}
 \end{equation}
-\nomenclature{$j$}{Imaginary unit}
-\nomenclature{Re$\{z\}$}{Real part of $z$}
-\nomenclature{Im$\{z\}$}{imaginary part of $z$}
 
 Clearly if $|z_1|^2$, $|z_2|^2$ and $|z_1+z_2|^2$ are known, one can solve the equation \ref{eq:square_mag_of_sum} for $\cos(\alpha-\beta)$ and get the information about the phase difference between $z_1$ and $z_2$. However, since cosine is an even function $\cos(\alpha-\beta)=\cos(-\alpha+\beta)$, hence there is still an ambiguity on the sign of the phase difference.\\
 
@@ -133,7 +130,7 @@ where $g_k$ is a complex number representing the $k$-th transmitted symbol, and 
 \end{array}
 \right. &&\text{for }n=0,\dotsb,2m
 \end{align*}
-\nomenclature{sinc$(t)$}{$\frac{\sin(\pi t)}{\pi t}$}
+
 
 Once again, it is clear that the even samples carry the information about the magnitude of the symbols, whereas the odd samples carry some how the information about the phase of the symbols, but now notice that all the $g_k$ contribute to the odd samples. As we will see in later chapters, this makes that retrieving the phase becomes quickly an intractable problem as $m$ grows \cite{Tasbihi_Tukey}. 
 

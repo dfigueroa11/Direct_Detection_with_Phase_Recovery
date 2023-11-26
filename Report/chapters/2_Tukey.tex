@@ -5,7 +5,7 @@
 
 	
 
-One of the solutions given to the problem of phase recovery under DD is the so called Tukey signaling proposed in \cite{Tasbihi_Tukey}. The main idea in this paper is to introduce controlled ISI in the transmission and use the interference between symbols to recover the phase of the symbols in a block of length $n$ symbols. The system proposed for shor-haul systems, specifically for links with lengths less than \SI{10}{\km}.\\
+One of the solutions given to the problem of phase recovery under DD is the so called Tukey signaling proposed in \cite{Tasbihi_Tukey}. The main idea in this paper is to introduce controlled ISI in the transmission and use the interference between symbols to recover the phase of the symbols in a block of length $n$ symbols. The system is proposed for short-haul systems, specifically for links with lengths less than \SI{10}{\km}.\\
   
 The system model proposed in the paper is shown in figure \ref{fig:Tukey_system_model}. In the following sections each block will be explain and discussed when needed. Nevertheless the blocks will be explained in a different order, to facilitate understanding. First the dispersion precompensation, the transmission medium and the photodiode will be explained, then the signaling block, integrate and dump, class representative, and finally the decoder.
 
@@ -36,9 +36,6 @@ Clearly from this description of the block, the following relations between $x(t
 \end{equation}
 where $X(f)$ is the Fourier transform of $x(t)$
 
-\nomenclature{$f$}{Frequency}
-\nomenclature{$\mathcal{F}\{\cdot\}$}{Fourier transform }
-\nomenclature{$\mathcal{F}^{-1}\{\cdot\}$}{Inverse fourier transform }
 
 \subsection{Transmission medium}
 
@@ -397,7 +394,7 @@ From equations \ref{eq:y_i_Tukey} and \ref{eq:z_i_Tukey} it is clear that $y_i$ 
 	z_i&\sim\mathcal N \left(\alpha^2\beta T\psi(x_i,x_{i+1}),\beta T(\alpha^2\psi(x_i,x_{i+1})\sigma^2_{sh}+\sigma^2_{th})\right)
 \end{align}
 
-\nomenclature{PDF}{Probability density function}
+
 
 
 

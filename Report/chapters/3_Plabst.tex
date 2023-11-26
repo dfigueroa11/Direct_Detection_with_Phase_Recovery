@@ -8,6 +8,183 @@
 % numerical results 
 % new constellation
 
+The other solution considered to the problem of phase recovery is the proposed by Plabst in the paper \cite{Plabst_DD}. There the authors try to improve the two drawbacks of the Tukey signaling scheme. First they considered an arbitrary pulse wave form, and in particular they experimented with raised cosine waveforms, with the objective to improve the spectral efficiency. Second they propose a discrete time model, which allows the use of a digital system with oversampling factor of only two.\\
+
+The proposed system model can be seen in figure \ref{fig:Plabst_system_model}. In the following sections we will explain the system model, both in continuous time and in discrete time, as well as the detector used to determine an upper bound limit of the performance of the system.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{\PlabstImage{Plabst_system_model.pdf}}
+\caption{System model proposed in \cite{Plabst_DD}.}
+\label{fig:Plabst_system_model}
+\end{center}
+\end{figure}
+
+\section{Continuous time Model}
+
+\subsection{Transmitter}
+
+The transmitter receives as input a sequence $\bm x=\{x_0,\dotsc,x_{n-1}\}$ of independent and identically distributed (i.i.d.) symbols $x_i$ taken from a finite constellation $\mathcal K=\{a_1,\dotsc,a_q\}$ with $q$ elements, and outputs a signal given by \cite{Plabst_DD}:
+\begin{equation}
+x(t)=\sum_{k=0}^{n-1}x_k\cdot g_\text{tx}(t-iT)
+\label{eq:Plabst_signaling_block}
+\end{equation}
+where $T$ is the inverse of the symbol rate, $x_i\in\mathcal K$, and $g_\text{tx}(t)$ is the pulse waveform.\\
+
+
+Common pulse waveforms are raised cosine pulses, of particular interest is the case for roll off factor $\alpha=0$, that is:
+\begin{align}
+	g_\text{tx}&=\frac{t}{T_s}\text{sinc}\left(\frac{1}{T_s}\right)
+	\label{eq:sinc_pulse_TD}\\
+	G_\text{tx}&=\left\{
+\begin{array}{ll}
+1  &  \text{if }|f|\leq\frac{1}{2T_s}   \\
+0  &  \text{otherwise} \\
+\end{array}
+\right.
+\label{eq:sinc_pulse_FD}
+\end{align}
+
+\subsection{Fiber Optic Link}
+
+The channel considered is a optic fiber that only presents chromatic dispersion, characterized in frequency domain by \cite{Plabst_DD}:
+\begin{equation}
+H_L(f)=e^{j2\beta_2L\pi^2f^2}
+\end{equation}
+where $\beta_2$ is the group-velocity dispersion parameter and $L$ is the fiber length.
+
+\subsection{Receiver}
+The receiver consist of a photodiode, whose output is given by:
+\begin{equation}
+z(t)=|x_L(t)|^2
+\end{equation}
+
+The photodiode noise is modeled as a real valued white gaussian process with spectral density $N_0/2$ \cite{Plabst_DD}, representing the thermal noise. Finally the receiver has a band limited sampler, with impulse response  
+\begin{align}
+	g_\text{rx}&=2B\text{sinc}\left(2Bt\right)\\
+	G_\text{rx}&=\left\{
+\begin{array}{ll}
+1  &  \text{if }|f|\leq B   \\
+0  &  \text{otherwise} \\
+\end{array}
+\right.
+\end{align}
+where $B$ is the symbol rate given by $B=1/T_s$ \cite{Plabst_DD}.
+
+
+
+\section{Discrete time Model}
+
+\subsection{Discrete signal notation}
+For the discrete time model, a receiver with sampling rate $1/T'_s=2B$ is considered (in this section the super index $'$ denotes a variable of the oversampled system), that is an oversampling factor of $N_\text{os}=T_s/T'_s=2$, meaning 2 samples per transmitted symbol \cite{Plabst_DD}.\\
+
+Let $\bm x'=\{0,x_0,\dotsc0,x_{n-1}\}$ and $\bm y'=\{y_0,\dotsc,y_{2n-1}\}$ be the upsampled sequence at the transmitter and receiver, they are related by \cite{Plabst_DD}:
+\begin{align}
+y'_k&=z'_k+n'_k \\
+z'_k&=\left(|x_L(t)|^2*g_\text{rx}(t)\right)_{t=kT'_s}
+\end{align}
+where $n_k\sim\mathcal N(0,\sigma_N^2)$ and $\sigma_N^2=N_0B$.\\
+
+Now define the combined impulse response of the pulse shaping filter, and the channel response as $\uppsi(t)=g_\text{tx}(t)*h_L(t)$ and the discrete version of it $\uppsi_k=\uppsi(kT'_s)$, then \cite{Plabst_DD}:
+\begin{equation}
+x_L(kT'_s)=\sum_{m=0}^{2n-1}\uppsi_mx'_{k-m}
+\end{equation}
+
+Finally notice that, for the special case when the pulse shape is the sinc pulse in equations \ref{eq:sinc_pulse_TD} and \ref{eq:sinc_pulse_FD}, $|x_L(t)|^2*g_\text{rx}=|x_L(t)|^2$, so:
+\begin{equation}
+z'_k=\left|\sum_{m=0}^{2n-1}\uppsi_mx'_{k-m}\right|^2
+\end{equation}
+
+
+\subsection{Vector matrix notation}
+
+Now if we think in the signals as column vectors:
+\begin{align*}
+	\bm x'&=\bigl[0,x_0,\dotsc,0,x_{n-1}\bigr]^T &&\in\mathds C^{2n\times1}\\
+	\bm z'&=\bigl[z_0,\dotsc,0,z_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}\\
+	\bm n'&=\bigl[n_0,\dotsc,0,n_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}\\
+	\bm y'&=\bigl[y_0,\dotsc,0,y_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}
+\end{align*}
+
+Also consider that $\uppsi$ is time limited, so $\uppsi_m$ is zero outside some interval $[0,M-1]$, and define the Toeplitz matrix
+$\bm \Uppsi \in\mathds C^{2n\times(2n+M-1)}$ as:
+\begin{equation}
+	\bm \Uppsi = \begin{bmatrix}
+				\uppsi_{M-1}&\uppsi_{M-2}&\cdots &\uppsi_0&&&\\
+				&\uppsi_{M-1}&\cdots &\uppsi_1&\uppsi_0&&\\
+				&&\ddots&&&\ddots&&\mbox{\Huge 0}&\\
+				&&&\uppsi_{M-1}&\cdots&\cdots&\uppsi_0&\\
+				&\mbox{\Huge 0}&&&\ddots&&&\ddots&&\\
+				&&&&&\uppsi_{M-1}&\cdots&\cdots&\uppsi_0&\\
+			     \end{bmatrix}
+\end{equation}
+
+Finally define the channel state $\bm s_0$ as:
+\begin{equation}
+\bm{s}'_0=[0,x_{-\widetilde{M}},0,x_{1-\widetilde{M}},\cdots,0,x_{-1}]^T \in \mathds{C}^{(M-1)\times1}
+\end{equation}
+where $\widetilde{M}$ is the memory channel in terms of the transmitted symbols and is given by $\widetilde{M}=(M-1)/2$.\\
+
+
+With the previous definitions the output of the square law detection is given by:
+\begin{align*}
+	\bm z' = \left|\bm \Uppsi \left[
+\begin{array}{c}
+\bm{s}'_0  \\
+   \bm x'
+\end{array}
+\right]
+\right|^{\circ2} = \left|\bm{ \Uppsi \tilde{x'}}\right|^{\circ2} \qquad \in\mathds{R}^{2n}
+\end{align*}
+where $|\cdot|^{\circ2}$ is the element wise $|\cdot|^2$ operator.\\
+
+Finally  the complete discrete time system model including the Gaussian noise is given by \cite{Plabst_DD}:
+\begin{align*}
+	\bm y' = \bm z' + \bm n' = \left|\bm{ \Uppsi \tilde{x'}}\right|^{\circ2} +\bm n' \qquad \in \mathds{R}^{2n}
+\end{align*}
+and the channel’s conditional probability density is Gaussian\cite{Plabst_DD}:
+\begin{equation}
+p(\bm y'|\bm x')=\mathcal N \left( \bm y- \left|\bm{ \Uppsi \tilde{x'}}\right|^{\circ2}; \bm 0_{2n} , \sigma_N^2 \bm I_{2n}  \right)
+\end{equation}
+
+\subsection{Even and odd samples}
+
+For convenience one can concatenate the $k$-th and $(k+1)$-th sample in a new vector as follows:
+\begin{align}
+\bm z_k&= \bigl[z'_{2k},z'_{2k+1}\bigr]=\bigl[z_{k}^{\text{e}},z_{k}^{\text{o}}\bigr]\\
+\bm y_k&=\bigl[y_{k}^{\text{e}},y_{k}^{\text{o}}\bigr]=\bm z_k+\bigl[n_{k}^{\text{e}}, n_{k}^{\text{o}}\bigr]
+\end{align}
+
+The reason for group two samples can be understood by looking at the figure \ref{fig:Exp_even_odd_samp}. There the convolution and the SQL detector is represented for an even and odd sample, in the case of link length $L=0$. For this choice of wave form, the even sample is an ISI-free sample, and carries information about the magnitude of a past symbol; in contrast the odd sample experience ISI, and hence somehow carries information about the phases of the symbols.  
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{\PlabstImage{Exp_even_odd_samp.pdf}}
+\caption{Signals for oversampling factor $N_\text{os} = 2$. Based on \cite{Plabst_DD}}
+\label{fig:Exp_even_odd_samp}
+\end{center}
+\end{figure}
+
+\section{Symbol-wise MAP detection}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
