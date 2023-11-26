@@ -9,43 +9,42 @@
             
         \vspace{3.5cm}
             
-        \LARGE{\textbf{Título del proyecto}}
-        
+        \LARGE{\textbf{Direct Detection with phase recovery in optical communications }}
         
         \vspace{3.5cm}
-        \large{\textbf{Nombre de xlx estudiante}}
+        \large{\textbf{Diego Alejandro Figueroa Del Castillo}}
         \vfill
         
         
         \normalsize{Universidad Nacional de Colombia\\
-					Facultad de , Departamento \\
-					Ciudad, Colombia\\
-					Año}
+					Facultad de Ingenieria , Departamento de Eléctrica y Electrónica\\
+					Bogotá, Colombia\\
+					2023}
             
     \end{center}
 \end{titlepage}
-\let\cleardoublepage\clearpage
-\begin{titlepage}
-    \begin{center}            
-        \LARGE{\textbf{Título del proyecto}}  
-            
-        \vspace{3.5cm}
-        \large{\textbf{Nombre de xlx estudiante}}
-            
-        \vspace{3.5cm}
-        \normalsize{Trabajo presentado como requisito parcial para optar al título de:\\
-        \textbf{Título esperado}}    
-     
-        \vspace{2cm}
-        \normalsize{Directorx:\\ Nombre de quien dirige}
-        
-        \vspace{1.2cm}
-        \normalsize{L\'inea de Investigaci\'on:\\Línea de investigación}
-        \vfill
-		\normalsize{Universidad Nacional de Colombia\\
-					Facultad de , Departamento de \\
-					Ciudad, Colombia\\
-					Año}
-            
-    \end{center}
-\end{titlepage}
+\clearpage\begingroup
+\mbox{}
+                \vspace*{\fill}
+                \begin{center}
+                  This page intentionally left blank.
+                \end{center}
+                \vspace{\fill}
+                \pagestyle{empty}\cleardoublepage\endgroup
+
+
+% blank page style from now on
+\makeatletter
+              \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+               \begingroup
+                \mbox{}
+                \vspace*{\fill}
+                \begin{center}
+                  This page intentionally left blank.
+                \end{center}
+                \vspace{\fill}
+                \thispagestyle{plain}
+\newpage
+                \if@twocolumn\mbox{}\newpage\fi
+               \endgroup\fi\fi}
+              \makeatother
