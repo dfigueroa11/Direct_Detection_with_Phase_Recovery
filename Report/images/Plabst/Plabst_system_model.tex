@@ -24,7 +24,8 @@
 
 \begin{tikzpicture}[>=stealth,thick]
 
-\node [rectangle, draw, text width = 1.3cm, minimum height = 0.8cm, align = center, anchor=west] (gtx) at (0,0) {$g_\text{tx}(t)$};
+\node [rectangle, draw, text width = 1.3cm, minimum height = 0.8cm, align = center, anchor=west] (diff) at (0,0) {Diff};
+\node [rectangle, draw, text width = 1.3cm, minimum height = 0.8cm, align = center, anchor=west] (gtx) at ($(diff.east)+(1.5,0)$) {$g_\text{tx}(t)$};
 \node [rectangle, draw, text width = 1.3cm, minimum height = 0.8cm, align = center, anchor=west] (ch) at($(gtx.east)+(1.5,0)$) {$h_L(t)$};
 \node [rectangle, draw, text width = 1.3cm, minimum height = 0.8cm, align = center, anchor=west] (SLD) at($(ch.east)+(1.5,0)$) {$|\cdot|^2$};
 \node [circle, minimum size = 10pt, below, draw, align = center, anchor=west] (sum) at($(SLD.east)+(1.5,0)$) {};
@@ -39,7 +40,8 @@
 \draw (samp.east) --+(-0.4,0);
 \draw [->] ($(samp.west)+(0.7064177772,0.3285575219)$) arc [start angle = 50, end angle = -30, radius = 0.4];
 
-\draw [->] (-1.5,0) -- node [above] {$x_k$} (gtx); 
+\draw [->] (-1.5,0) -- node [above] {$u_k$} (diff); 
+\draw [->] (diff.east) -- node [above] {$x_k$} (gtx); 
 \draw [->] (gtx.east) -- node [above] {$x(t)$} (ch); 
 \draw [->] (ch.east) -- node [above] {$x_L(t)$} (SLD); 
 \draw [->] (SLD.east) -- node [above] {$z(t)$} (sum); 

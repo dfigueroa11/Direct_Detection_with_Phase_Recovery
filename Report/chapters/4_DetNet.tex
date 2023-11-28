@@ -1,10 +1,196 @@
-\chapter{DetNet}
-\chaptermark{DetNet}
+\chapter{MagPhase-DetNet}
+\chaptermark{MagPhase-DetNet}
+\newcommand{\DetNetImage}[1]{images/DetNet/#1}
 
 
 % explicar DetNet
 % explicar adaptación a DD (final)
 % resultados 
+
+The decoder we try to implement is based on the DetNet decoder proposed in \cite{Neev_2017,Neev_2019}, there the authors propose a  machine learning based architecture for a MIMO AWGN linear channel. In those papers the authors noticed that the detection problem is equivalent to the following minimization problem in the MIMO case \cite{Neev_2017}:
+\begin{align}
+	\hat{\bm x} = \arg \min_{\bm{x} \in \mathcal{K}^{n}} \left\lVert \bm y - \bm{H}\bm{x}  \right\rVert^2
+	\label{eq:MIMO}
+\end{align}
+ and hence it may be solved by gradient descent. However the solution found by gradient descent could be invalid, because the vector $\hat{\bm x}$ may not belong to $\mathcal K^n$. Thats way the authors propose a projected gradient descent, where in every iteration the new estimated vector is somehow projected in $\mathcal K^n$. With this in mind, the authors in \cite{Neev_2017,Neev_2019} proposed to unfold the iterations of the gradient descent, and perform each iteration with a layer of a neural network, and at the end have a estimation of the vector $\hat{\bm x}$.\\
+ 
+As reported in \cite{Neev_2017,Neev_2019}, the performance of the architecture is as gut as the state of the art decoders, but at least 30 times faster, what makes architecture promising.\\
+
+The reason for trying this architecture, is the similitude if the MIMO problem (equation \ref{eq:MIMO}) ant the DD problem:
+\begin{align}
+	\hat{\bm{\tilde{x}}'} = \arg \min_{\bm{\tilde{x}'} \in \mathds{K}^{2n}} \left\lVert \bm y - \left|\bm{\Uppsi}\bm{\tilde{x}'}  \right|^{\circ2}\right\rVert^2
+\end{align}
+where the main difference is the non linear $|\cdot|^{\circ2}$ operator. Which is not an impediment to implementing the DetNet architecture.\\
+
+In the following sections we will follow the steps done in \cite{Neev_2019} to propose an architecture for the DD problem based on the system model presented in chapter \ref{ch:Plabst}, and present some numerical simulation results.
+
+
+\section{Separation in even and odd subchannel}
+
+The first thing we do to cast the problem for the DetNet architecture is to separate the hole system into two subchannels. For doing so we take advantage of the oversampling factor of 2, and distinction of even and odd samples done in equations \ref{eq:z_even_odd} and \ref{eq:y_even_odd}.\\
+
+For doing that start from the not upsampled $\bm x$ and $\bm s_0$ vector: 
+\begin{align}
+	\bm x &= \begin{bmatrix}x_0&x_1&\cdots& x_{n-1}\end{bmatrix}^T && \in \mathds{C}^{n}\\
+	\bm{s}_0&=\begin{bmatrix}x_{-\widetilde{M}}&x_{1-\widetilde{M}}&\cdots&x_{-1}\end{bmatrix}^T && \in\mathds{C}^{\widetilde{M}}\\
+	\bm \tilde{x} &= \begin{bmatrix}\bm s_0&\bm x\end{bmatrix}^T&&\in\mathds{C}^{n+\widetilde{M}}
+\end{align}
+and define the following subchannel matrices:
+\begin{align}
+	\bm \Uppsi_\text{o} &= \begin{bmatrix}
+				\uppsi_{M-1}&\uppsi_{M-3}&\cdots &\uppsi_0&&&\\
+				&\uppsi_{M-1}&\cdots &\uppsi_2&\uppsi_0&&\\
+				&&\ddots&&&\ddots&&\mbox{\Huge 0}&\\
+				&&&\uppsi_{M-1}&\cdots&\cdots&\uppsi_0&\\
+				&\mbox{\Huge 0}&&&\ddots&&&\ddots&&\\
+				&&&&&\uppsi_{M-1}&\cdots&\cdots&\uppsi_0&\\
+			     \end{bmatrix}&&\in \mathds{C}^{n\times(n+\widetilde{M})}\\
+	\bm \Uppsi_\text{e} &= \begin{bmatrix}
+				\uppsi_{M-2}&\uppsi_{M-4}&\cdots &\uppsi_1&0&&\\
+				&\uppsi_{M-2}&\cdots &\uppsi_3&\uppsi_1&0&\\
+				&&\ddots&&&\ddots&\ddots&\mbox{\Huge 0}&\\
+				&&&\uppsi_{M-2}&\cdots&\cdots&\uppsi_1&0\\
+				&\mbox{\Huge 0}&&&\ddots&&&\ddots&\ddots&\\
+				&&&&&\uppsi_{M-2}&\cdots&\cdots&\uppsi_1&0\\
+			     \end{bmatrix}&&\in \mathds{C}^{n\times(n+\widetilde{M})}
+\end{align}
+with this definitions the problem transforms  into:
+\begin{align}
+	\begin{bmatrix}
+		\bm y_\text{e}&\bm y_\text{o}
+	\end{bmatrix} &=
+	\begin{bmatrix}
+		\bm z_\text{e}&\bm z_\text{o}
+	\end{bmatrix} +
+	\begin{bmatrix}
+		\bm n_\text{e}&\bm n_\text{o}
+	\end{bmatrix}
+	\\&=	
+	\begin{bmatrix}
+		\left|\bm{ \Uppsi_\text{e} \tilde{x}}\right|^{\circ2}&\left|\bm{ \Uppsi_\text{o} \tilde{x}}\right|^{\circ2}
+	\end{bmatrix} +
+	\begin{bmatrix}
+		\bm n_\text{e}&\bm n_\text{o}
+	\end{bmatrix} \\
+\end{align}
+which can be separated into the tow independent and fictitious channels:
+\begin{align}
+	\bm y_\text{e} &= \bm z_\text{e} +\bm n_\text{e}= \left|\bm{ \Uppsi_\text{e} \tilde{x}}\right|^{\circ2}+\bm n_\text{e}&&\in\mathds{R}^n\\
+	\bm y_\text{o} &= \bm z_\text{o} +\bm n_\text{o}= \left|\bm{ \Uppsi_\text{o} \tilde{x}}\right|^{\circ2}+\bm n_\text{o}&&\in\mathds{R}^n
+\end{align}
+
+
+\section{Real and imaginary reparametrization}
+
+In order to be able to work with the Pytorch framework, we  cast the original problem, that have complex numbers, in one problem that is completely real, for doing  that we redefine $\bm{\Uppsi_\text{e,ML}}$, $\bm{\Uppsi_\text{o,ML}}$ and $\bm{ \tilde{x}_\text{ML}}$ as suggested in \cite{Neev_2019} (where the subindex ``ML'' stands for machine learning):
+\begin{align}
+	\bm{\Uppsi_\text{e,ML}}& = \begin{bmatrix}
+						\text{Re}\bigl\{ \bm{\Uppsi}_\text{e}\bigr\}&-\text{Im}\bigl\{ \bm{\Uppsi}_\text{e}\bigr\} \\
+						\text{Im}\bigl\{ \bm{\Uppsi}_\text{e}\bigr\}&\text{Re}\bigl\{ \bm{\Uppsi}_\text{e}\bigr\} \\
+					     \end{bmatrix}&& \in \mathds{R}^{2n\times2(n+\widetilde{M})}\\
+	\bm{\Uppsi_\text{o,ML}}& = \begin{bmatrix}
+						\text{Re}\bigl\{ \bm{\Uppsi}_\text{o}\bigr\}&-\text{Im}\bigl\{ \bm{\Uppsi}_\text{o}\bigr\} \\
+						\text{Im}\bigl\{ \bm{\Uppsi}_\text{o}\bigr\}&\text{Re}\bigl\{ \bm{\Uppsi}_\text{o}\bigr\} \\
+					     \end{bmatrix}&& \in \mathds{R}^{2n\times2(n+\widetilde{M})}\\
+	\bm{\tilde{x}_\text{ML}}& = \begin{bmatrix}
+					\text{Re}\bigl\{ \bm{\tilde{x}}\bigr\}\\
+					\text{Im}\bigl\{ \bm{\tilde{x}}\bigr\}
+				\end{bmatrix} &&\in \mathds{R}^{2(n+\widetilde{M})}\\
+\end{align} 
+
+We also redefine the $|\cdot|^{\circ2}_\text{ML}$ operator as:
+\begin{align}
+	\bigl|\cdot\bigr|^{\circ2}_\text{ML}&: \mathds{R}^{2n} \rightarrow \mathds{R}^n\\
+	\left|\begin{bmatrix}
+	x_1\\
+	\vdots\\
+	x_{2n}
+	\end{bmatrix}\right|^{\circ2}_\text{ML}&=
+	\begin{bmatrix}
+	x_1^2+x_{1+n}^2\\
+	\vdots\\
+	x_n^2+x_{2n}^2
+	\end{bmatrix}
+\end{align}
+
+In this way the system model is completely reparametrized into an analogous and completely real valued problem:
+\begin{align}
+	\bm y_\text{e} &= \left|\bm{\Uppsi_\text{e,ML}\tilde{x}_\text{ML} } \right|^{\circ2}_\text{ML}+\bm n_\text{e}\qquad\in\mathds{R}^n\\
+	\bm y_\text{o} &= \left|\bm{\Uppsi_\text{o,ML}\tilde{x}_\text{ML} } \right|^{\circ2}_\text{ML}+\bm n_\text{o}\qquad\in\mathds{R}^n
+\end{align}
+
+
+
+\section{MagPhase-DetNet architecture}
+
+Now we are going to construct the architecture of the decoder based on the machine Learning solution presented in \cite{Neev_2019}, hence from now on all, all the matrices and the $|\cdot|^{\circ2}$ operator are to be understand as the reparametrized version of the problem, that means as if they have the subscript ``ML'' even if they do not.\\
+
+The detection problem, according to de maximum likelihood criterion, is given by:
+\begin{align}
+	\hat{\bm{\tilde{x}}'} = \arg \min_{\bm{\tilde{x}'} \in \mathds{K}^{2n}} \left\lVert \bm y - \left|\bm{\Uppsi}\bm{\tilde{x}'}  \right|^{\circ2}\right\rVert^2
+\end{align}
+which, using the separation of channels, is equivalent to:
+\begin{align}
+	\hat{\bm{\tilde{x}}} = \arg \min_{\bm{\tilde{x}} \in \mathds{K}^{n}}\left\{ \left\lVert \bm y_\text{e} - \left|\bm{\Uppsi}_\text{e}\bm{\tilde{x}}  \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi}_\text{o}\bm{\tilde{x}}  \right|^{\circ2}\right\rVert^2\right\}
+\end{align}
+
+Given this objective function, in \cite{Neev_2019} is recommended to use the gradient of the expression above in the architecture, so each layer of the DetNet should mimic one projected gradient descent step, that is:
+\begin{align*}
+	\tilde{\bm x}_{k+1}&=\Pi\left(\tilde{\bm x}_{k}+\delta_k \nabla_{\bm{\tilde{x}}}\bm{f}(\bm{\tilde{x}}) \bigr|_{\bm{\tilde{x}=\tilde{x}_k}}\right)\\
+	\text{whith}\quad \bm{f}(\bm{\tilde{x}})&=\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi}_\text{e}\bm{\tilde{x}}  \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi}_\text{o}\bm{\tilde{x}}  \right|^{\circ2}\right\rVert^2
+\end{align*}
+where $\Pi(\cdot)$ is a nonlinear function that forces the gradient descent to be a possible solution, that means $\hat{\bm x}_{k+1}\in \mathds{K}^n$.\\
+
+However we try this approach with several small variations in the loss function  and the projection function, and we get no good results; this shows that the approach is not the best, so we had to find a better one.\\
+
+We noticed that for the DD system it is really easy to detect the magnitude of the symbols (that is what a normal IM-DD system does) and the phase detection is the big problem. Also along all the studied papers is present the idea that one sample carries the information about the magnitude and the other carries, somehow, the information about the phase, even in \cite{Secondini} the magnitude detection, and phase detection are treated almost as separated tasks.\\
+
+ With this in mind we decided to separate a little bit the two tasks, so we propose the architecture shown on figure \ref{fig:magPhaseDetNet_architecture}. The idea is that on each layer we use one DetNet-based block to improve  the magnitude estimate (without changing the phase) followed by a DetNet-based block to improve  the phase estimate (without changing the magnitude) and concatenate many layers to get the final architecture.
+
+\begin{figure}[htbp]
+\begin{center}
+%\includegraphics[width=0.8\textwidth]{}
+\caption{MagPhase-DetNet architecture.}
+\label{fig:magPhaseDetNet_architecture}
+\end{center}
+\end{figure}
+
+
+\subsection{Magnitude phase reparametrization}
+
+
+\subsection{Magnitude DetNet block}
+
+
+\subsection{Phase DetNet block}
+
+
+
+
+
+
+
+\section{Numerical simulation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 \documentclass[11pt, letterpaper,openright]{book}
 
 %---------------------Paquetes a utilizar---------------------------%
-\usepackage[left=3.6cm,right=2.54cm,top=2.54cm,bottom=2.54cm]{geometry}%Formato general de la página y márgenes 
+\usepackage[left=3.6cm,right=2.54cm,top=3cm,bottom=2.54cm]{geometry}%Formato general de la página y márgenes 
 \usepackage[utf8]{inputenc}                 %Encoding
 \usepackage[english]{babel}                 %Español
 \usepackage{csquotes}                       %Herramientas para citar
@@ -16,13 +16,15 @@
 \usepackage{graphicx}                       %Manejo de imágenes
 \usepackage{hyperref}                       %Uso de hipervínculos
 \usepackage{titlesec}                       %Para modificar el formato de los títulos
+\usepackage{esvect}
 \usepackage{lipsum}
-\usepackage{nomencl}
+\usepackage[nomentbl]{nomencl}
 \makenomenclature
 \renewcommand{\nomname}{List of symbols, abbreviations and notation}
 \usepackage{siunitx}
 \usepackage{slashbox}
 \DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\cev}[1]{\reflectbox{\ensuremath{\vv{\reflectbox{\ensuremath{#1}}}}}}
 %---------Configurar algunas propiedades del documento-------------%
 %\renewcommand{\baselinestretch}{1.5}        %Interliniado de 1.5   
 
@@ -47,8 +49,7 @@
 %-------------Formato de pies de página y encabezados---------------%
 \usepackage[twoside]{fancyhdr}                       %Encabezados y pie de páginas personalizados
 \pagestyle{fancy}
-
-
+\setlength{\headheight}{13.59999pt}
 % define how to show chapter name on header
 \renewcommand{\chaptermark}[1]{%
                \markboth{Chap \thechapter.\ #1}{}}
@@ -78,9 +79,14 @@
 
 %------------------Inicio del documento-----------------------------%
 \begin{document}
+\pagenumbering{Alph}
+\input{chapters/00_front_page.tex}
+
+
+
+
 \pagestyle{frontmatter_style}
 \frontmatter
-\input{chapters/00_front_page.tex}
 \input{chapters/0_preliminaries.tex}
 \tableofcontents
 
@@ -96,6 +102,10 @@
 \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{\nomname} 
+
+ % configuration of the table for the nomenclature 
+\setnomtableformat{p{0.2\textwidth} p{0.5\textwidth} p{0.15\textwidth} p{0.15\textwidth} p{0.0\textwidth}}
+
 \printnomenclature
 \input{nomenclature.tex}
 
@@ -107,7 +117,7 @@
 \input{chapters/1_introduction.tex}
 \input{chapters/2_Tukey.tex}
 \input{chapters/3_Plabst.tex}
-
+\input{chapters/4_DetNet.tex}
 
 
 \cleardoublepage

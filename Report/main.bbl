@@ -39,8 +39,8 @@
       \strng{authornamehash}{6d805c7c5a67b608d1a220cbfe3b77f7}
       \strng{authorfullhash}{6d805c7c5a67b608d1a220cbfe3b77f7}
       \field{extraname}{1}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Lightwave Technology}
@@ -72,8 +72,8 @@
       \strng{authornamehash}{910d801de7c7b036bee279a678fc8362}
       \strng{authorfullhash}{910d801de7c7b036bee279a678fc8362}
       \field{extraname}{1}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Summary This introductory chapter presents the basic concepts and provides the background material for fiber-optic communication systems. First, it gives a historical perspective on the development of optical communication systems. The chapter then covers concepts such as analog and digital signals, channel multiplexing, and modulation formats. The basic concepts begin with a description of analog and digital signals and describe how an analog signal can be converted into digital form. The chapter considers time- and frequency-division multiplexing of input signals, and provides a discussion of various modulation formats. Next, it discusses relative merits of various lightwave systems. Finally, the chapter describes the building blocks of a fiber-optic communication system. Controlled Vocabulary Terms digital signals; optical fiber communication}
@@ -117,8 +117,8 @@
       \strng{authorbibnamehash}{9bc3318abb3735951a3a2390361caaea}
       \strng{authornamehash}{9bc3318abb3735951a3a2390361caaea}
       \strng{authorfullhash}{9bc3318abb3735951a3a2390361caaea}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Lightwave Technology}
@@ -230,8 +230,8 @@
       \strng{authorbibnamehash}{3bdf6e4257d624e793b1d25f363202bd}
       \strng{authornamehash}{3bdf6e4257d624e793b1d25f363202bd}
       \strng{authorfullhash}{3bdf6e4257d624e793b1d25f363202bd}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Lightwave Technology}
@@ -294,8 +294,8 @@
       \strng{authorbibnamehash}{57d80a8e6a9c5d1525d77f3ee2effa9f}
       \strng{authornamehash}{57d80a8e6a9c5d1525d77f3ee2effa9f}
       \strng{authorfullhash}{79ba5324a1182846b208c7e220f79b94}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Lightwave Technology}
@@ -329,8 +329,8 @@
       \strng{authorbibnamehash}{99e8c42965ec01aec3921af3e8ecd658}
       \strng{authornamehash}{99e8c42965ec01aec3921af3e8ecd658}
       \strng{authorfullhash}{99e8c42965ec01aec3921af3e8ecd658}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{edition}{15th print.}
@@ -344,6 +344,179 @@
       \verb http://bvbr.bib-bvb.de:8991/F?func=service&doc_library=BVB01&doc_number=020774035&line_number=0001&func_code=DB_RECORDS&service_type=MEDIA
       \endverb
       \keyw{; Informationstheorie / Inferenz <Künstliche Intelligenz> / Maschinelles Lernen}
+    \endentry
+    \entry{Plabst_SIC}{misc}{}
+      \name{author}{6}{}{%
+        {{hash=15d0adfae28966dffeace289c6584297}{%
+           family={Prinz},
+           familyi={P\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ee516627fecfa19834e595f413c81da0}{%
+           family={Plabst},
+           familyi={P\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=6a94ecefaa1955dcc1a608d2d0ff853e}{%
+           family={Wiegart},
+           familyi={W\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=2ec981b93124293e36cd60013528f594}{%
+           family={Calabrò},
+           familyi={C\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+        {{hash=317b2496a95e2dd194184a292a902029}{%
+           family={Hanik},
+           familyi={H\bibinitperiod},
+           given={Norbert},
+           giveni={N\bibinitperiod}}}%
+        {{hash=f7bae6a087b5b9e69a80e9bbd566a7e7}{%
+           family={Kramer},
+           familyi={K\bibinitperiod},
+           given={Gerhard},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{0abc00a703d7728767240abb1ef1f188}
+      \strng{fullhash}{3dec679fcb3236632038aad415600cc1}
+      \strng{bibnamehash}{3dec679fcb3236632038aad415600cc1}
+      \strng{authorbibnamehash}{3dec679fcb3236632038aad415600cc1}
+      \strng{authornamehash}{0abc00a703d7728767240abb1ef1f188}
+      \strng{authorfullhash}{3dec679fcb3236632038aad415600cc1}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.IT}
+      \field{eprinttype}{arXiv}
+      \field{title}{Successive Interference Cancellation for Bandlimited Channels with Direct Detection}
+      \field{year}{2023}
+      \verb{eprint}
+      \verb 2212.07761
+      \endverb
+    \endentry
+    \entry{Wang}{article}{}
+      \name{author}{4}{}{%
+        {{hash=352cc254ad89c593f4136cc2ad6e2dc5}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Taotao},
+           giveni={T\bibinitperiod}}}%
+        {{hash=bb795c7d980a7cb7c4c8b66fa3f0516e}{%
+           family={Lv},
+           familyi={L\bibinitperiod},
+           given={Tiejun},
+           giveni={T\bibinitperiod}}}%
+        {{hash=d1d2f58b0394059a37bd243774595c51}{%
+           family={Gao},
+           familyi={G\bibinitperiod},
+           given={Hui},
+           giveni={H\bibinitperiod}}}%
+        {{hash=e13f0d32a060405aa876d260b065f829}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Shengli},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{40c8ca9cd36d321c7ac91c7106f48fbf}
+      \strng{fullhash}{926634546c7a4472d02538921c958411}
+      \strng{bibnamehash}{926634546c7a4472d02538921c958411}
+      \strng{authorbibnamehash}{926634546c7a4472d02538921c958411}
+      \strng{authornamehash}{40c8ca9cd36d321c7ac91c7106f48fbf}
+      \strng{authorfullhash}{926634546c7a4472d02538921c958411}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Wireless Communications}
+      \field{number}{1}
+      \field{title}{Joint Multiple Symbol Differential Detection and Channel Decoding for Noncoherent UWB Impulse Radio by Belief Propagation}
+      \field{volume}{16}
+      \field{year}{2017}
+      \field{pages}{293\bibrangedash 306}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1109/TWC.2016.2623301
+      \endverb
+    \endentry
+    \entry{Neev_2017}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=1191b8c525beee4d3111c2de9b693dab}{%
+           family={Samuel},
+           familyi={S\bibinitperiod},
+           given={Neev},
+           giveni={N\bibinitperiod}}}%
+        {{hash=f37b86e7f93980619867e4806d28556f}{%
+           family={Diskin},
+           familyi={D\bibinitperiod},
+           given={Tzvi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=9a8119071e5cda85c658b663c74eddc0}{%
+           family={Wiesel},
+           familyi={W\bibinitperiod},
+           given={Ami},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{9577e55a93d4204369eda4834959d900}
+      \strng{fullhash}{9577e55a93d4204369eda4834959d900}
+      \strng{bibnamehash}{9577e55a93d4204369eda4834959d900}
+      \strng{authorbibnamehash}{9577e55a93d4204369eda4834959d900}
+      \strng{authornamehash}{9577e55a93d4204369eda4834959d900}
+      \strng{authorfullhash}{9577e55a93d4204369eda4834959d900}
+      \field{extraname}{1}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2017 IEEE 18th International Workshop on Signal Processing Advances in Wireless Communications (SPAWC)}
+      \field{title}{Deep MIMO detection}
+      \field{year}{2017}
+      \field{pages}{1\bibrangedash 5}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1109/SPAWC.2017.8227772
+      \endverb
+    \endentry
+    \entry{Neev_2019}{article}{}
+      \name{author}{3}{}{%
+        {{hash=1191b8c525beee4d3111c2de9b693dab}{%
+           family={Samuel},
+           familyi={S\bibinitperiod},
+           given={Neev},
+           giveni={N\bibinitperiod}}}%
+        {{hash=f37b86e7f93980619867e4806d28556f}{%
+           family={Diskin},
+           familyi={D\bibinitperiod},
+           given={Tzvi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=9a8119071e5cda85c658b663c74eddc0}{%
+           family={Wiesel},
+           familyi={W\bibinitperiod},
+           given={Ami},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{9577e55a93d4204369eda4834959d900}
+      \strng{fullhash}{9577e55a93d4204369eda4834959d900}
+      \strng{bibnamehash}{9577e55a93d4204369eda4834959d900}
+      \strng{authorbibnamehash}{9577e55a93d4204369eda4834959d900}
+      \strng{authornamehash}{9577e55a93d4204369eda4834959d900}
+      \strng{authorfullhash}{9577e55a93d4204369eda4834959d900}
+      \field{extraname}{2}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Signal Processing}
+      \field{number}{10}
+      \field{title}{Learning to Detect}
+      \field{volume}{67}
+      \field{year}{2019}
+      \field{pages}{2554\bibrangedash 2564}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1109/TSP.2019.2899805
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

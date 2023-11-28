@@ -1,5 +1,6 @@
 \chapter{Generalized Direct Detection with phase recovery}
 \chaptermark{Generalized  Direct Detection with phase recovery}
+\label{ch:Plabst}
 \newcommand{\PlabstImage}[1]{images/Plabst/#1}
 
 % system model (ct)
@@ -21,6 +22,20 @@ The proposed system model can be seen in figure \ref{fig:Plabst_system_model}. I
 \end{figure}
 
 \section{Continuous time Model}
+
+\subsection{Differential encoder}
+
+As it was mentioned in chapter \ref{ch:Tukey_signaling} the DD generate some ambiguities, and one way to eliminate them is by using differential encoding \cite{Plabst_DD,Plabst_SIC,Secondini}. As suggested in \cite{Plabst_SIC} the phase encoding is done by a function that receive as an input a vector of symbols $\bm u$ and outputs a vector of symbols $\bm x=f_\text{dif}(\bm u)$ with the same magnitude as the symbols in $\bm u$, and a given phase based on a set of conditions, the phase of the input symbol and the phase of the last output  symbol and, as shown for example in the figure \ref{fig:diff_encoding} for a 4-PSK constellation.
+
+\begin{figure}[htbp]
+\begin{center}
+%\includegraphics[width=0.8\textwidth]{}
+\caption{Differential phase mapper example for 4-PSK}
+\label{fig:diff_encoding}
+\end{center}
+\end{figure}
+
+
 
 \subsection{Transmitter}
 
@@ -101,9 +116,9 @@ z'_k=\left|\sum_{m=0}^{2n-1}\uppsi_mx'_{k-m}\right|^2
 Now if we think in the signals as column vectors:
 \begin{align*}
 	\bm x'&=\bigl[0,x_0,\dotsc,0,x_{n-1}\bigr]^T &&\in\mathds C^{2n\times1}\\
-	\bm z'&=\bigl[z_0,\dotsc,0,z_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}\\
-	\bm n'&=\bigl[n_0,\dotsc,0,n_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}\\
-	\bm y'&=\bigl[y_0,\dotsc,0,y_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}
+	\bm z'&=\bigl[z_0,\dotsc,z_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}\\
+	\bm n'&=\bigl[n_0,\dotsc,n_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}\\
+	\bm y'&=\bigl[y_0,\dotsc,y_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}
 \end{align*}
 
 Also consider that $\uppsi$ is time limited, so $\uppsi_m$ is zero outside some interval $[0,M-1]$, and define the Toeplitz matrix
@@ -121,7 +136,7 @@ $\bm \Uppsi \in\mathds C^{2n\times(2n+M-1)}$ as:
 
 Finally define the channel state $\bm s_0$ as:
 \begin{equation}
-\bm{s}'_0=[0,x_{-\widetilde{M}},0,x_{1-\widetilde{M}},\cdots,0,x_{-1}]^T \in \mathds{C}^{(M-1)\times1}
+\bm{s}'_0=[0,x_{-\widetilde{M}},0,x_{1-\widetilde{M}},\dotsc,0,x_{-1}]^T \in \mathds{C}^{(M-1)\times1}
 \end{equation}
 where $\widetilde{M}$ is the memory channel in terms of the transmitted symbols and is given by $\widetilde{M}=(M-1)/2$.\\
 
@@ -151,8 +166,10 @@ p(\bm y'|\bm x')=\mathcal N \left( \bm y- \left|\bm{ \Uppsi \tilde{x'}}\right|^{
 
 For convenience one can concatenate the $k$-th and $(k+1)$-th sample in a new vector as follows:
 \begin{align}
-\bm z_k&= \bigl[z'_{2k},z'_{2k+1}\bigr]=\bigl[z_{k}^{\text{e}},z_{k}^{\text{o}}\bigr]\\
+\bm z_k&= \bigl[z'_{2k},z'_{2k+1}\bigr]=\bigl[z_{k}^{\text{e}},z_{k}^{\text{o}}\bigr]
+\label{eq:z_even_odd}\\
 \bm y_k&=\bigl[y_{k}^{\text{e}},y_{k}^{\text{o}}\bigr]=\bm z_k+\bigl[n_{k}^{\text{e}}, n_{k}^{\text{o}}\bigr]
+\label{eq:y_even_odd}
 \end{align}
 
 The reason for group two samples can be understood by looking at the figure \ref{fig:Exp_even_odd_samp}. There the convolution and the SQL detector is represented for an even and odd sample, in the case of link length $L=0$. For this choice of wave form, the even sample is an ISI-free sample, and carries information about the magnitude of a past symbol; in contrast the odd sample experience ISI, and hence somehow carries information about the phases of the symbols.  
@@ -168,19 +185,64 @@ The reason for group two samples can be understood by looking at the figure \ref
 
 \section{Symbol-wise MAP detection}
 
+To evaluate the optimal performance of the system, in \cite{Plabst_DD} is proposed a decoder based on the maximum a posteriori that decides the transmitted symbol based on the a posteriori probabilities (APP) $p(x_k|\bm y')$. Since the APPs are proportional to $p(x_k,\bm y')$ because $p(\bm y')$ is constant with respect to the decision, the MAP rule becomes \cite{Plabst_DD}:
+\begin{equation}
+\hat{x}_k=\argmax_{x_k}p(x_k,\bm y')
+\label{eq:MAP_deco}
+\end{equation}
+as a reminder, $\bm y'$  is the hole vector of received  samples, i.e. $\bm y'=\bigl[y_0,\dotsc,y_{2n-1}\bigr]^T$, and $p(x_k,\bm y')$ is given by \cite{Plabst_DD}:
+\begin{equation}
+p(x_k,\bm y')=\sum_{s_0}\sum_{\bm x\backslash x_k} p(s_0,\bm x, \bm y')
+\label{eq:APPs}
+\end{equation}
+and $\sum_{\bm x\backslash x_k}$ denotes a sum over all possible vectors $\bm x$  but where the $k$-th position is fixed.\\
+
+This APPs can be efficiently computed with the Forward-Backward Algorithm or BCJR algorithm with the factor graph shown in figure \ref{fig:BCJR} and the following recursive equations \cite{Plabst_DD}:
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{\PlabstImage{BCJR.pdf}}
+\caption{Factor graph to implement the BCJR. Based on \cite{Plabst_DD}}
+\label{fig:BCJR}
+\end{center}
+\end{figure}
 
 
 
+\begin{align}
+	\vv{\mu}(\bm s_k)&=\sum_{x_k,\bm s_{k-1}}p(x_k,\bm y_k,\bm s_k|\bm s_{k-1})\cdot \vv{\mu}(\bm s_{k-1})&&\text{FW path}
+	\label{eq:FW}\\
+	\cev{\mu}(\bm s_{k-1})&=\sum_{x_k,\bm s_{k}}p(x_k,\bm y_k,\bm s_k|\bm s_{k-1})\cdot \cev{\mu}(\bm s_{k})&&\text{BW path}
+	\label{eq:BW}\\
+	p(x_k,\bm y')&=\sum_{\bm s_{k-1}}\sum_{\bm s_k}\vv{\mu}(\bm s_{k-1})\cdot p(x_k,\bm y_k,\bm s_k|\bm s_{k-1})\cdot\cev{\mu}(\bm s_{k})&&\text{APP}
+	\label{eq:APP}
+\end{align}
+where $k=1,\dotsc,n$, $\vv{\mu}(\bm s_0)=p(\bm s_0)$ and $\cev{\mu}(\bm s_n)=p(\bm s_n)$.\\
+
+Finally the likelihood is given by \cite{Plabst_DD}:
+\begin{equation}
+p(x_k,\bm y_k,s_k|\bm s_{k-1})=\underbrace{p(\bm y_k|x_k,\bm s_{k-1})}_{(a)}\;
+\underbrace{p(\bm s_k|x_k,\bm s_{k-1})}_{(b)}\;
+\underbrace{p(x_k|\bm s_{k-1})}_{(c)}
+\end{equation}
+where $(a)$ is:
+\begin{align}
+	p(\bm y_k|x_k,\bm s_{k-1})&=p(y_k^\text{e}|\bm s_{k-1})\cdot p(y_k^\text{o}|x_k,\bm s_{k-1})\\
+	p(y_k^\text{e}|\bm s_{k-1})&=p_N\left(y_k^\text{e}-\left| [0,x_{k-\widetilde{M}},\cdots,0,x_{k-1},0]\cdot\uppsi\right|^2\right)
+	\label{eq:likelihood_even}\\
+	p(y_k^\text{o}|x_k,\bm s_{k-1})&=p_N\left(y_k^\text{o}-\left| [x_{k-\widetilde{M}},0,\cdots,x_{k-1},0,x_{k}]\cdot\uppsi\right|^2\right)
+	\label{eq:likelihood_odd}
+\end{align}
+The term $(b)$ is 1 if the state transition from $\bm s_{k-1}$ to $\bm s_{k}$ is possible and 0 otherwise, and $(c)$ is $p(x_k|\bm s_{k-1})=p(x_k)$ since the symbols are i.i.d. \cite{Plabst_DD}.\\
+
+Additionally, since using differential encoding is recommended to avoid ambiguities, one can include the differential decoding in the BCJR algorithm by including the fact that $\bm x=f_\text{diff}(\bm u)$ in the factor graph \cite{Plabst_DD}. That is done by doing the summations in equations \ref{eq:FW}, \ref{eq:BW} and \ref{eq:APP} over all $u_k$ instead of $x_k$ (which in terms of the algorithm makes no change), and defining the states of equations \ref{eq:likelihood_even} and \ref{eq:likelihood_odd} in terms of the $\bm u$, that means replacing $\bm x$ by $f_\text{diff}(\bm u)$ (for more details see the algorithm used in \cite{Wang}).  
+
+
+\section{Numerical simulation}
 
 
 
-
-
-
-
-
-
-
+\section{Discussion}
 
 
 

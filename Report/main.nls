@@ -1,22 +1,26 @@
 
 \begin{thenomenclature} 
 \nomgroup{A}
-  \item [{$\bm 0_{n}$}]\begingroup Ceros vector of length $n$\nomeqref {0}\nompageref{x}
-  \item [{$\bm I_{n}$}]\begingroup Identity matrix of size $n\times n$\nomeqref {0}\nompageref{x}
-  \item [{$\mathcal N(\bm x;\bm\mu,\bm C)$}]\begingroup Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.\nomeqref {0}\nompageref{x}
-  \item [{$\mathcal N(x;\mu,\sigma^2)$}]\begingroup Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.\nomeqref {0}\nompageref{x}
-  \item [{$\mathcal{F}\{\cdot\}$}]\begingroup Fourier transform \nomeqref {0}\nompageref{x}
-  \item [{$\mathcal{F}^{-1}\{\cdot\}$}]\begingroup Inverse fourier transform \nomeqref {0}\nompageref{x}
-  \item [{$f$}]\begingroup Frequency\nomeqref {0}\nompageref{x}
-  \item [{$j$}]\begingroup Imaginary unit\nomeqref {0}\nompageref{x}
-  \item [{$X\sim\mathcal{N}(\mu,\sigma^2)$}]\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\nomeqref {0}\nompageref{x}
-  \item [{DD}]\begingroup Direct Detection\nomeqref {0}\nompageref{x}
-  \item [{i.i.d.}]\begingroup independent and identically distributed\nomeqref {0}\nompageref{x}
-  \item [{Im$\{z\}$}]\begingroup imaginary part of $z$\nomeqref {0}\nompageref{x}
-  \item [{MAP}]\begingroup Maximum posteriori probability\nomeqref {0}\nompageref{x}
-  \item [{PDF}]\begingroup Probability density function\nomeqref {0}\nompageref{x}
-  \item [{Re$\{z\}$}]\begingroup Real part of $z$\nomeqref {0}\nompageref{x}
-  \item [{sinc$(t)$}]\begingroup $\frac{\sin(\pi t)}{\pi t}$\nomeqref {0}\nompageref{x}
-  \item [{SQL}]\begingroup Square law\nomeqref {0}\nompageref{x}
+  \item &{$\bm 0_{n}$}&\begingroup Ceros vector of length $n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{$\bm I_{n}$}&\begingroup Identity matrix of size $n\times n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{$\mathcal N(\bm x;\bm\mu,\bm C)$}&\begingroup Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{$\mathcal N(x;\mu,\sigma^2)$}&\begingroup Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{$\mathcal{F}\{\cdot\}$}&\begingroup Fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{$\mathcal{F}^{-1}\{\cdot\}$}&\begingroup Inverse fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{$f$}&\begingroup Frequency\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{$j$}&\begingroup Imaginary unit\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{$X\sim\mathcal{N}(\mu,\sigma^2)$}&\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{APP}&\begingroup a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{AWGN}&\begingroup Additive white Gaussian noise\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{DD}&\begingroup Direct Detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{i.i.d.}&\begingroup independent and identically distributed\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{Im$\{z\}$}&\begingroup imaginary part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{IM-DD}&\begingroup Intensity modulation - Direct detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{MAP}&\begingroup Maximum a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{MIMO}&\begingroup Multiple input multiple output\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{PDF}&\begingroup Probability density function\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{Re$\{z\}$}&\begingroup Real part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{sinc$(t)$}&\begingroup $\frac{\sin(\pi t)}{\pi t}$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
+  \item &{SQL}&\begingroup Square law\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xi}
 
 \end{thenomenclature}
