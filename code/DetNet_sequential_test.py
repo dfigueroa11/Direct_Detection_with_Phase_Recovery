@@ -20,10 +20,10 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("We are using the following device for learning:",device)
 
 
-N_symbols = 1000
+N_symbols = 20_000
 
-snr_dB_list = [*range(20,21)]
-sym_mem_file_list = [1,]
+snr_dB_list = [*range(0,21)]
+sym_mem_file_list = [1,3,5]
 ############# Constellation and differential mapping ################
 angle = np.arccos(1/3)
 mapping = torch.tensor(const_mk.rp_QAM(np.array([1]),np.array([0,angle,np.pi,np.pi+angle])), dtype=torch.cfloat)
@@ -82,12 +82,13 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
                 rx_sym = const.mapping[rx_syms_idx[i]]  # info symbol
                 #update state
                 info_sym_phase_idx = torch.argmin(torch.abs(const.phase_list-torch.angle(rx_sym)))
-                prev_phase_idx = torch.argmin(torch.abs(const.phase_list-state_phase[0,-2]))
+                prev_phase_idx = torch.argmin(torch.abs(const.phase_list-state_phase[0,-1]))
                 diff_phase = const.phase_list[const.diff_mapping[info_sym_phase_idx,prev_phase_idx]]
                 state_mag = torch.roll(state_mag,-1,-1)
                 state_mag[0,-1] = torch.abs(rx_sym)
                 state_phase = torch.roll(state_phase,-1,-1)
-                state_phase[0,-1] = diff_phase
+                state_phase[0,-1] = 0 if sym_mem_file == 1 else diff_phase
+                
 
             e = time.time()
 
