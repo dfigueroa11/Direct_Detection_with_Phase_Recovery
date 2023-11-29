@@ -1,0 +1,91 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[border=3mm]{standalone}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usepackage{esvect}
+\usepackage{array}
+\newcommand{\cev}[1]{\reflectbox{\ensuremath{\vv{\reflectbox{\ensuremath{#1}}}}}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{N}{@{}m{0pt}@{}}
+
+\definecolor{color1}{rgb}{0,0.4470,0.7410}
+\definecolor{color2}{rgb}{0.8500,0.3250,0.0980}
+\definecolor{color3}{rgb}{0.9290,0.6940,0.1250}
+\definecolor{color4}{rgb}{0.4940,0.1840,0.5560}
+\definecolor{color5}{rgb}{0.4660,0.6740,0.1880}
+
+
+\begin{document}
+
+
+
+\begin{tikzpicture}[>=stealth,thick]
+
+\node [rectangle, draw, text width = 2cm,align=center, minimum height = 1cm, anchor=west] (mag) at (0,0) {Magnitude};
+\node [rectangle, draw, text width = 2cm,align=center, minimum height = 1cm, anchor=west] (phase) at ($(mag.east)+(0.2,0)$) {Phase};
+
+\node [rectangle, draw, text width = 2cm,align=center, minimum height = 1cm,] (phase_map) at ($(phase.south)+(0,-3)$) {Phase mapper};
+
+\node [rectangle, draw, text width = 4.46cm,align=center, minimum height = 1cm, anchor=north west] (diff_enc) at ($(mag.south west)+(0,-6)$) {$x_k=\bigl|u_k\bigr|\cdot e^{j\angle x_k}$};
+
+\draw [->] (phase.south) -- node[right] {$\angle u_k$} (phase_map.north); 
+\draw [->] (phase_map.south) -- node[right] {$\angle x_k$} (phase_map.south |- diff_enc.north); 
+\draw [->] (mag.south) -- node[left] {$\bigl|u_k\bigr|$} (mag.south |- diff_enc.north); 
+
+\draw [] ($(phase.north east)+(1,0)$) -- node [below](c) {Phase mapper}+ (6,0) node (a) {} -- (a |- diff_enc.south) --+ (-6,0) -- cycle;
+
+
+\node[draw,circle] (ph0) at ($(c)+(0,-1.2)$) {$\angle x=0$};
+\node[draw,circle] (phpi) at ($(c)+(0,-4)$) {$\angle x=\pi$};
+
+\path[->]
+  (ph0) edge [loop left]  node {$\angle u=0$} (   )
+        edge [bend left]  node [right]{$\angle u=\pi$} (phpi)
+  (phpi) edge [loop right]  node {$\angle u=0$} (   )
+        edge [bend left]  node [left] {$\angle u=\pi$} (ph0);
+        
+\node[] (tab) at ($(c)+(0.2,-6.6)$) {
+\begin{tabular}{|M{0.7cm}|M{1.5cm}|M{1.5cm}|N}\cline{2-3}
+\multicolumn{1}{c|}{}&$0$&$\pi$&\\\hline
+$0$&$\angle u_k=0$&$\angle u_k=\pi$&\\[10pt]
+$\pi$&$\angle u_k=\pi$&$\angle u_k=0$&\\[10pt]\hline
+\end{tabular}
+};
+
+\node [] at ($(tab.north)+(0.7,0.1)$) {State $\angle x_{k-1}$};
+\node [rotate=90] at ($(tab.west)+(-0.1,-0.2)$) {State $\angle x_{k}$};
+        
+\end{tikzpicture}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

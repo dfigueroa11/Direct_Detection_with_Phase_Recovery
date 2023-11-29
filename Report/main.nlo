@@ -19,3 +19,4 @@
 \nomenclatureentry{aMIMO@&{MIMO}&\begingroup Multiple input multiple output\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xi}
 \nomenclatureentry{aAWGN@&{AWGN}&\begingroup Additive white Gaussian noise\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xi}
 \nomenclatureentry{aIM-DD@&{IM-DD}&\begingroup Intensity modulation - Direct detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xi}
+\nomenclatureentry{adiag$(\bm x)$@&{diag$(\bm x)$}&\begingroup Diagonal matrix with the elements of $\bm x$ along the diagonal\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xi}

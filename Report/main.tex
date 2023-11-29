@@ -46,6 +46,9 @@
 
 \titlespacing*{\chapter}{0pt}{100pt}{24pt}  %Dar espaciado de 100pt en la parte superior y 24pt en la parte inferior del título de capítulo
 
+%%%%%%%%%%%%%%%%%% section numbering
+\setcounter{secnumdepth}{4}
+
 %-------------Formato de pies de página y encabezados---------------%
 \usepackage[twoside]{fancyhdr}                       %Encabezados y pie de páginas personalizados
 \pagestyle{fancy}
@@ -88,6 +91,7 @@
 \pagestyle{frontmatter_style}
 \frontmatter
 \input{chapters/0_preliminaries.tex}
+\setcounter{tocdepth}{4}
 \tableofcontents
 
 \phantomsection

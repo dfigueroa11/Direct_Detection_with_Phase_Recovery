@@ -149,7 +149,7 @@ We noticed that for the DD system it is really easy to detect the magnitude of t
 
 \begin{figure}[htbp]
 \begin{center}
-%\includegraphics[width=0.8\textwidth]{}
+\includegraphics[width=0.8\textwidth]{\DetNetImage{magPhaseDetNet_architecture.pdf}}
 \caption{MagPhase-DetNet architecture.}
 \label{fig:magPhaseDetNet_architecture}
 \end{center}
@@ -158,13 +158,106 @@ We noticed that for the DD system it is really easy to detect the magnitude of t
 
 \subsection{Magnitude phase reparametrization}
 
+Before defining the architecture in detail, we have to do a small reparametrization of $\bm x$ form cartesian to polar form as follows:
+\begin{align}
+	\tilde{\bm x}=\begin{bmatrix}\bm{r}\\\bm r\end{bmatrix}\odot\begin{bmatrix}\cos(\bm{\theta})\\\sin(\bm{\theta})\end{bmatrix}
+\end{align}
+with $\bm r,\bm\theta \in \mathds{R}^{n+\widetilde{M}}$ contains the magnitude and phase of each symbol, the cosine and sine are applied element wise, and the $\odot$ operator is the elementwise multiplication.\\
+
+If we define $\bm R(\bm{r})= \begin{bmatrix}\bm{r}&\bm r\end{bmatrix}^T$ and $\bm w(\bm\theta)=\begin{bmatrix}\cos(\bm{\theta})&\sin(\bm{\theta})\end{bmatrix}^T$, the element wise product is equivalent to the next two matrix vector multiplications:
+\begin{align}
+	\bm\tilde{X}=\bm R(\bm{r})\odot\bm w(\bm\theta)
+	=\text{diag}\bigl(\bm R(\bm{r})\bigr)\cdot \bm w(\bm\theta)
+	=\text{diag}\bigl(\bm w(\bm\theta)\bigr)\cdot\bm R(\bm{r})
+\end{align}
+which are useful to calculate the gradients.
+
 
 \subsection{Magnitude DetNet block}
+
+For the magnitude block, each block should perform a gradient descent step with respecto to the magnitude of the symbols, and assuming the phases constant, hence the first step to define the block structure is to calculate the following gradient:
+ \begin{align}
+	&\nabla_{\bm r}\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi_\text{e}\tilde{x} } \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi_\text{o}\tilde{x} } \right|^{\circ2}\right\rVert^2\\
+	=&\nabla_{\bm r}\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi}_\text{e}\cdot\text{diag}\bigl(\bm w(\bm\theta)\bigr)\cdot\bm R(\bm r)  \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi}_\text{o}\cdot\text{diag}\bigl(\bm w(\bm\theta)\bigr)\cdot\bm R(\bm r)  \right|^{\circ2}\right\rVert^2
+\end{align}
+which we will name $\text{grad}_\text{mag}$, and after some calculations we get:
+\begin{equation}
+\text{grad}_\text{mag}=\bm A_\text{e}\cdot\left(2\bm y_\text{e} - 2\left|\bm{\Uppsi}_\text{e}\bm{\tilde{x}}\right|^{\circ2}\right)+
+\bm A_\text{o}\cdot\left(2\bm y_\text{o} - 2\left|\bm{\Uppsi}_\text{o}\bm{\tilde{x}}\right|^{\circ2}\right)
+\label{eq:grad_mag}
+\end{equation}
+where
+\begin{align}
+\bm A_{\text{e},k}&=\begin{bmatrix}\text{diag}\bigl(\cos(\bm\theta)\bigr)&\text{diag}\bigl(\sin(\bm\theta)\bigr)\end{bmatrix}\cdot\bm\Uppsi_\text{e}^T\cdot\begin{bmatrix}\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_k\bigr]_0^n\right)\\\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_k \bigr]_{n}^{2n}\right)\end{bmatrix}\\
+\bm A_{\text{o},k}&=\begin{bmatrix}\text{diag}\bigl(\cos(\bm\theta)\bigr)&\text{diag}\bigl(\sin(\bm\theta)\bigr)\end{bmatrix}\cdot\bm\Uppsi_\text{o}^T\cdot\begin{bmatrix}\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{o}\bm{\tilde{x}}_k\bigr]_0^n\right)\\\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_k\bigr]_{n}^{2n}\right)\end{bmatrix}
+\end{align}
+where $[\cdot]_a^b$ denotes the the elements from position $a$ to $b$ (not included) of a vector.\\
+
+Now following the procedure from \cite{Neev_2019}, we give the architecture of the magnitude network, where each layer is given by:
+\begin{align}
+	\bm q_k& = \hat{\bm{r}}_{k-1} -\delta_{1k}\bm A_{\text{e},k-1}\bm y_\text{e} +\delta_{2k}\bm A_{\text{e},k-1}|\bm{\bm{\Uppsi}_\text{e}\tilde{x}}_{k-1}|^{\circ2}-\nonumber\\
+	&\;\;\;\;\delta_{3k}\bm A_{\text{o},k-1}\bm y_\text{o} +\delta_{4k}\bm A_{\text{o},k-1}|\bm{\bm{\Uppsi}_\text{o}\tilde{x}}_{k-1}|^{\circ2}\\
+	\bm z_k&=\rho\left( \bm W_{1k}\begin{bmatrix}\bm q_k\\\bm v_{k-1}\end{bmatrix}+\bm b_{1k}\right)\\
+	\bm{r}_{\text{oh},k} &= \bm{r}_{\text{oh},k-1}+\bm W_{2k}\bm z_k+\bm b_{2k}\\
+	\hat{\bm{r}}_{k} &= \bm f_{\text{oh}}(\bm{r}_{\text{oh},k})\\
+	\bm v_k&=\bm v_{k-1}+\bm W_{3k}\bm z_k+\bm b_{3k}\\
+	\hat{\bm{r}}_{0} &= \bm 0\\
+	\bm v_0&=\bm 0\\
+\end{align}
+where $\rho(\cdot)$ is the ReLu activation function, $\bm W$ a matrix and $\bm b$ a vector that together apply a linear transformation, and  the function $\bm f_{\text{oh}}(\cdot)$ is as defined in \cite{Neev_2019}.\\
+
+The trainable parameters of the model are:
+\begin{align}
+	\bm \Theta_\text{mag} = \bigl\{\bm W_{1k},\bm b_{1k},\bm W_{2k},\bm b_{2k},\bm W_{3k},\bm b_{3k},\delta_{1k},\delta_{2k},\delta_{3k},\delta_{4k}  \bigr\}_{k=1}^L
+\end{align}
+where $L$ is the number of layers, and loss function used for training is:
+\begin{align}
+	\text{loss}(\bm r, \hat{\bm r}(\bm{\Uppsi}_\text{e},\bm{\Uppsi}_\text{e},\bm y;\bm \Theta_\text{mag}))=\sum_{l=1}^L\log(l)\lVert \bm r-\hat{\bm{r}}_{l}\rVert^2
+\end{align}
 
 
 \subsection{Phase DetNet block}
 
+For the phase block, each block should perform a gradient descent step with respecto to the phase of the symbols, so we follow the same procedure as for the magnitude block, and calculate the following gradient:
+ \begin{align}
+	&\nabla_{\bm \theta}\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi_\text{e}\tilde{x} } \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi_\text{o}\tilde{x} } \right|^{\circ2}\right\rVert^2\\
+	=&\nabla_{\bm \theta}\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi}_\text{e}\cdot\text{diag}\bigl(\bm R(\bm r)\bigr)\cdot\bm w(\bm \theta)  \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi}_\text{o}\cdot\text{diag}\bigl(\bm R(\bm r)\bigr)\cdot\bm w(\bm \theta)  \right|^{\circ2}\right\rVert^2
+\end{align}
+which we will name $\text{grad}_\text{phase}$, and after some calculations we get:
+\begin{equation}
+\text{grad}_\text{phase}=\bm A_\text{e}\cdot\left(2\bm y_\text{e} - 2\left|\bm{\Uppsi}_\text{e}\bm{\tilde{x}}\right|^{\circ2}\right)+
+\bm A_\text{o}\cdot\left(2\bm y_\text{o} - 2\left|\bm{\Uppsi}_\text{o}\bm{\tilde{x}}\right|^{\circ2}\right)
+\label{eq:grad_mag}
+\end{equation}
+where
+\begin{align}
+\bm A_{\text{e},k}&=\begin{bmatrix}-\text{diag}\left(\bigl[\bm{\tilde{x}}_k\bigr]_{n}^{2n}\right)&\text{diag}\left(\bigl[\bm{\tilde{x}}_k\bigr]_0^{n\phantom{1}}\right)\end{bmatrix}\cdot\bm{\Uppsi}_\text{e}^T\cdot\begin{bmatrix}\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_k\bigr]_0^n\right)\\\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_k\bigr]_{n}^{2n}\right)\end{bmatrix}\\
+\bm A_{\text{e},k}&=\begin{bmatrix}-\text{diag}\left(\bigl[\bm{\tilde{x}}_k\bigr]_{n}^{2n}\right)&\text{diag}\left(\bigl[\bm{\tilde{x}}_k\bigr]_0^{n\phantom{1}}\right)\end{bmatrix}\cdot\bm{\Uppsi}_\text{e}^T\cdot\begin{bmatrix}\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_k\bigr]_0^n\right)\\\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_k\bigr]_{n}^{2n}\right)\end{bmatrix}
+\end{align}
+where $[\cdot]_a^b$ denotes the the elements from position $a$ to $b$ (not included) of a vector.\\
 
+Now following the procedure from \cite{Neev_2019}, we give the architecture of the magnitude network, where each layer is given by:
+\begin{align}
+	\bm q_k& = \hat{\bm{\theta}}_{k-1} -\delta_{1k}\bm A_{\text{e},k-1}\bm y_\text{e} +\delta_{2k}\bm A_{\text{e},k-1}|\bm{\bm{\Uppsi}_\text{e}\tilde{x}}_{k-1}|^{\circ2}-\nonumber\\
+	&\;\;\;\;\delta_{3k}\bm A_{\text{o},k-1}\bm y_\text{o} +\delta_{4k}\bm A_{\text{o},k-1}|\bm{\bm{\Uppsi}_\text{o}\tilde{x}}_{k-1}|^{\circ2}\\
+	\bm z_k&=\rho\left( \bm W_{1k}\begin{bmatrix}\bm q_k\\\bm v_{k-1}\end{bmatrix}+\bm b_{1k}\right)\\
+	\bm{\theta}_{\text{oh},k} &= \bm{\theta}_{\text{oh},k-1}+\bm W_{2k}\bm z_k+\bm b_{2k}\\
+	\hat{\bm{\theta}}_{k} &= \bm f_{\text{oh}}(\bm{\theta}_{\text{oh},k})\\
+	\bm v_k&=\bm v_{k-1}+\bm W_{3k}\bm z_k+\bm b_{3k}\\
+	\hat{\bm{\theta}}_{0} &= \bm 0\\
+	\bm v_0&=\bm 0\\
+\end{align}
+where $\rho(\cdot)$ is the ReLu activation function, $\bm W$ a matrix and $\bm b$ a vector that together apply a linear transformation, and  the function $\bm f_{\text{oh}}(\cdot)$ is as defined in \cite{Neev_2019}.\\
+
+The trainable parameters of the model are:
+\begin{align}
+	\bm \Theta_\text{phase} = \bigl\{\bm W_{1k},\bm b_{1k},\bm W_{2k},\bm b_{2k},\bm W_{3k},\bm b_{3k},\delta_{1k},\delta_{2k},\delta_{3k},\delta_{4k}  \bigr\}_{k=1}^L
+\end{align}
+where $L$ is the number of layers, and loss function used for training is:
+\begin{align}
+	\text{loss}(\bm \theta, \hat{\bm \theta}(\bm{\Uppsi}_\text{e},\bm{\Uppsi}_\text{e},\bm y;\bm \Theta_\text{phase}))=\sum_{l=1}^L\log(l)\lVert \bm \theta-g_\text{diff deco}(\hat{\bm{\theta}}_{l})\rVert^2
+\end{align}
+where $g_\text{diff deco}(\cdot)$ is a function that implements the the differential decoding, and depends on the constellation used.
 
 
 
@@ -173,6 +266,13 @@ We noticed that for the DD system it is really easy to detect the magnitude of t
 \section{Numerical simulation}
 
 
+\subsection{Hyper parameters}
+
+
+\subsection{Training set}
+
+
+\subsection{Results}
 
 
 

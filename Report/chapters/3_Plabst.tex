@@ -21,23 +21,25 @@ The proposed system model can be seen in figure \ref{fig:Plabst_system_model}. I
 \end{center}
 \end{figure}
 
-\section{Continuous time Model}
+\section{System model}
 
-\subsection{Differential encoder}
+\subsection{Continuous time Model}
 
-As it was mentioned in chapter \ref{ch:Tukey_signaling} the DD generate some ambiguities, and one way to eliminate them is by using differential encoding \cite{Plabst_DD,Plabst_SIC,Secondini}. As suggested in \cite{Plabst_SIC} the phase encoding is done by a function that receive as an input a vector of symbols $\bm u$ and outputs a vector of symbols $\bm x=f_\text{dif}(\bm u)$ with the same magnitude as the symbols in $\bm u$, and a given phase based on a set of conditions, the phase of the input symbol and the phase of the last output  symbol and, as shown for example in the figure \ref{fig:diff_encoding} for a 4-PSK constellation.
+\subsubsection{Differential encoder}
+
+As it was mentioned in chapter \ref{ch:Tukey_signaling} the DD generate some ambiguities, and one way to eliminate them is by using differential encoding \cite{Plabst_DD,Plabst_SIC,Secondini}. As suggested in \cite{Plabst_SIC} the phase encoding is done by a function that receive as an input a vector of symbols $\bm u$ and outputs a vector of symbols $\bm x=f_\text{dif}(\bm u)$ with the same magnitude as the symbols in $\bm u$, and a given phase based on a set of conditions, the phase of the input symbol and the phase of the last output  symbol and, as shown for example in the figure \ref{fig:diff_encoding} for a M-ASK constellation.
 
 \begin{figure}[htbp]
 \begin{center}
-%\includegraphics[width=0.8\textwidth]{}
-\caption{Differential phase mapper example for 4-PSK}
+\includegraphics[width=0.5\textwidth]{\PlabstImage{diff_map_M_ASK.pdf}}
+\caption{Differential phase mapper example for M-ASK. Based on \cite{Plabst_SIC}}
 \label{fig:diff_encoding}
 \end{center}
 \end{figure}
 
 
 
-\subsection{Transmitter}
+\subsubsection{Transmitter}
 
 The transmitter receives as input a sequence $\bm x=\{x_0,\dotsc,x_{n-1}\}$ of independent and identically distributed (i.i.d.) symbols $x_i$ taken from a finite constellation $\mathcal K=\{a_1,\dotsc,a_q\}$ with $q$ elements, and outputs a signal given by \cite{Plabst_DD}:
 \begin{equation}
@@ -60,7 +62,7 @@ Common pulse waveforms are raised cosine pulses, of particular interest is the c
 \label{eq:sinc_pulse_FD}
 \end{align}
 
-\subsection{Fiber Optic Link}
+\subsubsection{Fiber Optic Link}
 
 The channel considered is a optic fiber that only presents chromatic dispersion, characterized in frequency domain by \cite{Plabst_DD}:
 \begin{equation}
@@ -68,7 +70,7 @@ H_L(f)=e^{j2\beta_2L\pi^2f^2}
 \end{equation}
 where $\beta_2$ is the group-velocity dispersion parameter and $L$ is the fiber length.
 
-\subsection{Receiver}
+\subsubsection{Receiver}
 The receiver consist of a photodiode, whose output is given by:
 \begin{equation}
 z(t)=|x_L(t)|^2
@@ -88,9 +90,9 @@ where $B$ is the symbol rate given by $B=1/T_s$ \cite{Plabst_DD}.
 
 
 
-\section{Discrete time Model}
+\subsection{Discrete time Model}
 
-\subsection{Discrete signal notation}
+\subsubsection{Discrete signal notation}
 For the discrete time model, a receiver with sampling rate $1/T'_s=2B$ is considered (in this section the super index $'$ denotes a variable of the oversampled system), that is an oversampling factor of $N_\text{os}=T_s/T'_s=2$, meaning 2 samples per transmitted symbol \cite{Plabst_DD}.\\
 
 Let $\bm x'=\{0,x_0,\dotsc0,x_{n-1}\}$ and $\bm y'=\{y_0,\dotsc,y_{2n-1}\}$ be the upsampled sequence at the transmitter and receiver, they are related by \cite{Plabst_DD}:
@@ -111,7 +113,7 @@ z'_k=\left|\sum_{m=0}^{2n-1}\uppsi_mx'_{k-m}\right|^2
 \end{equation}
 
 
-\subsection{Vector matrix notation}
+\subsubsection{Vector matrix notation}
 
 Now if we think in the signals as column vectors:
 \begin{align*}
@@ -162,7 +164,7 @@ and the channel’s conditional probability density is Gaussian\cite{Plabst_DD}:
 p(\bm y'|\bm x')=\mathcal N \left( \bm y- \left|\bm{ \Uppsi \tilde{x'}}\right|^{\circ2}; \bm 0_{2n} , \sigma_N^2 \bm I_{2n}  \right)
 \end{equation}
 
-\subsection{Even and odd samples}
+\subsubsection{Even and odd samples}
 
 For convenience one can concatenate the $k$-th and $(k+1)$-th sample in a new vector as follows:
 \begin{align}
@@ -183,7 +185,7 @@ The reason for group two samples can be understood by looking at the figure \ref
 \end{center}
 \end{figure}
 
-\section{Symbol-wise MAP detection}
+\subsection{Symbol-wise MAP detection}
 
 To evaluate the optimal performance of the system, in \cite{Plabst_DD} is proposed a decoder based on the maximum a posteriori that decides the transmitted symbol based on the a posteriori probabilities (APP) $p(x_k|\bm y')$. Since the APPs are proportional to $p(x_k,\bm y')$ because $p(\bm y')$ is constant with respect to the decision, the MAP rule becomes \cite{Plabst_DD}:
 \begin{equation}
@@ -201,7 +203,7 @@ This APPs can be efficiently computed with the Forward-Backward Algorithm or BCJ
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{\PlabstImage{BCJR.pdf}}
+\includegraphics[width=\textwidth]{\PlabstImage{BCJR.pdf}}
 \caption{Factor graph to implement the BCJR. Based on \cite{Plabst_DD}}
 \label{fig:BCJR}
 \end{center}
