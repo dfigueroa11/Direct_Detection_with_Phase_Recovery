@@ -82,7 +82,7 @@ for sym_mem_idx, sym_mem_file in enumerate(sym_mem_file_list):
                 rx_sym = const.mapping[rx_syms_idx[i]]  # info symbol
                 #update state
                 info_sym_phase_idx = torch.argmin(torch.abs(const.phase_list-torch.angle(rx_sym)))
-                prev_phase_idx = torch.argmin(torch.abs(const.phase_list-state_phase[0,-1]))
+                prev_phase_idx = torch.argmin(torch.abs(const.phase_list-state_phase[0,-2]))
                 diff_phase = const.phase_list[const.diff_mapping[info_sym_phase_idx,prev_phase_idx]]
                 state_mag = torch.roll(state_mag,-1,-1)
                 state_mag[0,-1] = torch.abs(rx_sym)
