@@ -1,5 +1,5 @@
 \PassOptionsToPackage{dvipsnames}{xcolor}
-\documentclass[border=3mm]{standalone}
+\documentclass[border=0mm]{standalone}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -22,11 +22,7 @@
 
 
 \begin{document}
-
-
-
-\begin{tikzpicture}[>=stealth,thick]
-
+\begin{tikzpicture}[>=stealth,thick]%
 \node [rectangle, draw, text width = 2cm,align=center, minimum height = 1cm, anchor=west] (mag) at (0,0) {Magnitude};
 \node [rectangle, draw, text width = 2cm,align=center, minimum height = 1cm, anchor=west] (phase) at ($(mag.east)+(0.2,0)$) {Phase};
 

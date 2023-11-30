@@ -1,5 +1,5 @@
 \PassOptionsToPackage{dvipsnames}{xcolor}
-\documentclass[border=3mm]{standalone}
+\documentclass[border=0mm]{standalone}
 \usepackage{pgfplots}
 \usepgfplotslibrary{groupplots}
 \pgfplotsset{compat=1.17}
@@ -10,11 +10,7 @@
 
 
 \begin{document}
-
-
-
-\begin{tikzpicture}[>=stealth,thick]
-
+\begin{tikzpicture}[>=stealth,thick]%
 \node [rectangle, draw, text width = 3cm, align = center, rotate=90,anchor=north] (CR) at (0,0) {Class\\Representative};
 \node [rectangle, draw, text width = 3cm, align = center, rotate=90,anchor=north] (Sig) at($(CR.south)+(1,0)$) {Signaling};
 \node [rectangle, draw, text width = 3cm, align = center, rotate=90,anchor=north] (DP) at($(Sig.south)+(1,0)$) {Dispersion\\Precompensation};

@@ -1,4 +1,4 @@
-\documentclass[border=1mm]{standalone}
+\documentclass[border=0mm]{standalone}
 \usepackage{pgfplots}
 \usepgfplotslibrary{groupplots}
 \pgfplotsset{compat=1.17}
@@ -26,14 +26,11 @@ plot coordinates {
 (0.3cm,0cm)        %% default is (0.3cm,0cm)
 (0.6cm,0cm)         %% default is (0.6cm,0cm)
 };%
-}
-}
-
-
-\pgfdeclarelayer{background layer}
-\pgfdeclarelayer{foreground layer}
-\pgfsetlayers{background layer,main,foreground layer}
-
+}%
+}%
+\pgfdeclarelayer{background layer}%
+\pgfdeclarelayer{foreground layer}%
+\pgfsetlayers{background layer,main,foreground layer}%
 \begin{tikzpicture}[
 ]
 \begin{semilogyaxis}[%
@@ -55,6 +52,7 @@ ylabel={BER},
 axis background/.style={fill=white},
 xmajorgrids,
 ymajorgrids,
+yminorgrids,
 %xtick={-33,-31,...,-5},
 %ytick={0,0.25,...,2.25},
 legend pos=north east

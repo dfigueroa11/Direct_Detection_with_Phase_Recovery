@@ -4,7 +4,6 @@
 \pgfplotsset{compat=1.17}
 \usepackage{xcolor}
 
-\begin{document}
 
 \definecolor{color1}{rgb}{0,0.4470,0.7410}
 \definecolor{color2}{rgb}{0.8500,0.3250,0.0980}
@@ -15,9 +14,13 @@
 
 \definecolor{lightblue}{RGB}{86,192,150}  % Define light blue color
 
-\pgfdeclarelayer{background layer}
-\pgfdeclarelayer{foreground layer}
-\pgfsetlayers{background layer,main,foreground layer}
+
+\begin{document}
+
+
+\pgfdeclarelayer{background layer}%
+\pgfdeclarelayer{foreground layer}%
+\pgfsetlayers{background layer,main,foreground layer}%
 
 \begin{tikzpicture}
 \begin{groupplot}[

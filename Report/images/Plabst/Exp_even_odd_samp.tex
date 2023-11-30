@@ -1,4 +1,4 @@
-\documentclass[border=1mm]{standalone}
+\documentclass[border=0mm]{standalone}
 \usepackage{pgfplots}
 \usepgfplotslibrary{groupplots}
 \pgfplotsset{compat=1.17}
@@ -10,7 +10,6 @@
 
 
 
-\begin{document}
 
 \pgfplotsset{
 compat=1.11,
@@ -22,14 +21,12 @@ plot coordinates {
 (0.3cm,0cm)         %% default is (0.6cm,0cm)
 };%
 }
-}
-
+}%
 \definecolor{lightblue}{RGB}{86,192,150}  % Define light blue color
-
-\pgfdeclarelayer{background layer}
-\pgfdeclarelayer{foreground layer}
-\pgfsetlayers{background layer,main,foreground layer}
-
+\pgfdeclarelayer{background layer}%
+\pgfdeclarelayer{foreground layer}%
+\pgfsetlayers{background layer,main,foreground layer}%
+\begin{document}
 \begin{tikzpicture}[
 declare function={
 	sinc(\x) = (\x == 0) * 1+
@@ -50,7 +47,7 @@ declare function={
     right,
   },
   legend style={draw=none,nodes={scale=0.4, transform shape}}
-]
+]%
 
 \addplot [thick,ycomb, domain=-2.5:2.5, samples=11, blue, mark=*] {sinc(x)};
 
@@ -67,7 +64,7 @@ declare function={
 \coordinate (p10) at (axis cs: 2.5,0);
 
 
-\end{axis}
+\end{axis}%
 
 \draw [fill]  ($(p5)+(0,-.8)$) circle (1.5pt) node (point) {};
 
@@ -130,8 +127,7 @@ declare function={
 \node [rotate=90, anchor=west] at ($(sqle)+(0,0.8)$) {SQL detector};
 \node [rotate=90, anchor=west] at ($(even)+(0,0.8)$) {Noiseless samples};
 
-\end{tikzpicture}
-
+\end{tikzpicture}%
 \end{document}
 
 

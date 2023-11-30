@@ -1,5 +1,5 @@
 \PassOptionsToPackage{dvipsnames}{xcolor}
-\documentclass[border=3mm]{standalone}
+\documentclass[border=0mm]{standalone}
 \usepackage{pgfplots}
 \usepgfplotslibrary{groupplots}
 \pgfplotsset{compat=1.17}
@@ -22,8 +22,6 @@
 \definecolor{color4}{rgb}{0.4940,0.1840,0.5560}
 \definecolor{color5}{rgb}{0.4660,0.6740,0.1880}
 
-\begin{document}
-
 \pgfplotsset{
 compat=1.11,
 legend image code/.code={
@@ -42,6 +40,8 @@ plot coordinates {
 \pgfdeclarelayer{foreground layer}
 \pgfsetlayers{background layer,main,foreground layer}
 
+
+\begin{document}
 \begin{tikzpicture}[
 declare function={
 	func(\x,\b)= and(\x >= -(1-\b)/2, \x<= (1-\b)/2) * 2/sqrt(4-\b) + 
