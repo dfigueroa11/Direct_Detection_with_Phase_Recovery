@@ -3,15 +3,10 @@
 \label{ch:Plabst}
 \newcommand{\PlabstImage}[1]{images/Plabst/#1}
 
-% system model (ct)
-% system model (dt)
-% SYMBOL-WISE MAP DETECTION
-% numerical results 
-% new constellation
 
-The other solution considered to the problem of phase recovery is the proposed by Plabst in the paper \cite{Plabst_DD}. There the authors try to improve the two drawbacks of the Tukey signaling scheme. First they considered an arbitrary pulse wave form, and in particular they experimented with raised cosine waveforms, with the objective to improve the spectral efficiency. Second they propose a discrete time model, which allows the use of a digital system with oversampling factor of only two.\\
+The other solution considered for the phase recovery problem is the one proposed by Plabst in the paper \cite{Plabst_DD}. The authors try to improve the two drawbacks of the Tukey signaling scheme. First, they considered an arbitrary pulse waveform, and in particular, they experimented with raised cosine waveforms to improve the spectral efficiency. Second, they propose a discrete-time model, which allows the use of a digital system with an oversampling factor of only two.
 
-The proposed system model can be seen in figure \ref{fig:Plabst_system_model}. In the following sections we will explain the system model, both in continuous time and in discrete time, as well as the detector used to determine an upper bound limit of the performance of the system.
+The proposed system model can be seen in figure \ref{fig:Plabst_system_model}. In the following sections, we will explain the system model, both in continuous and discrete time, and the detector used to determine an upper bound limit of the system's performance.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -27,12 +22,12 @@ The proposed system model can be seen in figure \ref{fig:Plabst_system_model}. I
 
 \subsubsection{Differential encoder}
 
-As it was mentioned in chapter \ref{ch:Tukey_signaling} the DD generate some ambiguities, and one way to eliminate them is by using differential encoding \cite{Plabst_DD,Plabst_SIC,Secondini}. As suggested in \cite{Plabst_SIC} the phase encoding is done by a function that receive as an input a vector of symbols $\bm u$ and outputs a vector of symbols $\bm x=f_\text{dif}(\bm u)$ with the same magnitude as the symbols in $\bm u$, and a given phase based on a set of conditions, the phase of the input symbol and the phase of the last output  symbol and, as shown for example in the figure \ref{fig:diff_encoding} for a M-ASK constellation.
+As it was mentioned in chapter \ref{ch:Tukey_signaling} the DD generates some ambiguities, and one way to eliminate them is by using differential encoding \cite{Plabst_DD,Plabst_SIC,Secondini}. As suggested in \cite{Plabst_SIC}, the phase encoding is done by a function that receives as an input a vector of symbols $\bm u$ and outputs a vector of symbols $\bm x=f_\text{diff}(\bm u)$ with the same magnitude as the symbols in $\bm u$, and a given phase based on a set of conditions, the phase of the input symbol and the phase of the last output symbol, as shown for example in figure \ref{fig:diff_encoding} for a M-ASK constellation.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{\PlabstImage{diff_map_M_ASK.pdf}}
-\caption{Differential phase mapper example for M-ASK. Based on \cite{Plabst_SIC}}
+\caption{Differential phase mapper example for M-ASK. Based on \cite{Plabst_SIC}.}
 \label{fig:diff_encoding}
 \end{center}
 \end{figure}
@@ -46,10 +41,10 @@ The transmitter receives as input a sequence $\bm x=\{x_0,\dotsc,x_{n-1}\}$ of i
 x(t)=\sum_{k=0}^{n-1}x_k\cdot g_\text{tx}(t-iT)
 \label{eq:Plabst_signaling_block}
 \end{equation}
-where $T$ is the inverse of the symbol rate, $x_i\in\mathcal K$, and $g_\text{tx}(t)$ is the pulse waveform.\\
+where $T$ is the inverse of the symbol rate, $x_i\in\mathcal K$, and $g_\text{tx}(t)$ is the pulse waveform.
 
 
-Common pulse waveforms are raised cosine pulses, of particular interest is the case for roll off factor $\alpha=0$, that is:
+Common pulse waveforms are raised cosine pulses. Of particular interest is the case for roll-off factor $\alpha=0$, that is:
 \begin{align}
 	g_\text{tx}&=\frac{t}{T_s}\text{sinc}\left(\frac{1}{T_s}\right)
 	\label{eq:sinc_pulse_TD}\\
@@ -64,19 +59,19 @@ Common pulse waveforms are raised cosine pulses, of particular interest is the c
 
 \subsubsection{Fiber Optic Link}
 
-The channel considered is a optic fiber that only presents chromatic dispersion, characterized in frequency domain by \cite{Plabst_DD}:
+The channel considered is an optic fiber that only presents chromatic dispersion, characterized in the frequency domain by \cite{Plabst_DD}:
 \begin{equation}
 H_L(f)=e^{j2\beta_2L\pi^2f^2}
 \end{equation}
 where $\beta_2$ is the group-velocity dispersion parameter and $L$ is the fiber length.
 
 \subsubsection{Receiver}
-The receiver consist of a photodiode, whose output is given by:
+The receiver consists of a photodiode, whose output is given by:
 \begin{equation}
 z(t)=|x_L(t)|^2
 \end{equation}
 
-The photodiode noise is modeled as a real valued white gaussian process with spectral density $N_0/2$ \cite{Plabst_DD}, representing the thermal noise. Finally the receiver has a band limited sampler, with impulse response  
+The photodiode noise is modeled as a real-valued white Gaussian process with spectral density $N_0/2$ \cite{Plabst_DD}, representing the thermal noise. Finally, the receiver has a band-limited sampler, with an impulse response given by: 
 \begin{align}
 	g_\text{rx}&=2B\text{sinc}\left(2Bt\right)\\
 	G_\text{rx}&=\left\{
@@ -93,21 +88,21 @@ where $B$ is the symbol rate given by $B=1/T_s$ \cite{Plabst_DD}.
 \subsection{Discrete time Model}
 
 \subsubsection{Discrete signal notation}
-For the discrete time model, a receiver with sampling rate $1/T'_s=2B$ is considered (in this section the super index $'$ denotes a variable of the oversampled system), that is an oversampling factor of $N_\text{os}=T_s/T'_s=2$, meaning 2 samples per transmitted symbol \cite{Plabst_DD}.\\
+For the discrete-time model, a receiver with sampling rate $1/T'_s=2B$ is considered (in this section, the super index $'$ denotes a variable of the oversampled system), that is an oversampling factor of $N_\text{os}=T_s/T'_s=2$, meaning two samples per transmitted symbol \cite{Plabst_DD}.
 
-Let $\bm x'=\{0,x_0,\dotsc0,x_{n-1}\}$ and $\bm y'=\{y_0,\dotsc,y_{2n-1}\}$ be the upsampled sequence at the transmitter and receiver, they are related by \cite{Plabst_DD}:
+Let $\bm x'=\{0,x_0,\dotsc0,x_{n-1}\}$ and $\bm y'=\{y_0,\dotsc,y_{2n-1}\}$ be the upsampled sequence at the transmitter and receiver, so they are related by \cite{Plabst_DD}:
 \begin{align}
 y'_k&=z'_k+n'_k \\
 z'_k&=\left(|x_L(t)|^2*g_\text{rx}(t)\right)_{t=kT'_s}
 \end{align}
-where $n_k\sim\mathcal N(0,\sigma_N^2)$ and $\sigma_N^2=N_0B$.\\
+where $n_k\sim\mathcal N(0,\sigma_N^2)$ and $\sigma_N^2=N_0B$.
 
-Now define the combined impulse response of the pulse shaping filter, and the channel response as $\uppsi(t)=g_\text{tx}(t)*h_L(t)$ and the discrete version of it $\uppsi_k=\uppsi(kT'_s)$, then \cite{Plabst_DD}:
+Now let us define the combined impulse response of the pulse shaping filter and the channel response as $\uppsi(t)=g_\text{tx}(t)*h_L(t)$ and the discrete version of it $\uppsi_k=\uppsi(kT'_s)$, then \cite{Plabst_DD}:
 \begin{equation}
 x_L(kT'_s)=\sum_{m=0}^{2n-1}\uppsi_mx'_{k-m}
 \end{equation}
 
-Finally notice that, for the special case when the pulse shape is the sinc pulse in equations \ref{eq:sinc_pulse_TD} and \ref{eq:sinc_pulse_FD}, $|x_L(t)|^2*g_\text{rx}=|x_L(t)|^2$, so:
+Finally, notice that, for the special case when the pulse shape is the sinc pulse in equations \ref{eq:sinc_pulse_TD} and \ref{eq:sinc_pulse_FD}, $|x_L(t)|^2*g_\text{rx}=|x_L(t)|^2$, so:
 \begin{equation}
 z'_k=\left|\sum_{m=0}^{2n-1}\uppsi_mx'_{k-m}\right|^2
 \end{equation}
@@ -115,7 +110,7 @@ z'_k=\left|\sum_{m=0}^{2n-1}\uppsi_mx'_{k-m}\right|^2
 
 \subsubsection{Vector matrix notation}
 
-Now if we think in the signals as column vectors:
+Now, if we think of the signals as column vectors:
 \begin{align*}
 	\bm x'&=\bigl[0,x_0,\dotsc,0,x_{n-1}\bigr]^T &&\in\mathds C^{2n\times1}\\
 	\bm z'&=\bigl[z_0,\dotsc,z_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}\\
@@ -123,7 +118,7 @@ Now if we think in the signals as column vectors:
 	\bm y'&=\bigl[y_0,\dotsc,y_{2n-1}\bigr]^T &&\in\mathds R^{2n\times1}
 \end{align*}
 
-Also consider that $\uppsi$ is time limited, so $\uppsi_m$ is zero outside some interval $[0,M-1]$, and define the Toeplitz matrix
+And consider that $\uppsi$ is time limited, so $\uppsi_m$ is zero outside some interval $[0,M-1]$, let us define the Toeplitz matrix
 $\bm \Uppsi \in\mathds C^{2n\times(2n+M-1)}$ as:
 \begin{equation}
 	\bm \Uppsi = \begin{bmatrix}
@@ -140,10 +135,10 @@ Finally define the channel state $\bm s_0$ as:
 \begin{equation}
 \bm{s}'_0=[0,x_{-\widetilde{M}},0,x_{1-\widetilde{M}},\dotsc,0,x_{-1}]^T \in \mathds{C}^{(M-1)\times1}
 \end{equation}
-where $\widetilde{M}$ is the memory channel in terms of the transmitted symbols and is given by $\widetilde{M}=(M-1)/2$.\\
+where $\widetilde{M}$ is the memory channel in terms of the transmitted symbols and is given by $\widetilde{M}=(M-1)/2$.
 
 
-With the previous definitions the output of the square law detection is given by:
+With the previous definitions, the output of the square law detection is given by:
 \begin{align*}
 	\bm z' = \left|\bm \Uppsi \left[
 \begin{array}{c}
@@ -153,9 +148,9 @@ With the previous definitions the output of the square law detection is given by
 \right]
 \right|^{\circ2} = \left|\bm{ \Uppsi \tilde{x'}}\right|^{\circ2} \qquad \in\mathds{R}^{2n}
 \end{align*}
-where $|\cdot|^{\circ2}$ is the element wise $|\cdot|^2$ operator.\\
+where $|\cdot|^{\circ2}$ is the element wise $|\cdot|^2$ operator.
 
-Finally  the complete discrete time system model including the Gaussian noise is given by \cite{Plabst_DD}:
+Finally, the complete discrete-time system model, including the Gaussian noise, is given by \cite{Plabst_DD}:
 \begin{align*}
 	\bm y' = \bm z' + \bm n' = \left|\bm{ \Uppsi \tilde{x'}}\right|^{\circ2} +\bm n' \qquad \in \mathds{R}^{2n}
 \end{align*}
@@ -174,20 +169,20 @@ For convenience one can concatenate the $k$-th and $(k+1)$-th sample in a new ve
 \label{eq:y_even_odd}
 \end{align}
 
-The reason for group two samples can be understood by looking at the figure \ref{fig:Exp_even_odd_samp}. There the convolution and the SQL detector is represented for an even and odd sample, in the case of link length $L=0$. For this choice of wave form, the even sample is an ISI-free sample, and carries information about the magnitude of a past symbol; in contrast the odd sample experience ISI, and hence somehow carries information about the phases of the symbols.  
+The reason for group two samples can be understood by looking at the figure \ref{fig:Exp_even_odd_samp}. The convolution and the SQL detection are represented for an even and odd sample in the case of link length $L=0$. For this choice of waveform, the even sample is an ISI-free sample and carries information about the magnitude of a past symbol; in contrast, the odd sample experiences ISI and, hence, somehow has information about the phases of the symbols.  
 
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.9\textwidth]{\PlabstImage{Exp_even_odd_samp.pdf}}
-\caption{Signals for oversampling factor $N_\text{os} = 2$. Based on \cite{Plabst_DD}}
+\caption{Signals for oversampling factor $N_\text{os} = 2$. Based on \cite{Plabst_DD}.}
 \label{fig:Exp_even_odd_samp}
 \end{center}
 \end{figure}
 
 \subsection{Symbol-wise MAP detection}
 
-To evaluate the optimal performance of the system, in \cite{Plabst_DD} is proposed a decoder based on the maximum a posteriori that decides the transmitted symbol based on the a posteriori probabilities (APP) $p(x_k|\bm y')$. Since the APPs are proportional to $p(x_k,\bm y')$ because $p(\bm y')$ is constant with respect to the decision, the MAP rule becomes \cite{Plabst_DD}:
+To evaluate the optimal performance of the system, in \cite{Plabst_DD} is proposed a decoder based on the maximum a posteriori rule that decides the transmitted symbol based on the a posteriori probabilities (APP) $p(x_k|\bm y')$. Since the APPs are proportional to $p(x_k,\bm y')$ because $p(\bm y')$ is constant with respect to the decision, the MAP rule becomes \cite{Plabst_DD}:
 \begin{equation}
 \hat{x}_k=\argmax_{x_k}p(x_k,\bm y')
 \label{eq:MAP_deco}
@@ -197,14 +192,14 @@ as a reminder, $\bm y'$  is the hole vector of received  samples, i.e. $\bm y'=\
 p(x_k,\bm y')=\sum_{s_0}\sum_{\bm x\backslash x_k} p(s_0,\bm x, \bm y')
 \label{eq:APPs}
 \end{equation}
-and $\sum_{\bm x\backslash x_k}$ denotes a sum over all possible vectors $\bm x$  but where the $k$-th position is fixed.\\
+and $\sum_{\bm x\backslash x_k}$ denotes a sum over all possible vectors $\bm x$  but where the $k$-th position is fixed.
 
-This APPs can be efficiently computed with the Forward-Backward Algorithm or BCJR algorithm with the factor graph shown in figure \ref{fig:BCJR} and the following recursive equations \cite{Plabst_DD}:
+These APPs can be efficiently computed with the Forward-Backward Algorithm or BCJR algorithm with the factor graph shown in figure \ref{fig:BCJR} and the following recursive equations \cite{Plabst_DD}:
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=\textwidth]{\PlabstImage{BCJR.pdf}}
-\caption{Factor graph to implement the BCJR. Based on \cite{Plabst_DD}}
+\caption{Factor graph to implement the BCJR. Based on \cite{Plabst_DD}.}
 \label{fig:BCJR}
 \end{center}
 \end{figure}
@@ -219,9 +214,9 @@ This APPs can be efficiently computed with the Forward-Backward Algorithm or BCJ
 	p(x_k,\bm y')&=\sum_{\bm s_{k-1}}\sum_{\bm s_k}\vv{\mu}(\bm s_{k-1})\cdot p(x_k,\bm y_k,\bm s_k|\bm s_{k-1})\cdot\cev{\mu}(\bm s_{k})&&\text{APP}
 	\label{eq:APP}
 \end{align}
-where $k=1,\dotsc,n$, $\vv{\mu}(\bm s_0)=p(\bm s_0)$ and $\cev{\mu}(\bm s_n)=p(\bm s_n)$.\\
+where $k=1,\dotsc,n$, $\vv{\mu}(\bm s_0)=p(\bm s_0)$ and $\cev{\mu}(\bm s_n)=p(\bm s_n)$.
 
-Finally the likelihood is given by \cite{Plabst_DD}:
+Finally, the likelihood is given by \cite{Plabst_DD}:
 \begin{equation}
 p(x_k,\bm y_k,s_k|\bm s_{k-1})=\underbrace{p(\bm y_k|x_k,\bm s_{k-1})}_{(a)}\;
 \underbrace{p(\bm s_k|x_k,\bm s_{k-1})}_{(b)}\;
@@ -235,9 +230,9 @@ where $(a)$ is:
 	p(y_k^\text{o}|x_k,\bm s_{k-1})&=p_N\left(y_k^\text{o}-\left| [x_{k-\widetilde{M}},0,\cdots,x_{k-1},0,x_{k}]\cdot\uppsi\right|^2\right)
 	\label{eq:likelihood_odd}
 \end{align}
-The term $(b)$ is 1 if the state transition from $\bm s_{k-1}$ to $\bm s_{k}$ is possible and 0 otherwise, and $(c)$ is $p(x_k|\bm s_{k-1})=p(x_k)$ since the symbols are i.i.d. \cite{Plabst_DD}.\\
+The term $(b)$ is 1 if the state transition from $\bm s_{k-1}$ to $\bm s_{k}$ is possible and 0 otherwise, and $(c)$ is $p(x_k|\bm s_{k-1})=p(x_k)$ since the symbols are i.i.d. \cite{Plabst_DD}.
 
-Additionally, since using differential encoding is recommended to avoid ambiguities, one can include the differential decoding in the BCJR algorithm by including the fact that $\bm x=f_\text{diff}(\bm u)$ in the factor graph \cite{Plabst_DD}. That is done by doing the summations in equations \ref{eq:FW}, \ref{eq:BW} and \ref{eq:APP} over all $u_k$ instead of $x_k$ (which in terms of the algorithm makes no change), and defining the states of equations \ref{eq:likelihood_even} and \ref{eq:likelihood_odd} in terms of the $\bm u$, that means replacing $\bm x$ by $f_\text{diff}(\bm u)$ (for more details see the algorithm used in \cite{Wang}).  
+Additionally, since using differential encoding is recommended to avoid ambiguities, one can include the differential decoding in the BCJR algorithm by including the fact that $\bm x=f_\text{diff}(\bm u)$ in the factor graph \cite{Plabst_DD}. That is done by doing the summations in equations \ref{eq:FW}, \ref{eq:BW} and \ref{eq:APP} overall $u_k$ instead of $x_k$ (which in terms of the algorithm makes no change), and defining the states of equations \ref{eq:likelihood_even} and \ref{eq:likelihood_odd} in terms of the $\bm u$, that means replacing $\bm x$ by $f_\text{diff}(\bm u)$ (for more details see the algorithm used in \cite{Wang}).  
 
 
 \section{Numerical simulation}
@@ -258,53 +253,53 @@ link lengths $L$&\SI{0}{km}\\\hline
 Baud rate $B$& \SI{35}{Gbaud}\\\hline
 \end{tabular}
 \end{center}
-\caption{Simulation parameters. Taken from \cite{Plabst_DD}}
+\caption{Simulation parameters. Taken from \cite{Plabst_DD}.}
 \label{tab:sim_Plabst}
 \end{table}%
 
 
 
-For the pulse shaping filter we used a sinc pulse with sampling rate of $2B$. Since the complexity of the decoder grows exponentially with the length of the filter we could not use in the decoder the complete signal $\uppsi(t)$, instead of that we use an auxiliary channel for the decoding process, that considers only a window of the real channel as shown in figure \ref{fig:aux_channel}. That means, we simulated the transmission with a channel with memory (in terms of the transmitted symbols) of $\widetilde{M}$, i.e. $M=2\widetilde{M}+1$ taps, but decode with an auxiliary channel with memory $\widetilde{N}$ i.e.  $N=2\widetilde{N}+1$ taps. 
+For the pulse shaping filter, we used a sinc pulse with a sampling rate of $2B$. Since the complexity of the decoder grows exponentially with the length of the filter, we could not use in the decoder the complete signal $\uppsi(t)$, instead of that we use an auxiliary channel for the decoding process that considers only a window of the real channel as shown in figure \ref{fig:aux_channel}. That means, we simulated the transmission with a channel with memory (in terms of the transmitted symbols) of $\widetilde{M}$, i.e. $M=2\widetilde{M}+1$ taps, but decode with an auxiliary channel with memory $\widetilde{N}$ i.e. $N=2\widetilde{N}+1$ taps. 
 
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{\PlabstImage{aux_channel.pdf}}
-\caption{Simulated and auxiliary channel. Based on \cite{Plabst_DD}}
+\caption{Simulated and auxiliary channel. Based on \cite{Plabst_DD}.}
 \label{fig:aux_channel}
 \end{center}
 \end{figure}
 
-For the constellations we choose 3 different constellations, BPSK, 4-QAM and DD-SQAM, a specially designed constellation,  shown in figure \ref{fig:DD_SQAM_constellation}, with the objective to mitigate the ambiguities that arise from the DD. As pointed out in section \ref{sec:ambiguities}, constellations with high symmetry produce a lot of ambiguities, and the DD process only distinguish on the phase difference between symbols trough the cosine of the phase difference, so when designing the DD-SQAM constellation we reduced the symmetry, and separate the cosine of the angle between symbols as much as possible, that is why we use the special angle $\phi=\arccos(1/3)$.\\
+For the constellations, we choose three different constellations, BPSK, 4-QAM, and DD-SQAM, a specially designed constellation,  shown in figure \ref{fig:DD_SQAM_constellation}, to mitigate the ambiguities that arise from the DD. As pointed out in section \ref{sec:ambiguities}, constellations with high symmetry produce a lot of ambiguities, and the DD process only distinguishes the phase difference between symbols through the cosine of the phase difference, so when designing the DD-SQAM constellation, we reduced the symmetry, and separate the cosine of the angle between symbols as much as possible, that is why we use the particular angle $\phi=\arccos(1/3)$.
 
-\begin{figure}[htbp]
+\begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=0.4\textwidth]{\PlabstImage{DD_SQAM_constellation.pdf}}
+\includegraphics[width=0.38\textwidth]{\PlabstImage{DD_SQAM_constellation.pdf}}
 \caption{DD-SQAM constellation.}
 \label{fig:DD_SQAM_constellation}
 \end{center}
 \end{figure}
 
-Finally we simulate for each constellation two scenarios, one when the auxiliary channel is much shorter than the actual channel, and the other when the auxiliary channel and the actual channel have the same length. The length of the auxiliary channel is chosen based on complexity criteria, we choose a relative large length, that still is computable in reasonable time. The results can be seen in figure \ref{fig:Plabst_result_SER}.\\
+Finally, we simulate two scenarios for each constellation, one when the auxiliary channel is much shorter than the actual channel and the other when the auxiliary and the actual channels have the same length. The length of the auxiliary channel is chosen based on complexity criteria; we choose a relatively large length that is still computable in a reasonable time. The results can be seen in figure \ref{fig:Plabst_result_SER}.
 
-\begin{figure}[htbp]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{\PlabstImage{Plabst_result_SER.pdf}}
-\caption{Symbol error rate vs SNR for different constellations, and different channel lengths.}
+\caption{Symbol error rate vs SNR for different constellations and channel lengths.}
 \label{fig:Plabst_result_SER}
 \end{center}
 \end{figure}
 
-Looking at the figure \ref{fig:Plabst_result_SER} we can notice that the simulations with a channel miss-match ($\widetilde{N}<\widetilde{M}$) have an error floor, this is due to the ISI that is not considered by the BCJR decoder, so even increasing the SNR the SER do not improve, because the main source of ``noise'' is the ISI.\\
+Looking at the figure \ref{fig:Plabst_result_SER}, we can notice that the simulations with a channel miss-match ($\widetilde{N}<\widetilde{M}$) have an error floor, this is due to the ISI that is not considered by the BCJR decoder, so even increasing the SNR, the SER does not improve, because the main source of ``noise'' is the ISI.
 
-It is also important to notice that the QAM constellation with $\widetilde{N}=\widetilde{M}$ also have an error floor at 2.5 approximately, this is caused by the ambiguities generated by the DD for the case of the QAM constellation. Even with differential encoding there is still ambiguities $1/4$ of the time, because a phase change of $\pi$ or $0$ can be distinguished, but a phase change of $\pm\pi/2$ can not. Finally it is important to notice that the BPSK and DD-SQAM constellations do not have an error floor when $\widetilde{N}=\widetilde{M}$, this shows that this constellations when used with differential encoding do not generate ambiguities.
+It is also important to notice that the QAM constellation with $\widetilde{N}=\widetilde{M}$ also has an error floor at approximately 0.25; this is caused by the ambiguities generated by the DD for the case of the QAM constellation. Even with differential encoding, there are still ambiguities $1/4$ of the time because a phase change of $\pi$ or $0$ can be distinguished, but a phase change of $\pm\pi/2$ can not. Finally, it is important to notice that the BPSK and DD-SQAM constellations do not have an error floor when $\widetilde{N}=\widetilde{M}$. This shows that these constellations do not generate ambiguities when used with differential encoding.
 
 
 \section{Discussion}
 
-The system proposed in \cite{Plabst_DD} compared with the system proposed in \cite{Tasbihi_Tukey} has the advantages of using a wave form with smaller bandwidth, that increase the spectral efficiency \cite{Plabst_DD}, and also represent a simpler system compatible with a digital system with oversampling factor of only 2, which is very desirable. However the problem of finding a good decoder with feasible complexity is still open. \\
+The system proposed in \cite{Plabst_DD} compared with the system proposed in \cite{Tasbihi_Tukey} has the advantage of using a waveform with a smaller bandwidth that increases the spectral efficiency \cite{Plabst_DD}, and also represents a simpler system compatible with a digital system with an oversampling factor of only 2, which is very desirable. However, the problem of finding a good decoder with feasible complexity is still open. 
 
-For this reason we use this system as a base to formulate a machine learning based decoder which will be discussed in the next chapter.
+For this reason, we use this system as a base to formulate a machine learning-based decoder, which will be discussed in the next chapter.
 
 
 

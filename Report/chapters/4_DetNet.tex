@@ -3,33 +3,30 @@
 \newcommand{\DetNetImage}[1]{images/DetNet/#1}
 
 
-% explicar DetNet
-% explicar adaptación a DD (final)
-% resultados 
-
-The decoder we try to implement is based on the DetNet decoder proposed in \cite{Neev_2017,Neev_2019}, there the authors propose a  machine learning based architecture for a MIMO AWGN linear channel. In those papers the authors noticed that the detection problem is equivalent to the following minimization problem in the MIMO case \cite{Neev_2017}:
+We try to implement a decoder based on the DetNet decoder proposed in \cite{Neev_2017,Neev_2019}. There, the authors propose a  machine learning-based architecture for a MIMO AWGN linear channel. In those papers, the authors noticed that the detection problem is equivalent to the following minimization problem in the MIMO case \cite{Neev_2017}:
 \begin{align}
 	\hat{\bm x} = \arg \min_{\bm{x} \in \mathcal{K}^{n}} \left\lVert \bm y - \bm{H}\bm{x}  \right\rVert^2
 	\label{eq:MIMO}
 \end{align}
- and hence it may be solved by gradient descent. However the solution found by gradient descent could be invalid, because the vector $\hat{\bm x}$ may not belong to $\mathcal K^n$. Thats way the authors propose a projected gradient descent, where in every iteration the new estimated vector is somehow projected in $\mathcal K^n$. With this in mind, the authors in \cite{Neev_2017,Neev_2019} proposed to unfold the iterations of the gradient descent, and perform each iteration with a layer of a neural network, and at the end have a estimation of the vector $\hat{\bm x}$.\\
- 
-As reported in \cite{Neev_2017,Neev_2019}, the performance of the architecture is as gut as the state of the art decoders, but at least 30 times faster, what makes architecture promising.\\
 
-The reason for trying this architecture, is the similitude if the MIMO problem (equation \ref{eq:MIMO}) ant the DD problem:
+ Hence, it may be solved by gradient descent. However, the solution found by gradient descent could be invalid because the vector $\hat{\bm x}$ may not belong to $\mathcal K^n$. That is why the authors propose a projected gradient descent, where in every iteration, the new estimated vector is somehow projected in $\mathcal K^n$. With this in mind, the authors in \cite{Neev_2017,Neev_2019} proposed to unfold the iterations of the gradient descent and perform each iteration with a layer of a neural network, and at the end have an estimation of the vector $\hat{\bm x}$.
+ 
+As reported in \cite{Neev_2017,Neev_2019}, the performance of the architecture is as gut as the state-of-the-art decoders, but at least 30 times faster, which makes the architecture promising.
+
+The reason for trying this architecture is the similitude of the MIMO problem (equation \ref{eq:MIMO}) and the DD problem:
 \begin{align}
 	\hat{\bm{\tilde{x}}'} = \arg \min_{\bm{\tilde{x}'} \in \mathds{K}^{2n}} \left\lVert \bm y - \left|\bm{\Uppsi}\bm{\tilde{x}'}  \right|^{\circ2}\right\rVert^2
 \end{align}
-where the main difference is the non linear $|\cdot|^{\circ2}$ operator. Which is not an impediment to implementing the DetNet architecture.\\
+where the main difference is the non linear $|\cdot|^{\circ2}$ operator. Which does not impede the implementation of the DetNet architecture.
 
-In the following sections we will follow the steps done in \cite{Neev_2019} to propose an architecture for the DD problem based on the system model presented in chapter \ref{ch:Plabst}, and present some numerical simulation results.
+In the following sections, we will follow the steps in \cite{Neev_2019} to propose an architecture for the DD problem based on the system model presented in chapter \ref{ch:Plabst}, and give some numerical simulation results.
 
 
 \section{Separation in even and odd subchannel}
 
-The first thing we do to cast the problem for the DetNet architecture is to separate the hole system into two subchannels. For doing so we take advantage of the oversampling factor of 2, and distinction of even and odd samples done in equations \ref{eq:z_even_odd} and \ref{eq:y_even_odd}.\\
+The first thing we do to cast the problem for the DetNet architecture is to separate the hole system into two subchannels. For doing so, we take advantage of the oversampling factor of 2 and distinction of even and odd samples done in equations \ref{eq:z_even_odd} and \ref{eq:y_even_odd}.
 
-For doing that start from the not upsampled $\bm x$ and $\bm s_0$ vector: 
+For doing that we started from the not upsampled $\bm x$ and $\bm s_0$ vector: 
 \begin{align}
 	\bm x &= \begin{bmatrix}x_0&x_1&\cdots& x_{n-1}\end{bmatrix}^T && \in \mathds{C}^{n}\\
 	\bm{s}_0&=\begin{bmatrix}x_{-\widetilde{M}}&x_{1-\widetilde{M}}&\cdots&x_{-1}\end{bmatrix}^T && \in\mathds{C}^{\widetilde{M}}\\
@@ -54,7 +51,7 @@ and define the following subchannel matrices:
 				&&&&&\uppsi_{M-2}&\cdots&\cdots&\uppsi_1&0\\
 			     \end{bmatrix}&&\in \mathds{C}^{n\times(n+\widetilde{M})}
 \end{align}
-with this definitions the problem transforms  into:
+with these definitions, the problem transforms  into:
 \begin{align}
 	\begin{bmatrix}
 		\bm y_\text{e}&\bm y_\text{o}
@@ -73,7 +70,7 @@ with this definitions the problem transforms  into:
 		\bm n_\text{e}&\bm n_\text{o}
 	\end{bmatrix} \\
 \end{align}
-which can be separated into the tow independent and fictitious channels:
+which can be separated into two independent and fictitious channels:
 \begin{align}
 	\bm y_\text{e} &= \bm z_\text{e} +\bm n_\text{e}= \left|\bm{ \Uppsi_\text{e} \tilde{x}}\right|^{\circ2}+\bm n_\text{e}&&\in\mathds{R}^n\\
 	\bm y_\text{o} &= \bm z_\text{o} +\bm n_\text{o}= \left|\bm{ \Uppsi_\text{o} \tilde{x}}\right|^{\circ2}+\bm n_\text{o}&&\in\mathds{R}^n
@@ -82,7 +79,7 @@ which can be separated into the tow independent and fictitious channels:
 
 \section{Real and imaginary reparametrization}
 
-In order to be able to work with the Pytorch framework, we  cast the original problem, that have complex numbers, in one problem that is completely real, for doing  that we redefine $\bm{\Uppsi_\text{e,ML}}$, $\bm{\Uppsi_\text{o,ML}}$ and $\bm{ \tilde{x}_\text{ML}}$ as suggested in \cite{Neev_2019} (where the subindex ``ML'' stands for machine learning):
+To be able to work with the Pytorch framework, we cast the original problem, which has complex numbers, in one problem that is completely real. For doing  that, we redefine $\bm{\Uppsi_\text{e,ML}}$, $\bm{\Uppsi_\text{o,ML}}$ and $\bm{ \tilde{x}_\text{ML}}$ as suggested in \cite{Neev_2019} (where the subindex ``ML'' stands for machine learning):
 \begin{align}
 	\bm{\Uppsi_\text{e,ML}}& = \begin{bmatrix}
 						\text{Re}\bigl\{ \bm{\Uppsi}_\text{e}\bigr\}&-\text{Im}\bigl\{ \bm{\Uppsi}_\text{e}\bigr\} \\
@@ -113,7 +110,7 @@ We also redefine the $|\cdot|^{\circ2}_\text{ML}$ operator as:
 	\end{bmatrix}
 \end{align}
 
-In this way the system model is completely reparametrized into an analogous and completely real valued problem:
+In this way, the system model is completely reparametrized into an analogous and completely real-valued problem:
 \begin{align}
 	\bm y_\text{e} &= \left|\bm{\Uppsi_\text{e,ML}\tilde{x}_\text{ML} } \right|^{\circ2}_\text{ML}+\bm n_\text{e}\qquad\in\mathds{R}^n\\
 	\bm y_\text{o} &= \left|\bm{\Uppsi_\text{o,ML}\tilde{x}_\text{ML} } \right|^{\circ2}_\text{ML}+\bm n_\text{o}\qquad\in\mathds{R}^n
@@ -123,9 +120,9 @@ In this way the system model is completely reparametrized into an analogous and 
 
 \section{MagPhase-DetNet architecture}
 
-Now we are going to construct the architecture of the decoder based on the machine Learning solution presented in \cite{Neev_2019}, hence from now on all, all the matrices and the $|\cdot|^{\circ2}$ operator are to be understand as the reparametrized version of the problem, that means as if they have the subscript ``ML'' even if they do not.\\
+Now we are going to construct the architecture of the decoder based on the machine Learning solution presented in \cite{Neev_2019}, hence, from now on, all the matrices and the $|\cdot|^{\circ2}$ operator are to be understood as the reparametrized version of the problem, that means as if they have the subscript ``ML'' even if they do not.
 
-The detection problem, according to de maximum likelihood criterion, is given by:
+The detection problem, according to the maximum likelihood criterion, is given by:
 \begin{align}
 	\hat{\bm{\tilde{x}}'} = \arg \min_{\bm{\tilde{x}'} \in \mathds{K}^{2n}} \left\lVert \bm y - \left|\bm{\Uppsi}\bm{\tilde{x}'}  \right|^{\circ2}\right\rVert^2
 \end{align}
@@ -134,18 +131,18 @@ which, using the separation of channels, is equivalent to:
 	\hat{\bm{\tilde{x}}} = \arg \min_{\bm{\tilde{x}} \in \mathds{K}^{n}}\left\{ \left\lVert \bm y_\text{e} - \left|\bm{\Uppsi}_\text{e}\bm{\tilde{x}}  \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi}_\text{o}\bm{\tilde{x}}  \right|^{\circ2}\right\rVert^2\right\}
 \end{align}
 
-Given this objective function, in \cite{Neev_2019} is recommended to use the gradient of the expression above in the architecture, so each layer of the DetNet should mimic one projected gradient descent step, that is:
+Given this objective function, in \cite{Neev_2019}, it is recommended to use the gradient of the expression above in the architecture, so each layer of the DetNet should mimic one projected gradient descent step, that is:
 \begin{align*}
 	\tilde{\bm x}_{k+1}&=\Pi\left(\tilde{\bm x}_{k}+\delta_k \nabla_{\bm{\tilde{x}}}\bm{f}(\bm{\tilde{x}}) \bigr|_{\bm{\tilde{x}=\tilde{x}_k}}\right)\\
 	\text{whith}\quad \bm{f}(\bm{\tilde{x}})&=\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi}_\text{e}\bm{\tilde{x}}  \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi}_\text{o}\bm{\tilde{x}}  \right|^{\circ2}\right\rVert^2
 \end{align*}
-where $\Pi(\cdot)$ is a nonlinear function that forces the gradient descent to be a possible solution, that means $\hat{\bm x}_{k+1}\in \mathds{K}^n$.\\
+where $\Pi(\cdot)$ is a nonlinear function that forces the gradient descent to be a possible solution, which means $\hat{\bm x}_{k+1}\in \mathds{K}^n$.
 
-However we try this approach with several small variations in the loss function  and the projection function, and we get no good results; this shows that the approach is not the best, so we had to find a better one.\\
+However, we tried this approach with several small variations in the loss function and the projection function, and we got no good results; this shows that the approach is not good, so we had to find a better one.
 
-We noticed that for the DD system it is really easy to detect the magnitude of the symbols (that is what a normal IM-DD system does) and the phase detection is the big problem. Also along all the studied papers is present the idea that one sample carries the information about the magnitude and the other carries, somehow, the information about the phase, even in \cite{Secondini} the magnitude detection, and phase detection are treated almost as separated tasks.\\
+We noticed that for the DD system, it is straightforward to detect the magnitude of the symbols (that is what a normal IM-DD system does), but the phase detection is the big problem. Also along all the studied papers is present the idea that one sample carries the information about the magnitude and the other carries, somehow, the information about the phase. Even in \cite{Secondini}, the magnitude and phase detection are treated almost as separate tasks.
 
- With this in mind we decided to separate a little bit the two tasks, so we propose the architecture shown on figure \ref{fig:magPhaseDetNet_architecture}. The idea is that on each layer we use one DetNet-based block to improve  the magnitude estimate (without changing the phase) followed by a DetNet-based block to improve  the phase estimate (without changing the magnitude) and concatenate many layers to get the final architecture.
+ With this in mind, we decided to separate the two tasks a little, so we propose the architecture shown in figure \ref{fig:magPhaseDetNet_architecture}. The idea is to use one DetNet-based block on each layer to improve the magnitude estimate (without changing the phase), followed by a DetNet-based block to improve the phase estimate (without changing the magnitude) and concatenate many layers to get the final architecture.
 
 
 
@@ -171,13 +168,13 @@ We noticed that for the DD system it is really easy to detect the magnitude of t
 
 \subsection{Magnitude phase reparametrization}
 
-Before defining the architecture in detail, we have to do a small reparametrization of $\bm x$ form cartesian to polar form as follows:
+Before defining the architecture in detail, we have to do a small reparametrization of $\bm x$ from cartesian to polar form as follows:
 \begin{align}
 	\tilde{\bm x}=\begin{bmatrix}\bm{r}\\\bm r\end{bmatrix}\odot\begin{bmatrix}\cos(\bm{\theta})\\\sin(\bm{\theta})\end{bmatrix}
 \end{align}
-with $\bm r,\bm\theta \in \mathds{R}^{n+\widetilde{M}}$ contains the magnitude and phase of each symbol, the cosine and sine are applied element wise, and the $\odot$ operator is the elementwise multiplication.\\
+with $\bm r,\bm\theta \in \mathds{R}^{n+\widetilde{M}}$ contains the magnitude and phase of each symbol, the cosine and sine are applied element-wise, and the $\odot$ operator is the elementwise multiplication.
 
-If we define $\bm R(\bm{r})= \begin{bmatrix}\bm{r}&\bm r\end{bmatrix}^T$ and $\bm w(\bm\theta)=\begin{bmatrix}\cos(\bm{\theta})&\sin(\bm{\theta})\end{bmatrix}^T$, the element wise product is equivalent to the next two matrix vector multiplications:
+If we define $\bm R(\bm{r})= \begin{bmatrix}\bm{r}&\bm r\end{bmatrix}^T$ and $\bm w(\bm\theta)=\begin{bmatrix}\cos(\bm{\theta})&\sin(\bm{\theta})\end{bmatrix}^T$, the element-wise product is equivalent to the next two matrix-vector multiplications:
 \begin{align}
 	\bm\tilde{X}=\bm R(\bm{r})\odot\bm w(\bm\theta)
 	=\text{diag}\bigl(\bm R(\bm{r})\bigr)\cdot \bm w(\bm\theta)
@@ -188,7 +185,7 @@ which are useful to calculate the gradients.
 
 \subsection{Magnitude DetNet block}
 
-For the magnitude block, each block should perform a gradient descent step with respecto to the magnitude of the symbols, and assuming the phases constant, hence the first step to define the block structure is to calculate the following gradient:
+For the magnitude block, each block should perform a gradient descent step with respect to the magnitude of the symbols, and assuming the phases constant, the first step to define the block structure is to calculate the following gradient:
  \begin{align}
 	&\nabla_{\bm r}\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi_\text{e}\tilde{x} } \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi_\text{o}\tilde{x} } \right|^{\circ2}\right\rVert^2\\
 	=&\nabla_{\bm r}\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi}_\text{e}\cdot\text{diag}\bigl(\bm w(\bm\theta)\bigr)\cdot\bm R(\bm r)  \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi}_\text{o}\cdot\text{diag}\bigl(\bm w(\bm\theta)\bigr)\cdot\bm R(\bm r)  \right|^{\circ2}\right\rVert^2
@@ -204,9 +201,10 @@ where
 \bm A_{\text{e},l}&=\begin{bmatrix}\text{diag}\bigl(\cos(\bm\theta)\bigr)&\text{diag}\bigl(\sin(\bm\theta)\bigr)\end{bmatrix}\cdot\bm\Uppsi_\text{e}^T\cdot\begin{bmatrix}\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_l\bigr]_0^n\right)\\\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_l \bigr]_{n}^{2n}\right)\end{bmatrix}\\
 \bm A_{\text{o},l}&=\begin{bmatrix}\text{diag}\bigl(\cos(\bm\theta)\bigr)&\text{diag}\bigl(\sin(\bm\theta)\bigr)\end{bmatrix}\cdot\bm\Uppsi_\text{o}^T\cdot\begin{bmatrix}\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{o}\bm{\tilde{x}}_l\bigr]_0^n\right)\\\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_l\bigr]_{n}^{2n}\right)\end{bmatrix}
 \end{align}
-where $[\cdot]_a^b$ denotes the the elements from position $a$ to $b$ (not included) of a vector, and the $l$ subindex denotes the $l$-th layer of the network.\\
+where $[\cdot]_a^b$ denotes the the elements from position $a$ to $b$ (not included) of a vector, and the $l$ subindex denotes the $l$-th layer of the network.
 
-Now following the procedure from \cite{Neev_2019}, we give the architecture of the magnitude network, where each layer is given by:
+Now, following the procedure from \cite{Neev_2019}, we give the architecture of the magnitude network, where each layer is given by:
+
 \begin{align}
 	\bm{r}_{l-1} &= \begin{bmatrix}\bm s_r\\\hat{\bm r}_{l-1}\end{bmatrix}\\
 	\bm{\theta}_{l-1} &= \begin{bmatrix}\bm s_\theta\\\hat{\bm \theta}_{l-1}\end{bmatrix}\\
@@ -220,21 +218,21 @@ Now following the procedure from \cite{Neev_2019}, we give the architecture of t
 	\hat{\bm{r}}_{0} &= \bm 0\\
 	\bm v_{\text{mag},0}&=\bm 0\\
 \end{align}
-where $\rho(\cdot)$ is the ReLu activation function, $\bm W$ a matrix and $\bm b$ a vector that together apply a linear transformation,  the function $\bm f_{\text{oh}}(\cdot)$ is as defined in \cite{Neev_2019} and $[\bm c]_m^\text{end}$ denotes the elements of $\bm c$ from $m$ to the last.\\
+where $\rho(\cdot)$ is the ReLu activation function, $\bm W$ a matrix and $\bm b$ a vector that together apply a linear transformation,  the function $\bm f_{\text{oh}}(\cdot)$ is as defined in \cite{Neev_2019} and $[\bm c]_m^\text{end}$ denotes the elements of $\bm c$ from $m$ to the last.
 
 The trainable parameters of the model are:
 \begin{align}
 	\bm \Theta_\text{mag} = \bigl\{\bm W_{1l},\bm b_{1l},\bm W_{2l},\bm b_{2l},\bm W_{3l},\bm b_{3l},\delta_{1l},\delta_{2l},\delta_{3l},\delta_{4l}  \bigr\}_{l=1}^L
 \end{align}
-where $L$ is the number of layers, and loss function used for training is:
+where $L$ is the number of layers, and the loss function used for training is:
 \begin{align}
-	\text{loss}(\bm r, \hat{\bm r}(\bm{\Uppsi}_\text{e},\bm{\Uppsi}_\text{e},\bm y_\text{e},\bm y_\text{o};\bm \Theta_\text{mag}))=\sum_{l=1}^L\log(l)\lVert \bm r-\hat{\bm{r}}_{l}\rVert^2
+	\text{loss}(\bm r, \hat{\bm r}(\bm{\Uppsi}_\text{e},\bm{\Uppsi}_\text{e},\bm y_\text{e},\bm y_\text{o},\bm s_r,\bm s_\theta;\bm \Theta_\text{mag}))=\sum_{l=1}^L\log(l)\lVert \bm r-\hat{\bm{r}}_{l}\rVert^2
 \end{align}
 
 
 \subsection{Phase DetNet block}
 
-For the phase block, each block should perform a gradient descent step with respecto to the phase of the symbols, so we follow the same procedure as for the magnitude block, and calculate the following gradient:
+For the phase block, each block should perform a gradient descent step with respect to the phase of the symbols, so we follow the same procedure as for the magnitude block and calculate the following gradient:
  \begin{align}
 	&\nabla_{\bm \theta}\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi_\text{e}\tilde{x} } \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi_\text{o}\tilde{x} } \right|^{\circ2}\right\rVert^2\\
 	=&\nabla_{\bm \theta}\left\lVert \bm y_\text{e} - \left|\bm{\Uppsi}_\text{e}\cdot\text{diag}\bigl(\bm R(\bm r)\bigr)\cdot\bm w(\bm \theta)  \right|^{\circ2}\right\rVert^2+\left\lVert \bm y_\text{o} - \left|\bm{\Uppsi}_\text{o}\cdot\text{diag}\bigl(\bm R(\bm r)\bigr)\cdot\bm w(\bm \theta)  \right|^{\circ2}\right\rVert^2
@@ -250,9 +248,9 @@ where
 \bm A_{\text{e},l}&=\begin{bmatrix}-\text{diag}\left(\bigl[\bm{\tilde{x}}_l\bigr]_{n}^{2n}\right)&\text{diag}\left(\bigl[\bm{\tilde{x}}_l\bigr]_0^{n\phantom{1}}\right)\end{bmatrix}\cdot\bm{\Uppsi}_\text{e}^T\cdot\begin{bmatrix}\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_l\bigr]_0^n\right)\\\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_l\bigr]_{n}^{2n}\right)\end{bmatrix}\\
 \bm A_{\text{e},l}&=\begin{bmatrix}-\text{diag}\left(\bigl[\bm{\tilde{x}}_l\bigr]_{n}^{2n}\right)&\text{diag}\left(\bigl[\bm{\tilde{x}}_l\bigr]_0^{n\phantom{1}}\right)\end{bmatrix}\cdot\bm{\Uppsi}_\text{e}^T\cdot\begin{bmatrix}\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_l\bigr]_0^n\right)\\\text{diag}\left(\bigl[2\bm{\Uppsi}_\text{e}\bm{\tilde{x}}_l\bigr]_{n}^{2n}\right)\end{bmatrix}
 \end{align}
-where $[\cdot]_a^b$ denotes the the elements from position $a$ to $b$ (not included) of a vector.\\
+where $[\cdot]_a^b$ denotes the the elements from position $a$ to $b$ (not included) of a vector.
 
-Now following the procedure from \cite{Neev_2019}, we give the architecture of the magnitude network, where each layer is given by:
+Now, following the procedure from \cite{Neev_2019}, we give the architecture of the phase network, where each layer is given by:
 \begin{align}
 	\bm{r}_{l-1} &= \begin{bmatrix}\bm s_r\\\hat{\bm r}_{l-1}\end{bmatrix}\\
 	\bm{\theta}_{l-1} &= \begin{bmatrix}\bm s_\theta\\\hat{\bm \theta}_{l-1}\end{bmatrix}\\
@@ -266,17 +264,17 @@ Now following the procedure from \cite{Neev_2019}, we give the architecture of t
 	\hat{\bm{\theta}}_{0} &= \bm 0\\
 	\bm v_{\text{phase},0}&=\bm 0\\
 \end{align}
-where $\rho(\cdot)$ is the ReLu activation function, $\bm W$ a matrix and $\bm b$ a vector that together apply a linear transformation, and  the function $\bm f_{\text{oh}}(\cdot)$ is as defined in \cite{Neev_2019}.\\
+where $\rho(\cdot)$ is the ReLu activation function, $\bm W$ a matrix and $\bm b$ a vector that together applies a linear transformation, and  the function $\bm f_{\text{oh}}(\cdot)$ is as defined in \cite{Neev_2019}.
 
 The trainable parameters of the model are:
 \begin{align}
 	\bm \Theta_\text{phase} = \bigl\{\bm W_{1l},\bm b_{1l},\bm W_{2l},\bm b_{2l},\bm W_{3l},\bm b_{3l},\delta_{1l},\delta_{2l},\delta_{3l},\delta_{4l}  \bigr\}_{l=1}^L
 \end{align}
-where $L$ is the number of layers, and loss function used for training is:
+where $L$ is the number of layers, and the loss function used for training is:
 \begin{align}
-	\text{loss}(\bm \theta, \hat{\bm \theta}(\bm{\Uppsi}_\text{e},\bm{\Uppsi}_\text{e},\bm y_\text{e},\bm y_\text{o};\bm \Theta_\text{phase}))=\sum_{l=1}^L\log(l)\lVert \bm \theta-g_\text{diff deco}(\hat{\bm{\theta}}_{l})\rVert^2
+	\text{loss}(\bm \theta, \hat{\bm \theta}(\bm{\Uppsi}_\text{e},\bm{\Uppsi}_\text{e},\bm y_\text{e},\bm y_\text{o},\bm s_r,\bm s_\theta;\bm \Theta_\text{phase}))=\sum_{l=1}^L\log(l)\lVert \bm \theta-g_\text{diff deco}(\hat{\bm{\theta}}_{l})\rVert^2
 \end{align}
-where $g_\text{diff deco}(\cdot)$ is a function that implements the the differential decoding, and depends on the constellation used.
+where $g_\text{diff deco}(\cdot)$ is a function that implements the differential decoding and depends on the constellation used.
 
 
 
@@ -284,13 +282,13 @@ where $g_\text{diff deco}(\cdot)$ is a function that implements the the differen
 
 \section{Numerical simulation}
 
-To implement the proposed architecture we used the Pytorch framework, the code can be found in \href{https://github.com/dfigueroa11/Direct_Detection_with_Phase_Recovery.git}{Direct\_Detection\_with\_Phase\_Recovery}. For training as well as evaluating the network we use the simulation parameters shown in table \ref{tab:sim_Plabst}, the constellation used is DD-SQAM, and we focused on the case when the auxiliary channel and real channel are equal, i.e.$\widetilde{N}=\widetilde{M}$, in particular  for $\widetilde{M}=1,3,5$. Finally we considered the SNR range from \SI{0}{dB} to \SI{20}{dB} and for each SNR and $\widetilde{M}$ a different model is trained.
+To implement the proposed architecture, we used the Pytorch framework, the code can be found in the GitHub repository \href{https://github.com/dfigueroa11/Direct_Detection_with_Phase_Recovery.git}{Direct\_Detection\_with\_Phase\_Recovery}. For training as well as evaluating the network we use the simulation parameters shown in table \ref{tab:sim_Plabst}, the constellation used is DD-SQAM, and we focused on the case when the auxiliary channel and real channel are equal, i.e. $\widetilde{N}=\widetilde{M}$, in particular for $\widetilde{M}=1,3,5$. Finally, we considered the SNR range from \SI{0}{dB} to \SI{20}{dB}, and for each SNR and $\widetilde{M}$ a different model is trained.
 
 \subsection{Training process}
 
 \subsubsection{Hyper parameters}
 
-For the architecture we used the following lengths of the vectors and number of layers:
+For the architecture, we used the following lengths of the vectors and number of layers:
 \begin{align}
 	\text{len}(\tilde{\bm x})&=2\widetilde{M}+1\\
 	\text{len}(\bm v)&=2\cdot(2\widetilde{M}+1)\\
@@ -301,9 +299,9 @@ where len$(\cdot)$ denotes the length of the vector and max() returns the bigges
 
 \subsubsection{Training set}
 
-The training set consist of the output of the system after simulating the transmission of $2\widetilde{M}+1$ random symbols, where the first $\widetilde{M}$ represent the state of the channel, and the last $\widetilde{M}+1$ symbols are transmitted symbols. As a result the network should be trained for all possible states and transmitted symbols.\\
+The training set consists of the output of the system after simulating the transmission of $2\widetilde{M}+1$ random symbols, where the first $\widetilde{M}$ represents the state of the channel, and the last $\widetilde{M}+1$ symbols are transmitted symbols. As a result, the network should be trained for all possible states and transmitted symbols.
 
-For the training we use a variable batch size that take each of the following values in order $$[100, 400, 1000, 2000, 5000, 10000]$$ and we use 300 batches for each batch size.
+For the training we use a variable batch size that takes the following values in order $[100, 400, 1000, 2000, 5000, 10000]$ and performs 300 learning processes for each batch size.
 
 
 
@@ -312,9 +310,9 @@ For the training we use a variable batch size that take each of the following va
 
 \subsubsection{Simple evaluation}
 
-For the evaluation process we perform two evaluation, the first one is a evaluation equal to training, that means using many small transmissions of $2\widetilde{M}+1$ symbols, where the first $\widetilde{M}$ symbols represent the state of the channel and are passed to the MagPhase-DetNet as an input (that means assuming perfect channel state knowledge), and we evaluate  the SER of the next symbols as shown in figure \ref{fig:eval_normal}. We do this because we noticed that the reliability of the detection decreases for the last symbols.\\
+For the evaluation process, we perform two evaluations. The first one is an evaluation equal to training, which means using many small transmissions of $2\widetilde{M}+1$ symbols, where the first $\widetilde{M}$ symbols represent the state of the channel and are passed to the MagPhase-DetNet as an input (that means assuming perfect channel state knowledge). We evaluate only the SER of the next symbol as shown in figure \ref{fig:eval_normal}. We do this because we noticed that the reliability of the detection decreases for the last symbols.
 
-\begin{figure}[htbp]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{\DetNetImage{eval_normal.pdf}}
 \caption{Evaluation method used for the simple evaluation of the MagPhase-DetNet. Example for $\widetilde{M}=3$.}
@@ -323,24 +321,24 @@ For the evaluation process we perform two evaluation, the first one is a evaluat
 \end{figure}
 
 
-After doing this and plotting the results we get the graph of figure \ref{fig:SER_normal_test}, there is shown the performance, in terms of SER, of the models trained for each channel memory and SNR. The graph is to be interpreted as the best performance that the architecture can achieve when trained for a specific SNR.\\
+After doing this and plotting the results, we get the graph of figure \ref{fig:SER_normal_test}, which shows the performance, in terms of SER, of the models trained for each channel memory and SNR. The graph is to be interpreted as the best performance that the architecture can achieve when trained for a specific SNR.
 
-\begin{figure}[htbp]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{\DetNetImage{SER_normal_test.pdf}}
-\caption{Simple evaluation of the MagPhase-DetNet trained for different SNR and channel memory. Dotted line is the reference optimal performance.}
+\caption{Simple evaluation of the MagPhase-DetNet trained for different SNR and channel memory. The dotted lines are the reference optimal performance.}
 \label{fig:SER_normal_test}
 \end{center}
 \end{figure}
 
-Analysing the results it is easy to notice that for the $\widetilde{M}=1$ case the performance of the MagPhase-DetNet is almost optimal. In contrast for $\widetilde{M}=3$ and 5 the performance is near to the optimal only for slow SNR, at bigger SNR the architecture tends to have an error floor. Also is important  to notice that the graph is not smooth, this could happen because the training process was not sufficient.
+Analyzing the results, it is easy to notice that for the $\widetilde{M}=1$ case, the performance of the MagPhase-DetNet is almost optimal. In contrast, for $\widetilde{M}=3$ and 5, the performance is near to the optimal only for slow SNR; at bigger SNR, the architecture tends to have an error floor. Also, it is important to note that the graph is not smooth, this could happen because the training process was insufficient.
  
 
 
 
 \subsubsection{Sequential evaluation}
 
-The next testing done tries to implement the network as it would be implemented in a practical application, where one do not have access to different segments of transmission with perfect channel knowledge, but only to a long string of samples. That is why we use the network as shown in figure \ref{fig:eval_seq}, we start with an initial channel knowledge and use the network to decode the next symbol. Then with the decoded symbol we use it to determine the new state of the channel and with it decode the next symbol, and the process keeps going until the end of the transmission.\\
+The next test tries to implement the network as it would be implemented in a practical application, where one does not have access to different transmission segments with perfect channel knowledge but only to a long string of samples. That is why we use the network as shown in figure \ref{fig:eval_seq}, we start with an initial channel knowledge and use the network to decode the next symbol. Then, we use the decoded symbol to determine the new state of the channel and, with it, decode the next symbol. The process continues until the end of the transmission.
 
 
 \begin{figure}[htbp]
@@ -356,12 +354,24 @@ The next testing done tries to implement the network as it would be implemented 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{\DetNetImage{SER_seq_test.pdf}}
-\caption{Sequential evaluation of the MagPhase-DetNet trained for different SNR and channel memory. Dotted line is the reference optimal performance.}
+\caption{Sequential evaluation of the MagPhase-DetNet trained for different SNR and channel memory. The dotted lines are the reference optimal performance.}
 \label{fig:SER_seq_test}
 \end{center}
 \end{figure}
 
-Clearly the performance for the $\widetilde{M}=1$ case is again almost optimal, however the other two cases are really bad, they show an error floor pretty big, nevertheless the error floor is below $3/4$ which means that the decoding system is better than randomly guess the symbols. This suggest that the system try to work but there may be a severe error propagation that degrades the performance. This shows that the proposed architecture is very dependent of the quality of the channel state knowledge, and a small error can propagate a lot. 
+The performance for the $\widetilde{M}=1$ case is again almost optimal. However, the other two cases are bad because they show a big error floor. Nevertheless, the error floor is below $3/4$, meaning the decoding system is better than randomly guessing the symbols. This suggests that the system tries to work, but severe error propagation may degrade the performance. This shows that the proposed architecture depends on the quality of the channel state knowledge, and a small error can propagate a lot. 
+
+
+\section{Conclusions}
+
+After watching the trained MagPhase-DetNet network's performance, it is evident that the performance is not as good as needed because the trained models (except for the trivial case $\widetilde{M}$) present a high error floor at high SER, which means that the architecture proposed in this chapter is not the most appropriate.
+
+However, the simple evaluation in figure \ref{fig:SER_normal_test} has a decent performance, which shows that a machine learning-based system may solve the problem but at the expense of needing a big training phase. Also, looking at the sequential evaluation in figure \ref{fig:SER_seq_test}, one can notice that the decent performance of the first case is completely lost. This shows that the network fails when it tries to generalize to the sequential case, so to improve the model, one should modify the architecture to make it compatible with the sequential nature of the transmission.
+
+For example, a possible solution to improve the architecture in the sequential case is to use a convolutional neural network; because the underlying nature of the system is a convolution, it is reasonable to think that a convolutional network may have some advantages. This is an exciting topic for future work: exploring new architecture better suited for the problem.
+
+Also, we see that the training cost of these machine learning-based decoders grows rapidly with an increasing channel memory, which is why the graphs in figure \ref{fig:SER_normal_test} are not smooth. With this in mind,  another exciting field of work is to design a new pulse waveform that compromises the bandwidth and the channel memory. 
+
 
 
 
