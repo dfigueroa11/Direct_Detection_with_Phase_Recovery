@@ -1,40 +1,45 @@
 
 \begin{thenomenclature} 
-\nomgroup{Symbols}
-  \item &{$X\sim\mathcal{N}(\mu,\sigma^2)$}&\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{PDF}&\begingroup Probability density function\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$f$}&\begingroup Frequency\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\mathcal{F}\{\cdot\}$}&\begingroup Fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\mathcal{F}^{-1}\{\cdot\}$}&\begingroup Inverse fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{APD}&\begingroup Avalanche photodiode\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\beta_2$}&\begingroup Group-velocity dispersion parameter\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{MI}&\begingroup Mutual information\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{ROP}&\begingroup Received optical power\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{i.i.d.}&\begingroup independent and identically distributed\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\mathcal N(x;\mu,\sigma^2)$}&\begingroup Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$j$}&\begingroup Imaginary unit\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\mathcal N(\bm x;\bm\mu,\bm C)$}&\begingroup Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\bm 0_{n}$}&\begingroup Ceros vector of length $n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\bm I_{n}$}&\begingroup Identity matrix of size $n\times n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{SQL}&\begingroup Square law\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{SLD}&\begingroup Square law detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{MAP}&\begingroup Maximum a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{APP}&\begingroup a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{BER}&\begingroup Bit error rate\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{SER}&\begingroup Symbol error rate\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{SNR}&\begingroup Signal to noise ratio\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{MIMO}&\begingroup Multiple input multiple output\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{AWGN}&\begingroup Additive white Gaussian noise\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{IM-DD}&\begingroup Intensity modulation - Direct detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{diag$(\bm x)$}&\begingroup Diagonal matrix with the elements of $\bm x$ along the diagonal\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\mathds E [X]$}&\begingroup Expected value of $X$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$\odot$}&\begingroup Element wise multiplication\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{Re$\{z\}$}&\begingroup Real part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{Im$\{z\}$}&\begingroup imaginary part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{sinc$(t)$}&\begingroup $\frac{\sin(\pi t)}{\pi t}$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{DD}&\begingroup Direct Detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{ISI}&\begingroup Inter symbol Interference\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$k_b$}&\begingroup Boltzmann constant\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
-  \item &{$q$}&\begingroup Electron charge\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}\nompageref{xii}
+\nomgroup{A}
+  \item &{PDF}&\begingroup Probability density function\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.24}\nompageref{13}
+  \item &{i.i.d.}&\begingroup independent and identically distributed\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.0}\nompageref{20}
+  \item &{$\mathds E [X]$}&\begingroup Expected value of $X$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.26}\nompageref{24}
+  \item &{$X\sim\mathcal{N}(\mu,\sigma^2)$}&\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.14}\nompageref{8}
+  \item &{$\mathcal N(x;\mu,\sigma^2)$}&\begingroup Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.14}\nompageref{22}
+  \item &{$\mathcal N(\bm x;\bm\mu,\bm C)$}&\begingroup Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.14}\nompageref{22}
+\nomgroup{B}
+  \item &{Re$\{z\}$}&\begingroup Real part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.4}\nompageref{3}
+  \item &{Im$\{z\}$}&\begingroup imaginary part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.4}\nompageref{3}
+  \item &{$\bm 0_{n}$}&\begingroup Ceros vector of length $n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.14}\nompageref{22}
+  \item &{$\bm I_{n}$}&\begingroup Identity matrix of size $n\times n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.14}\nompageref{22}
+  \item &{diag$(\bm x)$}&\begingroup Diagonal matrix with the elements of $\bm x$ along the diagonal\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.24}\nompageref{31}
+  \item &{$\odot$}&\begingroup Element wise multiplication\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.24}\nompageref{31}
+  \item &{sinc$(t)$}&\begingroup $\frac{\sin(\pi t)}{\pi t}$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.5}\nompageref{4}
+  \item &{$\mathcal{F}\{\cdot\}$}&\begingroup Fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.2}\nompageref{6}
+  \item &{$\mathcal{F}^{-1}\{\cdot\}$}&\begingroup Inverse fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.2}\nompageref{6}
+  \item &{$\lvert\cdot\rvert^{\circ2}$}&\begingroup Element wise $\lvert\cdot\rvert^2$ operator\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.13}\nompageref{22}
+\nomgroup{C}
+  \item &{$j$}&\begingroup Imaginary unit\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.4}\nompageref{3}
+  \item &{$k_b$}&\begingroup Boltzmann constant\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.3}\nompageref{2}
+  \item &{$q$}&\begingroup Electron charge\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.2}\nompageref{2}
+\nomgroup{D}
+  \item &{$f$}&\begingroup Frequency\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.1}\nompageref{6}
+  \item &{$\beta_2$}&\begingroup Group-velocity dispersion parameter\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.1}\nompageref{6}
+\nomgroup{E}
+  \item &{DD}&\begingroup Direct Detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.0}\nompageref{1}
+  \item &{SQL}&\begingroup Square law\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.0}\nompageref{1}
+  \item &{SLD}&\begingroup Square law detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.0}\nompageref{19}
+  \item &{IM-DD}&\begingroup Intensity modulation - Direct detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.22}\nompageref{30}
+  \item &{ISI}&\begingroup Inter symbol Interference\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.4}\nompageref{3}
+  \item &{ROP}&\begingroup Received optical power\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.29}\nompageref{15}
+  \item &{SNR}&\begingroup Signal to noise ratio\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.29}\nompageref{15}
+  \item &{MAP}&\begingroup Maximum a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.16}\nompageref{23}
+  \item &{APP}&\begingroup a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.16}\nompageref{23}
+  \item &{BER}&\begingroup Bit error rate\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.29}\nompageref{16}
+  \item &{SER}&\begingroup Symbol error rate\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.25}\nompageref{24}
+  \item &{MI}&\begingroup Mutual information\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.28}\nompageref{14}
+  \item &{APD}&\begingroup Avalanche photodiode\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.3}\nompageref{6}
+  \item &{MIMO}&\begingroup Multiple input multiple output\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.0}\nompageref{27}
+  \item &{AWGN}&\begingroup Additive white Gaussian noise\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.0}\nompageref{27}
 
 \end{thenomenclature}

@@ -1,36 +1,36 @@
-\nomenclatureentry{1$X\sim\mathcal{N}(\mu,\sigma^2)$@&{$X\sim\mathcal{N}(\mu,\sigma^2)$}&\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{2$j$@&{$j$}&\begingroup Imaginary unit\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{3Re$\{z\}$@&{Re$\{z\}$}&\begingroup Real part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{4Im$\{z\}$@&{Im$\{z\}$}&\begingroup imaginary part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{5sinc$(t)$@&{sinc$(t)$}&\begingroup $\frac{\sin(\pi t)}{\pi t}$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{6DD@&{DD}&\begingroup Direct Detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{7ISI@&{ISI}&\begingroup Inter symbol Interference\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{8$k_b$@&{$k_b$}&\begingroup Boltzmann constant\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{9$q$@&{$q$}&\begingroup Electron charge\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{10PDF@&{PDF}&\begingroup Probability density function\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{11$f$@&{$f$}&\begingroup Frequency\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{12$\mathcal{F}\{\cdot\}$@&{$\mathcal{F}\{\cdot\}$}&\begingroup Fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{13$\mathcal{F}^{-1}\{\cdot\}$@&{$\mathcal{F}^{-1}\{\cdot\}$}&\begingroup Inverse fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{14APD@&{APD}&\begingroup Avalanche photodiode\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{15$\beta_2$@&{$\beta_2$}&\begingroup Group-velocity dispersion parameter\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{16MI@&{MI}&\begingroup Mutual information\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{17ROP@&{ROP}&\begingroup Received optical power\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{18i.i.d.@&{i.i.d.}&\begingroup independent and identically distributed\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{19$\mathcal N(x;\mu,\sigma^2)$@&{$\mathcal N(x;\mu,\sigma^2)$}&\begingroup Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{20$\mathcal N(\bm x;\bm\mu,\bm C)$@&{$\mathcal N(\bm x;\bm\mu,\bm C)$}&\begingroup Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{21$\bm 0_{n}$@&{$\bm 0_{n}$}&\begingroup Ceros vector of length $n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{22$\bm I_{n}$@&{$\bm I_{n}$}&\begingroup Identity matrix of size $n\times n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{23SQL@&{SQL}&\begingroup Square law\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{24SLD@&{SLD}&\begingroup Square law detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{25MAP@&{MAP}&\begingroup Maximum a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{26APP@&{APP}&\begingroup a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{27BER@&{BER}&\begingroup Bit error rate\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{28SER@&{SER}&\begingroup Symbol error rate\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{29SNR@&{SNR}&\begingroup Signal to noise ratio\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{30$|\cdot|^{\circ2}$@&{$|\cdot|^{\circ2}$}&\begingroup Element wise $|\cdot|^2$ operator\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{31MIMO@&{MIMO}&\begingroup Multiple input multiple output\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{32AWGN@&{AWGN}&\begingroup Additive white Gaussian noise\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{33IM-DD@&{IM-DD}&\begingroup Intensity modulation - Direct detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{34diag$(\bm x)$@&{diag$(\bm x)$}&\begingroup Diagonal matrix with the elements of $\bm x$ along the diagonal\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{35$\mathds E [X]$@&{$\mathds E [X]$}&\begingroup Expected value of $X$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
-\nomenclatureentry{36$\odot$@&{$\odot$}&\begingroup Element wise multiplication\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {0}|nompageref}{xii}
+\nomenclatureentry{E21DD@&{DD}&\begingroup Direct Detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.0}|nompageref}{1}
+\nomenclatureentry{E22SQL@&{SQL}&\begingroup Square law\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.0}|nompageref}{1}
+\nomenclatureentry{C18$q$@&{$q$}&\begingroup Electron charge\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.2}|nompageref}{2}
+\nomenclatureentry{C17$k_b$@&{$k_b$}&\begingroup Boltzmann constant\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.3}|nompageref}{2}
+\nomenclatureentry{E25ISI@&{ISI}&\begingroup Inter symbol Interference\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.4}|nompageref}{3}
+\nomenclatureentry{B06Re$\{z\}$@&{Re$\{z\}$}&\begingroup Real part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.4}|nompageref}{3}
+\nomenclatureentry{B07Im$\{z\}$@&{Im$\{z\}$}&\begingroup imaginary part of $z$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.4}|nompageref}{3}
+\nomenclatureentry{C16$j$@&{$j$}&\begingroup Imaginary unit\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.4}|nompageref}{3}
+\nomenclatureentry{B12sinc$(t)$@&{sinc$(t)$}&\begingroup $\frac{\sin(\pi t)}{\pi t}$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {1.5}|nompageref}{4}
+\nomenclatureentry{D19$f$@&{$f$}&\begingroup Frequency\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.1}|nompageref}{6}
+\nomenclatureentry{D20$\beta_2$@&{$\beta_2$}&\begingroup Group-velocity dispersion parameter\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.1}|nompageref}{6}
+\nomenclatureentry{B13$\mathcal{F}\{\cdot\}$@&{$\mathcal{F}\{\cdot\}$}&\begingroup Fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.2}|nompageref}{6}
+\nomenclatureentry{B14$\mathcal{F}^{-1}\{\cdot\}$@&{$\mathcal{F}^{-1}\{\cdot\}$}&\begingroup Inverse fourier transform \endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.2}|nompageref}{6}
+\nomenclatureentry{E33APD@&{APD}&\begingroup Avalanche photodiode\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.3}|nompageref}{6}
+\nomenclatureentry{A03$X\sim\mathcal{N}(\mu,\sigma^2)$@&{$X\sim\mathcal{N}(\mu,\sigma^2)$}&\begingroup $X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.14}|nompageref}{8}
+\nomenclatureentry{A00PDF@&{PDF}&\begingroup Probability density function\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.24}|nompageref}{13}
+\nomenclatureentry{E32MI@&{MI}&\begingroup Mutual information\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.28}|nompageref}{14}
+\nomenclatureentry{E27SNR@&{SNR}&\begingroup Signal to noise ratio\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.29}|nompageref}{15}
+\nomenclatureentry{E26ROP@&{ROP}&\begingroup Received optical power\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.29}|nompageref}{15}
+\nomenclatureentry{E30BER@&{BER}&\begingroup Bit error rate\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {2.29}|nompageref}{16}
+\nomenclatureentry{E23SLD@&{SLD}&\begingroup Square law detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.0}|nompageref}{19}
+\nomenclatureentry{A01i.i.d.@&{i.i.d.}&\begingroup independent and identically distributed\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.0}|nompageref}{20}
+\nomenclatureentry{B15$\lvert\cdot\rvert^{\circ2}$@&{$\lvert\cdot\rvert^{\circ2}$}&\begingroup Element wise $\lvert\cdot\rvert^2$ operator\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.13}|nompageref}{22}
+\nomenclatureentry{A04$\mathcal N(x;\mu,\sigma^2)$@&{$\mathcal N(x;\mu,\sigma^2)$}&\begingroup Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.14}|nompageref}{22}
+\nomenclatureentry{A05$\mathcal N(\bm x;\bm\mu,\bm C)$@&{$\mathcal N(\bm x;\bm\mu,\bm C)$}&\begingroup Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.14}|nompageref}{22}
+\nomenclatureentry{B08$\bm 0_{n}$@&{$\bm 0_{n}$}&\begingroup Ceros vector of length $n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.14}|nompageref}{22}
+\nomenclatureentry{B09$\bm I_{n}$@&{$\bm I_{n}$}&\begingroup Identity matrix of size $n\times n$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.14}|nompageref}{22}
+\nomenclatureentry{E28MAP@&{MAP}&\begingroup Maximum a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.16}|nompageref}{23}
+\nomenclatureentry{E29APP@&{APP}&\begingroup a posteriori probability\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.16}|nompageref}{23}
+\nomenclatureentry{E31SER@&{SER}&\begingroup Symbol error rate\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.25}|nompageref}{24}
+\nomenclatureentry{A02$\mathds E [X]$@&{$\mathds E [X]$}&\begingroup Expected value of $X$\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {3.26}|nompageref}{24}
+\nomenclatureentry{E34MIMO@&{MIMO}&\begingroup Multiple input multiple output\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.0}|nompageref}{27}
+\nomenclatureentry{E35AWGN@&{AWGN}&\begingroup Additive white Gaussian noise\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.0}|nompageref}{27}
+\nomenclatureentry{E24IM-DD@&{IM-DD}&\begingroup Intensity modulation - Direct detection\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.22}|nompageref}{30}
+\nomenclatureentry{B10diag$(\bm x)$@&{diag$(\bm x)$}&\begingroup Diagonal matrix with the elements of $\bm x$ along the diagonal\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.24}|nompageref}{31}
+\nomenclatureentry{B11$\odot$@&{$\odot$}&\begingroup Element wise multiplication\endgroup &\unit {}&\begingroup \endgroup &\begingroup \nomeqref {4.24}|nompageref}{31}

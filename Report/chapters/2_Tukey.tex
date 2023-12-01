@@ -28,6 +28,8 @@ H(f)=e^{j2\beta_2L\pi^2f^2}
 \label{eq:dispersion_precompensation}
 \end{equation}
 where $\beta_2$ is the group-velocity dispersion parameter and $L$ is the fiber length \cite{Tasbihi_Tukey}.
+\nomenclature[D19]{$f$}{Frequency}{}{}%
+\nomenclature[D20]{$\beta_2$}{Group-velocity dispersion parameter}{}{}%
 
 Clearly, from this description of the block, the following relations between $x(t)$ and $u(t)$ are given:
 \begin{equation}
@@ -35,6 +37,8 @@ Clearly, from this description of the block, the following relations between $x(
 	\label{eq:Tuey_Disp_precomp}
 \end{equation}
 where $X(f)$ is the Fourier transform of $x(t)$
+\nomenclature[B13]{$\mathcal{F}\{\cdot\}$}{Fourier transform }{}{}
+\nomenclature[B14]{$\mathcal{F}^{-1}\{\cdot\}$}{Inverse fourier transform }{}{}
 
 
 \subsection{Transmission medium}
@@ -47,7 +51,7 @@ r(t)=\rho x(t)
  where $0<\rho\leq1$ is the attenuation constant, depending on the fiber's length. The particular case $\rho=1$, i.e. without attenuation, is called back-to-back transmission.
 
 \subsection{Photodiode}
-
+\nomenclature[E33]{APD}{Avalanche photodiode}{}{}
 An avalanche photodiode (APD) is used for this system, and this diode is considered the only noise source. In this case, both shoot and thermal noise are considered. The behavior of  the diode is given by \cite{Tasbihi_Tukey}:
 \begin{equation}
 s(t)=\bigl|r(t)\bigr|^2+\bigl|r(t)\bigr|n_{sh}(t)+n_{th}(t)
@@ -160,7 +164,9 @@ It can be shown that $y_i$ is given by \cite{Tasbihi_Tukey}:
 y_i=\alpha^2(1-\beta)T|x_i|^2+\alpha|x_i|n_i+m_i
 	\label{eq:y_i_Tukey}
 \end{equation}
-where $\alpha=2/\sqrt{4-\beta}$, $n_i\sim\mathcal N(0,\sigma^2_{sh}(1-\beta)T)$ and $m_i\sim\mathcal N(0,\sigma^2_{th}(1-\beta)T)$.
+where $\alpha=2/\sqrt{4-\beta}$, $n_i\sim\mathcal N(0,\sigma^2_{sh}(1-\beta)T)$ and $m_i\sim\mathcal N(0,\sigma^2_{th}(1-\beta)T)$.%
+\nomenclature[A03]{$X\sim\mathcal{N}(\mu,\sigma^2)$}{$X$ has a Gaussian distribution with mean $\mu$ and variance $\sigma^2$}{}{}%
+
 
 Also defining:
 \begin{align}
@@ -384,7 +390,8 @@ For the detection, the maximum-likelihood (ML) criterion is chosen, which means 
 \label{eq:Tukey_ML}
 \end{equation}
 
-Where the PDF of $\bm y,\bm z$ given $\bm x_d$ is given by \cite{Tasbihi_Tukey}:
+Where the PDF of $\bm y,\bm z$ given $\bm x_d$ is given by \cite{Tasbihi_Tukey}:%
+\nomenclature[A00]{PDF}{Probability density function}{}{}%
 \begin{equation}
 	f\bigl(\bm y,\bm z|\bm x_d\bigr) = f\bigl(\bm y|\bm x_d\bigr)f\bigl(\bm z|\bm x_d\bigr)=\prod_{i=0}^{n-1}f\bigl(y_i|\bm x_d[i]\bigr)\prod_{i=0}^{n-2}f\bigl(z_i|\bm x_d[i],\bm x_d[i+1]\bigr)
 \end{equation}
@@ -596,7 +603,7 @@ Rate loss (bit/sym)&1.68\\\hline
 \end{table}
 
 \subsection{Mutual information estimation}
-
+\nomenclature[E32]{MI}{Mutual information}{}{}
 One of the figures of merit of the system is the Mutual information (MI) $I$ of the channel, which is given by \cite{MacKay}:
 \begin{equation}
 I=\sum_{x,y}P(x,y)\log_2\left(\frac{P(x,y)}{P(x)P(y)}\right)
@@ -605,6 +612,7 @@ I=\sum_{x,y}P(x,y)\log_2\left(\frac{P(x,y)}{P(x)P(y)}\right)
 
 To estimate the mutual information we use a Python script to implement a Montecarlo simulation with \SI{100000}{} symbol blocks (code available on the GitHub repository \href{https://github.com/dfigueroa11/Direct_detection_under_Tukey_Signaling.git}{Direct\_detection\_under\_Tukey\_Signaling}, in the folder \textbf{skripts} file \textbf{main.py}). In this case, all the possible square law distinct symbol blocks are used for the simulation.
 
+\nomenclature[E27]{SNR}{Signal to noise ratio}{}{}%
 For the 2-ring 4-ary phase constellation and symbol block length $n=3$, we simulated for four different $\beta$ and got the results shown in figure \ref{fig:Tukey_result_MI}. Notice that for medium and high SNR, the best choice of beta is $\beta=0.9$; also is important to observe that the mutual information tends to  \SI{2,06}{bit/sym} approximately, which is coherent with the rate loss calculated (see table \ref{tab:Eq_class_2ring_4ary})  $$\SI{2.06}{bit/sym}=\SI{3}{bit/sym}-\SI{0.94}{bit/sym}$$
 
 Also, it is important to notice that the obtained results are coherent with the results reported by \cite{Tasbihi_Tukey}, which shows that the implementation of the system we made is well done.
@@ -616,11 +624,13 @@ Also, it is important to notice that the obtained results are coherent with the 
 \label{fig:Tukey_result_MI}
 \end{center}
 \end{figure}
+\nomenclature[E26]{ROP}{Received optical power}{}{}
+
 
 
 
 \subsection{BER estimation}
-
+\nomenclature[E30]{BER}{Bit error rate}{}{}
 Once again, a Montecarlo simulation is used to estimate the BER, but this time, not all the square law distinct symbols are used. Instead, we use the biggest power of two \cite{Tasbihi_Tukey}. For example, for the 2-ring 4-ary phase constellation and symbol block length $n=4$, we use 256 square law distinct symbol blocks instead of 432.
 
 Again, we simulated for different $\beta$, the 2-ring 4-ary phase constellation, and symbol block length $n=4$ to get the results shown in figure \ref{fig:Tukey_result_BER}. The results show the typical behavior of a BER vs SNR graph. Again, the case of $\beta=0.9$ has the best performance, and the results are coherent with the ones presented by \cite{Tasbihi_Tukey}. 

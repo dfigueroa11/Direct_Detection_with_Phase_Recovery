@@ -11,7 +11,7 @@
 \usepackage{upgreek}
 \usepackage{amsmath}                        %Algunos entornos matemáticos (como align)
 \usepackage{amssymb}                        %Algunos entornos matemáticos (como align)
-\usepackage[labelfont=bf]{caption}          %Formato de figuras
+\usepackage[labelfont=bf]{caption}          %Formato de figures
 \usepackage{subcaption}                     %subfigures
 \usepackage{graphicx}                       %Manejo de imágenes
 \usepackage{hyperref}                       %Uso de hipervínculos
@@ -23,6 +23,30 @@
 \makenomenclature
 \renewcommand{\nomname}{List of symbols, abbreviations and notation}
 
+
+\makeatletter
+\renewcommand{\nomgroup}[1]{%
+  \ifnum\pdf@strcmp{#1}{A}=\z@
+    \multicolumn{6}{l}{\Large\textbf{Probability theory}}\\\\%
+  \else
+    \ifnum\pdf@strcmp{#1}{B}=\z@
+      \\\\\multicolumn{6}{l}{\Large\textbf{Mathematics}}\\%
+  \else
+    \ifnum\pdf@strcmp{#1}{C}=\z@
+      \\\\\multicolumn{6}{l}{\Large\textbf{Constants}}\\%
+  \else
+    \ifnum\pdf@strcmp{#1}{D}=\z@
+      \\\\\multicolumn{6}{l}{\Large\textbf{Variables}}\\%
+  \else
+    \ifnum\pdf@strcmp{#1}{E}=\z@
+      \\\\\multicolumn{6}{l}{\Large\textbf{Others}}\\%
+      \fi
+      \fi
+      \fi
+    \fi
+  \fi
+}
+\makeatother
 
 
 \usepackage{siunitx}
@@ -53,7 +77,7 @@
 \usepackage[twoside]{fancyhdr}                       %Encabezados y pie de páginas personalizados
 \pagestyle{fancy}
 \setlength{\headheight}{13.59999pt}
-% define how to show chapter name on header
+% Define how to show the chapter name on the header
 \renewcommand{\chaptermark}[1]{%
                \markboth{Chap \thechapter.\ #1}{}}
  \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
@@ -117,7 +141,6 @@
 \setnomtableformat{p{0.2\textwidth} p{0.45\textwidth} p{0.1\textwidth} p{0.0\textwidth} p{0.1\textwidth}}
 
 \printnomenclature
-\input{nomenclature.tex}
 
 
 

@@ -15,6 +15,7 @@ The proposed system model can be seen in figure \ref{fig:Plabst_system_model}. I
 \label{fig:Plabst_system_model}
 \end{center}
 \end{figure}
+\nomenclature[E23]{SLD}{Square law detection}{}{}
 
 \section{System model}
 
@@ -36,7 +37,8 @@ As it was mentioned in chapter \ref{ch:Tukey_signaling} the DD generates some am
 
 \subsubsection{Transmitter}
 
-The transmitter receives as input a sequence $\bm x=\{x_0,\dotsc,x_{n-1}\}$ of independent and identically distributed (i.i.d.) symbols $x_i$ taken from a finite constellation $\mathcal K=\{a_1,\dotsc,a_q\}$ with $q$ elements, and outputs a signal given by \cite{Plabst_DD}:
+The transmitter receives as input a sequence $\bm x=\{x_0,\dotsc,x_{n-1}\}$ of independent and identically distributed (i.i.d.) symbols $x_i$ taken from a finite constellation $\mathcal K=\{a_1,\dotsc,a_q\}$ with $q$ elements, and outputs a signal given by \cite{Plabst_DD}:%
+\nomenclature[A01]{i.i.d.}{independent and identically distributed}{}{}%
 \begin{equation}
 x(t)=\sum_{k=0}^{n-1}x_k\cdot g_\text{tx}(t-iT)
 \label{eq:Plabst_signaling_block}
@@ -149,6 +151,7 @@ With the previous definitions, the output of the square law detection is given b
 \right|^{\circ2} = \left|\bm{ \Uppsi \tilde{x'}}\right|^{\circ2} \qquad \in\mathds{R}^{2n}
 \end{align*}
 where $|\cdot|^{\circ2}$ is the element wise $|\cdot|^2$ operator.
+\nomenclature[B15]{$\lvert\cdot\rvert^{\circ2}$}{Element wise $\lvert\cdot\rvert^2$ operator}{}{}
 
 Finally, the complete discrete-time system model, including the Gaussian noise, is given by \cite{Plabst_DD}:
 \begin{align*}
@@ -158,6 +161,11 @@ and the channel’s conditional probability density is Gaussian\cite{Plabst_DD}:
 \begin{equation}
 p(\bm y'|\bm x')=\mathcal N \left( \bm y- \left|\bm{ \Uppsi \tilde{x'}}\right|^{\circ2}; \bm 0_{2n} , \sigma_N^2 \bm I_{2n}  \right)
 \end{equation}
+\nomenclature[A04]{$\mathcal N(x;\mu,\sigma^2)$}{Univariate real Gaussian distributions, with mean $\mu$ and variance $\sigma^2$.}{}{}
+\nomenclature[A05]{$\mathcal N(\bm x;\bm\mu,\bm C)$}{Multivariate real Gaussian distributions, with mean vector $\mu$ and covariance matrix $\bm C$.}{}{}
+\nomenclature[B08]{$\bm 0_{n}$}{Ceros vector of length $n$}{}{}
+\nomenclature[B09]{$\bm I_{n}$}{Identity matrix of size $n\times n$}{}{}
+
 
 \subsubsection{Even and odd samples}
 
@@ -181,7 +189,8 @@ The reason for group two samples can be understood by looking at the figure \ref
 \end{figure}
 
 \subsection{Symbol-wise MAP detection}
-
+\nomenclature[E28]{MAP}{Maximum a posteriori probability}{}{}
+\nomenclature[E29]{APP}{a posteriori probability}{}{}
 To evaluate the optimal performance of the system, in \cite{Plabst_DD} is proposed a decoder based on the maximum a posteriori rule that decides the transmitted symbol based on the a posteriori probabilities (APP) $p(x_k|\bm y')$. Since the APPs are proportional to $p(x_k,\bm y')$ because $p(\bm y')$ is constant with respect to the decision, the MAP rule becomes \cite{Plabst_DD}:
 \begin{equation}
 \hat{x}_k=\argmax_{x_k}p(x_k,\bm y')
@@ -236,12 +245,12 @@ Additionally, since using differential encoding is recommended to avoid ambiguit
 
 
 \section{Numerical simulation}
-
+\nomenclature[E31]{SER}{Symbol error rate}{}{}
 For the numerical simulations we implemented the proposed system model in a Python simulation, which can be found in the git repository \href{https://github.com/dfigueroa11/Direct_Detection_with_Phase_Recovery.git}{Direct\_Detection\_with\_Phase\_Recovery}. As the system parameters we use the settings found in table \ref{tab:sim_Plabst}, and we estimate the SER using a Montecarlo simulation with \SI{20000} transmitted symbols. We set the noise power to $\sigma_N^2=1$ so the SNR is given by \cite{Plabst_DD}:
 \begin{equation}
 \text{SNR}=P_\text{tx}=\frac{\mathds{E}\bigl[ ||x(t)||\bigr]}{nT_s}
 \end{equation}
-
+\nomenclature[A02]{$\mathds E [X]$}{Expected value of $X$}{}{}%
 
 \begin{table}[htp]
 \begin{center}

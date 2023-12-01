@@ -2,6 +2,8 @@
 \chaptermark{MagPhase-DetNet}
 \newcommand{\DetNetImage}[1]{images/DetNet/#1}
 
+\nomenclature[E34]{MIMO}{Multiple input multiple output}{}{}
+\nomenclature[E35]{AWGN}{Additive white Gaussian noise}{}{}
 
 We try to implement a decoder based on the DetNet decoder proposed in \cite{Neev_2017,Neev_2019}. There, the authors propose a  machine learning-based architecture for a MIMO AWGN linear channel. In those papers, the authors noticed that the detection problem is equivalent to the following minimization problem in the MIMO case \cite{Neev_2017}:
 \begin{align}
@@ -140,7 +142,8 @@ where $\Pi(\cdot)$ is a nonlinear function that forces the gradient descent to b
 
 However, we tried this approach with several small variations in the loss function and the projection function, and we got no good results; this shows that the approach is not good, so we had to find a better one.
 
-We noticed that for the DD system, it is straightforward to detect the magnitude of the symbols (that is what a normal IM-DD system does), but the phase detection is the big problem. Also along all the studied papers is present the idea that one sample carries the information about the magnitude and the other carries, somehow, the information about the phase. Even in \cite{Secondini}, the magnitude and phase detection are treated almost as separate tasks.
+We noticed that for the DD system, it is straightforward to detect the magnitude of the symbols (that is what a normal IM-DD system does), but the phase detection is the big problem. Also along all the studied papers is present the idea that one sample carries the information about the magnitude and the other carries, somehow, the information about the phase. Even in \cite{Secondini}, the magnitude and phase detection are treated almost as separate tasks.%
+\nomenclature[E24]{IM-DD}{Intensity modulation - Direct detection}{}{}%
 
  With this in mind, we decided to separate the two tasks a little, so we propose the architecture shown in figure \ref{fig:magPhaseDetNet_architecture}. The idea is to use one DetNet-based block on each layer to improve the magnitude estimate (without changing the phase), followed by a DetNet-based block to improve the phase estimate (without changing the magnitude) and concatenate many layers to get the final architecture.
 
@@ -181,7 +184,8 @@ If we define $\bm R(\bm{r})= \begin{bmatrix}\bm{r}&\bm r\end{bmatrix}^T$ and $\b
 	=\text{diag}\bigl(\bm w(\bm\theta)\bigr)\cdot\bm R(\bm{r})
 \end{align}
 which are useful to calculate the gradients.
-
+\nomenclature[B10]{diag$(\bm x)$}{Diagonal matrix with the elements of $\bm x$ along the diagonal}{}{}
+\nomenclature[B11]{$\odot$}{Element wise multiplication}{}{}
 
 \subsection{Magnitude DetNet block}
 
