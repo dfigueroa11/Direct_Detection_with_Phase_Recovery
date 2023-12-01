@@ -310,16 +310,25 @@ For the training we use a variable batch size that take each of the following va
 \subsection{Evaluation process}
 
 
-\subsubsection{Normal testing}
+\subsubsection{Simple evaluation}
 
-For the evaluation process we perform two evaluation, the first one is a evaluation equal to training, that means using many small transmissions of $2\widetilde{M}+1$ symbols, where the first $\widetilde{M}$ symbols represent the state of the channel and are passed to the MagPhase-DetNet as an input (that means assuming perfect channel state knowledge), and we evaluate  the SER of the next symbols as shown in figure \ref{}. We do this because we noticed that the reliability of the detection decreases for the last symbols.\\
+For the evaluation process we perform two evaluation, the first one is a evaluation equal to training, that means using many small transmissions of $2\widetilde{M}+1$ symbols, where the first $\widetilde{M}$ symbols represent the state of the channel and are passed to the MagPhase-DetNet as an input (that means assuming perfect channel state knowledge), and we evaluate  the SER of the next symbols as shown in figure \ref{fig:eval_normal}. We do this because we noticed that the reliability of the detection decreases for the last symbols.\\
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{\DetNetImage{eval_normal.pdf}}
+\caption{Evaluation method used for the simple evaluation of the MagPhase-DetNet. Example for $\widetilde{M}=3$.}
+\label{fig:eval_normal}
+\end{center}
+\end{figure}
+
 
 After doing this and plotting the results we get the graph of figure \ref{fig:SER_normal_test}, there is shown the performance, in terms of SER, of the models trained for each channel memory and SNR. The graph is to be interpreted as the best performance that the architecture can achieve when trained for a specific SNR.\\
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{\DetNetImage{SER_normal_test.pdf}}
-\caption{Performance of the MagPhase-DetNet trained for different SNR and channel memory. Dotted line is the reference optimal performance.}
+\caption{Simple evaluation of the MagPhase-DetNet trained for different SNR and channel memory. Dotted line is the reference optimal performance.}
 \label{fig:SER_normal_test}
 \end{center}
 \end{figure}
@@ -329,15 +338,25 @@ Analysing the results it is easy to notice that for the $\widetilde{M}=1$ case t
 
 
 
-\subsubsection{Sequential testing}
+\subsubsection{Sequential evaluation}
 
-The next testing done tries to implement the network as it would be implemented in a practical application, where one do not have access to different segments of transmission with perfect channel knowledge, but only to a long string of samples. That is why we use the network as shown in figure \ref{}, we start with an initial channel knowledge and use the network to decode the next symbol. Then with the decoded symbol we use it to determine the new state of the channel and with it decode the next symbol, and the process keeps going until the end of the transmission.\\
+The next testing done tries to implement the network as it would be implemented in a practical application, where one do not have access to different segments of transmission with perfect channel knowledge, but only to a long string of samples. That is why we use the network as shown in figure \ref{fig:eval_seq}, we start with an initial channel knowledge and use the network to decode the next symbol. Then with the decoded symbol we use it to determine the new state of the channel and with it decode the next symbol, and the process keeps going until the end of the transmission.\\
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{\DetNetImage{eval_seq.pdf}}
+\caption{Evaluation method used for the sequential evaluation of the MagPhase-DetNet. Example for $\widetilde{M}=3$.}
+\label{fig:eval_seq}
+\end{center}
+\end{figure}
+
 
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{\DetNetImage{SER_seq_test.pdf}}
-\caption{default}
+\caption{Sequential evaluation of the MagPhase-DetNet trained for different SNR and channel memory. Dotted line is the reference optimal performance.}
 \label{fig:SER_seq_test}
 \end{center}
 \end{figure}

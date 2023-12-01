@@ -18,7 +18,8 @@
 \usepackage{titlesec}                       %Para modificar el formato de los títulos
 \usepackage{esvect}
 \usepackage{lipsum}
-\usepackage[nomentbl]{nomencl}
+\usepackage[nomentbl,refpage]{nomencl}
+\def\pagedeclaration#1{\hyperlink{page.#1}{page\nobreakspace#1}}
 \makenomenclature
 \renewcommand{\nomname}{List of symbols, abbreviations and notation}
 \usepackage{siunitx}
@@ -103,7 +104,7 @@
 \addcontentsline{toc}{chapter}{\nomname} 
 
  % configuration of the table for the nomenclature 
-\setnomtableformat{p{0.2\textwidth} p{0.5\textwidth} p{0.15\textwidth} p{0.15\textwidth} p{0.0\textwidth}}
+\setnomtableformat{p{0.2\textwidth} p{0.45\textwidth} p{0.1\textwidth} p{0.0\textwidth} p{0.1\textwidth}}
 
 \printnomenclature
 \input{nomenclature.tex}
@@ -117,7 +118,7 @@
 \input{chapters/2_Tukey.tex}
 \input{chapters/3_Plabst.tex}
 \input{chapters/4_DetNet.tex}
-
+\input{chapters/5_conclusion.tex}
 
 \cleardoublepage
 \phantomsection
