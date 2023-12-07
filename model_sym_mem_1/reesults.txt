@@ -1,0 +1,4432 @@
+We are using the following device for learning: cuda
+train model for SNR 0 dB
+	Batch size 100, Train step 59, cnt 0
+	current mag loss:	[0.05736388]
+	current phase loss:	[8.580652]
+		BER for symbol 1:	0.4599999785423279
+		SER for symbol 1:	0.7199999690055847
+		BER for symbol 2:	0.5149999856948853
+		SER for symbol 2:	0.8299999833106995
+	Batch size 100, Train step 119, cnt 1
+	current mag loss:	[0.00570714]
+	current phase loss:	[9.245163]
+		BER for symbol 1:	0.48499998450279236
+		SER for symbol 1:	0.7299999594688416
+		BER for symbol 2:	0.4650000035762787
+		SER for symbol 2:	0.7099999785423279
+	Batch size 100, Train step 179, cnt 2
+	current mag loss:	[0.01120544]
+	current phase loss:	[8.346226]
+		BER for symbol 1:	0.45499998331069946
+		SER for symbol 1:	0.75
+		BER for symbol 2:	0.375
+		SER for symbol 2:	0.5999999642372131
+	Batch size 100, Train step 239, cnt 3
+	current mag loss:	[0.01938928]
+	current phase loss:	[6.7397447]
+		BER for symbol 1:	0.38999998569488525
+		SER for symbol 1:	0.6599999666213989
+		BER for symbol 2:	0.4350000023841858
+		SER for symbol 2:	0.7599999904632568
+	Batch size 100, Train step 299, cnt 4
+	current mag loss:	[0.00322459]
+	current phase loss:	[6.774579]
+		BER for symbol 1:	0.4050000011920929
+		SER for symbol 1:	0.7099999785423279
+		BER for symbol 2:	0.4749999940395355
+		SER for symbol 2:	0.7699999809265137
+	Batch size 400, Train step 59, cnt 5
+	current mag loss:	[0.00664036]
+	current phase loss:	[6.467751]
+		BER for symbol 1:	0.39374998211860657
+		SER for symbol 1:	0.699999988079071
+		BER for symbol 2:	0.38749998807907104
+		SER for symbol 2:	0.6524999737739563
+	Batch size 400, Train step 119, cnt 6
+	current mag loss:	[0.00228066]
+	current phase loss:	[6.8102293]
+		BER for symbol 1:	0.4074999988079071
+		SER for symbol 1:	0.7149999737739563
+		BER for symbol 2:	0.40625
+		SER for symbol 2:	0.6775000095367432
+	Batch size 400, Train step 179, cnt 7
+	current mag loss:	[0.00124407]
+	current phase loss:	[6.840008]
+		BER for symbol 1:	0.40625
+		SER for symbol 1:	0.6974999904632568
+		BER for symbol 2:	0.3737500011920929
+		SER for symbol 2:	0.6524999737739563
+	Batch size 400, Train step 239, cnt 8
+	current mag loss:	[0.00361897]
+	current phase loss:	[6.2161446]
+		BER for symbol 1:	0.3799999952316284
+		SER for symbol 1:	0.6624999642372131
+		BER for symbol 2:	0.39499998092651367
+		SER for symbol 2:	0.6800000071525574
+	Batch size 400, Train step 299, cnt 9
+	current mag loss:	[0.00570307]
+	current phase loss:	[6.289889]
+		BER for symbol 1:	0.39499998092651367
+		SER for symbol 1:	0.699999988079071
+		BER for symbol 2:	0.3687500059604645
+		SER for symbol 2:	0.637499988079071
+	Batch size 1_000, Train step 59, cnt 10
+	current mag loss:	[0.00114296]
+	current phase loss:	[6.765281]
+		BER for symbol 1:	0.41100001335144043
+		SER for symbol 1:	0.7120000123977661
+		BER for symbol 2:	0.38750001788139343
+		SER for symbol 2:	0.6620000600814819
+	Batch size 1_000, Train step 119, cnt 11
+	current mag loss:	[0.00117941]
+	current phase loss:	[6.7992816]
+		BER for symbol 1:	0.40300002694129944
+		SER for symbol 1:	0.6820000410079956
+		BER for symbol 2:	0.4000000059604645
+		SER for symbol 2:	0.6860000491142273
+	Batch size 1_000, Train step 179, cnt 12
+	current mag loss:	[0.00361812]
+	current phase loss:	[6.34146]
+		BER for symbol 1:	0.38700002431869507
+		SER for symbol 1:	0.6710000038146973
+		BER for symbol 2:	0.37300002574920654
+		SER for symbol 2:	0.6390000581741333
+	Batch size 1_000, Train step 239, cnt 13
+	current mag loss:	[0.00167766]
+	current phase loss:	[6.7887726]
+		BER for symbol 1:	0.39900001883506775
+		SER for symbol 1:	0.6890000104904175
+		BER for symbol 2:	0.406000018119812
+		SER for symbol 2:	0.7000000476837158
+	Batch size 1_000, Train step 299, cnt 14
+	current mag loss:	[0.00249478]
+	current phase loss:	[6.7319665]
+		BER for symbol 1:	0.4010000228881836
+		SER for symbol 1:	0.6890000104904175
+		BER for symbol 2:	0.38350000977516174
+		SER for symbol 2:	0.6570000052452087
+	Batch size 2_000, Train step 59, cnt 15
+	current mag loss:	[0.00064908]
+	current phase loss:	[6.6608925]
+		BER for symbol 1:	0.40150001645088196
+		SER for symbol 1:	0.6940000057220459
+		BER for symbol 2:	0.37825003266334534
+		SER for symbol 2:	0.6500000357627869
+	Batch size 2_000, Train step 119, cnt 16
+	current mag loss:	[0.00098144]
+	current phase loss:	[6.632899]
+		BER for symbol 1:	0.3972500264644623
+		SER for symbol 1:	0.6820000410079956
+		BER for symbol 2:	0.3817500174045563
+		SER for symbol 2:	0.6530000567436218
+	Batch size 2_000, Train step 179, cnt 17
+	current mag loss:	[0.00127155]
+	current phase loss:	[6.774108]
+		BER for symbol 1:	0.3985000252723694
+		SER for symbol 1:	0.6880000233650208
+		BER for symbol 2:	0.3945000171661377
+		SER for symbol 2:	0.6670000553131104
+	Batch size 2_000, Train step 239, cnt 18
+	current mag loss:	[0.00082486]
+	current phase loss:	[6.6381416]
+		BER for symbol 1:	0.39650002121925354
+		SER for symbol 1:	0.6845000386238098
+		BER for symbol 2:	0.3882500231266022
+		SER for symbol 2:	0.6650000214576721
+	Batch size 2_000, Train step 299, cnt 19
+	current mag loss:	[0.0004305]
+	current phase loss:	[6.585215]
+		BER for symbol 1:	0.3867500126361847
+		SER for symbol 1:	0.6680000424385071
+		BER for symbol 2:	0.38625001907348633
+		SER for symbol 2:	0.6650000214576721
+	Batch size 5_000, Train step 59, cnt 20
+	current mag loss:	[0.00023]
+	current phase loss:	[6.464871]
+		BER for symbol 1:	0.3862999975681305
+		SER for symbol 1:	0.6687999963760376
+		BER for symbol 2:	0.3894999921321869
+		SER for symbol 2:	0.665399968624115
+	Batch size 5_000, Train step 119, cnt 21
+	current mag loss:	[0.00025542]
+	current phase loss:	[6.448105]
+		BER for symbol 1:	0.3893999755382538
+		SER for symbol 1:	0.6697999835014343
+		BER for symbol 2:	0.38189998269081116
+		SER for symbol 2:	0.6601999998092651
+	Batch size 5_000, Train step 179, cnt 22
+	current mag loss:	[0.00038129]
+	current phase loss:	[6.5702963]
+		BER for symbol 1:	0.39469999074935913
+		SER for symbol 1:	0.6735999584197998
+		BER for symbol 2:	0.38109999895095825
+		SER for symbol 2:	0.6607999801635742
+	Batch size 5_000, Train step 239, cnt 23
+	current mag loss:	[0.0003288]
+	current phase loss:	[6.5487647]
+		BER for symbol 1:	0.39259999990463257
+		SER for symbol 1:	0.6789999604225159
+		BER for symbol 2:	0.3863999843597412
+		SER for symbol 2:	0.6643999814987183
+	Batch size 5_000, Train step 299, cnt 24
+	current mag loss:	[0.00029823]
+	current phase loss:	[6.6740704]
+		BER for symbol 1:	0.40149998664855957
+		SER for symbol 1:	0.686199963092804
+		BER for symbol 2:	0.37689998745918274
+		SER for symbol 2:	0.6469999551773071
+	Batch size 10_000, Train step 59, cnt 25
+	current mag loss:	[0.00029038]
+	current phase loss:	[6.5751166]
+		BER for symbol 1:	0.39114999771118164
+		SER for symbol 1:	0.6732999682426453
+		BER for symbol 2:	0.3826499879360199
+		SER for symbol 2:	0.6575999855995178
+	Batch size 10_000, Train step 119, cnt 26
+	current mag loss:	[0.00025343]
+	current phase loss:	[6.5622563]
+		BER for symbol 1:	0.3915500044822693
+		SER for symbol 1:	0.6694999933242798
+		BER for symbol 2:	0.38214999437332153
+		SER for symbol 2:	0.6560999751091003
+	Batch size 10_000, Train step 179, cnt 27
+	current mag loss:	[0.00016812]
+	current phase loss:	[6.6696134]
+		BER for symbol 1:	0.39249998331069946
+		SER for symbol 1:	0.6717000007629395
+		BER for symbol 2:	0.38509997725486755
+		SER for symbol 2:	0.6639999747276306
+	Batch size 10_000, Train step 239, cnt 28
+	current mag loss:	[0.0007336]
+	current phase loss:	[6.606451]
+		BER for symbol 1:	0.3882499933242798
+		SER for symbol 1:	0.6660000085830688
+		BER for symbol 2:	0.3853999972343445
+		SER for symbol 2:	0.6624000072479248
+	Batch size 10_000, Train step 299, cnt 29
+	current mag loss:	[0.00019503]
+	current phase loss:	[6.570282]
+		BER for symbol 1:	0.3877499997615814
+		SER for symbol 1:	0.6651999950408936
+		BER for symbol 2:	0.38865000009536743
+		SER for symbol 2:	0.6638999581336975
+train model for SNR 1 dB
+	Batch size 100, Train step 59, cnt 30
+	current mag loss:	[0.00306791]
+	current phase loss:	[7.9716887]
+		BER for symbol 1:	0.4050000011920929
+		SER for symbol 1:	0.5999999642372131
+		BER for symbol 2:	0.375
+		SER for symbol 2:	0.5999999642372131
+	Batch size 100, Train step 119, cnt 31
+	current mag loss:	[0.00616281]
+	current phase loss:	[5.7188253]
+		BER for symbol 1:	0.39499998092651367
+		SER for symbol 1:	0.6899999976158142
+		BER for symbol 2:	0.3499999940395355
+		SER for symbol 2:	0.5899999737739563
+	Batch size 100, Train step 179, cnt 32
+	current mag loss:	[0.00183175]
+	current phase loss:	[6.1185646]
+		BER for symbol 1:	0.3700000047683716
+		SER for symbol 1:	0.6399999856948853
+		BER for symbol 2:	0.3149999976158142
+		SER for symbol 2:	0.5600000023841858
+	Batch size 100, Train step 239, cnt 33
+	current mag loss:	[0.00426529]
+	current phase loss:	[5.8809958]
+		BER for symbol 1:	0.3700000047683716
+		SER for symbol 1:	0.6599999666213989
+		BER for symbol 2:	0.3400000035762787
+		SER for symbol 2:	0.6100000143051147
+	Batch size 100, Train step 299, cnt 34
+	current mag loss:	[0.00237587]
+	current phase loss:	[6.147438]
+		BER for symbol 1:	0.375
+		SER for symbol 1:	0.6599999666213989
+		BER for symbol 2:	0.3799999952316284
+		SER for symbol 2:	0.6599999666213989
+	Batch size 400, Train step 59, cnt 35
+	current mag loss:	[0.00470267]
+	current phase loss:	[5.7553]
+		BER for symbol 1:	0.35249999165534973
+		SER for symbol 1:	0.6100000143051147
+		BER for symbol 2:	0.3387500047683716
+		SER for symbol 2:	0.5949999690055847
+	Batch size 400, Train step 119, cnt 36
+	current mag loss:	[0.00482468]
+	current phase loss:	[5.496983]
+		BER for symbol 1:	0.32999998331069946
+		SER for symbol 1:	0.5774999856948853
+		BER for symbol 2:	0.35874998569488525
+		SER for symbol 2:	0.625
+	Batch size 400, Train step 179, cnt 37
+	current mag loss:	[0.00397033]
+	current phase loss:	[6.1556063]
+		BER for symbol 1:	0.3737500011920929
+		SER for symbol 1:	0.6524999737739563
+		BER for symbol 2:	0.3412500023841858
+		SER for symbol 2:	0.5849999785423279
+	Batch size 400, Train step 239, cnt 38
+	current mag loss:	[0.00160237]
+	current phase loss:	[5.4299345]
+		BER for symbol 1:	0.3375000059604645
+		SER for symbol 1:	0.5949999690055847
+		BER for symbol 2:	0.3425000011920929
+		SER for symbol 2:	0.5974999666213989
+	Batch size 400, Train step 299, cnt 39
+	current mag loss:	[0.00071663]
+	current phase loss:	[5.952154]
+		BER for symbol 1:	0.35624998807907104
+		SER for symbol 1:	0.6150000095367432
+		BER for symbol 2:	0.3462499976158142
+		SER for symbol 2:	0.5874999761581421
+	Batch size 1_000, Train step 59, cnt 40
+	current mag loss:	[0.00106743]
+	current phase loss:	[5.6674857]
+		BER for symbol 1:	0.3530000150203705
+		SER for symbol 1:	0.6220000386238098
+		BER for symbol 2:	0.3410000205039978
+		SER for symbol 2:	0.5879999995231628
+	Batch size 1_000, Train step 119, cnt 41
+	current mag loss:	[0.00103312]
+	current phase loss:	[5.5214176]
+		BER for symbol 1:	0.3450000286102295
+		SER for symbol 1:	0.6080000400543213
+		BER for symbol 2:	0.33650001883506775
+		SER for symbol 2:	0.5900000333786011
+	Batch size 1_000, Train step 179, cnt 42
+	current mag loss:	[0.00045584]
+	current phase loss:	[5.3291087]
+		BER for symbol 1:	0.33100003004074097
+		SER for symbol 1:	0.5980000495910645
+		BER for symbol 2:	0.34950003027915955
+		SER for symbol 2:	0.609000027179718
+	Batch size 1_000, Train step 239, cnt 43
+	current mag loss:	[0.00119243]
+	current phase loss:	[5.885781]
+		BER for symbol 1:	0.3570000231266022
+		SER for symbol 1:	0.6320000290870667
+		BER for symbol 2:	0.35600000619888306
+		SER for symbol 2:	0.6110000014305115
+	Batch size 1_000, Train step 299, cnt 44
+	current mag loss:	[0.00076208]
+	current phase loss:	[5.7363677]
+		BER for symbol 1:	0.3505000174045563
+		SER for symbol 1:	0.6220000386238098
+		BER for symbol 2:	0.3630000054836273
+		SER for symbol 2:	0.6290000081062317
+	Batch size 2_000, Train step 59, cnt 45
+	current mag loss:	[0.00052761]
+	current phase loss:	[5.445917]
+		BER for symbol 1:	0.34800001978874207
+		SER for symbol 1:	0.6095000505447388
+		BER for symbol 2:	0.3460000157356262
+		SER for symbol 2:	0.597000002861023
+	Batch size 2_000, Train step 119, cnt 46
+	current mag loss:	[0.00102575]
+	current phase loss:	[5.465701]
+		BER for symbol 1:	0.33500000834465027
+		SER for symbol 1:	0.581000030040741
+		BER for symbol 2:	0.3267500102519989
+		SER for symbol 2:	0.578000009059906
+	Batch size 2_000, Train step 179, cnt 47
+	current mag loss:	[0.0004016]
+	current phase loss:	[5.4598856]
+		BER for symbol 1:	0.33800002932548523
+		SER for symbol 1:	0.5925000309944153
+		BER for symbol 2:	0.33650001883506775
+		SER for symbol 2:	0.593000054359436
+	Batch size 2_000, Train step 239, cnt 48
+	current mag loss:	[0.0008929]
+	current phase loss:	[5.8380346]
+		BER for symbol 1:	0.3440000116825104
+		SER for symbol 1:	0.596500039100647
+		BER for symbol 2:	0.3465000092983246
+		SER for symbol 2:	0.6020000576972961
+	Batch size 2_000, Train step 299, cnt 49
+	current mag loss:	[0.00059835]
+	current phase loss:	[5.5428553]
+		BER for symbol 1:	0.3505000174045563
+		SER for symbol 1:	0.6145000457763672
+		BER for symbol 2:	0.3472500145435333
+		SER for symbol 2:	0.6115000247955322
+	Batch size 5_000, Train step 59, cnt 50
+	current mag loss:	[0.00039797]
+	current phase loss:	[5.6407256]
+		BER for symbol 1:	0.3472999930381775
+		SER for symbol 1:	0.6029999852180481
+		BER for symbol 2:	0.33889999985694885
+		SER for symbol 2:	0.592799961566925
+	Batch size 5_000, Train step 119, cnt 51
+	current mag loss:	[0.00028975]
+	current phase loss:	[5.5148263]
+		BER for symbol 1:	0.3432999849319458
+		SER for symbol 1:	0.597000002861023
+		BER for symbol 2:	0.3375999927520752
+		SER for symbol 2:	0.5949999690055847
+	Batch size 5_000, Train step 179, cnt 52
+	current mag loss:	[0.00061453]
+	current phase loss:	[5.6957784]
+		BER for symbol 1:	0.3425000011920929
+		SER for symbol 1:	0.592199981212616
+		BER for symbol 2:	0.33739998936653137
+		SER for symbol 2:	0.5916000008583069
+	Batch size 5_000, Train step 239, cnt 53
+	current mag loss:	[0.00040553]
+	current phase loss:	[5.6143484]
+		BER for symbol 1:	0.3425000011920929
+		SER for symbol 1:	0.597000002861023
+		BER for symbol 2:	0.3393999934196472
+		SER for symbol 2:	0.5965999960899353
+	Batch size 5_000, Train step 299, cnt 54
+	current mag loss:	[0.00028565]
+	current phase loss:	[5.709807]
+		BER for symbol 1:	0.3498999774456024
+		SER for symbol 1:	0.6074000000953674
+		BER for symbol 2:	0.35009998083114624
+		SER for symbol 2:	0.6035999655723572
+	Batch size 10_000, Train step 59, cnt 55
+	current mag loss:	[0.00029451]
+	current phase loss:	[5.6126904]
+		BER for symbol 1:	0.34790000319480896
+		SER for symbol 1:	0.6072999835014343
+		BER for symbol 2:	0.3402499854564667
+		SER for symbol 2:	0.5950999855995178
+	Batch size 10_000, Train step 119, cnt 56
+	current mag loss:	[0.00043153]
+	current phase loss:	[5.6871347]
+		BER for symbol 1:	0.3467499911785126
+		SER for symbol 1:	0.5989999771118164
+		BER for symbol 2:	0.3471999764442444
+		SER for symbol 2:	0.6096999645233154
+	Batch size 10_000, Train step 179, cnt 57
+	current mag loss:	[0.00023468]
+	current phase loss:	[5.5216336]
+		BER for symbol 1:	0.337149977684021
+		SER for symbol 1:	0.5934999585151672
+		BER for symbol 2:	0.34804999828338623
+		SER for symbol 2:	0.6050999760627747
+	Batch size 10_000, Train step 239, cnt 58
+	current mag loss:	[0.00021054]
+	current phase loss:	[5.5306406]
+		BER for symbol 1:	0.3379499912261963
+		SER for symbol 1:	0.5918999910354614
+		BER for symbol 2:	0.3452000021934509
+		SER for symbol 2:	0.600600004196167
+	Batch size 10_000, Train step 299, cnt 59
+	current mag loss:	[0.00024328]
+	current phase loss:	[5.6595054]
+		BER for symbol 1:	0.3421500027179718
+		SER for symbol 1:	0.598800003528595
+		BER for symbol 2:	0.34849998354911804
+		SER for symbol 2:	0.6053000092506409
+train model for SNR 2 dB
+	Batch size 100, Train step 59, cnt 60
+	current mag loss:	[0.00278482]
+	current phase loss:	[4.751499]
+		BER for symbol 1:	0.3100000023841858
+		SER for symbol 1:	0.5399999618530273
+		BER for symbol 2:	0.22999998927116394
+		SER for symbol 2:	0.429999977350235
+	Batch size 100, Train step 119, cnt 61
+	current mag loss:	[0.00504558]
+	current phase loss:	[5.902178]
+		BER for symbol 1:	0.3400000035762787
+		SER for symbol 1:	0.5799999833106995
+		BER for symbol 2:	0.32999998331069946
+		SER for symbol 2:	0.5699999928474426
+	Batch size 100, Train step 179, cnt 62
+	current mag loss:	[0.00156565]
+	current phase loss:	[5.0869036]
+		BER for symbol 1:	0.3400000035762787
+		SER for symbol 1:	0.6200000047683716
+		BER for symbol 2:	0.2800000011920929
+		SER for symbol 2:	0.4899999797344208
+	Batch size 100, Train step 239, cnt 63
+	current mag loss:	[0.0029588]
+	current phase loss:	[5.435334]
+		BER for symbol 1:	0.32999998331069946
+		SER for symbol 1:	0.5600000023841858
+		BER for symbol 2:	0.29499998688697815
+		SER for symbol 2:	0.5299999713897705
+	Batch size 100, Train step 299, cnt 64
+	current mag loss:	[0.00130095]
+	current phase loss:	[4.659205]
+		BER for symbol 1:	0.32499998807907104
+		SER for symbol 1:	0.5999999642372131
+		BER for symbol 2:	0.3100000023841858
+		SER for symbol 2:	0.5299999713897705
+	Batch size 400, Train step 59, cnt 65
+	current mag loss:	[0.00169445]
+	current phase loss:	[4.4399896]
+		BER for symbol 1:	0.29624998569488525
+		SER for symbol 1:	0.5349999666213989
+		BER for symbol 2:	0.2862499952316284
+		SER for symbol 2:	0.5024999976158142
+	Batch size 400, Train step 119, cnt 66
+	current mag loss:	[0.00219263]
+	current phase loss:	[4.582544]
+		BER for symbol 1:	0.29499998688697815
+		SER for symbol 1:	0.5224999785423279
+		BER for symbol 2:	0.3075000047683716
+		SER for symbol 2:	0.5424999594688416
+	Batch size 400, Train step 179, cnt 67
+	current mag loss:	[0.00039261]
+	current phase loss:	[4.5642776]
+		BER for symbol 1:	0.30124998092651367
+		SER for symbol 1:	0.5299999713897705
+		BER for symbol 2:	0.2824999988079071
+		SER for symbol 2:	0.512499988079071
+	Batch size 400, Train step 239, cnt 68
+	current mag loss:	[0.00109814]
+	current phase loss:	[4.905812]
+		BER for symbol 1:	0.30124998092651367
+		SER for symbol 1:	0.5299999713897705
+		BER for symbol 2:	0.29749998450279236
+		SER for symbol 2:	0.5475000143051147
+	Batch size 400, Train step 299, cnt 69
+	current mag loss:	[0.0008102]
+	current phase loss:	[5.015191]
+		BER for symbol 1:	0.3087500035762787
+		SER for symbol 1:	0.5349999666213989
+		BER for symbol 2:	0.3125
+		SER for symbol 2:	0.5600000023841858
+	Batch size 1_000, Train step 59, cnt 70
+	current mag loss:	[0.00046838]
+	current phase loss:	[4.6106687]
+		BER for symbol 1:	0.30300000309944153
+		SER for symbol 1:	0.5420000553131104
+		BER for symbol 2:	0.3060000240802765
+		SER for symbol 2:	0.5460000038146973
+	Batch size 1_000, Train step 119, cnt 71
+	current mag loss:	[0.00117287]
+	current phase loss:	[4.677681]
+		BER for symbol 1:	0.3095000088214874
+		SER for symbol 1:	0.5460000038146973
+		BER for symbol 2:	0.30100002884864807
+		SER for symbol 2:	0.5350000262260437
+	Batch size 1_000, Train step 179, cnt 72
+	current mag loss:	[0.00076843]
+	current phase loss:	[4.823698]
+		BER for symbol 1:	0.3135000169277191
+		SER for symbol 1:	0.5550000071525574
+		BER for symbol 2:	0.28550001978874207
+		SER for symbol 2:	0.5120000243186951
+	Batch size 1_000, Train step 239, cnt 73
+	current mag loss:	[0.00066565]
+	current phase loss:	[4.5702486]
+		BER for symbol 1:	0.29750001430511475
+		SER for symbol 1:	0.5330000519752502
+		BER for symbol 2:	0.2970000207424164
+		SER for symbol 2:	0.5300000309944153
+	Batch size 1_000, Train step 299, cnt 74
+	current mag loss:	[0.00100546]
+	current phase loss:	[4.553095]
+		BER for symbol 1:	0.29500001668930054
+		SER for symbol 1:	0.51500004529953
+		BER for symbol 2:	0.28700000047683716
+		SER for symbol 2:	0.5250000357627869
+	Batch size 2_000, Train step 59, cnt 75
+	current mag loss:	[0.00037367]
+	current phase loss:	[4.3123546]
+		BER for symbol 1:	0.28450000286102295
+		SER for symbol 1:	0.5180000066757202
+		BER for symbol 2:	0.2957500219345093
+		SER for symbol 2:	0.5290000438690186
+	Batch size 2_000, Train step 119, cnt 76
+	current mag loss:	[0.00043289]
+	current phase loss:	[4.513067]
+		BER for symbol 1:	0.2875000238418579
+		SER for symbol 1:	0.5070000290870667
+		BER for symbol 2:	0.29625001549720764
+		SER for symbol 2:	0.5275000333786011
+	Batch size 2_000, Train step 179, cnt 77
+	current mag loss:	[0.00060068]
+	current phase loss:	[4.4169946]
+		BER for symbol 1:	0.2955000102519989
+		SER for symbol 1:	0.5320000052452087
+		BER for symbol 2:	0.288750022649765
+		SER for symbol 2:	0.5175000429153442
+	Batch size 2_000, Train step 239, cnt 78
+	current mag loss:	[0.0006784]
+	current phase loss:	[4.619074]
+		BER for symbol 1:	0.2990000247955322
+		SER for symbol 1:	0.534000039100647
+		BER for symbol 2:	0.289000004529953
+		SER for symbol 2:	0.5180000066757202
+	Batch size 2_000, Train step 299, cnt 79
+	current mag loss:	[0.00045345]
+	current phase loss:	[4.5809364]
+		BER for symbol 1:	0.31075000762939453
+		SER for symbol 1:	0.5580000281333923
+		BER for symbol 2:	0.2942500114440918
+		SER for symbol 2:	0.527999997138977
+	Batch size 5_000, Train step 59, cnt 80
+	current mag loss:	[0.00037695]
+	current phase loss:	[4.540429]
+		BER for symbol 1:	0.29339998960494995
+		SER for symbol 1:	0.5248000025749207
+		BER for symbol 2:	0.2937999963760376
+		SER for symbol 2:	0.5235999822616577
+	Batch size 5_000, Train step 119, cnt 81
+	current mag loss:	[0.00029073]
+	current phase loss:	[4.451564]
+		BER for symbol 1:	0.29350000619888306
+		SER for symbol 1:	0.5293999910354614
+		BER for symbol 2:	0.29829999804496765
+		SER for symbol 2:	0.5356000065803528
+	Batch size 5_000, Train step 179, cnt 82
+	current mag loss:	[0.00051752]
+	current phase loss:	[4.5789185]
+		BER for symbol 1:	0.2962000072002411
+		SER for symbol 1:	0.5317999720573425
+		BER for symbol 2:	0.30079999566078186
+		SER for symbol 2:	0.5393999814987183
+	Batch size 5_000, Train step 239, cnt 83
+	current mag loss:	[0.00030325]
+	current phase loss:	[4.563738]
+		BER for symbol 1:	0.30379998683929443
+		SER for symbol 1:	0.5419999957084656
+		BER for symbol 2:	0.2953999936580658
+		SER for symbol 2:	0.5315999984741211
+	Batch size 5_000, Train step 299, cnt 84
+	current mag loss:	[0.00042275]
+	current phase loss:	[4.626663]
+		BER for symbol 1:	0.29809999465942383
+		SER for symbol 1:	0.5349999666213989
+		BER for symbol 2:	0.2992999851703644
+		SER for symbol 2:	0.5370000004768372
+	Batch size 10_000, Train step 59, cnt 85
+	current mag loss:	[0.00030817]
+	current phase loss:	[4.553986]
+		BER for symbol 1:	0.2932499945163727
+		SER for symbol 1:	0.524399995803833
+		BER for symbol 2:	0.2931499779224396
+		SER for symbol 2:	0.526699960231781
+	Batch size 10_000, Train step 119, cnt 86
+	current mag loss:	[0.00024641]
+	current phase loss:	[4.540317]
+		BER for symbol 1:	0.29729998111724854
+		SER for symbol 1:	0.5351999998092651
+		BER for symbol 2:	0.2938999831676483
+		SER for symbol 2:	0.5271999835968018
+	Batch size 10_000, Train step 179, cnt 87
+	current mag loss:	[0.00026481]
+	current phase loss:	[4.5368857]
+		BER for symbol 1:	0.29350000619888306
+		SER for symbol 1:	0.5266000032424927
+		BER for symbol 2:	0.30024999380111694
+		SER for symbol 2:	0.5352999567985535
+	Batch size 10_000, Train step 239, cnt 88
+	current mag loss:	[0.00028305]
+	current phase loss:	[4.588485]
+		BER for symbol 1:	0.2980499863624573
+		SER for symbol 1:	0.5327999591827393
+		BER for symbol 2:	0.2939999997615814
+		SER for symbol 2:	0.5257999897003174
+	Batch size 10_000, Train step 299, cnt 89
+	current mag loss:	[0.0003628]
+	current phase loss:	[4.486066]
+		BER for symbol 1:	0.29580000042915344
+		SER for symbol 1:	0.5333999991416931
+		BER for symbol 2:	0.291949987411499
+		SER for symbol 2:	0.5199999809265137
+train model for SNR 3 dB
+	Batch size 100, Train step 59, cnt 90
+	current mag loss:	[0.00057706]
+	current phase loss:	[3.4430087]
+		BER for symbol 1:	0.25
+		SER for symbol 1:	0.4599999785423279
+		BER for symbol 2:	0.1899999976158142
+		SER for symbol 2:	0.3499999940395355
+	Batch size 100, Train step 119, cnt 91
+	current mag loss:	[0.01198373]
+	current phase loss:	[4.4880185]
+		BER for symbol 1:	0.29999998211860657
+		SER for symbol 1:	0.5199999809265137
+		BER for symbol 2:	0.2449999898672104
+		SER for symbol 2:	0.4599999785423279
+	Batch size 100, Train step 179, cnt 92
+	current mag loss:	[0.00575595]
+	current phase loss:	[3.855985]
+		BER for symbol 1:	0.25
+		SER for symbol 1:	0.4599999785423279
+		BER for symbol 2:	0.2199999988079071
+		SER for symbol 2:	0.3999999761581421
+	Batch size 100, Train step 239, cnt 93
+	current mag loss:	[0.00025054]
+	current phase loss:	[4.1179404]
+		BER for symbol 1:	0.26499998569488525
+		SER for symbol 1:	0.47999998927116394
+		BER for symbol 2:	0.32999998331069946
+		SER for symbol 2:	0.5600000023841858
+	Batch size 100, Train step 299, cnt 94
+	current mag loss:	[0.00955704]
+	current phase loss:	[4.2653995]
+		BER for symbol 1:	0.25999999046325684
+		SER for symbol 1:	0.4599999785423279
+		BER for symbol 2:	0.25999999046325684
+		SER for symbol 2:	0.47999998927116394
+	Batch size 400, Train step 59, cnt 95
+	current mag loss:	[0.00218183]
+	current phase loss:	[3.244201]
+		BER for symbol 1:	0.21875
+		SER for symbol 1:	0.4124999940395355
+		BER for symbol 2:	0.2512499988079071
+		SER for symbol 2:	0.45499998331069946
+	Batch size 400, Train step 119, cnt 96
+	current mag loss:	[0.00037681]
+	current phase loss:	[3.3416874]
+		BER for symbol 1:	0.22874999046325684
+		SER for symbol 1:	0.4325000047683716
+		BER for symbol 2:	0.2712499797344208
+		SER for symbol 2:	0.5
+	Batch size 400, Train step 179, cnt 97
+	current mag loss:	[0.00073894]
+	current phase loss:	[3.6419919]
+		BER for symbol 1:	0.2487500011920929
+		SER for symbol 1:	0.45499998331069946
+		BER for symbol 2:	0.2512499988079071
+		SER for symbol 2:	0.4624999761581421
+	Batch size 400, Train step 239, cnt 98
+	current mag loss:	[0.00029859]
+	current phase loss:	[3.6554399]
+		BER for symbol 1:	0.2449999898672104
+		SER for symbol 1:	0.4449999928474426
+		BER for symbol 2:	0.2524999976158142
+		SER for symbol 2:	0.45249998569488525
+	Batch size 400, Train step 299, cnt 99
+	current mag loss:	[0.00046173]
+	current phase loss:	[3.60761]
+		BER for symbol 1:	0.24124999344348907
+		SER for symbol 1:	0.4375
+		BER for symbol 2:	0.2574999928474426
+		SER for symbol 2:	0.4724999964237213
+	Batch size 1_000, Train step 59, cnt 100
+	current mag loss:	[0.00037407]
+	current phase loss:	[3.6962113]
+		BER for symbol 1:	0.25600001215934753
+		SER for symbol 1:	0.4610000252723694
+		BER for symbol 2:	0.23350000381469727
+		SER for symbol 2:	0.43400001525878906
+	Batch size 1_000, Train step 119, cnt 101
+	current mag loss:	[0.0003203]
+	current phase loss:	[3.5535047]
+		BER for symbol 1:	0.25699999928474426
+		SER for symbol 1:	0.4750000238418579
+		BER for symbol 2:	0.26200002431869507
+		SER for symbol 2:	0.48500001430511475
+	Batch size 1_000, Train step 179, cnt 102
+	current mag loss:	[0.00027965]
+	current phase loss:	[3.544232]
+		BER for symbol 1:	0.25
+		SER for symbol 1:	0.46300002932548523
+		BER for symbol 2:	0.2590000033378601
+		SER for symbol 2:	0.4750000238418579
+	Batch size 1_000, Train step 239, cnt 103
+	current mag loss:	[0.00066206]
+	current phase loss:	[3.3939617]
+		BER for symbol 1:	0.23000000417232513
+		SER for symbol 1:	0.4220000207424164
+		BER for symbol 2:	0.23900000751018524
+		SER for symbol 2:	0.4360000193119049
+	Batch size 1_000, Train step 299, cnt 104
+	current mag loss:	[0.00030091]
+	current phase loss:	[3.567259]
+		BER for symbol 1:	0.25300002098083496
+		SER for symbol 1:	0.4610000252723694
+		BER for symbol 2:	0.25600001215934753
+		SER for symbol 2:	0.46800002455711365
+	Batch size 2_000, Train step 59, cnt 105
+	current mag loss:	[0.00061559]
+	current phase loss:	[3.548233]
+		BER for symbol 1:	0.25699999928474426
+		SER for symbol 1:	0.4775000214576721
+		BER for symbol 2:	0.2524999976158142
+		SER for symbol 2:	0.46000000834465027
+	Batch size 2_000, Train step 119, cnt 106
+	current mag loss:	[0.00067795]
+	current phase loss:	[3.4330723]
+		BER for symbol 1:	0.2370000183582306
+		SER for symbol 1:	0.4350000321865082
+		BER for symbol 2:	0.23100000619888306
+		SER for symbol 2:	0.4335000216960907
+	Batch size 2_000, Train step 179, cnt 107
+	current mag loss:	[0.00016704]
+	current phase loss:	[3.5136442]
+		BER for symbol 1:	0.24675001204013824
+		SER for symbol 1:	0.4635000228881836
+		BER for symbol 2:	0.25
+		SER for symbol 2:	0.460500031709671
+	Batch size 2_000, Train step 239, cnt 108
+	current mag loss:	[0.00037176]
+	current phase loss:	[3.5167627]
+		BER for symbol 1:	0.24650001525878906
+		SER for symbol 1:	0.453000009059906
+		BER for symbol 2:	0.2460000067949295
+		SER for symbol 2:	0.4595000147819519
+	Batch size 2_000, Train step 299, cnt 109
+	current mag loss:	[0.00050913]
+	current phase loss:	[3.5004485]
+		BER for symbol 1:	0.2435000091791153
+		SER for symbol 1:	0.4465000331401825
+		BER for symbol 2:	0.249750018119812
+		SER for symbol 2:	0.4610000252723694
+	Batch size 5_000, Train step 59, cnt 110
+	current mag loss:	[0.00025055]
+	current phase loss:	[3.5512266]
+		BER for symbol 1:	0.24709999561309814
+		SER for symbol 1:	0.4553999900817871
+		BER for symbol 2:	0.2459999918937683
+		SER for symbol 2:	0.45339998602867126
+	Batch size 5_000, Train step 119, cnt 111
+	current mag loss:	[0.0003178]
+	current phase loss:	[3.4860508]
+		BER for symbol 1:	0.23999999463558197
+		SER for symbol 1:	0.4447999894618988
+		BER for symbol 2:	0.25040000677108765
+		SER for symbol 2:	0.4596000015735626
+	Batch size 5_000, Train step 179, cnt 112
+	current mag loss:	[0.00018249]
+	current phase loss:	[3.5514846]
+		BER for symbol 1:	0.249099999666214
+		SER for symbol 1:	0.4611999988555908
+		BER for symbol 2:	0.25040000677108765
+		SER for symbol 2:	0.4599999785423279
+	Batch size 5_000, Train step 239, cnt 113
+	current mag loss:	[0.0001576]
+	current phase loss:	[3.5035396]
+		BER for symbol 1:	0.24289999902248383
+		SER for symbol 1:	0.4487999975681305
+		BER for symbol 2:	0.24409998953342438
+		SER for symbol 2:	0.45239999890327454
+	Batch size 5_000, Train step 299, cnt 114
+	current mag loss:	[0.00014502]
+	current phase loss:	[3.4974983]
+		BER for symbol 1:	0.24089999496936798
+		SER for symbol 1:	0.44739997386932373
+		BER for symbol 2:	0.2491999864578247
+		SER for symbol 2:	0.4596000015735626
+	Batch size 10_000, Train step 59, cnt 115
+	current mag loss:	[0.00011676]
+	current phase loss:	[3.55076]
+		BER for symbol 1:	0.250900000333786
+		SER for symbol 1:	0.46129998564720154
+		BER for symbol 2:	0.2459999918937683
+		SER for symbol 2:	0.45649999380111694
+	Batch size 10_000, Train step 119, cnt 116
+	current mag loss:	[0.00022533]
+	current phase loss:	[3.5478773]
+		BER for symbol 1:	0.24754999577999115
+		SER for symbol 1:	0.4567999839782715
+		BER for symbol 2:	0.24754999577999115
+		SER for symbol 2:	0.45659998059272766
+	Batch size 10_000, Train step 179, cnt 117
+	current mag loss:	[0.00019891]
+	current phase loss:	[3.565902]
+		BER for symbol 1:	0.24609999358654022
+		SER for symbol 1:	0.45260000228881836
+		BER for symbol 2:	0.24399998784065247
+		SER for symbol 2:	0.4520999789237976
+	Batch size 10_000, Train step 239, cnt 118
+	current mag loss:	[0.00014396]
+	current phase loss:	[3.5408359]
+		BER for symbol 1:	0.24769999086856842
+		SER for symbol 1:	0.45579999685287476
+		BER for symbol 2:	0.24699999392032623
+		SER for symbol 2:	0.45499998331069946
+	Batch size 10_000, Train step 299, cnt 119
+	current mag loss:	[0.00031523]
+	current phase loss:	[3.5847597]
+		BER for symbol 1:	0.2467999905347824
+		SER for symbol 1:	0.4536999762058258
+		BER for symbol 2:	0.2483999878168106
+		SER for symbol 2:	0.4587000012397766
+train model for SNR 4 dB
+	Batch size 100, Train step 59, cnt 120
+	current mag loss:	[0.00366807]
+	current phase loss:	[2.4304266]
+		BER for symbol 1:	0.14000000059604645
+		SER for symbol 1:	0.2800000011920929
+		BER for symbol 2:	0.2199999988079071
+		SER for symbol 2:	0.41999998688697815
+	Batch size 100, Train step 119, cnt 121
+	current mag loss:	[0.00676776]
+	current phase loss:	[4.0521283]
+		BER for symbol 1:	0.26499998569488525
+		SER for symbol 1:	0.4599999785423279
+		BER for symbol 2:	0.1550000011920929
+		SER for symbol 2:	0.29999998211860657
+	Batch size 100, Train step 179, cnt 122
+	current mag loss:	[0.17633197]
+	current phase loss:	[8.900142]
+		BER for symbol 1:	0.35999998450279236
+		SER for symbol 1:	0.6399999856948853
+		BER for symbol 2:	0.35999998450279236
+		SER for symbol 2:	0.5999999642372131
+	Batch size 100, Train step 239, cnt 123
+	current mag loss:	[0.00723636]
+	current phase loss:	[4.476108]
+		BER for symbol 1:	0.3050000071525574
+		SER for symbol 1:	0.550000011920929
+		BER for symbol 2:	0.3100000023841858
+		SER for symbol 2:	0.5399999618530273
+	Batch size 100, Train step 299, cnt 124
+	current mag loss:	[0.00440965]
+	current phase loss:	[2.9754107]
+		BER for symbol 1:	0.20999999344348907
+		SER for symbol 1:	0.4099999964237213
+		BER for symbol 2:	0.19999998807907104
+		SER for symbol 2:	0.3700000047683716
+	Batch size 400, Train step 59, cnt 125
+	current mag loss:	[0.00321181]
+	current phase loss:	[2.8820214]
+		BER for symbol 1:	0.22874999046325684
+		SER for symbol 1:	0.4399999976158142
+		BER for symbol 2:	0.20499999821186066
+		SER for symbol 2:	0.38499999046325684
+	Batch size 400, Train step 119, cnt 126
+	current mag loss:	[0.00181576]
+	current phase loss:	[2.6508949]
+		BER for symbol 1:	0.20125000178813934
+		SER for symbol 1:	0.3824999928474426
+		BER for symbol 2:	0.19624999165534973
+		SER for symbol 2:	0.38499999046325684
+	Batch size 400, Train step 179, cnt 127
+	current mag loss:	[0.00190235]
+	current phase loss:	[2.8324306]
+		BER for symbol 1:	0.2137499898672104
+		SER for symbol 1:	0.3974999785423279
+		BER for symbol 2:	0.1887499988079071
+		SER for symbol 2:	0.35999998450279236
+	Batch size 400, Train step 239, cnt 128
+	current mag loss:	[0.00569725]
+	current phase loss:	[3.2096975]
+		BER for symbol 1:	0.22499999403953552
+		SER for symbol 1:	0.42499998211860657
+		BER for symbol 2:	0.22999998927116394
+		SER for symbol 2:	0.4399999976158142
+	Batch size 400, Train step 299, cnt 129
+	current mag loss:	[0.00374329]
+	current phase loss:	[3.0548012]
+		BER for symbol 1:	0.2212499976158142
+		SER for symbol 1:	0.42249998450279236
+		BER for symbol 2:	0.2137499898672104
+		SER for symbol 2:	0.39249998331069946
+	Batch size 1_000, Train step 59, cnt 130
+	current mag loss:	[0.00350165]
+	current phase loss:	[2.844285]
+		BER for symbol 1:	0.21300001442432404
+		SER for symbol 1:	0.4020000100135803
+		BER for symbol 2:	0.2110000103712082
+		SER for symbol 2:	0.398000031709671
+	Batch size 1_000, Train step 119, cnt 131
+	current mag loss:	[0.00274519]
+	current phase loss:	[2.7207308]
+		BER for symbol 1:	0.20000000298023224
+		SER for symbol 1:	0.37700000405311584
+		BER for symbol 2:	0.20200000703334808
+		SER for symbol 2:	0.38200002908706665
+	Batch size 1_000, Train step 179, cnt 132
+	current mag loss:	[0.00155269]
+	current phase loss:	[2.8890703]
+		BER for symbol 1:	0.21550001204013824
+		SER for symbol 1:	0.40400001406669617
+		BER for symbol 2:	0.2225000113248825
+		SER for symbol 2:	0.4230000078678131
+	Batch size 1_000, Train step 239, cnt 133
+	current mag loss:	[0.00154426]
+	current phase loss:	[2.6913002]
+		BER for symbol 1:	0.1915000081062317
+		SER for symbol 1:	0.36500000953674316
+		BER for symbol 2:	0.22450001537799835
+		SER for symbol 2:	0.4270000159740448
+	Batch size 1_000, Train step 299, cnt 134
+	current mag loss:	[0.0014634]
+	current phase loss:	[2.7802873]
+		BER for symbol 1:	0.20250001549720764
+		SER for symbol 1:	0.3880000114440918
+		BER for symbol 2:	0.21550001204013824
+		SER for symbol 2:	0.4130000174045563
+	Batch size 2_000, Train step 59, cnt 135
+	current mag loss:	[0.00138289]
+	current phase loss:	[2.7220533]
+		BER for symbol 1:	0.20525000989437103
+		SER for symbol 1:	0.3930000066757202
+		BER for symbol 2:	0.20125001668930054
+		SER for symbol 2:	0.3800000250339508
+	Batch size 2_000, Train step 119, cnt 136
+	current mag loss:	[0.00115715]
+	current phase loss:	[2.7651005]
+		BER for symbol 1:	0.20800000429153442
+		SER for symbol 1:	0.398000031709671
+		BER for symbol 2:	0.20150001347064972
+		SER for symbol 2:	0.38750001788139343
+	Batch size 2_000, Train step 179, cnt 137
+	current mag loss:	[0.00174363]
+	current phase loss:	[2.6251252]
+		BER for symbol 1:	0.19500000774860382
+		SER for symbol 1:	0.3735000193119049
+		BER for symbol 2:	0.20275001227855682
+		SER for symbol 2:	0.3895000219345093
+	Batch size 2_000, Train step 239, cnt 138
+	current mag loss:	[0.00128813]
+	current phase loss:	[2.6656537]
+		BER for symbol 1:	0.195250004529953
+		SER for symbol 1:	0.37300002574920654
+		BER for symbol 2:	0.20850001275539398
+		SER for symbol 2:	0.39400002360343933
+	Batch size 2_000, Train step 299, cnt 139
+	current mag loss:	[0.00121698]
+	current phase loss:	[2.5710862]
+		BER for symbol 1:	0.1862500160932541
+		SER for symbol 1:	0.3620000183582306
+		BER for symbol 2:	0.19950000941753387
+		SER for symbol 2:	0.3785000145435333
+	Batch size 5_000, Train step 59, cnt 140
+	current mag loss:	[0.00120784]
+	current phase loss:	[2.6272266]
+		BER for symbol 1:	0.19609999656677246
+		SER for symbol 1:	0.3765999972820282
+		BER for symbol 2:	0.19589999318122864
+		SER for symbol 2:	0.37379997968673706
+	Batch size 5_000, Train step 119, cnt 141
+	current mag loss:	[0.00110987]
+	current phase loss:	[2.7166896]
+		BER for symbol 1:	0.20160000026226044
+		SER for symbol 1:	0.38439998030662537
+		BER for symbol 2:	0.20080000162124634
+		SER for symbol 2:	0.3813999891281128
+	Batch size 5_000, Train step 179, cnt 142
+	current mag loss:	[0.00086952]
+	current phase loss:	[2.7168274]
+		BER for symbol 1:	0.2029999941587448
+		SER for symbol 1:	0.3861999809741974
+		BER for symbol 2:	0.19990000128746033
+		SER for symbol 2:	0.3807999789714813
+	Batch size 5_000, Train step 239, cnt 143
+	current mag loss:	[0.00071069]
+	current phase loss:	[2.6611075]
+		BER for symbol 1:	0.1981000006198883
+		SER for symbol 1:	0.3781999945640564
+		BER for symbol 2:	0.1979999989271164
+		SER for symbol 2:	0.37860000133514404
+	Batch size 5_000, Train step 299, cnt 144
+	current mag loss:	[0.00075784]
+	current phase loss:	[2.7282014]
+		BER for symbol 1:	0.20520000159740448
+		SER for symbol 1:	0.3911999762058258
+		BER for symbol 2:	0.2029999941587448
+		SER for symbol 2:	0.38760000467300415
+	Batch size 10_000, Train step 59, cnt 145
+	current mag loss:	[0.00081383]
+	current phase loss:	[2.694125]
+		BER for symbol 1:	0.20104999840259552
+		SER for symbol 1:	0.384799987077713
+		BER for symbol 2:	0.19824999570846558
+		SER for symbol 2:	0.3779999911785126
+	Batch size 10_000, Train step 119, cnt 146
+	current mag loss:	[0.00096953]
+	current phase loss:	[2.6993113]
+		BER for symbol 1:	0.20144999027252197
+		SER for symbol 1:	0.38429999351501465
+		BER for symbol 2:	0.20224998891353607
+		SER for symbol 2:	0.38599997758865356
+	Batch size 10_000, Train step 179, cnt 147
+	current mag loss:	[0.00088134]
+	current phase loss:	[2.6545026]
+		BER for symbol 1:	0.1981000006198883
+		SER for symbol 1:	0.37860000133514404
+		BER for symbol 2:	0.1981000006198883
+		SER for symbol 2:	0.37790000438690186
+	Batch size 10_000, Train step 239, cnt 148
+	current mag loss:	[0.00067196]
+	current phase loss:	[2.6918814]
+		BER for symbol 1:	0.2003999948501587
+		SER for symbol 1:	0.3824999928474426
+		BER for symbol 2:	0.20194999873638153
+		SER for symbol 2:	0.38419997692108154
+	Batch size 10_000, Train step 299, cnt 149
+	current mag loss:	[0.00065802]
+	current phase loss:	[2.707086]
+		BER for symbol 1:	0.20264999568462372
+		SER for symbol 1:	0.38769999146461487
+		BER for symbol 2:	0.19839999079704285
+		SER for symbol 2:	0.3780999779701233
+train model for SNR 5 dB
+	Batch size 100, Train step 59, cnt 150
+	current mag loss:	[0.00626841]
+	current phase loss:	[2.067557]
+		BER for symbol 1:	0.14000000059604645
+		SER for symbol 1:	0.2800000011920929
+		BER for symbol 2:	0.19499999284744263
+		SER for symbol 2:	0.38999998569488525
+	Batch size 100, Train step 119, cnt 151
+	current mag loss:	[0.00260144]
+	current phase loss:	[2.5821471]
+		BER for symbol 1:	0.2199999988079071
+		SER for symbol 1:	0.429999977350235
+		BER for symbol 2:	0.17499999701976776
+		SER for symbol 2:	0.32999998331069946
+	Batch size 100, Train step 179, cnt 152
+	current mag loss:	[0.00257899]
+	current phase loss:	[1.8300282]
+		BER for symbol 1:	0.17000000178813934
+		SER for symbol 1:	0.3199999928474426
+		BER for symbol 2:	0.11999999731779099
+		SER for symbol 2:	0.23999999463558197
+	Batch size 100, Train step 239, cnt 153
+	current mag loss:	[0.00103624]
+	current phase loss:	[2.300608]
+		BER for symbol 1:	0.16499999165534973
+		SER for symbol 1:	0.3100000023841858
+		BER for symbol 2:	0.17000000178813934
+		SER for symbol 2:	0.32999998331069946
+	Batch size 100, Train step 299, cnt 154
+	current mag loss:	[0.0012205]
+	current phase loss:	[2.3209076]
+		BER for symbol 1:	0.1899999976158142
+		SER for symbol 1:	0.3700000047683716
+		BER for symbol 2:	0.1899999976158142
+		SER for symbol 2:	0.3400000035762787
+	Batch size 400, Train step 59, cnt 155
+	current mag loss:	[0.0007477]
+	current phase loss:	[1.9390959]
+		BER for symbol 1:	0.1537500023841858
+		SER for symbol 1:	0.3050000071525574
+		BER for symbol 2:	0.14874999225139618
+		SER for symbol 2:	0.2874999940395355
+	Batch size 400, Train step 119, cnt 156
+	current mag loss:	[0.00070996]
+	current phase loss:	[1.9686191]
+		BER for symbol 1:	0.14749999344348907
+		SER for symbol 1:	0.28999999165534973
+		BER for symbol 2:	0.16749998927116394
+		SER for symbol 2:	0.32249999046325684
+	Batch size 400, Train step 179, cnt 157
+	current mag loss:	[0.00059197]
+	current phase loss:	[1.9790064]
+		BER for symbol 1:	0.14000000059604645
+		SER for symbol 1:	0.26999998092651367
+		BER for symbol 2:	0.17000000178813934
+		SER for symbol 2:	0.32249999046325684
+	Batch size 400, Train step 239, cnt 158
+	current mag loss:	[0.00080476]
+	current phase loss:	[2.002939]
+		BER for symbol 1:	0.16624999046325684
+		SER for symbol 1:	0.32749998569488525
+		BER for symbol 2:	0.14874999225139618
+		SER for symbol 2:	0.2824999988079071
+	Batch size 400, Train step 299, cnt 159
+	current mag loss:	[0.00121538]
+	current phase loss:	[1.8433766]
+		BER for symbol 1:	0.14000000059604645
+		SER for symbol 1:	0.2750000059604645
+		BER for symbol 2:	0.1574999988079071
+		SER for symbol 2:	0.3125
+	Batch size 1_000, Train step 59, cnt 160
+	current mag loss:	[0.00054869]
+	current phase loss:	[1.9063631]
+		BER for symbol 1:	0.14250001311302185
+		SER for symbol 1:	0.27400001883506775
+		BER for symbol 2:	0.15600000321865082
+		SER for symbol 2:	0.30300000309944153
+	Batch size 1_000, Train step 119, cnt 161
+	current mag loss:	[0.00050422]
+	current phase loss:	[1.888639]
+		BER for symbol 1:	0.14600001275539398
+		SER for symbol 1:	0.28300002217292786
+		BER for symbol 2:	0.15950000286102295
+		SER for symbol 2:	0.31200000643730164
+	Batch size 1_000, Train step 179, cnt 162
+	current mag loss:	[0.00041072]
+	current phase loss:	[1.8997105]
+		BER for symbol 1:	0.15700000524520874
+		SER for symbol 1:	0.30900001525878906
+		BER for symbol 2:	0.14750000834465027
+		SER for symbol 2:	0.2900000214576721
+	Batch size 1_000, Train step 239, cnt 163
+	current mag loss:	[0.00049277]
+	current phase loss:	[1.8897746]
+		BER for symbol 1:	0.15700000524520874
+		SER for symbol 1:	0.3110000193119049
+		BER for symbol 2:	0.1485000103712082
+		SER for symbol 2:	0.29100000858306885
+	Batch size 1_000, Train step 299, cnt 164
+	current mag loss:	[0.00060205]
+	current phase loss:	[1.8073161]
+		BER for symbol 1:	0.1445000022649765
+		SER for symbol 1:	0.28700000047683716
+		BER for symbol 2:	0.1600000113248825
+		SER for symbol 2:	0.3150000274181366
+	Batch size 2_000, Train step 59, cnt 165
+	current mag loss:	[0.00039484]
+	current phase loss:	[1.9845219]
+		BER for symbol 1:	0.16175000369548798
+		SER for symbol 1:	0.3165000081062317
+		BER for symbol 2:	0.14775000512599945
+		SER for symbol 2:	0.2880000174045563
+	Batch size 2_000, Train step 119, cnt 166
+	current mag loss:	[0.00055639]
+	current phase loss:	[1.9013122]
+		BER for symbol 1:	0.14900000393390656
+		SER for symbol 1:	0.2930000126361847
+		BER for symbol 2:	0.15900000929832458
+		SER for symbol 2:	0.31300002336502075
+	Batch size 2_000, Train step 179, cnt 167
+	current mag loss:	[0.00037895]
+	current phase loss:	[1.974308]
+		BER for symbol 1:	0.15525001287460327
+		SER for symbol 1:	0.30100002884864807
+		BER for symbol 2:	0.15175001323223114
+		SER for symbol 2:	0.2995000183582306
+	Batch size 2_000, Train step 239, cnt 168
+	current mag loss:	[0.00039161]
+	current phase loss:	[1.9625417]
+		BER for symbol 1:	0.16425000131130219
+		SER for symbol 1:	0.32100000977516174
+		BER for symbol 2:	0.14675000309944153
+		SER for symbol 2:	0.289000004529953
+	Batch size 2_000, Train step 299, cnt 169
+	current mag loss:	[0.00037517]
+	current phase loss:	[1.914306]
+		BER for symbol 1:	0.15275000035762787
+		SER for symbol 1:	0.2995000183582306
+		BER for symbol 2:	0.15200001001358032
+		SER for symbol 2:	0.29750001430511475
+	Batch size 5_000, Train step 59, cnt 170
+	current mag loss:	[0.00036498]
+	current phase loss:	[1.8389652]
+		BER for symbol 1:	0.14579999446868896
+		SER for symbol 1:	0.287200003862381
+		BER for symbol 2:	0.1542000025510788
+		SER for symbol 2:	0.30320000648498535
+	Batch size 5_000, Train step 119, cnt 171
+	current mag loss:	[0.00040973]
+	current phase loss:	[1.9388735]
+		BER for symbol 1:	0.15349999070167542
+		SER for symbol 1:	0.30159997940063477
+		BER for symbol 2:	0.15729999542236328
+		SER for symbol 2:	0.3089999854564667
+	Batch size 5_000, Train step 179, cnt 172
+	current mag loss:	[0.00035128]
+	current phase loss:	[1.9019132]
+		BER for symbol 1:	0.15199999511241913
+		SER for symbol 1:	0.3003999888896942
+		BER for symbol 2:	0.15379999577999115
+		SER for symbol 2:	0.3012000024318695
+	Batch size 5_000, Train step 239, cnt 173
+	current mag loss:	[0.0003093]
+	current phase loss:	[1.8933407]
+		BER for symbol 1:	0.15060000121593475
+		SER for symbol 1:	0.29499998688697815
+		BER for symbol 2:	0.1598999947309494
+		SER for symbol 2:	0.31360000371932983
+	Batch size 5_000, Train step 299, cnt 174
+	current mag loss:	[0.0003149]
+	current phase loss:	[1.9251451]
+		BER for symbol 1:	0.15269999206066132
+		SER for symbol 1:	0.3001999855041504
+		BER for symbol 2:	0.15189999341964722
+		SER for symbol 2:	0.2978000044822693
+	Batch size 10_000, Train step 59, cnt 175
+	current mag loss:	[0.00032582]
+	current phase loss:	[1.8996431]
+		BER for symbol 1:	0.15289999544620514
+		SER for symbol 1:	0.30079999566078186
+		BER for symbol 2:	0.15119999647140503
+		SER for symbol 2:	0.29589998722076416
+	Batch size 10_000, Train step 119, cnt 176
+	current mag loss:	[0.00048609]
+	current phase loss:	[1.879245]
+		BER for symbol 1:	0.1477999985218048
+		SER for symbol 1:	0.2895999848842621
+		BER for symbol 2:	0.1501999944448471
+		SER for symbol 2:	0.29429998993873596
+	Batch size 10_000, Train step 179, cnt 177
+	current mag loss:	[0.00032956]
+	current phase loss:	[1.8766786]
+		BER for symbol 1:	0.14909999072551727
+		SER for symbol 1:	0.2930999994277954
+		BER for symbol 2:	0.1522499918937683
+		SER for symbol 2:	0.29889997839927673
+	Batch size 10_000, Train step 239, cnt 178
+	current mag loss:	[0.00027128]
+	current phase loss:	[1.9245651]
+		BER for symbol 1:	0.15459999442100525
+		SER for symbol 1:	0.30399999022483826
+		BER for symbol 2:	0.15410000085830688
+		SER for symbol 2:	0.3027999997138977
+	Batch size 10_000, Train step 299, cnt 179
+	current mag loss:	[0.00038663]
+	current phase loss:	[1.8774838]
+		BER for symbol 1:	0.15129999816417694
+		SER for symbol 1:	0.296999990940094
+		BER for symbol 2:	0.15549999475479126
+		SER for symbol 2:	0.3051999807357788
+train model for SNR 6 dB
+	Batch size 100, Train step 59, cnt 180
+	current mag loss:	[0.00456218]
+	current phase loss:	[1.4673021]
+		BER for symbol 1:	0.10999999940395355
+		SER for symbol 1:	0.2199999988079071
+		BER for symbol 2:	0.11499999463558197
+		SER for symbol 2:	0.22999998927116394
+	Batch size 100, Train step 119, cnt 181
+	current mag loss:	[0.00233896]
+	current phase loss:	[1.8825284]
+		BER for symbol 1:	0.1550000011920929
+		SER for symbol 1:	0.29999998211860657
+		BER for symbol 2:	0.14999999105930328
+		SER for symbol 2:	0.29999998211860657
+	Batch size 100, Train step 179, cnt 182
+	current mag loss:	[0.00244625]
+	current phase loss:	[1.5420837]
+		BER for symbol 1:	0.08999999612569809
+		SER for symbol 1:	0.17999999225139618
+		BER for symbol 2:	0.14999999105930328
+		SER for symbol 2:	0.29999998211860657
+	Batch size 100, Train step 239, cnt 183
+	current mag loss:	[0.00132944]
+	current phase loss:	[1.4405153]
+		BER for symbol 1:	0.0949999988079071
+		SER for symbol 1:	0.1899999976158142
+		BER for symbol 2:	0.11499999463558197
+		SER for symbol 2:	0.22999998927116394
+	Batch size 100, Train step 299, cnt 184
+	current mag loss:	[0.00093443]
+	current phase loss:	[1.2701322]
+		BER for symbol 1:	0.07000000029802322
+		SER for symbol 1:	0.14000000059604645
+		BER for symbol 2:	0.13499999046325684
+		SER for symbol 2:	0.26999998092651367
+	Batch size 400, Train step 59, cnt 185
+	current mag loss:	[0.00050402]
+	current phase loss:	[1.3395371]
+		BER for symbol 1:	0.10499999672174454
+		SER for symbol 1:	0.20749999582767487
+		BER for symbol 2:	0.11749999970197678
+		SER for symbol 2:	0.23499999940395355
+	Batch size 400, Train step 119, cnt 186
+	current mag loss:	[0.00103304]
+	current phase loss:	[1.4556061]
+		BER for symbol 1:	0.11625000089406967
+		SER for symbol 1:	0.22999998927116394
+		BER for symbol 2:	0.11249999701976776
+		SER for symbol 2:	0.2199999988079071
+	Batch size 400, Train step 179, cnt 187
+	current mag loss:	[0.00047023]
+	current phase loss:	[1.2162291]
+		BER for symbol 1:	0.09999999403953552
+		SER for symbol 1:	0.19749999046325684
+		BER for symbol 2:	0.10875000059604645
+		SER for symbol 2:	0.2149999886751175
+	Batch size 400, Train step 239, cnt 188
+	current mag loss:	[0.00097318]
+	current phase loss:	[1.3896139]
+		BER for symbol 1:	0.11625000089406967
+		SER for symbol 1:	0.22749999165534973
+		BER for symbol 2:	0.1237499937415123
+		SER for symbol 2:	0.2474999874830246
+	Batch size 400, Train step 299, cnt 189
+	current mag loss:	[0.00029356]
+	current phase loss:	[1.2782028]
+		BER for symbol 1:	0.10499999672174454
+		SER for symbol 1:	0.20999999344348907
+		BER for symbol 2:	0.09999999403953552
+		SER for symbol 2:	0.19999998807907104
+	Batch size 1_000, Train step 59, cnt 190
+	current mag loss:	[0.00041053]
+	current phase loss:	[1.2746989]
+		BER for symbol 1:	0.10100000351667404
+		SER for symbol 1:	0.20100000500679016
+		BER for symbol 2:	0.11250000447034836
+		SER for symbol 2:	0.22500000894069672
+	Batch size 1_000, Train step 119, cnt 191
+	current mag loss:	[0.00031435]
+	current phase loss:	[1.3150834]
+		BER for symbol 1:	0.11050000786781311
+		SER for symbol 1:	0.21900001168251038
+		BER for symbol 2:	0.12050000578165054
+		SER for symbol 2:	0.23800000548362732
+	Batch size 1_000, Train step 179, cnt 192
+	current mag loss:	[0.00024443]
+	current phase loss:	[1.3099246]
+		BER for symbol 1:	0.10900000482797623
+		SER for symbol 1:	0.2160000056028366
+		BER for symbol 2:	0.11100000888109207
+		SER for symbol 2:	0.22200001776218414
+	Batch size 1_000, Train step 239, cnt 193
+	current mag loss:	[0.00035907]
+	current phase loss:	[1.3013065]
+		BER for symbol 1:	0.11000000685453415
+		SER for symbol 1:	0.21900001168251038
+		BER for symbol 2:	0.1055000051856041
+		SER for symbol 2:	0.21000000834465027
+	Batch size 1_000, Train step 299, cnt 194
+	current mag loss:	[0.00023994]
+	current phase loss:	[1.3242455]
+		BER for symbol 1:	0.10700000822544098
+		SER for symbol 1:	0.21300001442432404
+		BER for symbol 2:	0.12300000339746475
+		SER for symbol 2:	0.24400001764297485
+	Batch size 2_000, Train step 59, cnt 195
+	current mag loss:	[0.00028148]
+	current phase loss:	[1.3857199]
+		BER for symbol 1:	0.1197500079870224
+		SER for symbol 1:	0.23750001192092896
+		BER for symbol 2:	0.1172500029206276
+		SER for symbol 2:	0.23250001668930054
+	Batch size 2_000, Train step 119, cnt 196
+	current mag loss:	[0.00022585]
+	current phase loss:	[1.3897592]
+		BER for symbol 1:	0.11600000411272049
+		SER for symbol 1:	0.23200000822544098
+		BER for symbol 2:	0.11750000715255737
+		SER for symbol 2:	0.2330000102519989
+	Batch size 2_000, Train step 179, cnt 197
+	current mag loss:	[0.00026187]
+	current phase loss:	[1.297343]
+		BER for symbol 1:	0.1067500039935112
+		SER for symbol 1:	0.21300001442432404
+		BER for symbol 2:	0.11300000548362732
+		SER for symbol 2:	0.22550001740455627
+	Batch size 2_000, Train step 239, cnt 198
+	current mag loss:	[0.00023939]
+	current phase loss:	[1.3208159]
+		BER for symbol 1:	0.11075000464916229
+		SER for symbol 1:	0.22100001573562622
+		BER for symbol 2:	0.11350000649690628
+		SER for symbol 2:	0.22700001299381256
+	Batch size 2_000, Train step 299, cnt 199
+	current mag loss:	[0.00032611]
+	current phase loss:	[1.31957]
+		BER for symbol 1:	0.10750000178813934
+		SER for symbol 1:	0.2150000035762787
+		BER for symbol 2:	0.10975000262260437
+		SER for symbol 2:	0.21800000965595245
+	Batch size 5_000, Train step 59, cnt 200
+	current mag loss:	[0.0002022]
+	current phase loss:	[1.2985044]
+		BER for symbol 1:	0.1054999977350235
+		SER for symbol 1:	0.20979999005794525
+		BER for symbol 2:	0.11109999567270279
+		SER for symbol 2:	0.22039999067783356
+	Batch size 5_000, Train step 119, cnt 201
+	current mag loss:	[0.00027268]
+	current phase loss:	[1.2735522]
+		BER for symbol 1:	0.10749999433755875
+		SER for symbol 1:	0.21400000154972076
+		BER for symbol 2:	0.10679999738931656
+		SER for symbol 2:	0.21199999749660492
+	Batch size 5_000, Train step 179, cnt 202
+	current mag loss:	[0.00018368]
+	current phase loss:	[1.2528926]
+		BER for symbol 1:	0.10260000079870224
+		SER for symbol 1:	0.20499999821186066
+		BER for symbol 2:	0.10529999434947968
+		SER for symbol 2:	0.20979999005794525
+	Batch size 5_000, Train step 239, cnt 203
+	current mag loss:	[0.000243]
+	current phase loss:	[1.2732337]
+		BER for symbol 1:	0.10509999841451645
+		SER for symbol 1:	0.2101999968290329
+		BER for symbol 2:	0.11319999396800995
+		SER for symbol 2:	0.22599999606609344
+	Batch size 5_000, Train step 299, cnt 204
+	current mag loss:	[0.00017165]
+	current phase loss:	[1.2841686]
+		BER for symbol 1:	0.10439999401569366
+		SER for symbol 1:	0.20759999752044678
+		BER for symbol 2:	0.10619999468326569
+		SER for symbol 2:	0.21059998869895935
+	Batch size 10_000, Train step 59, cnt 205
+	current mag loss:	[0.00016652]
+	current phase loss:	[1.2625046]
+		BER for symbol 1:	0.10604999959468842
+		SER for symbol 1:	0.210999995470047
+		BER for symbol 2:	0.11274999380111694
+		SER for symbol 2:	0.22450000047683716
+	Batch size 10_000, Train step 119, cnt 206
+	current mag loss:	[0.00016909]
+	current phase loss:	[1.2949148]
+		BER for symbol 1:	0.1083499938249588
+		SER for symbol 1:	0.21599999070167542
+		BER for symbol 2:	0.11034999787807465
+		SER for symbol 2:	0.21959999203681946
+	Batch size 10_000, Train step 179, cnt 207
+	current mag loss:	[0.00016409]
+	current phase loss:	[1.3019528]
+		BER for symbol 1:	0.1087999939918518
+		SER for symbol 1:	0.21689999103546143
+		BER for symbol 2:	0.10830000042915344
+		SER for symbol 2:	0.21559999883174896
+	Batch size 10_000, Train step 239, cnt 208
+	current mag loss:	[0.00015805]
+	current phase loss:	[1.279827]
+		BER for symbol 1:	0.10544999688863754
+		SER for symbol 1:	0.2102999985218048
+		BER for symbol 2:	0.10979999601840973
+		SER for symbol 2:	0.21859999001026154
+	Batch size 10_000, Train step 299, cnt 209
+	current mag loss:	[0.00017868]
+	current phase loss:	[1.3010845]
+		BER for symbol 1:	0.10939999669790268
+		SER for symbol 1:	0.2175999879837036
+		BER for symbol 2:	0.10679999738931656
+		SER for symbol 2:	0.21279999613761902
+train model for SNR 7 dB
+	Batch size 100, Train step 59, cnt 0
+	current mag loss:	[0.09470727]
+	current phase loss:	[7.5796447]
+		BER for symbol 1:	0.4699999988079071
+		SER for symbol 1:	0.75
+		BER for symbol 2:	0.45499998331069946
+		SER for symbol 2:	0.699999988079071
+	Batch size 100, Train step 119, cnt 1
+	current mag loss:	[0.00886733]
+	current phase loss:	[3.634449]
+		BER for symbol 1:	0.23999999463558197
+		SER for symbol 1:	0.44999998807907104
+		BER for symbol 2:	0.3149999976158142
+		SER for symbol 2:	0.5799999833106995
+	Batch size 100, Train step 179, cnt 2
+	current mag loss:	[0.01252461]
+	current phase loss:	[2.6441383]
+		BER for symbol 1:	0.22999998927116394
+		SER for symbol 1:	0.44999998807907104
+		BER for symbol 2:	0.2199999988079071
+		SER for symbol 2:	0.4399999976158142
+	Batch size 100, Train step 239, cnt 3
+	current mag loss:	[0.0029562]
+	current phase loss:	[1.9502975]
+		BER for symbol 1:	0.17999999225139618
+		SER for symbol 1:	0.35999998450279236
+		BER for symbol 2:	0.10999999940395355
+		SER for symbol 2:	0.2199999988079071
+	Batch size 100, Train step 299, cnt 4
+	current mag loss:	[0.0040077]
+	current phase loss:	[1.3689004]
+		BER for symbol 1:	0.11999999731779099
+		SER for symbol 1:	0.23999999463558197
+		BER for symbol 2:	0.044999998062849045
+		SER for symbol 2:	0.08999999612569809
+	Batch size 400, Train step 59, cnt 5
+	current mag loss:	[0.00131371]
+	current phase loss:	[1.5495884]
+		BER for symbol 1:	0.12999999523162842
+		SER for symbol 1:	0.2524999976158142
+		BER for symbol 2:	0.07999999821186066
+		SER for symbol 2:	0.1599999964237213
+	Batch size 400, Train step 119, cnt 6
+	current mag loss:	[0.00143938]
+	current phase loss:	[1.2263522]
+		BER for symbol 1:	0.10249999910593033
+		SER for symbol 1:	0.19999998807907104
+		BER for symbol 2:	0.07999999821186066
+		SER for symbol 2:	0.1599999964237213
+	Batch size 400, Train step 179, cnt 7
+	current mag loss:	[0.00162017]
+	current phase loss:	[1.1068101]
+		BER for symbol 1:	0.08500000089406967
+		SER for symbol 1:	0.16749998927116394
+		BER for symbol 2:	0.0912499949336052
+		SER for symbol 2:	0.1824999898672104
+	Batch size 400, Train step 239, cnt 8
+	current mag loss:	[0.0010575]
+	current phase loss:	[1.3616798]
+		BER for symbol 1:	0.11625000089406967
+		SER for symbol 1:	0.2224999964237213
+		BER for symbol 2:	0.07874999940395355
+		SER for symbol 2:	0.1574999988079071
+	Batch size 400, Train step 299, cnt 9
+	current mag loss:	[0.00153722]
+	current phase loss:	[1.2348837]
+		BER for symbol 1:	0.10125000029802322
+		SER for symbol 1:	0.19749999046325684
+		BER for symbol 2:	0.07625000178813934
+		SER for symbol 2:	0.1525000035762787
+	Batch size 1_000, Train step 59, cnt 10
+	current mag loss:	[0.00145505]
+	current phase loss:	[1.0577806]
+		BER for symbol 1:	0.07400000095367432
+		SER for symbol 1:	0.14400000870227814
+		BER for symbol 2:	0.07100000232458115
+		SER for symbol 2:	0.1420000046491623
+	Batch size 1_000, Train step 119, cnt 11
+	current mag loss:	[0.0013547]
+	current phase loss:	[1.1883049]
+		BER for symbol 1:	0.101500004529953
+		SER for symbol 1:	0.19700001180171967
+		BER for symbol 2:	0.07500000298023224
+		SER for symbol 2:	0.15000000596046448
+	Batch size 1_000, Train step 179, cnt 12
+	current mag loss:	[0.00147186]
+	current phase loss:	[0.9886874]
+		BER for symbol 1:	0.08150000125169754
+		SER for symbol 1:	0.16300000250339508
+		BER for symbol 2:	0.07300000637769699
+		SER for symbol 2:	0.14600001275539398
+	Batch size 1_000, Train step 239, cnt 13
+	current mag loss:	[0.00155362]
+	current phase loss:	[1.104911]
+		BER for symbol 1:	0.08050000667572021
+		SER for symbol 1:	0.1600000113248825
+		BER for symbol 2:	0.08100000023841858
+		SER for symbol 2:	0.16200000047683716
+	Batch size 1_000, Train step 299, cnt 14
+	current mag loss:	[0.00156662]
+	current phase loss:	[1.0074434]
+		BER for symbol 1:	0.07650000602006912
+		SER for symbol 1:	0.15300001204013824
+		BER for symbol 2:	0.07450000196695328
+		SER for symbol 2:	0.14900000393390656
+	Batch size 2_000, Train step 59, cnt 15
+	current mag loss:	[0.00140703]
+	current phase loss:	[1.0201721]
+		BER for symbol 1:	0.07825000584125519
+		SER for symbol 1:	0.15400001406669617
+		BER for symbol 2:	0.07500000298023224
+		SER for symbol 2:	0.1495000123977661
+	Batch size 2_000, Train step 119, cnt 16
+	current mag loss:	[0.00155998]
+	current phase loss:	[0.95589685]
+		BER for symbol 1:	0.0755000039935112
+		SER for symbol 1:	0.1485000103712082
+		BER for symbol 2:	0.06650000065565109
+		SER for symbol 2:	0.13250000774860382
+	Batch size 2_000, Train step 179, cnt 17
+	current mag loss:	[0.0011874]
+	current phase loss:	[0.9952504]
+		BER for symbol 1:	0.0755000039935112
+		SER for symbol 1:	0.1495000123977661
+		BER for symbol 2:	0.07300000637769699
+		SER for symbol 2:	0.14600001275539398
+	Batch size 2_000, Train step 239, cnt 18
+	current mag loss:	[0.00107608]
+	current phase loss:	[0.9692144]
+		BER for symbol 1:	0.0832500010728836
+		SER for symbol 1:	0.16600000858306885
+		BER for symbol 2:	0.06800000369548798
+		SER for symbol 2:	0.13600000739097595
+	Batch size 2_000, Train step 299, cnt 19
+	current mag loss:	[0.00094904]
+	current phase loss:	[0.94023514]
+		BER for symbol 1:	0.07850000262260437
+		SER for symbol 1:	0.15700000524520874
+		BER for symbol 2:	0.06400000303983688
+		SER for symbol 2:	0.12800000607967377
+	Batch size 5_000, Train step 59, cnt 20
+	current mag loss:	[0.00115442]
+	current phase loss:	[0.9012007]
+		BER for symbol 1:	0.0705999955534935
+		SER for symbol 1:	0.14019998908042908
+		BER for symbol 2:	0.07339999824762344
+		SER for symbol 2:	0.1467999964952469
+	Batch size 5_000, Train step 119, cnt 21
+	current mag loss:	[0.00097003]
+	current phase loss:	[0.93566227]
+		BER for symbol 1:	0.07530000060796738
+		SER for symbol 1:	0.14999999105930328
+		BER for symbol 2:	0.07189999520778656
+		SER for symbol 2:	0.14379999041557312
+	Batch size 5_000, Train step 179, cnt 22
+	current mag loss:	[0.00116161]
+	current phase loss:	[0.9112396]
+		BER for symbol 1:	0.07189999520778656
+		SER for symbol 1:	0.1436000019311905
+		BER for symbol 2:	0.0731000006198883
+		SER for symbol 2:	0.1462000012397766
+	Batch size 5_000, Train step 239, cnt 23
+	current mag loss:	[0.0010156]
+	current phase loss:	[0.946598]
+		BER for symbol 1:	0.07689999788999557
+		SER for symbol 1:	0.15279999375343323
+		BER for symbol 2:	0.07209999859333038
+		SER for symbol 2:	0.14379999041557312
+	Batch size 5_000, Train step 299, cnt 24
+	current mag loss:	[0.00131299]
+	current phase loss:	[0.90214545]
+		BER for symbol 1:	0.07229999452829361
+		SER for symbol 1:	0.14419999718666077
+		BER for symbol 2:	0.07800000160932541
+		SER for symbol 2:	0.155799999833107
+	Batch size 10_000, Train step 59, cnt 25
+	current mag loss:	[0.00085081]
+	current phase loss:	[0.8793178]
+		BER for symbol 1:	0.07400000095367432
+		SER for symbol 1:	0.1476999968290329
+		BER for symbol 2:	0.0694499984383583
+		SER for symbol 2:	0.1388999968767166
+	Batch size 10_000, Train step 119, cnt 26
+	current mag loss:	[0.00083342]
+	current phase loss:	[0.9116484]
+		BER for symbol 1:	0.07684999704360962
+		SER for symbol 1:	0.1533999890089035
+		BER for symbol 2:	0.06939999759197235
+		SER for symbol 2:	0.1387999951839447
+	Batch size 10_000, Train step 179, cnt 27
+	current mag loss:	[0.00090402]
+	current phase loss:	[0.8635392]
+		BER for symbol 1:	0.07199999690055847
+		SER for symbol 1:	0.14379999041557312
+		BER for symbol 2:	0.06749999523162842
+		SER for symbol 2:	0.13499999046325684
+	Batch size 10_000, Train step 239, cnt 28
+	current mag loss:	[0.00080478]
+	current phase loss:	[0.8950813]
+		BER for symbol 1:	0.07485000044107437
+		SER for symbol 1:	0.1492999941110611
+		BER for symbol 2:	0.06949999928474426
+		SER for symbol 2:	0.1388999968767166
+	Batch size 10_000, Train step 299, cnt 29
+	current mag loss:	[0.0009677]
+	current phase loss:	[0.85461444]
+		BER for symbol 1:	0.07124999910593033
+		SER for symbol 1:	0.14249999821186066
+		BER for symbol 2:	0.06830000132322311
+		SER for symbol 2:	0.13660000264644623
+train model for SNR 8 dB
+	Batch size 100, Train step 59, cnt 30
+	current mag loss:	[0.00187813]
+	current phase loss:	[1.0835133]
+		BER for symbol 1:	0.07999999821186066
+		SER for symbol 1:	0.1599999964237213
+		BER for symbol 2:	0.11499999463558197
+		SER for symbol 2:	0.22999998927116394
+	Batch size 100, Train step 119, cnt 31
+	current mag loss:	[0.00132038]
+	current phase loss:	[0.7235246]
+		BER for symbol 1:	0.04999999701976776
+		SER for symbol 1:	0.09999999403953552
+		BER for symbol 2:	0.054999999701976776
+		SER for symbol 2:	0.10999999940395355
+	Batch size 100, Train step 179, cnt 32
+	current mag loss:	[0.00097601]
+	current phase loss:	[0.8315487]
+		BER for symbol 1:	0.054999999701976776
+		SER for symbol 1:	0.10999999940395355
+		BER for symbol 2:	0.08500000089406967
+		SER for symbol 2:	0.17000000178813934
+	Batch size 100, Train step 239, cnt 33
+	current mag loss:	[0.00175198]
+	current phase loss:	[0.90702915]
+		BER for symbol 1:	0.07999999821186066
+		SER for symbol 1:	0.1599999964237213
+		BER for symbol 2:	0.044999998062849045
+		SER for symbol 2:	0.08999999612569809
+	Batch size 100, Train step 299, cnt 34
+	current mag loss:	[0.00092918]
+	current phase loss:	[0.5473103]
+		BER for symbol 1:	0.029999999329447746
+		SER for symbol 1:	0.05999999865889549
+		BER for symbol 2:	0.07000000029802322
+		SER for symbol 2:	0.14000000059604645
+	Batch size 400, Train step 59, cnt 35
+	current mag loss:	[0.00081036]
+	current phase loss:	[0.5813381]
+		BER for symbol 1:	0.04374999925494194
+		SER for symbol 1:	0.08749999850988388
+		BER for symbol 2:	0.036249998956918716
+		SER for symbol 2:	0.07249999791383743
+	Batch size 400, Train step 119, cnt 36
+	current mag loss:	[0.001291]
+	current phase loss:	[0.50709593]
+		BER for symbol 1:	0.038750000298023224
+		SER for symbol 1:	0.07750000059604645
+		BER for symbol 2:	0.023749999701976776
+		SER for symbol 2:	0.04749999940395355
+	Batch size 400, Train step 179, cnt 37
+	current mag loss:	[0.00094323]
+	current phase loss:	[0.67731005]
+		BER for symbol 1:	0.05374999716877937
+		SER for symbol 1:	0.10749999433755875
+		BER for symbol 2:	0.05374999716877937
+		SER for symbol 2:	0.10749999433755875
+	Batch size 400, Train step 239, cnt 38
+	current mag loss:	[0.00113815]
+	current phase loss:	[0.46650064]
+		BER for symbol 1:	0.029999999329447746
+		SER for symbol 1:	0.05999999865889549
+		BER for symbol 2:	0.04874999821186066
+		SER for symbol 2:	0.09749999642372131
+	Batch size 400, Train step 299, cnt 39
+	current mag loss:	[0.00120709]
+	current phase loss:	[0.44541332]
+		BER for symbol 1:	0.038750000298023224
+		SER for symbol 1:	0.07750000059604645
+		BER for symbol 2:	0.036249998956918716
+		SER for symbol 2:	0.07249999791383743
+	Batch size 1_000, Train step 59, cnt 40
+	current mag loss:	[0.0009827]
+	current phase loss:	[0.50289106]
+		BER for symbol 1:	0.04450000077486038
+		SER for symbol 1:	0.08900000154972076
+		BER for symbol 2:	0.04400000348687172
+		SER for symbol 2:	0.08800000697374344
+	Batch size 1_000, Train step 119, cnt 41
+	current mag loss:	[0.00143818]
+	current phase loss:	[0.4104593]
+		BER for symbol 1:	0.03200000151991844
+		SER for symbol 1:	0.06400000303983688
+		BER for symbol 2:	0.029500002041459084
+		SER for symbol 2:	0.05900000408291817
+	Batch size 1_000, Train step 179, cnt 42
+	current mag loss:	[0.00091428]
+	current phase loss:	[0.4279581]
+		BER for symbol 1:	0.03550000116229057
+		SER for symbol 1:	0.07100000232458115
+		BER for symbol 2:	0.03100000135600567
+		SER for symbol 2:	0.06200000271201134
+	Batch size 1_000, Train step 239, cnt 43
+	current mag loss:	[0.00081856]
+	current phase loss:	[0.46500212]
+		BER for symbol 1:	0.03500000014901161
+		SER for symbol 1:	0.07000000029802322
+		BER for symbol 2:	0.03100000135600567
+		SER for symbol 2:	0.06200000271201134
+	Batch size 1_000, Train step 299, cnt 44
+	current mag loss:	[0.0010115]
+	current phase loss:	[0.40976387]
+		BER for symbol 1:	0.027500001713633537
+		SER for symbol 1:	0.055000003427267075
+		BER for symbol 2:	0.032999999821186066
+		SER for symbol 2:	0.06599999964237213
+	Batch size 2_000, Train step 59, cnt 45
+	current mag loss:	[0.00078631]
+	current phase loss:	[0.43375456]
+		BER for symbol 1:	0.029750000685453415
+		SER for symbol 1:	0.05950000137090683
+		BER for symbol 2:	0.03500000014901161
+		SER for symbol 2:	0.07000000029802322
+	Batch size 2_000, Train step 119, cnt 46
+	current mag loss:	[0.00076531]
+	current phase loss:	[0.48776093]
+		BER for symbol 1:	0.03850000351667404
+		SER for symbol 1:	0.07700000703334808
+		BER for symbol 2:	0.03175000101327896
+		SER for symbol 2:	0.06350000202655792
+	Batch size 2_000, Train step 179, cnt 47
+	current mag loss:	[0.00079348]
+	current phase loss:	[0.43287817]
+		BER for symbol 1:	0.032750003039836884
+		SER for symbol 1:	0.06550000607967377
+		BER for symbol 2:	0.038750000298023224
+		SER for symbol 2:	0.07750000059604645
+	Batch size 2_000, Train step 239, cnt 48
+	current mag loss:	[0.00088013]
+	current phase loss:	[0.40485322]
+		BER for symbol 1:	0.02850000187754631
+		SER for symbol 1:	0.05700000375509262
+		BER for symbol 2:	0.04200000315904617
+		SER for symbol 2:	0.08400000631809235
+	Batch size 2_000, Train step 299, cnt 49
+	current mag loss:	[0.00072488]
+	current phase loss:	[0.39426428]
+		BER for symbol 1:	0.026750002056360245
+		SER for symbol 1:	0.05350000411272049
+		BER for symbol 2:	0.04200000315904617
+		SER for symbol 2:	0.08400000631809235
+	Batch size 5_000, Train step 59, cnt 50
+	current mag loss:	[0.00076556]
+	current phase loss:	[0.44352344]
+		BER for symbol 1:	0.034199997782707214
+		SER for symbol 1:	0.06839999556541443
+		BER for symbol 2:	0.035999998450279236
+		SER for symbol 2:	0.07199999690055847
+	Batch size 5_000, Train step 119, cnt 51
+	current mag loss:	[0.00074307]
+	current phase loss:	[0.46604294]
+		BER for symbol 1:	0.03790000081062317
+		SER for symbol 1:	0.07580000162124634
+		BER for symbol 2:	0.03480000048875809
+		SER for symbol 2:	0.06960000097751617
+	Batch size 5_000, Train step 179, cnt 52
+	current mag loss:	[0.00080982]
+	current phase loss:	[0.46096724]
+		BER for symbol 1:	0.034699998795986176
+		SER for symbol 1:	0.06939999759197235
+		BER for symbol 2:	0.03869999945163727
+		SER for symbol 2:	0.07739999890327454
+	Batch size 5_000, Train step 239, cnt 53
+	current mag loss:	[0.00071661]
+	current phase loss:	[0.45123944]
+		BER for symbol 1:	0.032499998807907104
+		SER for symbol 1:	0.06499999761581421
+		BER for symbol 2:	0.03749999776482582
+		SER for symbol 2:	0.07499999552965164
+	Batch size 5_000, Train step 299, cnt 54
+	current mag loss:	[0.00069889]
+	current phase loss:	[0.47654775]
+		BER for symbol 1:	0.03790000081062317
+		SER for symbol 1:	0.07580000162124634
+		BER for symbol 2:	0.03720000013709068
+		SER for symbol 2:	0.07440000027418137
+	Batch size 10_000, Train step 59, cnt 55
+	current mag loss:	[0.00067636]
+	current phase loss:	[0.45708105]
+		BER for symbol 1:	0.036149997264146805
+		SER for symbol 1:	0.07229999452829361
+		BER for symbol 2:	0.03739999979734421
+		SER for symbol 2:	0.07479999959468842
+	Batch size 10_000, Train step 119, cnt 56
+	current mag loss:	[0.00071267]
+	current phase loss:	[0.44215593]
+		BER for symbol 1:	0.034049998968839645
+		SER for symbol 1:	0.06809999793767929
+		BER for symbol 2:	0.035349998623132706
+		SER for symbol 2:	0.07069999724626541
+	Batch size 10_000, Train step 179, cnt 57
+	current mag loss:	[0.00060493]
+	current phase loss:	[0.43382517]
+		BER for symbol 1:	0.03294999897480011
+		SER for symbol 1:	0.06589999794960022
+		BER for symbol 2:	0.035599999129772186
+		SER for symbol 2:	0.07119999825954437
+	Batch size 10_000, Train step 239, cnt 58
+	current mag loss:	[0.000645]
+	current phase loss:	[0.42308214]
+		BER for symbol 1:	0.033549997955560684
+		SER for symbol 1:	0.06709999591112137
+		BER for symbol 2:	0.03514999896287918
+		SER for symbol 2:	0.07029999792575836
+	Batch size 10_000, Train step 299, cnt 59
+	current mag loss:	[0.00060603]
+	current phase loss:	[0.4304994]
+		BER for symbol 1:	0.03319999948143959
+		SER for symbol 1:	0.06639999896287918
+		BER for symbol 2:	0.0357000008225441
+		SER for symbol 2:	0.0714000016450882
+train model for SNR 9 dB
+	Batch size 100, Train step 59, cnt 60
+	current mag loss:	[0.00100811]
+	current phase loss:	[0.56461877]
+		BER for symbol 1:	0.03500000014901161
+		SER for symbol 1:	0.07000000029802322
+		BER for symbol 2:	0.03500000014901161
+		SER for symbol 2:	0.07000000029802322
+	Batch size 100, Train step 119, cnt 61
+	current mag loss:	[0.00160154]
+	current phase loss:	[0.28607386]
+		BER for symbol 1:	0.02499999850988388
+		SER for symbol 1:	0.04999999701976776
+		BER for symbol 2:	0.019999999552965164
+		SER for symbol 2:	0.03999999910593033
+	Batch size 100, Train step 179, cnt 62
+	current mag loss:	[0.00110447]
+	current phase loss:	[0.331311]
+		BER for symbol 1:	0.009999999776482582
+		SER for symbol 1:	0.019999999552965164
+		BER for symbol 2:	0.03500000014901161
+		SER for symbol 2:	0.07000000029802322
+	Batch size 100, Train step 239, cnt 63
+	current mag loss:	[0.00045096]
+	current phase loss:	[0.34888467]
+		BER for symbol 1:	0.02499999850988388
+		SER for symbol 1:	0.04999999701976776
+		BER for symbol 2:	0.02499999850988388
+		SER for symbol 2:	0.04999999701976776
+	Batch size 100, Train step 299, cnt 64
+	current mag loss:	[0.00187474]
+	current phase loss:	[0.22657812]
+		BER for symbol 1:	0.019999999552965164
+		SER for symbol 1:	0.03999999910593033
+		BER for symbol 2:	0.014999999664723873
+		SER for symbol 2:	0.029999999329447746
+	Batch size 400, Train step 59, cnt 65
+	current mag loss:	[0.00050646]
+	current phase loss:	[0.2885674]
+		BER for symbol 1:	0.017500000074505806
+		SER for symbol 1:	0.03500000014901161
+		BER for symbol 2:	0.014999999664723873
+		SER for symbol 2:	0.029999999329447746
+	Batch size 400, Train step 119, cnt 66
+	current mag loss:	[0.00076148]
+	current phase loss:	[0.21422496]
+		BER for symbol 1:	0.017500000074505806
+		SER for symbol 1:	0.03500000014901161
+		BER for symbol 2:	0.016249999403953552
+		SER for symbol 2:	0.032499998807907104
+	Batch size 400, Train step 179, cnt 67
+	current mag loss:	[0.00055665]
+	current phase loss:	[0.2398655]
+		BER for symbol 1:	0.016249999403953552
+		SER for symbol 1:	0.032499998807907104
+		BER for symbol 2:	0.021250000223517418
+		SER for symbol 2:	0.042500000447034836
+	Batch size 400, Train step 239, cnt 68
+	current mag loss:	[0.00058239]
+	current phase loss:	[0.2082464]
+		BER for symbol 1:	0.013749999925494194
+		SER for symbol 1:	0.027499999850988388
+		BER for symbol 2:	0.011249999515712261
+		SER for symbol 2:	0.022499999031424522
+	Batch size 400, Train step 299, cnt 69
+	current mag loss:	[0.00100185]
+	current phase loss:	[0.24148768]
+		BER for symbol 1:	0.022499999031424522
+		SER for symbol 1:	0.044999998062849045
+		BER for symbol 2:	0.023749999701976776
+		SER for symbol 2:	0.04749999940395355
+	Batch size 1_000, Train step 59, cnt 70
+	current mag loss:	[0.00093359]
+	current phase loss:	[0.22418644]
+		BER for symbol 1:	0.013000000268220901
+		SER for symbol 1:	0.026000000536441803
+		BER for symbol 2:	0.014500000514090061
+		SER for symbol 2:	0.029000001028180122
+	Batch size 1_000, Train step 119, cnt 71
+	current mag loss:	[0.00074412]
+	current phase loss:	[0.21990493]
+		BER for symbol 1:	0.012500000186264515
+		SER for symbol 1:	0.02500000037252903
+		BER for symbol 2:	0.020000001415610313
+		SER for symbol 2:	0.04000000283122063
+	Batch size 1_000, Train step 179, cnt 72
+	current mag loss:	[0.00072104]
+	current phase loss:	[0.21145009]
+		BER for symbol 1:	0.013000000268220901
+		SER for symbol 1:	0.026000000536441803
+		BER for symbol 2:	0.017500000074505806
+		SER for symbol 2:	0.03500000014901161
+	Batch size 1_000, Train step 239, cnt 73
+	current mag loss:	[0.00049136]
+	current phase loss:	[0.20654538]
+		BER for symbol 1:	0.014500000514090061
+		SER for symbol 1:	0.029000001028180122
+		BER for symbol 2:	0.014500000514090061
+		SER for symbol 2:	0.029000001028180122
+	Batch size 1_000, Train step 299, cnt 74
+	current mag loss:	[0.00047379]
+	current phase loss:	[0.22607866]
+		BER for symbol 1:	0.014000000432133675
+		SER for symbol 1:	0.02800000086426735
+		BER for symbol 2:	0.016499999910593033
+		SER for symbol 2:	0.032999999821186066
+	Batch size 2_000, Train step 59, cnt 75
+	current mag loss:	[0.00072805]
+	current phase loss:	[0.18676239]
+		BER for symbol 1:	0.01100000087171793
+		SER for symbol 1:	0.02200000174343586
+		BER for symbol 2:	0.014000000432133675
+		SER for symbol 2:	0.02800000086426735
+	Batch size 2_000, Train step 119, cnt 76
+	current mag loss:	[0.00045276]
+	current phase loss:	[0.18474384]
+		BER for symbol 1:	0.013000000268220901
+		SER for symbol 1:	0.026000000536441803
+		BER for symbol 2:	0.011500000953674316
+		SER for symbol 2:	0.023000001907348633
+	Batch size 2_000, Train step 179, cnt 77
+	current mag loss:	[0.00044883]
+	current phase loss:	[0.2174322]
+		BER for symbol 1:	0.01575000025331974
+		SER for symbol 1:	0.03150000050663948
+		BER for symbol 2:	0.011500000953674316
+		SER for symbol 2:	0.023000001907348633
+	Batch size 2_000, Train step 239, cnt 78
+	current mag loss:	[0.00044969]
+	current phase loss:	[0.17494035]
+		BER for symbol 1:	0.011750000528991222
+		SER for symbol 1:	0.023500001057982445
+		BER for symbol 2:	0.011250000447034836
+		SER for symbol 2:	0.02250000089406967
+	Batch size 2_000, Train step 299, cnt 79
+	current mag loss:	[0.0003919]
+	current phase loss:	[0.1848617]
+		BER for symbol 1:	0.010500000789761543
+		SER for symbol 1:	0.021000001579523087
+		BER for symbol 2:	0.010250000283122063
+		SER for symbol 2:	0.020500000566244125
+	Batch size 5_000, Train step 59, cnt 80
+	current mag loss:	[0.00038669]
+	current phase loss:	[0.20296852]
+		BER for symbol 1:	0.013599999248981476
+		SER for symbol 1:	0.02719999849796295
+		BER for symbol 2:	0.013199999928474426
+		SER for symbol 2:	0.026399999856948853
+	Batch size 5_000, Train step 119, cnt 81
+	current mag loss:	[0.00039027]
+	current phase loss:	[0.18891557]
+		BER for symbol 1:	0.013299999758601189
+		SER for symbol 1:	0.026599999517202377
+		BER for symbol 2:	0.012600000016391277
+		SER for symbol 2:	0.025200000032782555
+	Batch size 5_000, Train step 179, cnt 82
+	current mag loss:	[0.00041225]
+	current phase loss:	[0.20477755]
+		BER for symbol 1:	0.015699999406933784
+		SER for symbol 1:	0.03139999881386757
+		BER for symbol 2:	0.012000000104308128
+		SER for symbol 2:	0.024000000208616257
+	Batch size 5_000, Train step 239, cnt 83
+	current mag loss:	[0.00038901]
+	current phase loss:	[0.2064043]
+		BER for symbol 1:	0.012999999336898327
+		SER for symbol 1:	0.025999998673796654
+		BER for symbol 2:	0.01269999984651804
+		SER for symbol 2:	0.02539999969303608
+	Batch size 5_000, Train step 299, cnt 84
+	current mag loss:	[0.00038477]
+	current phase loss:	[0.1877462]
+		BER for symbol 1:	0.012799999676644802
+		SER for symbol 1:	0.025599999353289604
+		BER for symbol 2:	0.015099999494850636
+		SER for symbol 2:	0.03019999898970127
+	Batch size 10_000, Train step 59, cnt 85
+	current mag loss:	[0.00033944]
+	current phase loss:	[0.17340036]
+		BER for symbol 1:	0.011599999852478504
+		SER for symbol 1:	0.02319999970495701
+		BER for symbol 2:	0.012550000101327896
+		SER for symbol 2:	0.025100000202655792
+	Batch size 10_000, Train step 119, cnt 86
+	current mag loss:	[0.00032957]
+	current phase loss:	[0.19568147]
+		BER for symbol 1:	0.012799999676644802
+		SER for symbol 1:	0.025599999353289604
+		BER for symbol 2:	0.013650000095367432
+		SER for symbol 2:	0.027300000190734863
+	Batch size 10_000, Train step 179, cnt 87
+	current mag loss:	[0.00031054]
+	current phase loss:	[0.18454291]
+		BER for symbol 1:	0.011599999852478504
+		SER for symbol 1:	0.02319999970495701
+		BER for symbol 2:	0.014949999749660492
+		SER for symbol 2:	0.029899999499320984
+	Batch size 10_000, Train step 239, cnt 88
+	current mag loss:	[0.00031389]
+	current phase loss:	[0.19081482]
+		BER for symbol 1:	0.012449999339878559
+		SER for symbol 1:	0.024899998679757118
+		BER for symbol 2:	0.014599999412894249
+		SER for symbol 2:	0.029199998825788498
+	Batch size 10_000, Train step 299, cnt 89
+	current mag loss:	[0.00027378]
+	current phase loss:	[0.18211822]
+		BER for symbol 1:	0.011799999512732029
+		SER for symbol 1:	0.023599999025464058
+		BER for symbol 2:	0.015149999409914017
+		SER for symbol 2:	0.030299998819828033
+train model for SNR 10 dB
+	Batch size 100, Train step 59, cnt 90
+	current mag loss:	[0.00118456]
+	current phase loss:	[0.23031496]
+		BER for symbol 1:	0.009999999776482582
+		SER for symbol 1:	0.019999999552965164
+		BER for symbol 2:	0.014999999664723873
+		SER for symbol 2:	0.029999999329447746
+	Batch size 100, Train step 119, cnt 91
+	current mag loss:	[0.00172017]
+	current phase loss:	[0.14567381]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.019999999552965164
+		SER for symbol 2:	0.03999999910593033
+	Batch size 100, Train step 179, cnt 92
+	current mag loss:	[0.00040191]
+	current phase loss:	[0.19359131]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.019999999552965164
+		SER for symbol 2:	0.03999999910593033
+	Batch size 100, Train step 239, cnt 93
+	current mag loss:	[0.00079352]
+	current phase loss:	[0.14476696]
+		BER for symbol 1:	0.004999999888241291
+		SER for symbol 1:	0.009999999776482582
+		BER for symbol 2:	0.03500000014901161
+		SER for symbol 2:	0.07000000029802322
+	Batch size 100, Train step 299, cnt 94
+	current mag loss:	[0.00039045]
+	current phase loss:	[0.31540787]
+		BER for symbol 1:	0.029999999329447746
+		SER for symbol 1:	0.05999999865889549
+		BER for symbol 2:	0.004999999888241291
+		SER for symbol 2:	0.009999999776482582
+	Batch size 400, Train step 59, cnt 95
+	current mag loss:	[0.00024796]
+	current phase loss:	[0.11014803]
+		BER for symbol 1:	0.004999999888241291
+		SER for symbol 1:	0.009999999776482582
+		BER for symbol 2:	0.0024999999441206455
+		SER for symbol 2:	0.004999999888241291
+	Batch size 400, Train step 119, cnt 96
+	current mag loss:	[0.00039145]
+	current phase loss:	[0.08890665]
+		BER for symbol 1:	0.0037499999161809683
+		SER for symbol 1:	0.007499999832361937
+		BER for symbol 2:	0.00624999962747097
+		SER for symbol 2:	0.01249999925494194
+	Batch size 400, Train step 179, cnt 97
+	current mag loss:	[0.00024305]
+	current phase loss:	[0.10445042]
+		BER for symbol 1:	0.007499999832361937
+		SER for symbol 1:	0.014999999664723873
+		BER for symbol 2:	0.004999999888241291
+		SER for symbol 2:	0.009999999776482582
+	Batch size 400, Train step 239, cnt 98
+	current mag loss:	[0.00048681]
+	current phase loss:	[0.11523578]
+		BER for symbol 1:	0.004999999888241291
+		SER for symbol 1:	0.009999999776482582
+		BER for symbol 2:	0.008750000037252903
+		SER for symbol 2:	0.017500000074505806
+	Batch size 400, Train step 299, cnt 99
+	current mag loss:	[0.00025142]
+	current phase loss:	[0.06263001]
+		BER for symbol 1:	0.0012499999720603228
+		SER for symbol 1:	0.0024999999441206455
+		BER for symbol 2:	0.0024999999441206455
+		SER for symbol 2:	0.004999999888241291
+	Batch size 1_000, Train step 59, cnt 100
+	current mag loss:	[0.00027064]
+	current phase loss:	[0.09953118]
+		BER for symbol 1:	0.002500000176951289
+		SER for symbol 1:	0.005000000353902578
+		BER for symbol 2:	0.001500000013038516
+		SER for symbol 2:	0.003000000026077032
+	Batch size 1_000, Train step 119, cnt 101
+	current mag loss:	[0.00019368]
+	current phase loss:	[0.0625682]
+		BER for symbol 1:	0.0035000001080334187
+		SER for symbol 1:	0.007000000216066837
+		BER for symbol 2:	0.004000000189989805
+		SER for symbol 2:	0.00800000037997961
+	Batch size 1_000, Train step 179, cnt 102
+	current mag loss:	[0.00023573]
+	current phase loss:	[0.06096596]
+		BER for symbol 1:	0.002500000176951289
+		SER for symbol 1:	0.005000000353902578
+		BER for symbol 2:	0.0010000000474974513
+		SER for symbol 2:	0.0020000000949949026
+	Batch size 1_000, Train step 239, cnt 103
+	current mag loss:	[0.00041146]
+	current phase loss:	[0.14668962]
+		BER for symbol 1:	0.003000000026077032
+		SER for symbol 1:	0.006000000052154064
+		BER for symbol 2:	0.0035000001080334187
+		SER for symbol 2:	0.007000000216066837
+	Batch size 1_000, Train step 299, cnt 104
+	current mag loss:	[0.00017908]
+	current phase loss:	[0.06365567]
+		BER for symbol 1:	0.004000000189989805
+		SER for symbol 1:	0.00800000037997961
+		BER for symbol 2:	0.002500000176951289
+		SER for symbol 2:	0.005000000353902578
+	Batch size 2_000, Train step 59, cnt 105
+	current mag loss:	[0.00018285]
+	current phase loss:	[0.06030989]
+		BER for symbol 1:	0.003000000026077032
+		SER for symbol 1:	0.006000000052154064
+		BER for symbol 2:	0.0035000001080334187
+		SER for symbol 2:	0.007000000216066837
+	Batch size 2_000, Train step 119, cnt 106
+	current mag loss:	[0.00016084]
+	current phase loss:	[0.06629505]
+		BER for symbol 1:	0.004750000312924385
+		SER for symbol 1:	0.00950000062584877
+		BER for symbol 2:	0.0020000000949949026
+		SER for symbol 2:	0.004000000189989805
+	Batch size 2_000, Train step 179, cnt 107
+	current mag loss:	[0.00016304]
+	current phase loss:	[0.06703369]
+		BER for symbol 1:	0.002250000135973096
+		SER for symbol 1:	0.004500000271946192
+		BER for symbol 2:	0.0035000001080334187
+		SER for symbol 2:	0.007000000216066837
+	Batch size 2_000, Train step 239, cnt 108
+	current mag loss:	[0.00015191]
+	current phase loss:	[0.07100949]
+		BER for symbol 1:	0.002500000176951289
+		SER for symbol 1:	0.005000000353902578
+		BER for symbol 2:	0.002250000135973096
+		SER for symbol 2:	0.004500000271946192
+	Batch size 2_000, Train step 299, cnt 109
+	current mag loss:	[0.00014098]
+	current phase loss:	[0.07733238]
+		BER for symbol 1:	0.004500000271946192
+		SER for symbol 1:	0.009000000543892384
+		BER for symbol 2:	0.0035000001080334187
+		SER for symbol 2:	0.007000000216066837
+	Batch size 5_000, Train step 59, cnt 110
+	current mag loss:	[0.00013813]
+	current phase loss:	[0.0593469]
+		BER for symbol 1:	0.0031999999191612005
+		SER for symbol 1:	0.006399999838322401
+		BER for symbol 2:	0.0023999998811632395
+		SER for symbol 2:	0.004799999762326479
+	Batch size 5_000, Train step 119, cnt 111
+	current mag loss:	[0.00014611]
+	current phase loss:	[0.06255547]
+		BER for symbol 1:	0.0030999998562037945
+		SER for symbol 1:	0.006199999712407589
+		BER for symbol 2:	0.002899999963119626
+		SER for symbol 2:	0.005799999926239252
+	Batch size 5_000, Train step 179, cnt 112
+	current mag loss:	[0.00012646]
+	current phase loss:	[0.05799774]
+		BER for symbol 1:	0.002899999963119626
+		SER for symbol 1:	0.005799999926239252
+		BER for symbol 2:	0.002899999963119626
+		SER for symbol 2:	0.005799999926239252
+	Batch size 5_000, Train step 239, cnt 113
+	current mag loss:	[0.00013069]
+	current phase loss:	[0.06322026]
+		BER for symbol 1:	0.002899999963119626
+		SER for symbol 1:	0.005799999926239252
+		BER for symbol 2:	0.0023999998811632395
+		SER for symbol 2:	0.004799999762326479
+	Batch size 5_000, Train step 299, cnt 114
+	current mag loss:	[0.00017211]
+	current phase loss:	[0.05476607]
+		BER for symbol 1:	0.00279999990016222
+		SER for symbol 1:	0.00559999980032444
+		BER for symbol 2:	0.002300000051036477
+		SER for symbol 2:	0.004600000102072954
+	Batch size 10_000, Train step 59, cnt 115
+	current mag loss:	[0.00012607]
+	current phase loss:	[0.0630321]
+		BER for symbol 1:	0.003000000026077032
+		SER for symbol 1:	0.006000000052154064
+		BER for symbol 2:	0.0035500000230968
+		SER for symbol 2:	0.0071000000461936
+	Batch size 10_000, Train step 119, cnt 116
+	current mag loss:	[0.00015399]
+	current phase loss:	[0.05752546]
+		BER for symbol 1:	0.00279999990016222
+		SER for symbol 1:	0.00559999980032444
+		BER for symbol 2:	0.0026499999221414328
+		SER for symbol 2:	0.0052999998442828655
+	Batch size 10_000, Train step 179, cnt 117
+	current mag loss:	[0.00014901]
+	current phase loss:	[0.05796038]
+		BER for symbol 1:	0.0026000000070780516
+		SER for symbol 1:	0.005200000014156103
+		BER for symbol 2:	0.003700000001117587
+		SER for symbol 2:	0.007400000002235174
+	Batch size 10_000, Train step 239, cnt 118
+	current mag loss:	[0.0001597]
+	current phase loss:	[0.0653373]
+		BER for symbol 1:	0.0033499998971819878
+		SER for symbol 1:	0.0066999997943639755
+		BER for symbol 2:	0.0032999999821186066
+		SER for symbol 2:	0.006599999964237213
+	Batch size 10_000, Train step 299, cnt 119
+	current mag loss:	[0.00013411]
+	current phase loss:	[0.06428106]
+		BER for symbol 1:	0.003399999812245369
+		SER for symbol 1:	0.006799999624490738
+		BER for symbol 2:	0.003499999875202775
+		SER for symbol 2:	0.00699999975040555
+train model for SNR 11 dB
+	Batch size 100, Train step 59, cnt 120
+	current mag loss:	[0.00397638]
+	current phase loss:	[0.10450915]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 119, cnt 121
+	current mag loss:	[0.00027657]
+	current phase loss:	[0.3679437]
+		BER for symbol 1:	0.03500000014901161
+		SER for symbol 1:	0.07000000029802322
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 179, cnt 122
+	current mag loss:	[0.00138572]
+	current phase loss:	[0.35316256]
+		BER for symbol 1:	0.004999999888241291
+		SER for symbol 1:	0.009999999776482582
+		BER for symbol 2:	0.009999999776482582
+		SER for symbol 2:	0.019999999552965164
+	Batch size 100, Train step 239, cnt 123
+	current mag loss:	[0.00065531]
+	current phase loss:	[0.13214724]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 124
+	current mag loss:	[0.00179479]
+	current phase loss:	[0.11207871]
+		BER for symbol 1:	0.004999999888241291
+		SER for symbol 1:	0.009999999776482582
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 125
+	current mag loss:	[0.00026618]
+	current phase loss:	[0.02644296]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 126
+	current mag loss:	[0.00023726]
+	current phase loss:	[0.02409705]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 127
+	current mag loss:	[0.00018749]
+	current phase loss:	[0.0277364]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0012499999720603228
+		SER for symbol 2:	0.0024999999441206455
+	Batch size 400, Train step 239, cnt 128
+	current mag loss:	[0.00014152]
+	current phase loss:	[0.02476567]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 129
+	current mag loss:	[0.00014002]
+	current phase loss:	[0.02225742]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 130
+	current mag loss:	[0.0001271]
+	current phase loss:	[0.02234261]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0005000000237487257
+		SER for symbol 2:	0.0010000000474974513
+	Batch size 1_000, Train step 119, cnt 131
+	current mag loss:	[0.00012207]
+	current phase loss:	[0.02094365]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 132
+	current mag loss:	[0.00010523]
+	current phase loss:	[0.0309006]
+		BER for symbol 1:	0.001500000013038516
+		SER for symbol 1:	0.003000000026077032
+		BER for symbol 2:	0.001500000013038516
+		SER for symbol 2:	0.003000000026077032
+	Batch size 1_000, Train step 239, cnt 133
+	current mag loss:	[0.00010803]
+	current phase loss:	[0.01804564]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 134
+	current mag loss:	[0.00010548]
+	current phase loss:	[0.02619843]
+		BER for symbol 1:	0.0010000000474974513
+		SER for symbol 1:	0.0020000000949949026
+		BER for symbol 2:	0.0005000000237487257
+		SER for symbol 2:	0.0010000000474974513
+	Batch size 2_000, Train step 59, cnt 135
+	current mag loss:	[9.3128874e-05]
+	current phase loss:	[0.01972077]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0002500000118743628
+		SER for symbol 2:	0.0005000000237487257
+	Batch size 2_000, Train step 119, cnt 136
+	current mag loss:	[0.00010932]
+	current phase loss:	[0.02007503]
+		BER for symbol 1:	0.0002500000118743628
+		SER for symbol 1:	0.0005000000237487257
+		BER for symbol 2:	0.0002500000118743628
+		SER for symbol 2:	0.0005000000237487257
+	Batch size 2_000, Train step 179, cnt 137
+	current mag loss:	[0.00012541]
+	current phase loss:	[0.02679695]
+		BER for symbol 1:	0.0010000000474974513
+		SER for symbol 1:	0.0020000000949949026
+		BER for symbol 2:	0.0002500000118743628
+		SER for symbol 2:	0.0005000000237487257
+	Batch size 2_000, Train step 239, cnt 138
+	current mag loss:	[0.00010542]
+	current phase loss:	[0.01901673]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 139
+	current mag loss:	[8.698835e-05]
+	current phase loss:	[0.02471625]
+		BER for symbol 1:	0.0010000000474974513
+		SER for symbol 1:	0.0020000000949949026
+		BER for symbol 2:	0.0005000000237487257
+		SER for symbol 2:	0.0010000000474974513
+	Batch size 5_000, Train step 59, cnt 140
+	current mag loss:	[0.00011291]
+	current phase loss:	[0.0232484]
+		BER for symbol 1:	0.000699999975040555
+		SER for symbol 1:	0.00139999995008111
+		BER for symbol 2:	0.00019999999494757503
+		SER for symbol 2:	0.00039999998989515007
+	Batch size 5_000, Train step 119, cnt 141
+	current mag loss:	[0.00011287]
+	current phase loss:	[0.01908831]
+		BER for symbol 1:	0.00039999998989515007
+		SER for symbol 1:	0.0007999999797903001
+		BER for symbol 2:	0.0005999999702908099
+		SER for symbol 2:	0.0011999999405816197
+	Batch size 5_000, Train step 179, cnt 142
+	current mag loss:	[0.00010007]
+	current phase loss:	[0.02311739]
+		BER for symbol 1:	0.00039999998989515007
+		SER for symbol 1:	0.0007999999797903001
+		BER for symbol 2:	0.0007999999797903001
+		SER for symbol 2:	0.0015999999595806003
+	Batch size 5_000, Train step 239, cnt 143
+	current mag loss:	[9.82711e-05]
+	current phase loss:	[0.01816224]
+		BER for symbol 1:	0.00029999998514540493
+		SER for symbol 1:	0.0005999999702908099
+		BER for symbol 2:	0.00039999998989515007
+		SER for symbol 2:	0.0007999999797903001
+	Batch size 5_000, Train step 299, cnt 144
+	current mag loss:	[0.00010378]
+	current phase loss:	[0.02150363]
+		BER for symbol 1:	0.0004999999655410647
+		SER for symbol 1:	0.0009999999310821295
+		BER for symbol 2:	0.00019999999494757503
+		SER for symbol 2:	0.00039999998989515007
+	Batch size 10_000, Train step 59, cnt 145
+	current mag loss:	[9.41427e-05]
+	current phase loss:	[0.01902031]
+		BER for symbol 1:	0.00039999998989515007
+		SER for symbol 1:	0.0007999999797903001
+		BER for symbol 2:	0.0003499999875202775
+		SER for symbol 2:	0.000699999975040555
+	Batch size 10_000, Train step 119, cnt 146
+	current mag loss:	[9.480538e-05]
+	current phase loss:	[0.01906514]
+		BER for symbol 1:	0.0003499999875202775
+		SER for symbol 1:	0.000699999975040555
+		BER for symbol 2:	0.00014999999257270247
+		SER for symbol 2:	0.00029999998514540493
+	Batch size 10_000, Train step 179, cnt 147
+	current mag loss:	[0.00013105]
+	current phase loss:	[0.02162082]
+		BER for symbol 1:	0.00044999999227002263
+		SER for symbol 1:	0.0008999999845400453
+		BER for symbol 2:	0.00019999999494757503
+		SER for symbol 2:	0.00039999998989515007
+	Batch size 10_000, Train step 239, cnt 148
+	current mag loss:	[0.00013414]
+	current phase loss:	[0.01741786]
+		BER for symbol 1:	0.00024999998277053237
+		SER for symbol 1:	0.0004999999655410647
+		BER for symbol 2:	0.0003499999875202775
+		SER for symbol 2:	0.000699999975040555
+	Batch size 10_000, Train step 299, cnt 149
+	current mag loss:	[0.00014841]
+	current phase loss:	[0.01714736]
+		BER for symbol 1:	0.00019999999494757503
+		SER for symbol 1:	0.00039999998989515007
+		BER for symbol 2:	0.00029999998514540493
+		SER for symbol 2:	0.0005999999702908099
+train model for SNR 12 dB
+	Batch size 100, Train step 59, cnt 150
+	current mag loss:	[0.00023925]
+	current phase loss:	[0.0468423]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 119, cnt 151
+	current mag loss:	[0.00030878]
+	current phase loss:	[0.02302563]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 179, cnt 152
+	current mag loss:	[0.00020645]
+	current phase loss:	[0.16129209]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 239, cnt 153
+	current mag loss:	[0.00163545]
+	current phase loss:	[0.1033654]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 154
+	current mag loss:	[0.00091529]
+	current phase loss:	[0.15132202]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 155
+	current mag loss:	[0.00025101]
+	current phase loss:	[0.01788334]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 156
+	current mag loss:	[0.00018272]
+	current phase loss:	[0.01424109]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 157
+	current mag loss:	[0.00013857]
+	current phase loss:	[0.01326831]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 158
+	current mag loss:	[0.00021162]
+	current phase loss:	[0.01323221]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 159
+	current mag loss:	[0.00014063]
+	current phase loss:	[0.01131656]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 160
+	current mag loss:	[0.00016694]
+	current phase loss:	[0.01212934]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 161
+	current mag loss:	[0.00013539]
+	current phase loss:	[0.00973769]
+		BER for symbol 1:	0.0005000000237487257
+		SER for symbol 1:	0.0010000000474974513
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 162
+	current mag loss:	[0.00014029]
+	current phase loss:	[0.01047278]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 163
+	current mag loss:	[0.00013839]
+	current phase loss:	[0.01414729]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 164
+	current mag loss:	[0.0001515]
+	current phase loss:	[0.00964043]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 165
+	current mag loss:	[0.00010916]
+	current phase loss:	[0.0084111]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 166
+	current mag loss:	[0.00010284]
+	current phase loss:	[0.01065073]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 167
+	current mag loss:	[0.00011234]
+	current phase loss:	[0.00769522]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 168
+	current mag loss:	[0.00010866]
+	current phase loss:	[0.0074384]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 169
+	current mag loss:	[0.00010055]
+	current phase loss:	[0.00853363]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 59, cnt 170
+	current mag loss:	[0.00012821]
+	current phase loss:	[0.01019456]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 119, cnt 171
+	current mag loss:	[9.2986855e-05]
+	current phase loss:	[0.00844726]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 179, cnt 172
+	current mag loss:	[8.697315e-05]
+	current phase loss:	[0.00860928]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	9.999999747378752e-05
+		SER for symbol 2:	0.00019999999494757503
+	Batch size 5_000, Train step 239, cnt 173
+	current mag loss:	[9.422058e-05]
+	current phase loss:	[0.01134062]
+		BER for symbol 1:	0.00019999999494757503
+		SER for symbol 1:	0.00039999998989515007
+		BER for symbol 2:	9.999999747378752e-05
+		SER for symbol 2:	0.00019999999494757503
+	Batch size 5_000, Train step 299, cnt 174
+	current mag loss:	[9.874163e-05]
+	current phase loss:	[0.00830119]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 59, cnt 175
+	current mag loss:	[9.078199e-05]
+	current phase loss:	[0.00716838]
+		BER for symbol 1:	9.999999747378752e-05
+		SER for symbol 1:	0.00019999999494757503
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 119, cnt 176
+	current mag loss:	[0.00010622]
+	current phase loss:	[0.00655725]
+		BER for symbol 1:	4.999999873689376e-05
+		SER for symbol 1:	9.999999747378752e-05
+		BER for symbol 2:	9.999999747378752e-05
+		SER for symbol 2:	0.00019999999494757503
+	Batch size 10_000, Train step 179, cnt 177
+	current mag loss:	[0.00011623]
+	current phase loss:	[0.00783799]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	4.999999873689376e-05
+		SER for symbol 2:	9.999999747378752e-05
+	Batch size 10_000, Train step 239, cnt 178
+	current mag loss:	[8.886171e-05]
+	current phase loss:	[0.00559278]
+		BER for symbol 1:	4.999999873689376e-05
+		SER for symbol 1:	9.999999747378752e-05
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 179
+	current mag loss:	[9.316189e-05]
+	current phase loss:	[0.00599382]
+		BER for symbol 1:	4.999999873689376e-05
+		SER for symbol 1:	9.999999747378752e-05
+		BER for symbol 2:	4.999999873689376e-05
+		SER for symbol 2:	9.999999747378752e-05
+train model for SNR 13 dB
+	Batch size 100, Train step 59, cnt 180
+	current mag loss:	[0.00010287]
+	current phase loss:	[0.0445496]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 119, cnt 181
+	current mag loss:	[0.00018245]
+	current phase loss:	[0.01806237]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 179, cnt 182
+	current mag loss:	[6.475979e-05]
+	current phase loss:	[0.00750715]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 239, cnt 183
+	current mag loss:	[0.0003911]
+	current phase loss:	[0.07490773]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 184
+	current mag loss:	[9.0777416e-05]
+	current phase loss:	[0.01407624]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 185
+	current mag loss:	[7.746926e-05]
+	current phase loss:	[0.00733847]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 186
+	current mag loss:	[6.9809306e-05]
+	current phase loss:	[0.00501534]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 187
+	current mag loss:	[9.083298e-05]
+	current phase loss:	[0.00664718]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 188
+	current mag loss:	[6.576237e-05]
+	current phase loss:	[0.00648517]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 189
+	current mag loss:	[7.337708e-05]
+	current phase loss:	[0.00448972]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 190
+	current mag loss:	[5.8098256e-05]
+	current phase loss:	[0.00451488]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 191
+	current mag loss:	[6.0444723e-05]
+	current phase loss:	[0.00404948]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 192
+	current mag loss:	[6.720704e-05]
+	current phase loss:	[0.00367638]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 193
+	current mag loss:	[6.3222564e-05]
+	current phase loss:	[0.00382275]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 194
+	current mag loss:	[5.4675467e-05]
+	current phase loss:	[0.00409426]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 195
+	current mag loss:	[5.436641e-05]
+	current phase loss:	[0.00369941]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 196
+	current mag loss:	[4.8613827e-05]
+	current phase loss:	[0.0033597]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 197
+	current mag loss:	[5.2679425e-05]
+	current phase loss:	[0.00320758]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 198
+	current mag loss:	[4.517109e-05]
+	current phase loss:	[0.0033958]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 199
+	current mag loss:	[5.4186447e-05]
+	current phase loss:	[0.00411776]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 59, cnt 200
+	current mag loss:	[4.741032e-05]
+	current phase loss:	[0.00281575]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 119, cnt 201
+	current mag loss:	[5.051942e-05]
+	current phase loss:	[0.00283982]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 179, cnt 202
+	current mag loss:	[6.94474e-05]
+	current phase loss:	[0.00839903]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	9.999999747378752e-05
+		SER for symbol 2:	0.00019999999494757503
+	Batch size 5_000, Train step 239, cnt 203
+	current mag loss:	[4.677553e-05]
+	current phase loss:	[0.00273531]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 299, cnt 204
+	current mag loss:	[4.7467744e-05]
+	current phase loss:	[0.00308834]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 59, cnt 205
+	current mag loss:	[5.1001218e-05]
+	current phase loss:	[0.00394912]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	4.999999873689376e-05
+		SER for symbol 2:	9.999999747378752e-05
+	Batch size 10_000, Train step 119, cnt 206
+	current mag loss:	[4.481294e-05]
+	current phase loss:	[0.00241381]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 179, cnt 207
+	current mag loss:	[4.8201837e-05]
+	current phase loss:	[0.00239204]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 239, cnt 208
+	current mag loss:	[5.054252e-05]
+	current phase loss:	[0.00309545]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 209
+	current mag loss:	[7.518905e-05]
+	current phase loss:	[0.00688264]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+train model for SNR 14 dB
+	Batch size 100, Train step 59, cnt 0
+	current mag loss:	[0.20407516]
+	current phase loss:	[9.854254]
+		BER for symbol 1:	0.4899999797344208
+		SER for symbol 1:	0.7299999594688416
+		BER for symbol 2:	0.5099999904632568
+		SER for symbol 2:	0.75
+	Batch size 100, Train step 119, cnt 1
+	current mag loss:	[0.05270956]
+	current phase loss:	[3.550651]
+		BER for symbol 1:	0.2549999952316284
+		SER for symbol 1:	0.5099999904632568
+		BER for symbol 2:	0.3100000023841858
+		SER for symbol 2:	0.5999999642372131
+	Batch size 100, Train step 179, cnt 2
+	current mag loss:	[0.01377757]
+	current phase loss:	[1.6567111]
+		BER for symbol 1:	0.11999999731779099
+		SER for symbol 1:	0.22999998927116394
+		BER for symbol 2:	0.14499999582767487
+		SER for symbol 2:	0.26999998092651367
+	Batch size 100, Train step 239, cnt 3
+	current mag loss:	[0.00294117]
+	current phase loss:	[1.0732721]
+		BER for symbol 1:	0.09999999403953552
+		SER for symbol 1:	0.19999998807907104
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 4
+	current mag loss:	[0.00118819]
+	current phase loss:	[0.44222352]
+		BER for symbol 1:	0.029999999329447746
+		SER for symbol 1:	0.05999999865889549
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 5
+	current mag loss:	[0.00076721]
+	current phase loss:	[0.25510272]
+		BER for symbol 1:	0.011249999515712261
+		SER for symbol 1:	0.022499999031424522
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 6
+	current mag loss:	[0.00063522]
+	current phase loss:	[0.19608247]
+		BER for symbol 1:	0.004999999888241291
+		SER for symbol 1:	0.009999999776482582
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 7
+	current mag loss:	[0.00089331]
+	current phase loss:	[0.12865764]
+		BER for symbol 1:	0.0024999999441206455
+		SER for symbol 1:	0.004999999888241291
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 8
+	current mag loss:	[0.00048045]
+	current phase loss:	[0.10636074]
+		BER for symbol 1:	0.0024999999441206455
+		SER for symbol 1:	0.004999999888241291
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 9
+	current mag loss:	[0.00040796]
+	current phase loss:	[0.10871036]
+		BER for symbol 1:	0.0037499999161809683
+		SER for symbol 1:	0.007499999832361937
+		BER for symbol 2:	0.0012499999720603228
+		SER for symbol 2:	0.0024999999441206455
+	Batch size 1_000, Train step 59, cnt 10
+	current mag loss:	[0.00049002]
+	current phase loss:	[0.07475708]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 11
+	current mag loss:	[0.00047164]
+	current phase loss:	[0.06059386]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 12
+	current mag loss:	[0.00051334]
+	current phase loss:	[0.07949739]
+		BER for symbol 1:	0.0020000000949949026
+		SER for symbol 1:	0.004000000189989805
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 13
+	current mag loss:	[0.00086745]
+	current phase loss:	[0.44140407]
+		BER for symbol 1:	0.027500001713633537
+		SER for symbol 1:	0.055000003427267075
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 14
+	current mag loss:	[0.00038756]
+	current phase loss:	[0.05148811]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 15
+	current mag loss:	[0.00036722]
+	current phase loss:	[0.04623283]
+		BER for symbol 1:	0.0005000000237487257
+		SER for symbol 1:	0.0010000000474974513
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 16
+	current mag loss:	[0.00039215]
+	current phase loss:	[0.04478727]
+		BER for symbol 1:	0.0002500000118743628
+		SER for symbol 1:	0.0005000000237487257
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 17
+	current mag loss:	[0.00038062]
+	current phase loss:	[0.04186658]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 18
+	current mag loss:	[0.00034651]
+	current phase loss:	[0.04480761]
+		BER for symbol 1:	0.0005000000237487257
+		SER for symbol 1:	0.0010000000474974513
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 19
+	current mag loss:	[0.0124008]
+	current phase loss:	[0.95133483]
+		BER for symbol 1:	0.03800000250339508
+		SER for symbol 1:	0.07600000500679016
+		BER for symbol 2:	0.0560000017285347
+		SER for symbol 2:	0.1120000034570694
+	Batch size 5_000, Train step 59, cnt 20
+	current mag loss:	[0.00102218]
+	current phase loss:	[0.2316709]
+		BER for symbol 1:	0.0008999999845400453
+		SER for symbol 1:	0.0017999999690800905
+		BER for symbol 2:	9.999999747378752e-05
+		SER for symbol 2:	0.00019999999494757503
+	Batch size 5_000, Train step 119, cnt 21
+	current mag loss:	[0.00047149]
+	current phase loss:	[0.0978282]
+		BER for symbol 1:	0.00029999998514540493
+		SER for symbol 1:	0.0005999999702908099
+		BER for symbol 2:	9.999999747378752e-05
+		SER for symbol 2:	0.00019999999494757503
+	Batch size 5_000, Train step 179, cnt 22
+	current mag loss:	[0.00036381]
+	current phase loss:	[0.0665492]
+		BER for symbol 1:	0.00019999999494757503
+		SER for symbol 1:	0.00039999998989515007
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 239, cnt 23
+	current mag loss:	[0.00028879]
+	current phase loss:	[0.05510912]
+		BER for symbol 1:	9.999999747378752e-05
+		SER for symbol 1:	0.00019999999494757503
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 299, cnt 24
+	current mag loss:	[0.00026322]
+	current phase loss:	[0.04909917]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 59, cnt 25
+	current mag loss:	[0.00023899]
+	current phase loss:	[0.04151484]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 119, cnt 26
+	current mag loss:	[0.00021404]
+	current phase loss:	[0.03709236]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 179, cnt 27
+	current mag loss:	[0.00022079]
+	current phase loss:	[0.03210564]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 239, cnt 28
+	current mag loss:	[0.00021382]
+	current phase loss:	[0.02998942]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 29
+	current mag loss:	[0.0002313]
+	current phase loss:	[0.02687845]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+train model for SNR 15 dB
+	Batch size 100, Train step 59, cnt 0
+	current mag loss:	[0.16007596]
+	current phase loss:	[8.768128]
+		BER for symbol 1:	0.5699999928474426
+		SER for symbol 1:	0.85999995470047
+		BER for symbol 2:	0.4599999785423279
+		SER for symbol 2:	0.7299999594688416
+	Batch size 100, Train step 119, cnt 1
+	current mag loss:	[0.05164805]
+	current phase loss:	[3.0551276]
+		BER for symbol 1:	0.16499999165534973
+		SER for symbol 1:	0.32999998331069946
+		BER for symbol 2:	0.35499998927116394
+		SER for symbol 2:	0.5999999642372131
+	Batch size 100, Train step 179, cnt 2
+	current mag loss:	[0.01250144]
+	current phase loss:	[0.8507126]
+		BER for symbol 1:	0.04999999701976776
+		SER for symbol 1:	0.09999999403953552
+		BER for symbol 2:	0.06499999761581421
+		SER for symbol 2:	0.12999999523162842
+	Batch size 100, Train step 239, cnt 3
+	current mag loss:	[0.0043005]
+	current phase loss:	[0.64642]
+		BER for symbol 1:	0.044999998062849045
+		SER for symbol 1:	0.08999999612569809
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 4
+	current mag loss:	[0.00276453]
+	current phase loss:	[0.28691155]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 5
+	current mag loss:	[0.00216171]
+	current phase loss:	[0.20526442]
+		BER for symbol 1:	0.0037499999161809683
+		SER for symbol 1:	0.007499999832361937
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 6
+	current mag loss:	[0.00173614]
+	current phase loss:	[0.15240577]
+		BER for symbol 1:	0.0037499999161809683
+		SER for symbol 1:	0.007499999832361937
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 7
+	current mag loss:	[0.00109724]
+	current phase loss:	[0.14723398]
+		BER for symbol 1:	0.0024999999441206455
+		SER for symbol 1:	0.004999999888241291
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 8
+	current mag loss:	[0.00089992]
+	current phase loss:	[0.11916728]
+		BER for symbol 1:	0.004999999888241291
+		SER for symbol 1:	0.009999999776482582
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 9
+	current mag loss:	[0.0008687]
+	current phase loss:	[0.13314025]
+		BER for symbol 1:	0.009999999776482582
+		SER for symbol 1:	0.019999999552965164
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 10
+	current mag loss:	[0.00070704]
+	current phase loss:	[0.09821794]
+		BER for symbol 1:	0.004000000189989805
+		SER for symbol 1:	0.00800000037997961
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 11
+	current mag loss:	[0.00080931]
+	current phase loss:	[0.08139372]
+		BER for symbol 1:	0.002500000176951289
+		SER for symbol 1:	0.005000000353902578
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 12
+	current mag loss:	[0.00051103]
+	current phase loss:	[0.06851766]
+		BER for symbol 1:	0.0005000000237487257
+		SER for symbol 1:	0.0010000000474974513
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 13
+	current mag loss:	[0.00049521]
+	current phase loss:	[0.04944144]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 14
+	current mag loss:	[0.00038244]
+	current phase loss:	[0.05331793]
+		BER for symbol 1:	0.0020000000949949026
+		SER for symbol 1:	0.004000000189989805
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 15
+	current mag loss:	[0.00039565]
+	current phase loss:	[0.04664404]
+		BER for symbol 1:	0.0002500000118743628
+		SER for symbol 1:	0.0005000000237487257
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 16
+	current mag loss:	[0.00036647]
+	current phase loss:	[0.03605778]
+		BER for symbol 1:	0.0005000000237487257
+		SER for symbol 1:	0.0010000000474974513
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 17
+	current mag loss:	[0.00035111]
+	current phase loss:	[0.04028127]
+		BER for symbol 1:	0.0005000000237487257
+		SER for symbol 1:	0.0010000000474974513
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 18
+	current mag loss:	[0.00032616]
+	current phase loss:	[0.03146395]
+		BER for symbol 1:	0.0002500000118743628
+		SER for symbol 1:	0.0005000000237487257
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 19
+	current mag loss:	[0.00029143]
+	current phase loss:	[0.02937111]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 59, cnt 20
+	current mag loss:	[0.00025818]
+	current phase loss:	[0.02536801]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 119, cnt 21
+	current mag loss:	[0.00024081]
+	current phase loss:	[0.02488872]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 179, cnt 22
+	current mag loss:	[0.00022264]
+	current phase loss:	[0.02199946]
+		BER for symbol 1:	0.00019999999494757503
+		SER for symbol 1:	0.00039999998989515007
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 239, cnt 23
+	current mag loss:	[0.00022678]
+	current phase loss:	[0.02393231]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 299, cnt 24
+	current mag loss:	[0.00021542]
+	current phase loss:	[0.02615376]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	9.999999747378752e-05
+		SER for symbol 2:	0.00019999999494757503
+	Batch size 10_000, Train step 59, cnt 25
+	current mag loss:	[0.00022606]
+	current phase loss:	[0.02539949]
+		BER for symbol 1:	9.999999747378752e-05
+		SER for symbol 1:	0.00019999999494757503
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 119, cnt 26
+	current mag loss:	[0.00024033]
+	current phase loss:	[0.03579455]
+		BER for symbol 1:	0.00029999998514540493
+		SER for symbol 1:	0.0005999999702908099
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 179, cnt 27
+	current mag loss:	[0.00021312]
+	current phase loss:	[0.01752158]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 239, cnt 28
+	current mag loss:	[0.0002082]
+	current phase loss:	[0.01759563]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 29
+	current mag loss:	[0.00017316]
+	current phase loss:	[0.01340079]
+		BER for symbol 1:	0.00014999999257270247
+		SER for symbol 1:	0.00029999998514540493
+		BER for symbol 2:	4.999999873689376e-05
+		SER for symbol 2:	9.999999747378752e-05
+train model for SNR 16 dB
+	Batch size 100, Train step 59, cnt 30
+	current mag loss:	[0.00028081]
+	current phase loss:	[0.07780614]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 119, cnt 31
+	current mag loss:	[0.00026619]
+	current phase loss:	[0.02575334]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 179, cnt 32
+	current mag loss:	[0.00024303]
+	current phase loss:	[0.0392139]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 239, cnt 33
+	current mag loss:	[0.00014154]
+	current phase loss:	[0.03723476]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 34
+	current mag loss:	[0.00013602]
+	current phase loss:	[0.05834104]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 35
+	current mag loss:	[0.00013298]
+	current phase loss:	[0.01056342]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 36
+	current mag loss:	[0.00013564]
+	current phase loss:	[0.01151949]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 37
+	current mag loss:	[0.00013172]
+	current phase loss:	[0.01308501]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 38
+	current mag loss:	[0.00013118]
+	current phase loss:	[0.00685568]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 39
+	current mag loss:	[0.00013329]
+	current phase loss:	[0.01439526]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 40
+	current mag loss:	[0.00013065]
+	current phase loss:	[0.00626455]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 41
+	current mag loss:	[0.00011659]
+	current phase loss:	[0.0060284]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 42
+	current mag loss:	[0.00010768]
+	current phase loss:	[0.00661391]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 43
+	current mag loss:	[0.00010728]
+	current phase loss:	[0.00872502]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 44
+	current mag loss:	[0.00010559]
+	current phase loss:	[0.00758921]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 45
+	current mag loss:	[0.00010047]
+	current phase loss:	[0.00936402]
+		BER for symbol 1:	0.0002500000118743628
+		SER for symbol 1:	0.0005000000237487257
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 46
+	current mag loss:	[9.329874e-05]
+	current phase loss:	[0.00446149]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 47
+	current mag loss:	[8.864875e-05]
+	current phase loss:	[0.00461954]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 48
+	current mag loss:	[8.775595e-05]
+	current phase loss:	[0.00841504]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 49
+	current mag loss:	[8.136285e-05]
+	current phase loss:	[0.00525058]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 59, cnt 50
+	current mag loss:	[7.676992e-05]
+	current phase loss:	[0.00474278]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 119, cnt 51
+	current mag loss:	[7.339411e-05]
+	current phase loss:	[0.00461813]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 179, cnt 52
+	current mag loss:	[6.698978e-05]
+	current phase loss:	[0.00423821]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 239, cnt 53
+	current mag loss:	[6.586429e-05]
+	current phase loss:	[0.00459798]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 299, cnt 54
+	current mag loss:	[6.0180428e-05]
+	current phase loss:	[0.00474155]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 59, cnt 55
+	current mag loss:	[5.7760513e-05]
+	current phase loss:	[0.00525944]
+		BER for symbol 1:	9.999999747378752e-05
+		SER for symbol 1:	9.999999747378752e-05
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 119, cnt 56
+	current mag loss:	[5.855767e-05]
+	current phase loss:	[0.00385547]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 179, cnt 57
+	current mag loss:	[5.3050382e-05]
+	current phase loss:	[0.00507591]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 239, cnt 58
+	current mag loss:	[5.3104228e-05]
+	current phase loss:	[0.00379352]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 59
+	current mag loss:	[5.132552e-05]
+	current phase loss:	[0.0036435]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+train model for SNR 17 dB
+	Batch size 100, Train step 59, cnt 60
+	current mag loss:	[0.00032745]
+	current phase loss:	[0.10720617]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 119, cnt 61
+	current mag loss:	[7.287361e-05]
+	current phase loss:	[0.01886085]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 179, cnt 62
+	current mag loss:	[0.00011922]
+	current phase loss:	[0.01237896]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 239, cnt 63
+	current mag loss:	[0.00015358]
+	current phase loss:	[0.01462978]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 64
+	current mag loss:	[5.729555e-05]
+	current phase loss:	[0.01010115]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 65
+	current mag loss:	[4.5558034e-05]
+	current phase loss:	[0.00534425]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 66
+	current mag loss:	[6.644009e-05]
+	current phase loss:	[0.004909]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 67
+	current mag loss:	[4.2573418e-05]
+	current phase loss:	[0.00460635]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 68
+	current mag loss:	[5.4914985e-05]
+	current phase loss:	[0.00606858]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 69
+	current mag loss:	[3.842814e-05]
+	current phase loss:	[0.00674123]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 70
+	current mag loss:	[3.723201e-05]
+	current phase loss:	[0.0040117]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 71
+	current mag loss:	[4.1815856e-05]
+	current phase loss:	[0.00350428]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 72
+	current mag loss:	[3.3372104e-05]
+	current phase loss:	[0.00371637]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 73
+	current mag loss:	[3.8545208e-05]
+	current phase loss:	[0.00434458]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 74
+	current mag loss:	[3.8171693e-05]
+	current phase loss:	[0.00373296]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 75
+	current mag loss:	[3.6245496e-05]
+	current phase loss:	[0.00332765]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 76
+	current mag loss:	[3.359762e-05]
+	current phase loss:	[0.00306152]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 77
+	current mag loss:	[3.3963872e-05]
+	current phase loss:	[0.00297427]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 78
+	current mag loss:	[3.3350036e-05]
+	current phase loss:	[0.00288292]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 79
+	current mag loss:	[3.274703e-05]
+	current phase loss:	[0.00362053]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 59, cnt 80
+	current mag loss:	[3.260114e-05]
+	current phase loss:	[0.0027178]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 119, cnt 81
+	current mag loss:	[3.2122265e-05]
+	current phase loss:	[0.00301201]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 179, cnt 82
+	current mag loss:	[3.0734147e-05]
+	current phase loss:	[0.00270924]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 239, cnt 83
+	current mag loss:	[2.9567263e-05]
+	current phase loss:	[0.00280015]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 299, cnt 84
+	current mag loss:	[3.1065847e-05]
+	current phase loss:	[0.00282691]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 59, cnt 85
+	current mag loss:	[2.9682536e-05]
+	current phase loss:	[0.00275638]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 119, cnt 86
+	current mag loss:	[2.8925693e-05]
+	current phase loss:	[0.00270878]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 179, cnt 87
+	current mag loss:	[2.8181315e-05]
+	current phase loss:	[0.00247724]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 239, cnt 88
+	current mag loss:	[2.882494e-05]
+	current phase loss:	[0.00278506]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 89
+	current mag loss:	[2.7749618e-05]
+	current phase loss:	[0.00293713]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+train model for SNR 18 dB
+	Batch size 100, Train step 59, cnt 90
+	current mag loss:	[3.319186e-05]
+	current phase loss:	[0.01971535]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 119, cnt 91
+	current mag loss:	[0.0001154]
+	current phase loss:	[0.00970927]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 179, cnt 92
+	current mag loss:	[2.1474541e-05]
+	current phase loss:	[0.0053508]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 239, cnt 93
+	current mag loss:	[2.264421e-05]
+	current phase loss:	[0.01220989]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 94
+	current mag loss:	[3.9014285e-05]
+	current phase loss:	[0.00447383]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 95
+	current mag loss:	[2.3814922e-05]
+	current phase loss:	[0.00295454]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 96
+	current mag loss:	[1.729545e-05]
+	current phase loss:	[0.00281077]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 97
+	current mag loss:	[2.4941062e-05]
+	current phase loss:	[0.00253974]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 98
+	current mag loss:	[2.3359029e-05]
+	current phase loss:	[0.00653902]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 99
+	current mag loss:	[2.2715205e-05]
+	current phase loss:	[0.00222761]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 100
+	current mag loss:	[3.2840497e-05]
+	current phase loss:	[0.00185905]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 101
+	current mag loss:	[1.8709257e-05]
+	current phase loss:	[0.00163013]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 102
+	current mag loss:	[1.802947e-05]
+	current phase loss:	[0.00166761]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 103
+	current mag loss:	[1.8306258e-05]
+	current phase loss:	[0.00162712]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 104
+	current mag loss:	[2.5832143e-05]
+	current phase loss:	[0.00160111]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 105
+	current mag loss:	[1.778857e-05]
+	current phase loss:	[0.00191199]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 106
+	current mag loss:	[2.1089898e-05]
+	current phase loss:	[0.00548308]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 107
+	current mag loss:	[1.7799783e-05]
+	current phase loss:	[0.00155914]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 108
+	current mag loss:	[1.7991932e-05]
+	current phase loss:	[0.00200589]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 109
+	current mag loss:	[1.77762e-05]
+	current phase loss:	[0.00401798]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 59, cnt 110
+	current mag loss:	[1.6876758e-05]
+	current phase loss:	[0.00137263]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 119, cnt 111
+	current mag loss:	[1.6810915e-05]
+	current phase loss:	[0.00163816]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 179, cnt 112
+	current mag loss:	[1.8740819e-05]
+	current phase loss:	[0.00303707]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 239, cnt 113
+	current mag loss:	[1.763479e-05]
+	current phase loss:	[0.00206921]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 299, cnt 114
+	current mag loss:	[1.7014505e-05]
+	current phase loss:	[0.00190532]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 59, cnt 115
+	current mag loss:	[1.6853939e-05]
+	current phase loss:	[0.00154298]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 119, cnt 116
+	current mag loss:	[1.654584e-05]
+	current phase loss:	[0.00142318]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 179, cnt 117
+	current mag loss:	[1.7636736e-05]
+	current phase loss:	[0.0023737]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 239, cnt 118
+	current mag loss:	[1.9683475e-05]
+	current phase loss:	[0.00371489]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 119
+	current mag loss:	[1.7566375e-05]
+	current phase loss:	[0.0016963]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+train model for SNR 19 dB
+	Batch size 100, Train step 59, cnt 120
+	current mag loss:	[0.00276015]
+	current phase loss:	[0.0845351]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 119, cnt 121
+	current mag loss:	[5.2211923e-05]
+	current phase loss:	[0.00774659]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 179, cnt 122
+	current mag loss:	[2.6605949e-05]
+	current phase loss:	[0.00525776]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 239, cnt 123
+	current mag loss:	[5.0190658e-05]
+	current phase loss:	[0.00308967]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 124
+	current mag loss:	[3.7495785e-05]
+	current phase loss:	[0.00369768]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 125
+	current mag loss:	[2.3451308e-05]
+	current phase loss:	[0.00200969]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 126
+	current mag loss:	[2.313579e-05]
+	current phase loss:	[0.00226108]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 127
+	current mag loss:	[1.7614673e-05]
+	current phase loss:	[0.00162139]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 128
+	current mag loss:	[2.7991337e-05]
+	current phase loss:	[0.00167039]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 129
+	current mag loss:	[1.9920306e-05]
+	current phase loss:	[0.00200215]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 130
+	current mag loss:	[1.7710083e-05]
+	current phase loss:	[0.00163613]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 131
+	current mag loss:	[1.996856e-05]
+	current phase loss:	[0.00160181]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 132
+	current mag loss:	[2.004671e-05]
+	current phase loss:	[0.00143682]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 133
+	current mag loss:	[1.925768e-05]
+	current phase loss:	[0.00163537]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 134
+	current mag loss:	[2.2738386e-05]
+	current phase loss:	[0.00136195]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 135
+	current mag loss:	[2.1169226e-05]
+	current phase loss:	[0.00133033]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 136
+	current mag loss:	[1.974121e-05]
+	current phase loss:	[0.00130975]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 137
+	current mag loss:	[2.0364614e-05]
+	current phase loss:	[0.00150962]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 138
+	current mag loss:	[2.0629619e-05]
+	current phase loss:	[0.00147197]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 139
+	current mag loss:	[2.0543837e-05]
+	current phase loss:	[0.00128918]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 59, cnt 140
+	current mag loss:	[1.8582565e-05]
+	current phase loss:	[0.00114581]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 119, cnt 141
+	current mag loss:	[1.826661e-05]
+	current phase loss:	[0.00121238]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 179, cnt 142
+	current mag loss:	[1.8409455e-05]
+	current phase loss:	[0.00115822]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 239, cnt 143
+	current mag loss:	[1.8319646e-05]
+	current phase loss:	[0.00118415]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 299, cnt 144
+	current mag loss:	[1.8476156e-05]
+	current phase loss:	[0.00111052]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 59, cnt 145
+	current mag loss:	[1.9584613e-05]
+	current phase loss:	[0.00109939]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 119, cnt 146
+	current mag loss:	[1.8210676e-05]
+	current phase loss:	[0.00108924]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 179, cnt 147
+	current mag loss:	[1.9023451e-05]
+	current phase loss:	[0.00109721]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 239, cnt 148
+	current mag loss:	[1.8887438e-05]
+	current phase loss:	[0.00105906]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 149
+	current mag loss:	[1.9310264e-05]
+	current phase loss:	[0.00102008]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+train model for SNR 20 dB
+	Batch size 100, Train step 59, cnt 150
+	current mag loss:	[2.3294284e-05]
+	current phase loss:	[0.01008737]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 119, cnt 151
+	current mag loss:	[8.800886e-05]
+	current phase loss:	[0.0066473]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 179, cnt 152
+	current mag loss:	[9.754957e-05]
+	current phase loss:	[0.00865281]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 239, cnt 153
+	current mag loss:	[2.4832678e-05]
+	current phase loss:	[0.00460636]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 100, Train step 299, cnt 154
+	current mag loss:	[3.4480225e-05]
+	current phase loss:	[0.00973818]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 59, cnt 155
+	current mag loss:	[1.9350593e-05]
+	current phase loss:	[0.0010652]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 119, cnt 156
+	current mag loss:	[1.8168992e-05]
+	current phase loss:	[0.00099072]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 179, cnt 157
+	current mag loss:	[1.7265955e-05]
+	current phase loss:	[0.00159358]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 239, cnt 158
+	current mag loss:	[1.850416e-05]
+	current phase loss:	[0.00073925]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 400, Train step 299, cnt 159
+	current mag loss:	[2.0758127e-05]
+	current phase loss:	[0.0008409]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 59, cnt 160
+	current mag loss:	[1.8131524e-05]
+	current phase loss:	[0.00067894]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 119, cnt 161
+	current mag loss:	[1.667601e-05]
+	current phase loss:	[0.00067317]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 179, cnt 162
+	current mag loss:	[1.8318293e-05]
+	current phase loss:	[0.00062327]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 239, cnt 163
+	current mag loss:	[1.7840537e-05]
+	current phase loss:	[0.00077771]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 1_000, Train step 299, cnt 164
+	current mag loss:	[1.8146926e-05]
+	current phase loss:	[0.00089454]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 59, cnt 165
+	current mag loss:	[1.9523653e-05]
+	current phase loss:	[0.00057967]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 119, cnt 166
+	current mag loss:	[2.4686311e-05]
+	current phase loss:	[0.00678478]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 179, cnt 167
+	current mag loss:	[2.2427295e-05]
+	current phase loss:	[0.01172671]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 239, cnt 168
+	current mag loss:	[1.6406613e-05]
+	current phase loss:	[0.00063799]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 2_000, Train step 299, cnt 169
+	current mag loss:	[1.8541505e-05]
+	current phase loss:	[0.00279344]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 59, cnt 170
+	current mag loss:	[1.7576827e-05]
+	current phase loss:	[0.00072434]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 119, cnt 171
+	current mag loss:	[2.2845836e-05]
+	current phase loss:	[0.00492624]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 179, cnt 172
+	current mag loss:	[1.6903656e-05]
+	current phase loss:	[0.00078003]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 239, cnt 173
+	current mag loss:	[1.840855e-05]
+	current phase loss:	[0.00056893]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 5_000, Train step 299, cnt 174
+	current mag loss:	[1.797512e-05]
+	current phase loss:	[0.00058366]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 59, cnt 175
+	current mag loss:	[1.8118744e-05]
+	current phase loss:	[0.00276916]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 119, cnt 176
+	current mag loss:	[1.8247709e-05]
+	current phase loss:	[0.00228308]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 179, cnt 177
+	current mag loss:	[1.7103304e-05]
+	current phase loss:	[0.00094228]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 239, cnt 178
+	current mag loss:	[2.190671e-05]
+	current phase loss:	[0.00294757]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
+	Batch size 10_000, Train step 299, cnt 179
+	current mag loss:	[1.7652628e-05]
+	current phase loss:	[0.0032152]
+		BER for symbol 1:	0.0
+		SER for symbol 1:	0.0
+		BER for symbol 2:	0.0
+		SER for symbol 2:	0.0
