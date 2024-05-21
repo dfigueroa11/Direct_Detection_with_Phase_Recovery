@@ -4,7 +4,7 @@ This work tries to impelemnt a decoder for channel with Direct Detection that re
 
 The system model is based on [1] and the decoder is a machine learning based system inspired in the DetNet architecture presented in [2] and [3]. 
 
-For more details se the [report](Report/main.pdf).
+For more details see the [report](Report/main.pdf).
 
 [1] D. Plabst, T. Prinz, T. Wiegart, et al., “Achievable rates for short-reach fiber-optic
 channels with direct detection,” Journal of Lightwave Technology, vol. 40, no. 12,
